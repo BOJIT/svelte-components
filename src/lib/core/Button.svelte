@@ -52,7 +52,7 @@
 	}
 
 	.icon {
-		color: white;
+		color: rgb(255, 255, 255);
 	}
 
 	/* Size (extra) */
