@@ -44,7 +44,7 @@ jobs:
         if: startsWith(github.event.ref, 'refs/tags')
         run: |
           cd main
-          npm run build-storyboard
+          npm run build-storybook
           cd ../
 
       - name: Clean gh-pages area
