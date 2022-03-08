@@ -23,7 +23,7 @@
     "@sveltejs/kit": "next",
     "autoprefixer": "^10.4.2",
     "babel-loader": "^8.2.3",
-    "postcss": "^8.4.8",
+    "postcss": "^8.4.5",
     "postcss-load-config": "^3.1.1",
     "storybook-builder-vite": "^0.1.18",
     "svelte": "^3.46.4",
@@ -31,7 +31,7 @@
     "svelte-loader": "^3.1.2",
     "svelte-preprocess": "^4.10.1",
     "svelte2tsx": "^0.5.5",
-    "tailwindcss": "^3.0.23",
+    "tailwindcss": "^3.0.12",
     "tslib": "^2.3.1",
     "typescript": "~4.6.2"
   },
@@ -40,6 +40,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.0.0",
     "merge-deep": "^3.0.3",
     "svelte-awesome": "^2.4.4",
+    "tailwind-css-variables": "^3.0.1",
     "tinycolor2": "^1.4.2"
   }
 }

@@ -129,9 +129,9 @@ input::-webkit-inner-spin-button {
 	}
 }
 
-.mode-dark {
+/* .mode-dark {
   @apply text-gray-100 bg-dark-500 duration-100 pointer-events-auto;
-}
+} */
 
 
 input[type="range"] {
@@ -193,9 +193,9 @@ th:hover .sort {
   @apply opacity-100;
 }
 
-tr.selected {
+/* tr.selected {
   @apply bg-primary-50;
-}
+} */
 
 .select {
   @apply pb-0 mb-0 cursor-pointer;
@@ -205,7 +205,7 @@ tr.selected {
   height: 2.7rem;
 }
 
-.code-inline {
+/* .code-inline {
   @apply text-sm bg-secondary-50 text-secondary-900 rounded-sm p-1;
   letter-spacing: 0.25px;
-}
+} */

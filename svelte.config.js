@@ -5,9 +5,7 @@ import preprocess from "svelte-preprocess";
 const config = {
   preprocess: [
     preprocess({
-      postcss: {
-        configFilePath: "./src/lib/postcss.config.cjs"
-      },
+      postcss: true,
     }),
   ],
 
