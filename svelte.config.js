@@ -5,7 +5,9 @@ import preprocess from "svelte-preprocess";
 const config = {
   preprocess: [
     preprocess({
-      postcss: true,
+      postcss: {
+        configFilePath: "./src/lib/postcss.config.cjs"
+      },
     }),
   ],
 
@@ -14,6 +16,8 @@ const config = {
     package: {
       files: (filepath) => {
         if (filepath.endsWith(".stories.svelte")) return false;
+        if (filepath.endsWith(".stories.mdx")) return false;
+        return true;
       },
     },
   },
