@@ -36,6 +36,7 @@ const defaultColors = {
 module.exports = ({ colors = defaultColors, darkMode = true, ...config }) =>
   merge(
     {
+      content: ['./**/*.{html,js,ts,svelte}'],
       variants: darkMode
         ? {
             backgroundColor: ["dark", "dark-hover", "hover"],
