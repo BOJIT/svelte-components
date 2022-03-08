@@ -1,9 +1,10 @@
 const tailwindcss = require("tailwindcss");
 const autoprefixer = require("autoprefixer");
+const path = require('path');
 
 const config = {
   plugins: [
-    tailwindcss("src/lib/tailwind.config.cjs"),
+    tailwindcss({ config: path.resolve(__dirname, "tailwind.config.cjs") }),
     autoprefixer,
   ],
 };
