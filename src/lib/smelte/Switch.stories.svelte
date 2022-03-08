@@ -1,23 +1,22 @@
 <script>
 	import { Meta, Template, Story } from "@storybook/addon-svelte-csf";
-	import Button from "./Button.svelte";
+	
+	
+	import Switch from "smelte/src/components/Switch";
 </script>
 
 <Meta
-	title="BOJIT/Button"
-	component={Button}
+	title="Smelte/Switch"
+	component={Switch}
 	argTypes={{
 		color: { control: "color" },
-		onClick: { action: "onClick" },
-		size: {
-			options: ['is-small', 'is-medium', 'is-large', 'is-huge'],
-		},
+		onChange: { action: "onChange" },
 	}}
 />
 
 <!-- More on component templates: https://storybook.js.org/docs/svelte/writing-stories/introduction#using-args -->
 <Template let:args>
-	<Button {...args} on:click={args.onClick} />
+	<Switch {...args} on:change={args.onChange} />
 </Template>
 
 <!-- More on args: https://storybook.js.org/docs/svelte/writing-stories/args -->
