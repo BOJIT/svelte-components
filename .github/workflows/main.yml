@@ -68,7 +68,7 @@ jobs:
           echo "source commit hash: ${HASH}"
           if [[ `git -C gh-pages status --porcelain` ]]; then
             git -C gh-pages add -A
-            git -C gh-pages commit -m "Deploy PWA: ${HASH}"
+            git -C gh-pages commit -m "Deploy gh-pages: ${HASH}"
             git -C gh-pages push
           else
             echo "No files have changed!"
