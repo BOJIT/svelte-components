@@ -3,9 +3,7 @@ const autoprefixer = require("autoprefixer");
 
 const config = {
   plugins: [
-    //Some plugins, like tailwindcss/nesting, need to run before Tailwind,
-    tailwindcss("$lib/tailwind.config.cjs"),
-    //But others, like autoprefixer, need to run after,
+    tailwindcss("src/lib/tailwind.config.cjs"),
     autoprefixer,
   ],
 };

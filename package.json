@@ -38,6 +38,8 @@
   "type": "module",
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.0.0",
-    "svelte-awesome": "^2.4.4"
+    "merge-deep": "^3.0.3",
+    "svelte-awesome": "^2.4.4",
+    "tinycolor2": "^1.4.2"
   }
 }
