@@ -2,9 +2,9 @@ const { addUtility } = require("./src/lib/smelte/utils/style.cjs");
 const buildPalette = require("./src/lib/smelte/utils/color.cjs");
 
 const config = {
-	purge: [
-		"./src/lib/smelte/**/*.{html,js,svelte,ts}",
-	],
+	// purge: [
+	// 	"./src/lib/smelte/**/*.{html,js,svelte,ts}",
+	// ],
 	theme: {
 		extend: {
 			width: {
