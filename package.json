@@ -39,6 +39,7 @@
     "merge-deep": "^3.0.3",
     "postcss": "^8.4.8",
     "svelte-awesome": "^2.4.4",
+    "svelte-waypoint": "^0.1.4",
     "tailwind-css-variables": "^3.0.1",
     "tailwindcss": "^2.2.19",
     "tinycolor2": "^1.4.2"
