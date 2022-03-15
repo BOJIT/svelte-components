@@ -1,3 +1,8 @@
 @import "@fontsource/material-icons";
+@import "@fontsource/quicksand";
 @import "./core/normalise.css";
 @import "./smelte/smelte.css";
+
+html {
+    font-family: "quicksand";
+}

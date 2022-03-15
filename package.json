@@ -34,8 +34,10 @@
   },
   "type": "module",
   "dependencies": {
-    "@fontsource/comfortaa": "^4.5.4",
     "@fontsource/material-icons": "^4.5.2",
+    "@fontsource/montserrat": "^4.5.5",
+    "@fontsource/quicksand": "^4.5.4",
+    "@fontsource/raleway": "^4.5.3",
     "svelte-waypoint": "^0.1.4",
     "tinycolor2": "^1.4.2"
   }
