@@ -7,4 +7,6 @@
 	rel="stylesheet"
 />
 
-<slot />
+<div class="smelte">
+	<slot />
+</div>
