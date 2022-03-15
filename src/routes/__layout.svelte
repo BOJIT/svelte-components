@@ -2,4 +2,6 @@
 	import "$lib/global.css";
 </script>
 
-<slot />
+<div class="smelte">
+	<slot />
+</div>

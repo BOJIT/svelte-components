@@ -34,13 +34,11 @@
   },
   "type": "module",
   "dependencies": {
-    "@fortawesome/free-solid-svg-icons": "^6.0.0",
-    "autoprefixer": "^10.4.2",
-    "merge-deep": "^3.0.3",
-    "postcss": "^8.4.8",
-    "svelte-awesome": "^2.4.4",
-    "tailwind-css-variables": "^3.0.1",
-    "tailwindcss": "^2.2.19",
+    "@fontsource/material-icons": "^4.5.2",
+    "@fontsource/montserrat": "^4.5.5",
+    "@fontsource/quicksand": "^4.5.4",
+    "@fontsource/raleway": "^4.5.3",
+    "svelte-waypoint": "^0.1.4",
     "tinycolor2": "^1.4.2"
   }
 }
