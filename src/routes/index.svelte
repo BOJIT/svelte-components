@@ -1,6 +1,14 @@
 <script>
-    import { Button, Icon, TextField } from "$lib/smelte";
+    import { Button, TextField } from "$lib/smelte";
+    import dark from "$lib/smelte/dark";
+
+    let darkStore = dark();
+    console.log(darkStore);
 </script>
+
+<h3>MODE</h3>
+
+<Button bind:value={$darkStore}>Toggle dark mode</Button>
 
 <h3>BUTTONS</h3>
 
