@@ -1,14 +1,5 @@
-/* purgecss start ignore */
-
-
-/* @import "tailwindcss/base";
-@import "tailwindcss/components"; */
-
-
-/* purgecss end ignore */
-
-@import "./smelte/smeltev2.css";
-/* @import "tailwindcss/utilities"; */
+@import "./core/normalise.css";
+@import "./smelte/smelte.css";
 
 h1,
 .h1 {

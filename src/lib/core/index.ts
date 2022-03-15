@@ -1,4 +1,4 @@
-import Button from './Button.svelte';
+import Button from './ButtonAlt/Button.svelte';
 
 /*----------------------------------------------------------------------------*/
 
