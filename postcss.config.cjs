@@ -3,8 +3,8 @@ const autoprefixer = require("autoprefixer");
 
 const config = {
   plugins: [
-    tailwindcss("src/lib/tailwind.config.cjs"),
     autoprefixer,
+    tailwindcss(),
   ],
 };
 

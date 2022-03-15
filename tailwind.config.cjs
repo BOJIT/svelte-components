@@ -1,13 +1,10 @@
-const { addUtility } = require("./smelte/utils/style.cjs");
-const buildPalette = require("./smelte/utils/color.cjs");
+const { addUtility } = require("./src/lib/smelte/utils/style.cjs");
+const buildPalette = require("./src/lib/smelte/utils/color.cjs");
 
-module.exports = {
-	purge: [
-		'./src/**/*.html',
-		'./src/**/*.svelte'
+const config = {
+	content: [
+		"./src/lib/smelte/**/*.{html,js,svelte,ts}",
 	],
-	content: ['./**/*.{html,js,ts,svelte}'],
-	jit: false,
 	theme: {
 		extend: {
 			width: {
@@ -136,3 +133,5 @@ module.exports = {
 		}
 	]
 };
+
+module.exports = config;
