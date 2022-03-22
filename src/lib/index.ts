@@ -1,7 +1,9 @@
 import Core from './core';
+import Smelte from './smelte';
 
 /*----------------------------------------------------------------------------*/
 
 export default {
-	Core: Core
+	Core,
+	Smelte,
 }
