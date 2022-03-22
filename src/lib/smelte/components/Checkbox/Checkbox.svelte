@@ -85,7 +85,7 @@
       </Ripple>
     </div>
     <slot name="label">
-      <Label {disabled} {label} class={labelClasses} forId={eltId} />
+      <Label {disabled} {label} class={labelClasses} forId={""} />
     </slot>
   </div>
 </div>
