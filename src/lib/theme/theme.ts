@@ -1,7 +1,9 @@
 /*-------------------------------- Imports -----------------------------------*/
 
-import smelteTheme from '../smelte/dark';
+import { browser } from '$app/env';
 import { derived, writable } from 'svelte/store';
+import smelteTheme from '../smelte/dark';
+import generatePalette from '../smelte/utils/color';
 
 /*--------------------------------- Types ------------------------------------*/
 
@@ -33,7 +35,7 @@ type ThemeMode = "light" | "dark" | "auto";
 
 /* Get OS Light/Dark Mode */
 function getOSTheme() {
-	if(typeof window !== 'undefined') {
+	if(browser) {
 		if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
 			return "dark";
 		} else {
@@ -51,7 +53,7 @@ const mode_store = writable(DEFAULT_THEME_MODE as ThemeMode);
 const os_store = writable(getOSTheme() as ThemeMode);
 
 /* Handle window theme change without page refresh */
-if(typeof window !== 'undefined') {
+if(browser) {
 	window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
 		os_store.set(getOSTheme());
 	});
@@ -61,7 +63,7 @@ const state_store = derived([mode_store, os_store], ([m, o]) => {
 	switch (m) {
 		case "light":
 			return "light";
-		
+
 		case "dark":
 			return "dark";
 
@@ -93,6 +95,8 @@ state_store.subscribe((s) => {
  */
 function init(palette?: Palette) {
 	// TODO process palette
+	const cols = generatePalette(palette.colours);
+	console.log(cols);
 }
 
 /**

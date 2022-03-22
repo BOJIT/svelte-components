@@ -1,7 +1,7 @@
 // Color generation utility borrowed from
 // https://github.com/mbitson/mcg/blob/c484a34a4f670d75b7a0824bbdc9945703e3a4f8/scripts/controllers/ColorGeneratorCtrl.js
 
-const tinycolor = require("tinycolor2");
+import tinycolor from 'tinycolor2';
 
 function multiply(rgb1, rgb2) {
   rgb1.b = Math.floor((rgb1.b * rgb2.b) / 255);
@@ -108,4 +108,4 @@ function generate(colors) {
   );
 }
 
-module.exports = generate;
+export default generate;

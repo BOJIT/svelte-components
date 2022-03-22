@@ -5,11 +5,11 @@ import colourful from './palette/colourful';
 import evergreen from './palette/evergreen';
 import midnight from './palette/midnight';
 
-const lib = {
+const palette = {
 	colourful,
 	evergreen,
 	midnight,
 }
 
 export default theme;
-export { lib };
+export { palette };

@@ -1,6 +1,6 @@
 <script>
 
-
+  export let size = "";
   export let small = false;
   export let xs = false;
   export let reverse = false;
@@ -26,6 +26,7 @@
   on:click
   class:text-base={small}
   class:text-xs={xs}
-  style={color ? `color: ${color}` : ''}>
+  style={(color ? `color: ${color}; ` : ' ')
+  .concat(size ? `font-size: ${size}; ` : ' ')}>
   <slot />
 </i>

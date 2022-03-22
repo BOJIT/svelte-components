@@ -3,6 +3,7 @@
   export let color = "primary";
   export let width = 3;
   export let size = 70;
+  export let rawColor;
 
   $: style = progress > 0 ? `
       animation: none;
@@ -55,5 +56,5 @@
     r={(size / 2) - (size / 5)}
     stroke-width={width}
     stroke-miterlimit="10"
-    {style} />
+    style={style.concat(rawColor ? ` stroke: ${rawColor}; ` : ' ')} />
 </svg>
