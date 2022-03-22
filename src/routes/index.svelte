@@ -148,18 +148,18 @@
 <h6>Radio Buttons</h6>
 
 <RadioButtonGroup
-  name="test"
-  items={[{ value: 1, label: 'One' }, { value: 2, label: 'Two' }]} />
+	name="test"
+	items={[{ value: 1, label: 'One' }, { value: 2, label: 'Two' }]} />
 
 <RadioButtonGroup
-  name="Colored test"
-  color="blue"
-  items={[{ value: 1, label: 'One' }, { value: 2, label: 'Two' }]} />
+	name="Colored test"
+	color="blue"
+	items={[{ value: 1, label: 'One' }, { value: 2, label: 'Two' }]} />
 
 <RadioButtonGroup
-  name="test-disabled"
-  disabled
-  items={[{ value: 1, label: 'One' }, { value: 2, label: 'Two' }]} />
+	name="test-disabled"
+	disabled
+	items={[{ value: 1, label: 'One' }, { value: 2, label: 'Two' }]} />
 
 <h6>Switches</h6>
 
