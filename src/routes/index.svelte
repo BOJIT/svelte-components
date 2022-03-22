@@ -10,10 +10,9 @@
 		Slider,
 		Tooltip
 	} from "$lib/smelte";
-	import dark from "$lib/smelte/dark";
 
-	// Theme
-	let darkStore = dark();
+	import theme from "$lib/theme";
+	const mode = theme.Mode;
 
 	// Lists
 	const listOneLine = [{
@@ -75,9 +74,16 @@
 	}
 </style>
 
-<h3>Light/Dark Mode</h3>
+<h3>Theme</h3>
 
-<Button bind:value={$darkStore}>Toggle dark mode</Button>
+<RadioButtonGroup
+	name='Theme',
+	bind:selected={$mode}
+	items={[
+		{ value: 'light', label: 'Light Mode' },
+		{ value: 'dark', label: 'Dark Mode' },
+		{ value: 'auto', label: 'Auto Mode'}
+	]} />
 
 <br><br><hr><!----------------------------------------------------------------->
 <h3>Text Fields</h3>
