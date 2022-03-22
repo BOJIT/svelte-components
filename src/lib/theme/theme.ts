@@ -31,12 +31,34 @@ type ThemeMode = "light" | "dark" | "auto";
 
 /*-------------------------------- Private -----------------------------------*/
 
+/* Get OS Light/Dark Mode */
+function getOSTheme() {
+	if(typeof window !== 'undefined') {
+		if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+			return "dark";
+		} else {
+			return "light";
+		}
+	} else {
+		return "dark";
+	}
+}
+
 const DEFAULT_THEME_MODE: ThemeMode = "dark";
 const smelteDark = smelteTheme();
 
 const mode_store = writable(DEFAULT_THEME_MODE as ThemeMode);
-const state_store = derived(mode_store, (s) => {
-	switch (s) {
+const os_store = writable(getOSTheme() as ThemeMode);
+
+/* Handle window theme change without page refresh */
+if(typeof window !== 'undefined') {
+	window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+		os_store.set(getOSTheme());
+	});
+}
+
+const state_store = derived([mode_store, os_store], ([m, o]) => {
+	switch (m) {
 		case "light":
 			return "light";
 		
@@ -44,12 +66,7 @@ const state_store = derived(mode_store, (s) => {
 			return "dark";
 
 		case "auto":
-			// Get OS theme
-			if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-				return "dark";
-			} else {
-				return "light";
-			}
+			return o;
 	}
 })
 
@@ -57,7 +74,6 @@ const state_store = derived(mode_store, (s) => {
  * Handle theme change
  */
 state_store.subscribe((s) => {
-	console.log(s);
 	switch(s) {
 		case "light":
 			smelteDark.set(false);
@@ -76,11 +92,6 @@ state_store.subscribe((s) => {
  * @param palette Optional colour palette to override default theme
  */
 function init(palette?: Palette) {
-	/* Handle window theme change without page refresh */
-	window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-		mode_store.update((s) => { return s });
-	});
-
 	// TODO process palette
 }
 
