@@ -1,3 +1,7 @@
+<script context="module">
+  let counter = 0
+</script>
+
 <script>
   import { createEventDispatcher } from "svelte";
   import utils, { ClassBuilder, filterProps } from "../../utils/classes.js";
@@ -133,12 +137,15 @@
   ], $$props);
 
   const dispatch = createEventDispatcher();
+
+  let eltId = 'smelte_textfield_'+ counter++;
 </script>
 
 <div class={wClasses}>
   {#if label}
   <slot name="label">
     <Label
+      for={eltId}
       {labelOnTop}
       {focused}
       {error}
@@ -153,6 +160,7 @@
 
   {#if (!textarea && !select) || autocomplete}
     <input
+      id={eltId}
       aria-label={label}
       class={iClasses}
       on:focus={toggleFocused}
@@ -171,6 +179,7 @@
       placeholder={!value ? placeholder : ""} />
   {:else if textarea && !select}
     <textarea
+      id={eltId}
       {rows}
       aria-label={label}
       class={iClasses}
@@ -190,6 +199,7 @@
       placeholder={!value ? placeholder : ""} />
   {:else if select && !autocomplete}
     <input
+      id={eltId}
       readonly
       class="{iClasses}"
       on:change

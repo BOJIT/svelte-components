@@ -71,6 +71,8 @@
     on:mouseleave
     on:mouseover
     on:mouseout
+    on:focus
+    on:blur
   >
     <slot name="activator" />
   </div>

@@ -1,3 +1,7 @@
+<script context="module">
+  let counter = 0
+</script>
+
 <script>
   import Ripple from "../Ripple";
 
@@ -54,10 +58,12 @@
 
     value = !value;
   }
+
+  let eltId = 'smelte_checkbox_'+ counter++;
 </script>
 
 <div class={c} on:click={check}>
-  <input bind:value class="hidden" type="checkbox" on:change />
+  <input bind:value class="hidden" type="checkbox" on:change id={eltId} />
   <div class={tr}>
     <div class="w-full h-full absolute" />
     <Ripple color={value && !disabled ? color : 'gray'} noHover>
@@ -66,7 +72,7 @@
         style={value ? 'left: 1.25rem' : ""} />
     </Ripple>
   </div>
-  <label aria-hidden="true" class={l}>
+  <label aria-hidden="true" class={l} for={eltId}>
     {label}
   </label>
 </div>

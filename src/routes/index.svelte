@@ -6,7 +6,9 @@
 		RadioButtonGroup,
 		Switch,
 		List,
-		Select
+		Select,
+		Slider,
+		Tooltip
 	} from "$lib/smelte";
 	import dark from "$lib/smelte/dark";
 
@@ -226,3 +228,18 @@
 		{/each}
 	</div>
 </Select>
+
+<br><br><hr><!----------------------------------------------------------------->
+<h3>Tooltips</h3>
+
+<Tooltip>
+	<div slot="activator">
+		<Button>Hover me</Button>
+	</div>
+	How are you doing?
+</Tooltip>
+
+<br><br><hr><!----------------------------------------------------------------->
+<h3>Sliders</h3>
+
+<Slider min="0" max="100" />

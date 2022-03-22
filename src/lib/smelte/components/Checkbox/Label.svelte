@@ -9,6 +9,7 @@
   export let label = "";
   export let disabled = false;
   export let disabledClasses = "text-gray-500 dark:text-gray-600";
+  export let forId = "";
 
   const cb = new ClassBuilder(classes, classesDefault);
   $: c = cb
@@ -23,6 +24,7 @@
   aria-hidden="true"
   {...$$props}
   class={c}
+  for={forId}
 >
   <slot>{label}</slot>
 </label>

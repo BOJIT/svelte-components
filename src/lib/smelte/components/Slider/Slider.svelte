@@ -1,3 +1,7 @@
+<script context="module">
+  let counter = 0
+</script>
+
 <script>
   import { ClassBuilder } from "../../utils/classes.js";
 
@@ -49,9 +53,10 @@
     node.style.setProperty('--bg-focus', c);
   }
 
+  let eltId = 'smelte_slider_'+ counter++;
 </script>
 
-<label>{label}</label>
+<label for={eltId}>{label}</label>
 <input
   use:applyColor
   type="range"
@@ -63,4 +68,5 @@
   bind:value
   on:change
   style={style}
+  id={eltId}
 >

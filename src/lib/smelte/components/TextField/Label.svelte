@@ -1,7 +1,7 @@
 <script>
   import utils, { ClassBuilder, filterProps } from "../../utils/classes.js";
 
-
+  export let forId = "";
 
   export let focused = false;
   export let error = false;
@@ -70,6 +70,6 @@
 }
 </style>
 
-<label class="{lClasses} {$$props.class}" {...props}>
+<label class="{lClasses} {$$props.class}" {...props} for={forId}>
   <slot />
 </label>

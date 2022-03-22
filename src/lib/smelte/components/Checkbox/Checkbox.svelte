@@ -1,3 +1,7 @@
+<script context="module">
+  let counter = 0
+</script>
+
 <script>
   import Label from "./Label.svelte";
   import { createEventDispatcher } from "svelte";
@@ -58,11 +62,13 @@
     .add(classes, true, classesDefault)
     .add($$props.class)
     .get();
+
+  let eltId = 'smelte_checkbox_'+ counter++;
 </script>
 
 <div class={$$props.class}>
   <div class={c} on:click={check}>
-    <input bind:checked class="hidden" type="checkbox" on:change {value} />
+    <input id={eltId} bind:checked class="hidden" type="checkbox" on:change {value} />
     <div class="relative w-auto h-auto z-0">
       <Ripple color={rippleColor}>
         {#if checked}
@@ -79,7 +85,7 @@
       </Ripple>
     </div>
     <slot name="label">
-      <Label {disabled} {label} class={labelClasses} />
+      <Label {disabled} {label} class={labelClasses} forId={eltId} />
     </slot>
   </div>
 </div>

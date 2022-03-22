@@ -142,6 +142,7 @@
       on:click={() => (value = !value)}
       on:click
       on:mouseover
+      on:focus
       on:*
     >
       {#if icon}
@@ -160,6 +161,7 @@
     on:click={() => (value = !value)}
     on:click
     on:mouseover
+    on:focus
     on:*
   >
     {#if icon}

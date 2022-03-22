@@ -79,7 +79,6 @@
       <Scrim on:click={() => show = false} />
     {/if}
     <nav
-      role="navigation"
       class={n}
     >
       <div class="w-full">
