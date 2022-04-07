@@ -6,3 +6,11 @@
 html {
 	font-family: "quicksand";
 }
+
+body {
+	background-color: white;
+}
+
+body.mode-dark {
+	background-color: gray;
+}

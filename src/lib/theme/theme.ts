@@ -15,6 +15,10 @@ type Palette = {
 		success?: string,
 		alert?: string,
 		info?: string,
+		background?: {
+			light: string,
+			dark: string
+		}
 
 		palette?: {
 			light: string[],
@@ -95,8 +99,11 @@ state_store.subscribe((s) => {
  */
 function init(palette?: Palette) {
 	// TODO process palette
-	const cols = generatePalette(palette.colours);
-	console.log(cols);
+	const cols = flattenObj(generatePalette(flattenObj(palette.colours)));
+
+	for (const [key , val] of Object.entries(cols)) {
+		setCssVar(key, val);
+	}
 }
 
 /**
@@ -105,6 +112,36 @@ function init(palette?: Palette) {
  */
 function palette(idx: number) {
 	// TODO
+}
+
+/*-------------------------------- Private -----------------------------------*/
+
+/**
+ * @brief Create flat object from a nested one using recursion
+ * @param obj
+ * @returns Flattened version of obj
+ */
+function flattenObj(obj: object) {
+	let result = {};
+	for(const i in obj) {
+		if ((typeof obj[i]) === 'object' && !Array.isArray(obj[i])) {
+			const temp = flattenObj(obj[i]);
+			for (const j in temp) {
+				result[i + '-' + j] = temp[j];
+			}
+		} else {
+			result[i] = obj[i];
+		}
+	}
+	return result;
+};
+
+function setCssVar(key: string, val: any) {
+	const name = "--color-".concat(key.split(/(?=[A-Z])/).join('-').toLowerCase());
+
+	if(browser) {
+		document.documentElement.style.setProperty(name, val);
+	}
 }
 
 /*-------------------------------- Exports -----------------------------------*/

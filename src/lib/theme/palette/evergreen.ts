@@ -7,7 +7,11 @@ import type { Palette } from "../theme";
 const palette: Palette = {
 	colours: {
 		primary: "#ef476f",
-		secondary: "#06d6a0"
+		secondary: "#06d6a0",
+		background: {
+			light: "#ffffff",
+			dark: "#212121",
+		}
 	}
 };
 

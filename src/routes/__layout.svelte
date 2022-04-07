@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import "$lib/global.css";
 
 	import theme, { palette } from "$lib/theme";

@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
 	import {
 		TextField,
 		RadioButtonGroup,
+		AppBar
 	} from "$lib/smelte";
 
 	import theme, { palette } from "$lib/theme";
@@ -16,6 +17,8 @@
 		padding: 1rem;
 	}
 </style>
+
+<AppBar />
 
 <h3>Theme</h3>
 
