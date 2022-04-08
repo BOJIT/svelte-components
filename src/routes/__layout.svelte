@@ -9,9 +9,6 @@
 		// Set theme
 		theme.init(palette.evergreen);
 
-		// Arbitrary delay for demo
-		// await new Promise(resolve => setTimeout(resolve, 500));
-
 		// Check browser compatibility
 		if('serial' in navigator) {
 			resolve();

@@ -51,7 +51,7 @@
 <style>
 	.splash {
 		/* Parent */
-		position: absolute;
+		position: fixed;
 		z-index: 200;
 		width: 100%;
 		height: 100%;

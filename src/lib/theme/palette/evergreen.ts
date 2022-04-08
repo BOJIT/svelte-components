@@ -6,7 +6,7 @@ import type { Palette } from "../theme";
 
 const palette: Palette = {
 	colours: {
-		primary: "#ef476f",
+		primary: "#2f5e40",
 		secondary: "#06d6a0",
 		background: {
 			light: "#ffffff",
