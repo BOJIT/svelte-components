@@ -46,7 +46,6 @@ jobs:
         with:
           token: ${{ secrets.NPM_TOKEN }}
           package: ./main/package/package.json
-          dry-run: true
 
   build-storybook:
     runs-on: ubuntu-latest
