@@ -46,6 +46,7 @@ jobs:
         with:
           token: ${{ secrets.NPM_TOKEN }}
           package: ./main/package/package.json
+          access: public
 
   build-storybook:
     runs-on: ubuntu-latest
