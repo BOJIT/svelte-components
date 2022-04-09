@@ -1,5 +1,5 @@
 {
-  "name": "svelte-components",
+  "name": "@bojit/svelte-components",
   "version": "0.2.0",
   "scripts": {
     "dev": "svelte-kit dev",
