@@ -4,14 +4,12 @@
 	const dispatch = createEventDispatcher();
 
 	/* Icon lib */
-	import Icon from 'svelte-awesome';
-	import { faInfo } from '@fortawesome/free-solid-svg-icons';
 
 	type ButtonShape = 'square' | 'circle' | 'rounded';
 	type ButtonSize = 'is-small' | 'is-medium' | 'is-large' | 'is-huge';
 
 	/* Button props */
-	export let icon = faInfo;
+	export let icon = "";
 	export let shape: ButtonShape = 'rounded';
 	export let size: ButtonSize = 'is-large';
 	export let shadow: boolean = false;
@@ -33,8 +31,7 @@
 		class:shadow class:is-default={(color === null)}
 		class:color style="background-color: {color}"
 		disabled={disabled}>
-		<span class="icon">
-			<Icon data={icon} scale={icon_map[size]} />
+		<span class="icon {icon}">
 		</span>
 	</button>
 </div>
