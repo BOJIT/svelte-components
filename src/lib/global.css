@@ -8,9 +8,9 @@ html {
 }
 
 body {
-	background-color: white;
+	background-color: var(--color-white);
 }
 
 body.mode-dark {
-	background-color: gray;
+	background-color: var(--color-dark-500);
 }
