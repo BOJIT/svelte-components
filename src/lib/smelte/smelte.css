@@ -919,214 +919,196 @@
 /*---------------------------- Dark Mode + Hover -----------------------------*/
 
 .mode-dark .smelte .dark\:bg-white {
-  --tw-bg-opacity: 1;
-  background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+  background-color: var(--color-white);
 }
 
 .mode-dark .smelte .dark\:bg-primary-transLight {
-  background-color: rgba(231, 190, 231, 0.15);
+  background-color: var(--color-primary-trans-light);
 }
 
 .mode-dark .smelte .dark\:bg-dark-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(144, 144, 144, var(--tw-bg-opacity));
+  background-color: var(--color-dark-200);
 }
 
 .mode-dark .smelte .dark\:bg-dark-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(66, 66, 66, var(--tw-bg-opacity));
+  background-color: var(--color-dark-400);
 }
 
 .mode-dark .smelte .dark\:bg-dark-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(33, 33, 33, var(--tw-bg-opacity));
+  background-color: var(--color-dark-500);
 }
 
 .mode-dark .smelte .dark\:bg-dark-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(29, 29, 29, var(--tw-bg-opacity));
+  background-color: var(--color-dark-600);
 }
 
 .mode-dark .smelte .dark\:bg-dark-700 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(24, 24, 24, var(--tw-bg-opacity));
+  background-color: var(--color-dark-700);
 }
 
 .mode-dark .smelte .dark\:bg-gray-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(238, 238, 238, var(--tw-bg-opacity));
+  background-color: var(--color-gray-200);
 }
 
 .mode-dark .smelte .dark\:bg-gray-800 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(66, 66, 66, var(--tw-bg-opacity));
+  background-color: var(--color-gray-800);
 }
 
 .mode-dark .smelte .dark\:bg-gray-900 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(33, 33, 33, var(--tw-bg-opacity));
+  background-color: var(--color-gray-900);
 }
 
+/*----------------------------------------------------------------------------*/
+
 .mode-dark .smelte .dark-hover\:bg-white-transDark:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--color-white-trans-dark);
 }
 
 .mode-dark .smelte .dark-hover\:bg-primary-transLight:hover {
-  background-color: rgba(231, 190, 231, 0.15);
+  background-color: var(--color-primary-trans-light);
 }
 
 .mode-dark .smelte .dark-hover\:bg-primary-transDark:hover {
-  background-color: rgba(176, 39, 176, 0.15);
+  background-color: var(--color-primary-trans-dark);
 }
 
 .mode-dark .smelte .dark-hover\:bg-secondary-transDark:hover {
-  background-color: rgba(0, 150, 136, 0.15);
+  background-color: var(--color-secondary-trans-dark);
 }
 
 .mode-dark .smelte .dark-hover\:bg-error-transDark:hover {
-  background-color: rgba(244, 67, 54, 0.15);
+  background-color: var(--color-error-trans-dark);
 }
 
 .mode-dark .smelte .dark-hover\:bg-alert-transDark:hover {
-  background-color: rgba(255, 152, 0, 0.15);
-}
-
-.mode-dark .smelte .dark-hover\:bg-dark-400:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgba(66, 66, 66, var(--tw-bg-opacity));
+  background-color: var(--color-alert-trans-dark);
 }
 
 .mode-dark .smelte .dark-hover\:bg-gray-transDark:hover {
-  background-color: rgba(100, 100, 100, 0.2);
+  background-color: var(--color-gray-trans-dark);
 }
 
+.mode-dark .smelte .dark-hover\:bg-dark-400:hover {
+  background-color: var(--color-dark-400);
+}
+
+/*----------------------------------------------------------------------------*/
+
 .smelte .hover\:bg-transparent:hover {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: var(--color-transparent);
 }
 
 .smelte .hover\:bg-white-trans:hover,
 .smelte .hover\:bg-white-transDark:hover,
 .smelte .hover\:bg-white-transLight:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--color-white-trans);
 }
 
 .smelte .hover\:bg-primary-50:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgba(231, 190, 231, var(--tw-bg-opacity));
+  background-color: var(--color-primary-50);
 }
 
 .smelte .hover\:bg-primary-400:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgba(188, 71, 188, var(--tw-bg-opacity));
+  background-color: var(--color-primary-400);
 }
 
 .smelte .hover\:bg-primary-transLight:hover {
-  background-color: rgba(231, 190, 231, 0.15);
+  background-color: var(--color-primary-trans-light);
 }
 
 .smelte .hover\:bg-primary-trans:hover {
-  background-color: rgba(231, 190, 231, 0.7);
+  background-color: var(--color-primary-trans);
 }
 
 .smelte .hover\:bg-primary-transDark:hover {
-  background-color: rgba(176, 39, 176, 0.15);
+  background-color: var(--color-primary-trans-dark);
 }
 
 .smelte .hover\:bg-secondary-50:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgba(179, 224, 219, var(--tw-bg-opacity));
+  background-color: var(--color-secondary-50);
 }
 
 .smelte .hover\:bg-secondary-400:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgba(38, 166, 154, var(--tw-bg-opacity));
+  background-color: var(--color-secondary-400);
 }
 
 .smelte .hover\:bg-secondary-transLight:hover {
-  background-color: rgba(179, 224, 219, 0.15);
+  background-color: var(--color-secondary-trans-light);
 }
 
 .smelte .hover\:bg-secondary-trans:hover {
-  background-color: rgba(179, 224, 219, 0.7);
+  background-color: var(--color-secondary-trans);
 }
 
 .smelte .hover\:bg-secondary-transDark:hover {
-  background-color: rgba(0, 150, 136, 0.15);
+  background-color: var(--color-secondary-trans-dark);
 }
 
 .smelte .hover\:bg-error-400:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgba(246, 95, 84, var(--tw-bg-opacity));
+  background-color: var(--color-error-400);
 }
 
 .smelte .hover\:bg-error-transLight:hover {
-  background-color: rgba(252, 199, 195, 0.15);
+  background-color: var(--color-error-trans-light);
 }
 
 .smelte .hover\:bg-error-trans:hover {
-  background-color: rgba(252, 199, 195, 0.7);
+  background-color: var(--color-error-trans);
 }
 
 .smelte .hover\:bg-error-transDark:hover {
-  background-color: rgba(244, 67, 54, 0.15);
+  background-color: var(--color-error-trans-dark);
 }
 
 .smelte .hover\:bg-alert-50:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgba(255, 224, 179, var(--tw-bg-opacity));
+  background-color: var(--color-alert-50);
 }
 
 .smelte .hover\:bg-alert-400:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgba(255, 167, 38, var(--tw-bg-opacity));
+  background-color: var(--color-alert-400);
 }
 
 .smelte .hover\:bg-alert-transLight:hover {
-  background-color: rgba(255, 224, 179, 0.15);
+  background-color: var(--color-alert-trans-light);
 }
 
 .smelte .hover\:bg-alert-trans:hover {
-  background-color: rgba(255, 224, 179, 0.7);
+  background-color: var(--color-alert-trans);
 }
 
 .smelte .hover\:bg-blue-50:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgba(188, 224, 251, var(--tw-bg-opacity));
+  background-color: var(--color-blue-50);
 }
 
 .smelte .hover\:bg-gray-50:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgba(250, 250, 250, var(--tw-bg-opacity));
+  background-color: var(--color-gray-50);
 }
 
 .smelte .hover\:bg-gray-100:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgba(245, 245, 245, var(--tw-bg-opacity));
+  background-color: var(--color-gray-100);
 }
 
 .smelte .hover\:bg-gray-300:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgba(224, 224, 224, var(--tw-bg-opacity));
+  background-color: var(--color-gray-300);
 }
 
 .smelte .hover\:bg-gray-400:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgba(189, 189, 189, var(--tw-bg-opacity));
+  background-color: var(--color-gray-400);
 }
 
 .smelte .hover\:bg-gray-trans:hover {
-  background-color: rgba(250, 250, 250, 0.5);
+  background-color: var(--color-gray-trans);
 }
 
 .smelte .hover\:bg-gray-transLight:hover {
-  background-color: rgba(250, 250, 250, 0.1);
+  background-color: var(--color-gray-trans-light);
 }
 
 .smelte .hover\:bg-gray-transDark:hover {
-  background-color: rgba(100, 100, 100, 0.2);
+  background-color: var(--color-gray-trans-dark);
 }
 
-/*------------------------------- Border Colours------------------------------*/
+/*------------------------------ Border Colours ------------------------------*/
 
 .smelte .border-transparent {
   border-color: var(--color-transparent);
