@@ -7,7 +7,7 @@
 	/* Example pre-page-loading routine */
 	async function loadCheck(resolve, reject) {
 		// Set theme
-		theme.init(palette.evergreen);
+		theme.init(palette.midnight);
 
 		// Check browser compatibility
 		if('serial' in navigator) {

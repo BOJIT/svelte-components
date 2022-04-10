@@ -1,15 +1,14 @@
 <script lang="ts">
+	import NavBar from "$lib/layout/NavBar/NavBar.svelte";
+	import Footer from "$lib/layout/Footer/Footer.svelte";
+
 	import {
 		TextField,
-		RadioButtonGroup,
-		AppBar
+		RadioButtonGroup
 	} from "$lib/smelte";
 
-	import theme, { palette } from "$lib/theme";
+	import theme from "$lib/theme";
 	const mode = theme.Mode;
-
-	theme.init(palette.evergreen);
-
 </script>
 
 <style>
@@ -18,7 +17,7 @@
 	}
 </style>
 
-<AppBar />
+<NavBar />
 
 <h3>Theme</h3>
 
@@ -36,3 +35,16 @@
 
 <h6>Basic</h6>
 <TextField label="Test label" />
+
+<!----------------------------------------------------------------------------->
+
+<Footer buttons={[
+	{
+		label: "A1",
+		icon: "t"
+	},
+	{
+		label: "B1",
+		icon: "tfd"
+	},
+]}/>
