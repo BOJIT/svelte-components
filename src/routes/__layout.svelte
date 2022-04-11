@@ -20,7 +20,4 @@
 
 <SplashScreen load={loadCheck}/>
 
-<!-- TODO remove top level smelte class - scope to components -->
-<div class="smelte">
-	<slot />
-</div>
+<slot />

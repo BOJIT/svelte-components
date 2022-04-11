@@ -194,7 +194,9 @@
 	event.
 </p>
 <small>Selected: {value1 || 'nothing'}</small>
-<Select {label} {items} on:change={v => (value1 = v.detail)} />
+<div>
+	<Select {label} {items} on:change={v => (value1 = v.detail)} />
+</div>
 
 <p>
 	Or through binding
