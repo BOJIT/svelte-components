@@ -1,14 +1,14 @@
 <script lang="ts">
-	import "$lib/global.css";
+	import App from "$lib/core/App/App.svelte";
+	import NavBar from "$lib/layout/NavBar/NavBar.svelte";
+	import Footer from "$lib/layout/Footer/Footer.svelte";
 
-	import theme, { palette } from "$lib/theme";
-	import SplashScreen from "$lib/core/SplashScreen/SplashScreen.svelte";
+	import { palette } from "$lib/theme";
+
+	import logo from "/static/icon_x128.png";
 
 	/* Example pre-page-loading routine */
 	async function loadCheck(resolve, reject) {
-		// Set theme
-		theme.init(palette.midnight);
-
 		// Check browser compatibility
 		if('serial' in navigator) {
 			resolve();
@@ -18,6 +18,29 @@
 	}
 </script>
 
-<SplashScreen load={loadCheck}/>
+<App theme={palette.midnight} load={loadCheck}>
+	<NavBar title="ploTTY" logo={logo} logoLink="https://github.com"/>
+	<slot />
 
-<slot />
+	<Footer buttons={[
+		{
+			label: "A1",
+			icon: "account_circle",
+			shape: "lozenge",
+			callback: () => {
+				console.log("HEY");
+			}
+		},
+		{
+			label: "B1",
+			icon: "settings",
+			shape: "lozenge"
+		},
+		{
+			label: "C1",
+			icon: "delete"
+		},
+	]}/>
+</App>
+
+

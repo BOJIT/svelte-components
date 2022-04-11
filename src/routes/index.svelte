@@ -1,7 +1,4 @@
 <script lang="ts">
-	import NavBar from "$lib/layout/NavBar/NavBar.svelte";
-	import Footer from "$lib/layout/Footer/Footer.svelte";
-	import Button from "$lib/smelte/components/Button/Button.svelte";
 	import RadioButtonGroup from "$lib/smelte/components/RadioButton/RadioButtonGroup.svelte";
 
 	import theme from "$lib/theme";
@@ -13,8 +10,6 @@
 		padding: 1rem;
 	}
 </style>
-
-<NavBar />
 
 <h3>Theme</h3>
 
@@ -28,23 +23,3 @@
 	]} />
 
 <!----------------------------------------------------------------------------->
-
-<Footer buttons={[
-	{
-		label: "A1",
-		icon: "account_circle",
-		shape: "lozenge",
-		callback: () => {
-			console.log("HEY");
-		}
-	},
-	{
-		label: "B1",
-		icon: "settings",
-		shape: "lozenge"
-	},
-	{
-		label: "C1",
-		icon: "delete"
-	},
-]}/>

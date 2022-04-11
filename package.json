@@ -35,6 +35,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@fontsource/comfortaa": "^4.5.7",
     "@fontsource/material-icons": "^4.5.2",
     "@fontsource/montserrat": "^4.5.5",
     "@fontsource/quicksand": "^4.5.4",

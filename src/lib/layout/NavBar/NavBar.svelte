@@ -1,21 +1,40 @@
 <script lang="ts">
 	import theme from "$lib/theme";
+
+	import Button from "$lib/smelte/components/Button/Button.svelte";
+
+	export let title = "App Title";
+	export let logo = null;
+	export let logoLink = null;
 </script>
 
 <!-- Navbar -->
 <div class="nav" role="navigation" aria-label="main navigation"
-	class:bg-primary-200={$theme == 'light'}
-	class:bg-primary-700={$theme == 'dark'}>
+	class:bg-primary-300={$theme == 'light'}
+	class:bg-dark-700={$theme == 'dark'}>
 
 	<!-- Navbar Left-Hand Side -->
 	<div class="nav-left">
-		<h1>Left Header</h1>
+		{#if logo !== null}
+			{#if logoLink !== null}
+				<a href="{logoLink}" target="_blank">
+					<img src="{logo}" alt="logo" style="max-height:3.2rem">
+				</a>
+			{:else}
+				<img src="{logo}" alt="logo" style="max-height:3.2rem">
+			{/if}
+		{/if}
+	</div>
+
+	<div class="nav-left">
+		<h1>{title}</h1>
 	</div>
 
 	<!-- Navbar Right-Hand Side -->
 	<div class="nav-right">
-		<!-- Settings -->
-		<h1>Right Header</h1>
+		<Button icon="settings" lozenge color="null"></Button>
+		<Button icon="settings" lozenge color="null"></Button>
+		<Button icon="settings" lozenge color="null"></Button>
 	</div>
 </div>
 
@@ -37,17 +56,21 @@
 	}
 
 	.nav-right {
+		padding: 0.3rem;
 		display: flex;
 		width: auto;
 		justify-content: flex-end;
 		align-items: center;
 		flex: 1 0 auto;
+		gap: 0.3rem;
 	}
 
-	.nav h1 {
-		font-size: 1.75rem;
-		font-weight: 50;
+	.nav-left > h1 {
+		font-size: 2rem;
+		font-weight: 100;
+		font-family: "comfortaa";
 		vertical-align: middle;
 		margin-bottom: 0rem;
+		letter-spacing: normal;
 	}
 </style>
