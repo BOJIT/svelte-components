@@ -3,6 +3,7 @@
 	import type { Palette } from "$lib/theme/theme";
 	import uiTheme, { palette } from "$lib/theme";
 	import SplashScreen from "$lib/core/SplashScreen/SplashScreen.svelte";
+import Notification from "../Notification/Notification.svelte";
 
 	export let theme: Palette = null;
 	export let load: null | ((resolve: (value: unknown) => void,
@@ -30,6 +31,7 @@
 </script>
 
 <SplashScreen load={loadCheck}/>
+<Notification />
 <div class="app">
 	<slot />
 </div>
