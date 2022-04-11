@@ -8,6 +8,8 @@ BOJIT styled component library built on top of [Smelte](https://smeltejs.com).
 npm install @bojit/svelte-components
 ```
 
+Icon list can be found [here](https://fonts.google.com/icons?selected=Material+Icons):
+
 ## Development
 
 ```bash

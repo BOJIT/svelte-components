@@ -1,11 +1,8 @@
 <script lang="ts">
 	import NavBar from "$lib/layout/NavBar/NavBar.svelte";
 	import Footer from "$lib/layout/Footer/Footer.svelte";
-
-	import {
-		TextField,
-		RadioButtonGroup
-	} from "$lib/smelte";
+	import Button from "$lib/smelte/components/Button/Button.svelte";
+	import RadioButtonGroup from "$lib/smelte/components/RadioButton/RadioButtonGroup.svelte";
 
 	import theme from "$lib/theme";
 	const mode = theme.Mode;
@@ -30,21 +27,24 @@
 		{ value: 'auto', label: 'Auto Mode'}
 	]} />
 
-<br><br><hr><!----------------------------------------------------------------->
-<h3>Text Fields</h3>
-
-<h6>Basic</h6>
-<TextField label="Test label" />
-
 <!----------------------------------------------------------------------------->
 
 <Footer buttons={[
 	{
 		label: "A1",
-		icon: "t"
+		icon: "account_circle",
+		shape: "lozenge",
+		callback: () => {
+			console.log("HEY");
+		}
 	},
 	{
 		label: "B1",
-		icon: "tfd"
+		icon: "settings",
+		shape: "lozenge"
+	},
+	{
+		label: "C1",
+		icon: "delete"
 	},
 ]}/>

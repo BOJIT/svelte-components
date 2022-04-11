@@ -1,20 +1,26 @@
 <script lang="ts">
 	import theme from "$lib/theme";
 
+	import Button from "$lib/smelte/components/Button/Button.svelte";
+
 	type FooterButton = {
 		label: string,
 		icon: string,
-		callback?: (() => void)
+		callback?: (() => void),
+		shape?: "lozenge" | "square" | "circle"
 	}
 
 	export let buttons: FooterButton[] = [];
 </script>
 
-<footer class:bg-primary-200={$theme == 'light'} class:bg-primary-700={$theme == 'dark'}>
+<footer class:bg-primary-200={$theme === 'light'} class:bg-primary-700={$theme === 'dark'}>
 	{#each buttons as button}
 		<div class="button-label">
-			<!-- <Button icon={faCrosshairs} color={theme.col.purple} on:click={() => {
-			}}/> -->
+			<Button icon={button.icon}
+				square={button.shape === "square"}
+				lozenge={button.shape === "lozenge"}
+				circle={button.shape === "circle"}
+				on:click={button.callback}/>
 			<p>{button.label}</p>
 		</div>
 	{/each}

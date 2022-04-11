@@ -21,6 +21,10 @@
   export let fab = false;
   export let type = "button";
 
+  export let square = false;
+  export let lozenge = false;
+  export let circle = false;
+
   export let remove = "";
   export let add = "";
   export let replace = {};
@@ -136,6 +140,9 @@
     <button
       use:ripple
       class={classes}
+      class:square={square}
+      class:lozenge={lozenge}
+      class:circle={circle}
       {...props}
       {type}
       {disabled}
@@ -155,6 +162,9 @@
   <button
     use:ripple
     class={classes}
+    class:square={square}
+    class:lozenge={lozenge}
+    class:circle={circle}
     {...props}
     {type}
     {disabled}
@@ -170,3 +180,32 @@
     <slot />
   </button>
 {/if}
+
+<style>
+	button {
+		-webkit-tap-highlight-color: transparent;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+
+	button:focus {
+		outline: none;
+		box-shadow: none;
+	}
+
+	button.square {
+		border-radius: 0% !important;
+	}
+
+	button.lozenge {
+		border-radius: 0.6rem !important;
+	}
+
+	button.circle {
+		border-radius: 50% !important;
+	}
+</style>
