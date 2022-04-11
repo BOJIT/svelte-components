@@ -9,6 +9,9 @@ html {
 
 body {
 	background-color: var(--color-white);
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
 }
 
 body.mode-dark {

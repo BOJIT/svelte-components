@@ -39,6 +39,7 @@
 		padding: 0.7rem;
 		justify-content: center;
 		gap: 0.5rem;
+		align-self: flex-end;
 	}
 
 	.button-label {
