@@ -13,7 +13,7 @@
 	export let buttons: FooterButton[] = [];
 </script>
 
-<footer class:bg-primary-200={$theme === 'light'} class:bg-primary-700={$theme === 'dark'}>
+<footer class:bg-primary-50={$theme === 'light'} class:bg-primary-700={$theme === 'dark'}>
 	{#each buttons as button}
 		<div class="button-label">
 			<Button icon={button.icon}
@@ -32,7 +32,7 @@
 		flex: 0 0 auto;
 		align-self: end;
 		width: 100%;
-		z-index: 20;
+		/* z-index: 20; */
 
 		/* Children */
 		display: flex;

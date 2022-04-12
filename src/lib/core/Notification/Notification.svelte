@@ -50,34 +50,35 @@
 	import { fade, fly } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
 
-	// import notification from 'store/notification';
-
-	// import Icon from 'svelte-awesome';
-	// import { faInfo, faExclamationTriangle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+	import Icon from "$lib/smelte/components/Icon/Icon.svelte";
+	import Button from '$lib/smelte/components/Button/Button.svelte';
+	import Theme from "$lib/theme";
 </script>
 
 <div class="container">
 	{#each $message as entry (entry.uid)}
 		<div in:fly="{{ x:-500, delay: 300 }}" out:fade animate:flip
 				class="popup"
+				class:dark={$Theme == 'dark'}
 				class:is-info="{entry.type === "info"}"
 				class:is-warning="{entry.type === "warning"}"
-				class:is-danger="{entry.type === "error"}">
-			<button on:click={() => message.close(entry.uid)} class="delete"></button>
-			<span class="icon popup-icon">
-				<div>
-					<!-- {#if entry.type === "info"}
-						<Icon data={faInfo} scale={1.4} />
-					{:else if entry.type === "warning"}
-						<Icon data={faExclamationTriangle} scale={1.4} />
-					{:else if entry.type === "error"}
-						<Icon data={faTimesCircle} scale={1.4} />
-					{/if} -->
-				</div>
-			</span>
-			<div class="popup-message">
+				class:is-error="{entry.type === "error"}">
+			<div class="popup-icon">
+				{#if entry.type === "info"}
+					<Icon size={"2.5rem"} outlined>info</Icon>
+				{:else if entry.type === "warning"}
+					<Icon size={"2.5rem"} outlined>warning_amber</Icon>
+				{:else if entry.type === "error"}
+					<Icon size={"2.5rem"} outlined>error_outline</Icon>
+				{/if}
+			</div>
+			<div class="popup-message transition">
 				<h3>{entry.title}</h3>
 				<p>{entry.message}</p>
+			</div>
+			<div class="popup-delete">
+				<Button on:click={() => message.close(entry.uid)}
+					icon={"cancel"} shadow={false} color="transparent" circle small></Button>
 			</div>
 		</div>
 	{/each}
@@ -86,12 +87,13 @@
 <style>
 	.container {
 		position: absolute;
-		height: 8em;    /* TODO make dependent on message height + a bit */
+		height: 7em;    /* TODO make dependent on message height + a bit */
 		width: 30em;
 		bottom: 0;
 		left: 0;
 		pointer-events: none;
 		padding: 0.5rem;
+		overflow: hidden;
 	}
 
 	@media screen and (max-width: 768px) {
@@ -104,35 +106,64 @@
 		width: 100%;
 		margin-bottom: 0.5rem !important;
 		display: flex;
+		align-items: center;
 		pointer-events: auto;
-		z-index: 100;
 		border-radius: 0.5rem;
+		padding: 0.2rem;
+		box-shadow: 0.5px 0.5px 1px var(--color-black-trans-dark);
 	}
 
 	.popup-icon {
 		flex: 0 0 auto;
-		position: relative;
-		margin-right: 1rem;
-	}
-
-	.popup-icon > div {
-		position: absolute;
-		top: 50%;
+		padding: 0.4rem;
+		margin-left: 0.4rem;
+		vertical-align: middle;
+		line-height: 100%;
 	}
 
 	.popup-message {
 		flex: 1 0 auto;
+		padding: 0.5rem;
+		vertical-align: middle;
+		margin-top: 0.3rem;
+	}
+
+	.popup-message h3 {
+		font-size: 1.2rem;
+		font-weight: 600;
+		line-height: 1;
+	}
+
+	.popup-message p {
+		line-height: 2;
+	}
+
+	.popup-delete {
+		flex: 0 0 auto;
+		align-self: flex-start;
 	}
 
 	.is-info {
+		background-color: var(--color-blue-300);
+	}
+
+	.is-info.dark {
 		background-color: var(--color-blue-500);
 	}
 
 	.is-warning {
-		background-color: var(--color-alert-300);
+		background-color: var(--color-alert-200);
 	}
 
-	.is-danger {
+	.is-warning.dark {
+		background-color: var(--color-alert-400);
+	}
+
+	.is-error {
+		background-color: var(--color-error-300);
+	}
+
+	.is-error.dark {
 		background-color: var(--color-error-500);
 	}
 </style>

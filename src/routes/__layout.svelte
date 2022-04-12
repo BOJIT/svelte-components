@@ -1,6 +1,7 @@
 <script lang="ts">
 	import App from "$lib/core/App/App.svelte";
 	import NavBar from "$lib/layout/NavBar/NavBar.svelte";
+	import Main from "$lib/layout/Main/Main.svelte";
 	import Footer from "$lib/layout/Footer/Footer.svelte";
 
 	import { palette } from "$lib/theme";
@@ -20,7 +21,10 @@
 
 <App theme={palette.midnight} load={loadCheck}>
 	<NavBar title="ploTTY" logo={logo} logoLink="https://github.com"/>
-	<slot />
+
+	<Main>
+		<slot />
+	</Main>
 
 	<Footer buttons={[
 		{

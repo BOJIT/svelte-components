@@ -17,13 +17,32 @@
 
 <h3>Theme</h3>
 
-<Button on:click={() => {
-	message.push({
-		title: "Text",
-		message: "find out",
-		type: "info",
-	});
-}}>Notify</Button>
+<div>
+	<Button color="blue" on:click={() => {
+		message.push({
+			title: "Text",
+			message: "find out",
+			type: "info",
+			timeout: 10
+		});
+	}}>Notify</Button>
+
+	<Button color="alert" on:click={() => {
+		message.push({
+			title: "Text",
+			message: "find out lorem ipsum long error message!",
+			type: "warning",
+		});
+	}}>Warn</Button>
+
+	<Button color="error" on:click={() => {
+		message.push({
+			title: "Text",
+			message: "find out",
+			type: "error",
+		});
+	}}>Error</Button>
+</div>
 
 <RadioButtonGroup
 	name='Theme',

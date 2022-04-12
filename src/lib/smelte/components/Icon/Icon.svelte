@@ -1,5 +1,5 @@
 <script>
-
+  export let outlined = false;
   export let size = "";
   export let small = false;
   export let xs = false;
@@ -20,7 +20,7 @@
 
 <i
   aria-hidden="true"
-  class="material-icons icon text-xl select-none {$$props.class} duration-200 ease-in"
+  class="{outlined ? "material-icons-outlined" : "material-icons"} icon text-xl select-none {$$props.class} duration-200 ease-in"
   class:reverse
   class:tip
   on:click

@@ -31,14 +31,15 @@ import Notification from "../Notification/Notification.svelte";
 </script>
 
 <SplashScreen load={loadCheck}/>
-<Notification />
 <div class="app">
 	<slot />
 </div>
+<Notification />
 
 <style>
 	.app {
 		display: flex;
 		flex-direction: column;
+		min-height: 100vh;
 	}
 </style>

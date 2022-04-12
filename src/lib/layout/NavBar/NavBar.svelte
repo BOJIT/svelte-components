@@ -10,7 +10,7 @@
 
 <!-- Navbar -->
 <div class="nav" role="navigation" aria-label="main navigation"
-	class:bg-primary-300={$theme == 'light'}
+	class:bg-primary-50={$theme == 'light'}
 	class:bg-dark-700={$theme == 'dark'}>
 
 	<!-- Navbar Left-Hand Side -->
@@ -32,9 +32,9 @@
 
 	<!-- Navbar Right-Hand Side -->
 	<div class="nav-right">
-		<Button icon="settings" lozenge color="null"></Button>
-		<Button icon="settings" lozenge color="null"></Button>
-		<Button icon="settings" lozenge color="null"></Button>
+		<Button icon="settings" lozenge color="transparent" shadow={false}></Button>
+		<Button icon="settings" lozenge color="transparent" shadow={false}></Button>
+		<Button icon="settings" lozenge color="transparent" shadow={false}></Button>
 	</div>
 </div>
 

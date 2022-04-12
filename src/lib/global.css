@@ -1,10 +1,16 @@
 @import "@fontsource/material-icons";
+@import "@fontsource/material-icons-outlined";
 @import "@fontsource/quicksand";
+@import "@fontsource/comfortaa";
+@import "@fontsource/montserrat";
 @import "./core/normalise.css";
 @import "./smelte/smelte.css";
 
+* {-webkit-font-smoothing: antialiased;}
+
 html {
-	font-family: "quicksand";
+	font-family: "comfortaa";
+	font-weight: 300;
 }
 
 body {

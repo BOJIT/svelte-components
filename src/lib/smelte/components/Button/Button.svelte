@@ -3,8 +3,6 @@
   import utils, { ClassBuilder, filterProps } from "../../utils/classes.js";
   import createRipple from "../Ripple/ripple.js";
 
-
-
   export let value = false;
   export let outlined = false;
   export let text = false;
@@ -24,12 +22,13 @@
   export let square = false;
   export let lozenge = false;
   export let circle = false;
+  export let shadow = true;
 
   export let remove = "";
   export let add = "";
   export let replace = {};
 
-  const classesDefault = 'z-10 py-2 px-4 uppercase text-sm font-medium relative overflow-hidden';
+  const classesDefault = 'py-2 px-4 uppercase text-sm font-medium relative overflow-hidden';
   const basicDefault = 'text-white duration-200 ease-in';
 
   const outlinedDefault = 'bg-transparent border border-solid';
@@ -143,6 +142,7 @@
       class:square={square}
       class:lozenge={lozenge}
       class:circle={circle}
+      class:remove-shadow={!shadow}
       {...props}
       {type}
       {disabled}
@@ -165,6 +165,7 @@
     class:square={square}
     class:lozenge={lozenge}
     class:circle={circle}
+    class:remove-shadow={!shadow}
     {...props}
     {type}
     {disabled}
@@ -207,5 +208,9 @@
 
 	button.circle {
 		border-radius: 50% !important;
+	}
+
+	button.remove-shadow {
+		box-shadow: none;
 	}
 </style>

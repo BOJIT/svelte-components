@@ -115,32 +115,35 @@
 <br><br><hr><!----------------------------------------------------------------->
 <h3>Buttons</h3>
 
-<h6>Basic</h6>
-<Button>Button</Button>
+<div>
+	<h6>Basic</h6>
+	<Button>Button</Button>
 
-<h6>Light</h6>
-<Button light>Button</Button>
+	<h6>Light</h6>
+	<Button light>Button</Button>
 
-<h6>Dark</h6>
-<Button dark>Button</Button>
+	<h6>Dark</h6>
+	<Button dark>Button</Button>
 
-<h6>Block</h6>
-<Button color="alert" dark block>Button</Button>
+	<h6>Block</h6>
+	<Button color="alert" dark block>Button</Button>
 
-<h6>Outlined</h6>
-<Button color="secondary" light block outlined>Button</Button>
+	<h6>Outlined</h6>
+	<Button color="secondary" light block outlined>Button</Button>
 
-<h6>Text</h6>
-<Button text>Button</Button>
+	<h6>Text</h6>
+	<Button text>Button</Button>
 
-<h6>Disabled</h6>
-<Button block disabled>Button</Button>
+	<h6>Disabled</h6>
+	<Button block disabled>Button</Button>
 
-<h6>FAB <a href="https://material.io/components/buttons-floating-action-button/">(Floating action button)</a></h6>
-<Button color="alert" icon="change_history" />
+	<h6>FAB <a href="https://material.io/components/buttons-floating-action-button/">(Floating action button)</a></h6>
+	<Button color="alert" icon="change_history" />
 
-<h6>Fab flat</h6>
-<Button color="error" icon="change_history" text light flat />
+	<h6>Fab flat</h6>
+	<Button color="error" icon="change_history" text light flat />
+</div>
+
 
 <br><br><hr><!----------------------------------------------------------------->
 <h3>Selection Controls</h3>
