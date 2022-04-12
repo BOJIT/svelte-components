@@ -6,8 +6,8 @@
 	type FooterButton = {
 		label: string,
 		icon: string,
-		callback?: (() => void),
-		shape?: "lozenge" | "square" | "circle"
+		shape?: "lozenge" | "square" | "circle",
+		callback?: (() => void)
 	}
 
 	export let buttons: FooterButton[] = [];

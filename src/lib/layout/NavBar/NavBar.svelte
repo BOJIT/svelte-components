@@ -1,11 +1,24 @@
+<script lang="ts" context="module">
+	export type NavItem = {
+		type: "button" | "separator" | "component",
+		icon?: string,
+		outlined?: boolean,
+		shape?: "square" | "circle" | "lozenge",
+		color?: string,
+		visibility?: "mobile" | "desktop"
+		callback?: (() => void)
+	}
+</script>
+
 <script lang="ts">
 	import theme from "$lib/theme";
-
 	import Button from "$lib/smelte/components/Button/Button.svelte";
 
 	export let title = "App Title";
 	export let logo = null;
 	export let logoLink = null;
+
+	export let items: NavItem[] = [];
 </script>
 
 <!-- Navbar -->
@@ -18,10 +31,10 @@
 		{#if logo !== null}
 			{#if logoLink !== null}
 				<a href="{logoLink}" target="_blank">
-					<img src="{logo}" alt="logo" style="max-height:3.2rem">
+					<img src="{logo}" alt="logo" style="max-height:3rem">
 				</a>
 			{:else}
-				<img src="{logo}" alt="logo" style="max-height:3.2rem">
+				<img src="{logo}" alt="logo" style="max-height:3rem">
 			{/if}
 		{/if}
 	</div>
@@ -32,12 +45,29 @@
 
 	<!-- Navbar Right-Hand Side -->
 	<div class="nav-right">
-		<Button icon="settings" lozenge transparent
-			iconColor={$theme == 'dark' ? "var(--color-white)" : "var(--color-dark-500)"}></Button>
-		<Button icon="settings" lozenge transparent
-			iconColor={$theme == 'dark' ? "var(--color-white)" : "var(--color-dark-500)"}></Button>
-		<Button icon="settings" lozenge transparent
-			iconColor={$theme == 'dark' ? "var(--color-white)" : "var(--color-dark-500)"}></Button>
+		{#each items as item}
+			<div class:mobile={item.visibility === "mobile"} class:desktop={item.visibility === "desktop"}>
+				{#if item.type === "button"}
+				<Button lozenge={(item.shape === "lozenge") || (item.shape === undefined)}
+						square={item.shape === "square"}
+						circle={item.shape === "circle"}
+						transparent={item.color === "transparent"}
+						iconColor={item.color === "transparent" ? (
+							$theme == 'dark' ? "var(--color-white)" : "var(--color-dark-500)")
+							: ""}
+						outlined={item.outlined}
+						iconSize={"2rem"}
+						color={item.color}
+						icon={item.icon !== undefined ? item.icon : "settings"}
+						on:click={item.callback}
+				/>
+				{/if}
+
+				{#if item.type === "separator"}
+				<div class="separator" class:dark={$theme == 'dark'}>.</div>
+				{/if}
+			</div>
+		{/each}
 	</div>
 </div>
 
@@ -54,8 +84,8 @@
 
 	.nav-left {
 		flex: 0 0 auto;
-		margin-left: 4px;
 		margin-right: 4px;
+		padding: 0.3rem;
 	}
 
 	.nav-right {
@@ -80,5 +110,37 @@
 
 	.nav-left > h1.dark {
 		color: var(--color-gray-300);
+	}
+
+	.separator {
+		margin-left: 0.15rem;
+		margin-right: 0.15rem;
+		width: 1px;
+		line-height: 2.7rem;
+		color: transparent;
+		background-color: var(--color-dark-500);
+	}
+
+	.separator.dark {
+		background-color: var(--color-gray-300);
+	}
+
+	/* Breakpoints */
+
+	.mobile {
+		display: none;
+	}
+
+	.desktop {
+		display: block;
+	}
+
+	@media screen and (max-width: 768px) {
+		.mobile {
+			display: block;
+		}
+		.desktop {
+			display: none;
+		}
 	}
 </style>

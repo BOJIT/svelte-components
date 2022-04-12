@@ -25,6 +25,7 @@
   export let circle = false;
   export let transparent = false;
   export let iconColor = null;
+  export let iconSize = null;
 
   export let remove = "";
   export let add = "";
@@ -145,6 +146,7 @@
       class:lozenge={lozenge}
       class:circle={circle}
       class:transparent={transparent}
+      class:padding-override={iconSize !== null}
       {...props}
       {type}
       {disabled}
@@ -168,6 +170,7 @@
     class:lozenge={lozenge}
     class:circle={circle}
     class:transparent={transparent}
+    class:padding-override={iconSize !== null}
     {...props}
     {type}
     {disabled}
@@ -178,7 +181,8 @@
     on:*
   >
     {#if icon}
-      <Icon class={iClasses} {small} color={iconColor !== null ? iconColor : 'default'}>{icon}</Icon>
+      <Icon class={iClasses} {small} color={iconColor !== null ? iconColor : 'default'}
+                    size={iconSize !== null ? iconSize : ''}>{icon}</Icon>
     {/if}
     <slot />
   </button>
@@ -205,7 +209,7 @@
 	}
 
 	button.lozenge {
-		border-radius: 0.6rem !important;
+		border-radius: 0.5rem !important;
 	}
 
 	button.circle {
@@ -219,5 +223,9 @@
 
 	button.transparent:hover {
 		background-color: var(--color-white-trans-light);
+	}
+
+	button.padding-override {
+		padding: 0.5rem;
 	}
 </style>

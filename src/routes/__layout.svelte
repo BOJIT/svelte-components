@@ -1,12 +1,65 @@
 <script lang="ts">
 	import App from "$lib/core/App/App.svelte";
 	import NavBar from "$lib/layout/NavBar/NavBar.svelte";
+	import type { NavItem } from "$lib/layout/NavBar/NavBar.svelte";
 	import Main from "$lib/layout/Main/Main.svelte";
 	import Footer from "$lib/layout/Footer/Footer.svelte";
 
 	import { palette } from "$lib/theme";
 
 	import logo from "/static/icon_x128.png";
+
+	let items: NavItem[] = [
+		{
+			type: "button",
+			color:  "success",
+			icon: "play_arrow",
+			// outlined: true,
+		},
+		{
+			type: "button",
+			color:  "alert",
+			icon: "bar_chart",
+			// outlined: true,
+		},
+		{
+			type: "separator",
+			visibility: "desktop",
+		},
+		{
+			type: "button",
+			color: "transparent",
+			icon: "note_add",
+			visibility: "desktop",
+		},
+		{
+			type: "button",
+			color: "transparent",
+			icon: "file_open",
+			visibility: "desktop",
+		},
+		{
+			type: "button",
+			color: "transparent",
+			icon: "file_copy",
+			visibility: "desktop",
+		},
+		{
+			type: "separator",
+		},
+		{
+			type: "button",
+			color: "transparent",
+			icon: "tune",
+			visibility: "desktop",
+		},
+		{
+			type: "button",
+			color: "transparent",
+			icon: "menu",
+			visibility: "mobile",
+		},
+	];
 
 	/* Example pre-page-loading routine */
 	async function loadCheck(resolve, reject) {
@@ -20,7 +73,8 @@
 </script>
 
 <App theme={palette.midnight} load={loadCheck}>
-	<NavBar title="ploTTY" logo={logo} logoLink="https://github.com"/>
+	<NavBar title="ploTTY" logo={logo} logoLink="https://github.com"
+		items={items}/>
 
 	<Main>
 		<slot />
