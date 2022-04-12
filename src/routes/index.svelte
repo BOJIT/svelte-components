@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Button from "$lib/smelte/components/Button/Button.svelte";
+	import Dialog from "$lib/smelte/components/Dialog/Dialog.svelte";
 
 	import { message } from "$lib/core/Notification/Notification.svelte";
 
@@ -7,6 +8,8 @@
 
 	import theme from "$lib/theme";
 	const mode = theme.Mode;
+
+	let showDialog = false;
 </script>
 
 <style>
@@ -14,6 +17,15 @@
 		padding: 1rem;
 	}
 </style>
+
+<Dialog bind:value={showDialog}>
+	<h5 slot="title">Settings</h5>
+	<div class="text-gray-700">I'm not sure about today's weather.</div>
+	<div slot="actions">
+	  <Button text on:click={() => showDialog = false}>Disagree</Button>
+	  <Button text on:click={() => showDialog = false}>Agree</Button>
+	</div>
+</Dialog>
 
 <h3>Theme</h3>
 
@@ -42,6 +54,8 @@
 			type: "error",
 		});
 	}}>Error</Button>
+
+	<Button on:click={() => showDialog = true}>Show dialog</Button>
 </div>
 
 <RadioButtonGroup
@@ -52,5 +66,7 @@
 		{ value: 'dark', label: 'Dark Mode' },
 		{ value: 'auto', label: 'Auto Mode'}
 	]} />
+
+
 
 <!----------------------------------------------------------------------------->
