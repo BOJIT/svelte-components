@@ -27,14 +27,17 @@
 	</div>
 
 	<div class="nav-left">
-		<h1>{title}</h1>
+		<h1 class:dark={$theme == 'dark'}>{title}</h1>
 	</div>
 
 	<!-- Navbar Right-Hand Side -->
 	<div class="nav-right">
-		<Button icon="settings" lozenge color="transparent" shadow={false}></Button>
-		<Button icon="settings" lozenge color="transparent" shadow={false}></Button>
-		<Button icon="settings" lozenge color="transparent" shadow={false}></Button>
+		<Button icon="settings" lozenge transparent
+			iconColor={$theme == 'dark' ? "var(--color-white)" : "var(--color-dark-500)"}></Button>
+		<Button icon="settings" lozenge transparent
+			iconColor={$theme == 'dark' ? "var(--color-white)" : "var(--color-dark-500)"}></Button>
+		<Button icon="settings" lozenge transparent
+			iconColor={$theme == 'dark' ? "var(--color-white)" : "var(--color-dark-500)"}></Button>
 	</div>
 </div>
 
@@ -72,5 +75,10 @@
 		vertical-align: middle;
 		margin-bottom: 0rem;
 		letter-spacing: normal;
+		color: var(--color-dark-500);
+	}
+
+	.nav-left > h1.dark {
+		color: var(--color-gray-300);
 	}
 </style>

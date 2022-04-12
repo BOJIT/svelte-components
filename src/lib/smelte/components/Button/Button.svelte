@@ -19,10 +19,12 @@
   export let fab = false;
   export let type = "button";
 
+  // BOJIT overrides
   export let square = false;
   export let lozenge = false;
   export let circle = false;
-  export let shadow = true;
+  export let transparent = false;
+  export let iconColor = null;
 
   export let remove = "";
   export let add = "";
@@ -142,7 +144,7 @@
       class:square={square}
       class:lozenge={lozenge}
       class:circle={circle}
-      class:remove-shadow={!shadow}
+      class:transparent={transparent}
       {...props}
       {type}
       {disabled}
@@ -153,7 +155,7 @@
       on:*
     >
       {#if icon}
-        <Icon class={iClasses} {small}>{icon}</Icon>
+        <Icon class={iClasses} {small} color={iconColor !== null ? iconColor : 'default'}>{icon}</Icon>
       {/if}
       <slot />
     </button>
@@ -165,7 +167,7 @@
     class:square={square}
     class:lozenge={lozenge}
     class:circle={circle}
-    class:remove-shadow={!shadow}
+    class:transparent={transparent}
     {...props}
     {type}
     {disabled}
@@ -176,7 +178,7 @@
     on:*
   >
     {#if icon}
-      <Icon class={iClasses} {small}>{icon}</Icon>
+      <Icon class={iClasses} {small} color={iconColor !== null ? iconColor : 'default'}>{icon}</Icon>
     {/if}
     <slot />
   </button>
@@ -210,7 +212,12 @@
 		border-radius: 50% !important;
 	}
 
-	button.remove-shadow {
+	button.transparent {
+		background-color: var(--color-transparent);
 		box-shadow: none;
+	}
+
+	button.transparent:hover {
+		background-color: var(--color-white-trans-light);
 	}
 </style>

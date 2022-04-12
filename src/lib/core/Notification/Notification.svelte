@@ -52,14 +52,14 @@
 
 	import Icon from "$lib/smelte/components/Icon/Icon.svelte";
 	import Button from '$lib/smelte/components/Button/Button.svelte';
-	import Theme from "$lib/theme";
+	import theme from "$lib/theme";
 </script>
 
 <div class="container">
 	{#each $message as entry (entry.uid)}
 		<div in:fly="{{ x:-500, delay: 300 }}" out:fade animate:flip
 				class="popup"
-				class:dark={$Theme == 'dark'}
+				class:dark={$theme == 'dark'}
 				class:is-info="{entry.type === "info"}"
 				class:is-warning="{entry.type === "warning"}"
 				class:is-error="{entry.type === "error"}">
@@ -78,7 +78,8 @@
 			</div>
 			<div class="popup-delete">
 				<Button on:click={() => message.close(entry.uid)}
-					icon={"cancel"} shadow={false} color="transparent" circle small></Button>
+					icon={"cancel"} transparent circle small
+					iconColor={$theme == 'dark' ? "var(--color-white)" : "var(--color-dark-500)"}></Button>
 			</div>
 		</div>
 	{/each}
