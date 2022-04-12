@@ -4,8 +4,8 @@
 	import Button from "$lib/smelte/components/Button/Button.svelte";
 
 	type FooterButton = {
-		label: string,
 		icon: string,
+		label?: string,
 		shape?: "lozenge" | "square" | "circle",
 		callback?: (() => void)
 	}
@@ -21,7 +21,9 @@
 				lozenge={button.shape === "lozenge"}
 				circle={button.shape === "circle"}
 				on:click={button.callback}/>
-			<p>{button.label}</p>
+			{#if button.label !== undefined}
+				<p>{button.label}</p>
+			{/if}
 		</div>
 	{/each}
 </footer>

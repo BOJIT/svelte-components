@@ -13,11 +13,12 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		package: {
-		files: (filepath) => {
-			if (filepath.endsWith(".stories.svelte")) return false;
-			if (filepath.endsWith(".stories.mdx")) return false;
-			return true;
-		},
+			files: (filepath) => {
+				if (filepath.endsWith(".demo.png")) return false;
+				if (filepath.endsWith(".stories.svelte")) return false;
+				if (filepath.endsWith(".stories.mdx")) return false;
+				return true;
+			},
 		},
 	},
 };

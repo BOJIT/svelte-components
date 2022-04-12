@@ -1,63 +1,29 @@
 <script lang="ts">
 	import App from "$lib/core/App/App.svelte";
+	import Content from "$lib/layout/Content/Content.svelte";
 	import NavBar from "$lib/layout/NavBar/NavBar.svelte";
 	import type { NavItem } from "$lib/layout/NavBar/NavBar.svelte";
 	import Main from "$lib/layout/Main/Main.svelte";
 	import Footer from "$lib/layout/Footer/Footer.svelte";
 
-	import { palette } from "$lib/theme";
+	import Theme, { palette } from "$lib/theme";
+	let mode = Theme.Mode;
 
 	import logo from "$lib/test/logo.demo.png";
+
+	function toggleTheme() {
+		if($mode == 'light')
+			$mode = 'dark';
+		else
+			$mode = 'light';
+	}
 
 	let items: NavItem[] = [
 		{
 			type: "button",
-			color:  "success",
-			icon: "play_arrow",
-			// outlined: true,
-		},
-		{
-			type: "button",
-			color:  "alert",
-			icon: "bar_chart",
-			// outlined: true,
-		},
-		{
-			type: "separator",
-			visibility: "desktop",
-		},
-		{
-			type: "button",
 			color: "transparent",
-			icon: "note_add",
-			visibility: "desktop",
-		},
-		{
-			type: "button",
-			color: "transparent",
-			icon: "file_open",
-			visibility: "desktop",
-		},
-		{
-			type: "button",
-			color: "transparent",
-			icon: "file_copy",
-			visibility: "desktop",
-		},
-		{
-			type: "separator",
-		},
-		{
-			type: "button",
-			color: "transparent",
-			icon: "tune",
-			visibility: "desktop",
-		},
-		{
-			type: "button",
-			color: "transparent",
-			icon: "menu",
-			visibility: "mobile",
+			icon: "light_mode",
+			callback: toggleTheme
 		},
 	];
 
@@ -77,25 +43,23 @@
 		items={items}/>
 
 	<Main>
-		<slot />
+		<Content>
+			<slot />
+		</Content>
 	</Main>
 
 	<Footer buttons={[
 		{
-			label: "A1",
 			icon: "account_circle",
-			shape: "lozenge",
-			callback: () => {
-				console.log("HEY");
-			}
+			shape: "circle",
 		},
 		{
-			label: "B1",
+			label: "",
 			icon: "settings",
-			shape: "lozenge"
+			shape: "circle"
 		},
 		{
-			label: "C1",
+			label: "",
 			icon: "delete"
 		},
 	]}/>
