@@ -16,6 +16,7 @@ const palette: Palette = {
 	fonts: {
 		headings: "comfortaa",
 		body: "montserrat",
+		monospace: "red hat mono",
 	}
 };
 
