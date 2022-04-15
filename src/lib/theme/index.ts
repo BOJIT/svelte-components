@@ -1,12 +1,12 @@
 import theme from './theme';
 
 /* Library Themes */
-import colourful from './palette/colourful';
+import quirky from './palette/quirky';
 import evergreen from './palette/evergreen';
 import midnight from './palette/midnight';
 
 const palette = {
-	colourful,
+	quirky,
 	evergreen,
 	midnight,
 }

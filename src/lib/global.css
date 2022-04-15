@@ -1,6 +1,5 @@
 @import "@fontsource/material-icons";
 @import "@fontsource/material-icons-outlined";
-@import "@fontsource/quicksand";
 @import "@fontsource/comfortaa";
 @import "@fontsource/montserrat";
 @import "./core/normalise.css";
@@ -9,12 +8,17 @@
 * {-webkit-font-smoothing: antialiased;}
 
 html {
-	font-family: "comfortaa";
+	font-family: var(--font-body);
 	font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--font-headings);
 }
 
 body {
 	background-color: var(--color-white);
+	font-weight: 200;
 }
 
 body.mode-dark {

@@ -13,7 +13,7 @@
 	export let buttons: FooterButton[] = [];
 </script>
 
-<footer class:bg-primary-50={$theme === 'light'} class:bg-primary-700={$theme === 'dark'}>
+<footer class:bg-primary-50={$theme === 'light'} class:bg-dark-700={$theme === 'dark'}>
 	{#each buttons as button}
 		<div class="button-label">
 			<Button icon={button.icon}

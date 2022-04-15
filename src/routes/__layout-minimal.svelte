@@ -1,4 +1,8 @@
 <script lang="ts">
+	/* Import any used fonts here */
+	import "@fontsource/gloria-hallelujah";
+	import "@fontsource/nunito";
+
 	import App from "$lib/core/App/App.svelte";
 	import Content from "$lib/layout/Content/Content.svelte";
 	import NavBar from "$lib/layout/NavBar/NavBar.svelte";
@@ -38,7 +42,7 @@
 	}
 </script>
 
-<App theme={palette.midnight} load={loadCheck}>
+<App theme={palette.quirky} load={loadCheck}>
 	<NavBar title="ploTTY" logo={logo} logoLink="https://github.com"
 		items={items}/>
 

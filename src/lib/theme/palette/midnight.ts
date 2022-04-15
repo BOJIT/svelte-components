@@ -11,7 +11,11 @@ const palette: Palette = {
 		background: {
 			light: "#ffffff",
 			dark: "#212121",
-		}
+		},
+	},
+	fonts: {
+		headings: "comfortaa",
+		body: "montserrat",
 	}
 };
 

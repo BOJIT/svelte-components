@@ -102,8 +102,17 @@ function init(palette?: Palette) {
 	const cols = flattenObj(generatePalette(flattenObj(palette.colours)));
 
 	for (const [key , val] of Object.entries(cols)) {
-		setCssVar(key, val);
+		setCssVar(key, val, "--color-");
 	}
+
+	if(palette.fonts !== undefined) {
+		const fonts = flattenObj(palette.fonts);
+
+		for (const [key , val] of Object.entries(fonts)) {
+			setCssVar(key, val, "--font-");
+		}
+	}
+
 }
 
 /**
@@ -136,8 +145,8 @@ function flattenObj(obj: object) {
 	return result;
 };
 
-function setCssVar(key: string, val: any) {
-	const name = "--color-".concat(key.split(/(?=[A-Z])/).join('-').toLowerCase());
+function setCssVar(key: string, val: any, prefix: string) {
+	const name = prefix.concat(key.split(/(?=[A-Z])/).join('-').toLowerCase());
 
 	if(browser) {
 		document.documentElement.style.setProperty(name, val);
