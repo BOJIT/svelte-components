@@ -2,6 +2,7 @@
 	/* Import any used fonts here */
 	import "@fontsource/gloria-hallelujah";
 	import "@fontsource/nunito";
+	import "@fontsource/syne-mono";
 
 	import App from "$lib/core/App/App.svelte";
 	import Content from "$lib/layout/Content/Content.svelte";
@@ -43,7 +44,7 @@
 </script>
 
 <App theme={palette.quirky} load={loadCheck}>
-	<NavBar title="ploTTY" logo={logo} logoLink="https://github.com"
+	<NavBar title="Blog Entry" logo={logo} logoLink="https://github.com/BOJIT"
 		items={items}/>
 
 	<Main>

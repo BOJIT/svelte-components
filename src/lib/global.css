@@ -16,6 +16,10 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: var(--font-headings);
 }
 
+code {
+	font-family: var(--font-monospace);
+}
+
 body {
 	background-color: var(--color-white);
 	font-weight: 200;

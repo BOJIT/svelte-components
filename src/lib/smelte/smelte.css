@@ -108,6 +108,10 @@
   --color-gray-trans: rgba(250, 250, 250, .5);
   --color-gray-trans-light: rgba(250, 250, 250, .1);
   --color-gray-trans-dark: rgba(100, 100, 100, .2);
+
+  --font-headings: "comfortaa";
+  --font-body: "montserrat";
+  --font-monospace: "consolas";
 }
 
 /*---------------------------- Background Colours ----------------------------*/

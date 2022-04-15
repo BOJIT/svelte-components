@@ -12,6 +12,7 @@ const palette: Palette = {
 	fonts: {
 		headings: "Gloria Hallelujah",
 		body: "Nunito",
+		monospace: "Syne Mono"
 	}
 };
 

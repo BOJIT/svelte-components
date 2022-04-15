@@ -79,6 +79,45 @@
 		margin-bottom: 10px;
 	}
 
+	/* Links */
+	article :global(a) {
+		color: #237094;
+	}
+
+	:global(.mode-dark) article :global(a) {
+		color: #95b4c2;
+	}
+
+	article :global(a:visited) {
+		color: #6d4085;
+	}
+
+	:global(.mode-dark) article :global(a):visited {
+		color: #907b9c;
+	}
+
+	article :global(a:hover) {
+		text-decoration: underline;
+	}
+
+	/* Inline Code */
+	article :global(code) {
+		border-radius: .125rem;
+		font-size: .875rem;
+		padding: .15rem .3rem;
+		--tw-text-opacity: 1;
+		letter-spacing: .25px;
+		background-color: var(--color-primary-trans-dark);
+		color: var(--color-primary-900);
+		font-family: var(--font-monospace);
+	}
+
+	:global(.mode-dark) article :global(code) {
+		background-color: var(--color-primary-trans-light);
+		color: var(--color-primary-200);
+		font-family: var(--font-monospace);
+	}
+
 	/* Separators */
 	article :global(hr) {
 		box-sizing: content-box;

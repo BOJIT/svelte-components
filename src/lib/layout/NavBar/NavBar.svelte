@@ -101,7 +101,6 @@
 	.nav-left > h1 {
 		font-size: 2rem;
 		font-weight: 100;
-		font-family: "comfortaa";
 		vertical-align: middle;
 		margin-bottom: 0rem;
 		letter-spacing: normal;
