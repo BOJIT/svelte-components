@@ -8,6 +8,7 @@
 	import { palette } from "$lib/theme";
 
 	import logo from "$lib/test/logo.demo.png";
+import Content from "$lib/layout/Content/Content.svelte";
 
 	let items: NavItem[] = [
 		{
@@ -77,7 +78,9 @@
 		items={items}/>
 
 	<Main>
-		<slot />
+		<Content>
+			<slot />
+		</Content>
 	</Main>
 
 	<Footer buttons={[

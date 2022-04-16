@@ -48,7 +48,7 @@ jobs:
           package: ./main/package/package.json
           access: public
 
-  build-storybook:
+  build-demo-pages:
     runs-on: ubuntu-latest
     name: Build web assets and deploy to GitHub pages
     steps:
@@ -87,11 +87,11 @@ jobs:
           npm install
           cd ../
 
-      - name: Build Storyboard
+      - name: Build SvelteKit app
         if: startsWith(github.event.ref, 'refs/tags')
         run: |
           cd main
-          npm run build-storybook
+          npm run build
           cd ../
 
       - name: Clean gh-pages area
@@ -104,7 +104,7 @@ jobs:
 
       - name: Copy dist files across
         if: startsWith(github.event.ref, 'refs/tags')
-        run: cp -r main/storybook-static/. gh-pages/
+        run: cp -r main/build/. gh-pages/
 
       - name: Deploy to GitHub pages branch
         if: startsWith(github.event.ref, 'refs/tags')

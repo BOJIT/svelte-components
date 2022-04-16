@@ -20,6 +20,9 @@ const config = {
 				return true;
 			},
 		},
+		prerender: {
+			default: true
+		},
 	},
 };
 
