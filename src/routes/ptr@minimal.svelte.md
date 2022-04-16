@@ -4,6 +4,7 @@
 
 <script>
 	import CodeEditor from "$lib/widgets/CodeBlock/CodeEditor.svelte";
+	import CopyButton from "$lib/widgets/CodeBlock/CopyButton.svelte";
 	import LineNumbers from "$lib/widgets/CodeBlock/LineNumbers.svelte";
 </script>
 
@@ -14,6 +15,9 @@ Excepteur aliquip `code` exercitation aliqua excepteur tempor id. Laborum id eiu
 ## Heading 2
 
 Magna [proident](https://github.com) consequat consequat ut non. Consectetur consequat duis ea amet ut [aliquip](https://example.com) ut sit cillum. Occaecat adipisicing pariatur sunt cillum.
+
+<LineNumbers />
+<CopyButton />
 
 ```c
 uint8_t test = {4, 5, 7};
@@ -26,10 +30,19 @@ int main(uint8_t *main)
 
 ### Heading 3
 
+<LineNumbers />
+<CopyButton />
+
+```bash
+#!/bin/bash
+
+echo "test"
+```
+
 Ad adipisicing `elit culpa adipisicing ea nulla magna ut. Ad` labore do enim voluptate quis do sint officia ea occaecat exercitation. Anim et cupidatat velit enim cillum labore mollit. Ad et occaecat do dolor aliquip fugiat sint tempor est duis aliquip. Ullamco id reprehenderit ea quis in aliquip irure ipsum sint labore ad proident reprehenderit. Id officia sunt fugiat consequat labore minim.
 
-
 <LineNumbers />
+<CopyButton />
 
 ```js
 var x = 5;
@@ -56,7 +69,19 @@ x.concat(6);
 	- Nested
 	- Unordered
 
+<LineNumbers />
+<CopyButton />
+
+```python
+print("hello")
+
+def exit():
+	pass
+```
+
 ###### Heading 6
+
+<CopyButton />
 
 ```css
 hr {
@@ -67,3 +92,12 @@ hr {
 ---
 
 test
+
+<LineNumbers />
+<CopyButton />
+
+```json
+{
+	"text": true
+}
+```

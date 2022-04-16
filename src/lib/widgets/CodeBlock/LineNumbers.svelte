@@ -9,7 +9,13 @@
 		if(global) {
 			document.body.classList.add("line-numbers");
 		}
-		container.nextElementSibling.classList.add("line-numbers");
+
+		let el = container;
+		while(el && el.nextElementSibling?.nodeName !== "PRE") {
+			el = el.nextElementSibling as HTMLElement;
+		}
+
+		el.nextElementSibling.classList.add("line-numbers");
 	});
 </script>
 

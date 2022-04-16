@@ -87,7 +87,7 @@
 
 <style>
 	.container {
-		position: absolute;
+		position: fixed;
 		height: 7em;    /* TODO make dependent on message height + a bit */
 		width: 30em;
 		bottom: 0;

@@ -3,12 +3,12 @@
 	import NavBar from "$lib/layout/NavBar/NavBar.svelte";
 	import type { NavItem } from "$lib/layout/NavBar/NavBar.svelte";
 	import Main from "$lib/layout/Main/Main.svelte";
+	import Content from "$lib/layout/Content/Content.svelte";
 	import Footer from "$lib/layout/Footer/Footer.svelte";
 
 	import { palette } from "$lib/theme";
 
 	import logo from "$lib/test/logo.demo.png";
-import Content from "$lib/layout/Content/Content.svelte";
 
 	let items: NavItem[] = [
 		{
