@@ -74,6 +74,10 @@
 	}
 </style>
 
+<svelte:head>
+	<title>@bojit/svelte-components</title>
+</svelte:head>
+
 <h3>Theme</h3>
 
 <RadioButtonGroup

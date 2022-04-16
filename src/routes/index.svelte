@@ -16,7 +16,11 @@
 	h3 {
 		padding: 1rem;
 	}
-</style>
+	</style>
+
+<svelte:head>
+	<title>@bojit/svelte-components</title>
+</svelte:head>
 
 <Dialog bind:value={showDialog}>
 	<h5 slot="title">Settings</h5>

@@ -9,6 +9,8 @@
 	import "$lib/widgets/CodeBlock/CodeLight.css";
 	import "$lib/widgets/CodeBlock/CodeDark.css";
 	import "prismjs/prism.js";
+	import "prismjs/plugins/line-numbers/prism-line-numbers.min.js";
+	import 'prismjs/plugins/line-numbers/prism-line-numbers.min.css';
 
 	export let theme: Palette = null;
 	export let load: null | ((resolve: (value: unknown) => void,

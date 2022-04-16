@@ -1,6 +1,11 @@
-<!-- <script>
+<svelte:head>
+	<title>PTR</title>
+</svelte:head>
+
+<script>
 	import CodeEditor from "$lib/widgets/CodeBlock/CodeEditor.svelte";
-</script> -->
+	import LineNumbers from "$lib/widgets/CodeBlock/LineNumbers.svelte";
+</script>
 
 # Heading 1
 
@@ -23,6 +28,9 @@ int main(uint8_t *main)
 
 Ad adipisicing `elit culpa adipisicing ea nulla magna ut. Ad` labore do enim voluptate quis do sint officia ea occaecat exercitation. Anim et cupidatat velit enim cillum labore mollit. Ad et occaecat do dolor aliquip fugiat sint tempor est duis aliquip. Ullamco id reprehenderit ea quis in aliquip irure ipsum sint labore ad proident reprehenderit. Id officia sunt fugiat consequat labore minim.
 
+
+<LineNumbers />
+
 ```js
 var x = 5;
 x.concat(6);
@@ -40,6 +48,8 @@ x.concat(6);
 ---
 
 ##### Heading 5
+
+<CodeEditor>let x = 1;</CodeEditor>
 
 1. Ordered
 2. List
