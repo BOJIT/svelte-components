@@ -43,7 +43,7 @@
 	}
 </script>
 
-<App theme={palette.midnight} load={loadCheck}>
+<App theme={palette.quirky} load={loadCheck}>
 	<NavBar title="Blog Entry" logo={logo} logoLink="https://github.com/BOJIT"
 		items={items}/>
 

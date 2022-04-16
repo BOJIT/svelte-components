@@ -3,7 +3,12 @@
 	import type { Palette } from "$lib/theme/theme";
 	import uiTheme, { palette } from "$lib/theme";
 	import SplashScreen from "$lib/core/SplashScreen/SplashScreen.svelte";
-import Notification from "../Notification/Notification.svelte";
+	import Notification from "../Notification/Notification.svelte";
+
+	/* Code highlighting */
+	import "$lib/widgets/CodeBlock/CodeLight.css";
+	import "$lib/widgets/CodeBlock/CodeDark.css";
+	import "prismjs/prism.js";
 
 	export let theme: Palette = null;
 	export let load: null | ((resolve: (value: unknown) => void,

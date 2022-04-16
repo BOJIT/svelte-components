@@ -101,7 +101,7 @@
 	}
 
 	/* Inline Code */
-	article :global(code) {
+	article :global(:not(pre) > code) {
 		border-radius: .125rem;
 		font-size: .875rem;
 		padding: .15rem .3rem;
@@ -112,10 +112,15 @@
 		font-family: var(--font-monospace);
 	}
 
-	:global(.mode-dark) article :global(code) {
+	:global(.mode-dark) article :global(:not(pre) > code) {
 		background-color: var(--color-primary-trans-light);
 		color: var(--color-primary-200);
 		font-family: var(--font-monospace);
+	}
+
+	/* Block Code overrides */
+	:global(pre[class*="language-"]) {
+		border-radius: 0.5em;
 	}
 
 	/* Separators */
