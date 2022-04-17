@@ -6,7 +6,7 @@
 
 import { browser } from "$app/env";
 
-(async function() {
+export default async function() {
 
 	if(browser) {
 
@@ -842,4 +842,4 @@ import { browser } from "$app/env";
 
 	}
 
-	})();
+}

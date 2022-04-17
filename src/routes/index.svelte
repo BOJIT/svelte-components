@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Button from "$lib/smelte/components/Button/Button.svelte";
 	import Dialog from "$lib/smelte/components/Dialog/Dialog.svelte";
+	import CodeEditor from "$lib/widgets/CodeEditor/CodeEditor.svelte";
 
 	import { message } from "$lib/core/Notification/Notification.svelte";
 
@@ -25,6 +26,7 @@
 <Dialog bind:value={showDialog}>
 	<h5 slot="title">Settings</h5>
 	<div class="text-gray-700">I'm not sure about today's weather.</div>
+	<CodeEditor />
 	<div slot="actions">
 	  <Button text on:click={() => showDialog = false}>Disagree</Button>
 	  <Button text on:click={() => showDialog = false}>Agree</Button>

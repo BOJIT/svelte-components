@@ -31,8 +31,11 @@
 /* Code blocks */
 .mode-dark pre[class*="language-"] {
 	padding: 1em;
-	margin: .5em 0;
 	overflow: auto;
+}
+
+article > pre[class*="language-"] {
+	margin: .5em 0;
 }
 
 .mode-dark :not(pre) > code[class*="language-"],

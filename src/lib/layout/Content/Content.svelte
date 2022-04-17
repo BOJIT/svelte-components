@@ -119,7 +119,11 @@
 	}
 
 	/* Block Code overrides */
-	:global(pre[class*="language-"]) {
+	article > :global(pre[class*="language-"]) {
+		border-radius: 0.5em;
+	}
+
+	article  > :global(div > pre[class*="language-"]) {
 		border-radius: 0.5em;
 	}
 

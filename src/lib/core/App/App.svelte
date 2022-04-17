@@ -6,8 +6,8 @@
 	import Notification from "../Notification/Notification.svelte";
 
 	/* Code highlighting - with some example languages */
-	import "$lib/widgets/CodeBlock/CodeLight.css";
-	import "$lib/widgets/CodeBlock/CodeDark.css";
+	import "$lib/widgets/CodeEditor/CodeLight.css";
+	import "$lib/widgets/CodeEditor/CodeDark.css";
 	import "prismjs/prism.js";
 	import "prismjs/plugins/line-numbers/prism-line-numbers.js";
 	import "prismjs/plugins/line-numbers/prism-line-numbers.css";
