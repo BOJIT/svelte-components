@@ -71,9 +71,7 @@ x.concat(6);
 
 <!-- <CodeEditor>let x = 1;</CodeEditor> -->
 
-<LineNumbers />
-
-<!-- <CodeEditor /> -->
+<CodeEditor lineNumbers={true} language="c"/>
 
 1. Ordered
 2. List
