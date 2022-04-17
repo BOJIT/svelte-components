@@ -16,6 +16,11 @@
 		}
 
 		el.nextElementSibling.classList.add("line-numbers");
+
+		/* Re-run prism highlighter */
+		if(typeof Prism !== 'undefined') {
+			Prism.highlightAll();
+		}
 	});
 </script>
 

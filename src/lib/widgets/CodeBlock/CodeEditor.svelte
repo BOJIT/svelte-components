@@ -3,8 +3,8 @@
 	// the syntax highlighters should be included automatically.
 	// When using standalone, include them manually.
 
-	import "./prism-live.js";
-	import "./prism-live.css";
+	// import "./prism-live.js";
+	// import "./prism-live.css";
 </script>
 
 <script lang="ts">

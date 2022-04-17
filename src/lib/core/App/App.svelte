@@ -9,13 +9,8 @@
 	import "$lib/widgets/CodeBlock/CodeLight.css";
 	import "$lib/widgets/CodeBlock/CodeDark.css";
 	import "prismjs/prism.js";
-	import "prismjs/plugins/line-numbers/prism-line-numbers.min.js";
-	import 'prismjs/plugins/line-numbers/prism-line-numbers.min.css';
-	import "prismjs/components/prism-bash.js";
-	import "prismjs/components/prism-c.js";
-	import "prismjs/components/prism-cpp.js";
-	import "prismjs/components/prism-json.js";
-	import "prismjs/components/prism-python.js";
+	import "prismjs/plugins/line-numbers/prism-line-numbers.js";
+	import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 
 	export let theme: Palette = null;
 	export let load: null | ((resolve: (value: unknown) => void,

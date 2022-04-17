@@ -6,6 +6,13 @@
 	import CodeEditor from "$lib/widgets/CodeBlock/CodeEditor.svelte";
 	import CopyButton from "$lib/widgets/CodeBlock/CopyButton.svelte";
 	import LineNumbers from "$lib/widgets/CodeBlock/LineNumbers.svelte";
+
+	import "prismjs/prism.js";
+	import "prismjs/components/prism-bash.js";
+	import "prismjs/components/prism-c.js";
+	import "prismjs/components/prism-cpp.js";
+	import "prismjs/components/prism-json.js";
+	import "prismjs/components/prism-python.js";
 </script>
 
 # Heading 1
@@ -63,7 +70,10 @@ x.concat(6);
 ##### Heading 5
 
 <!-- <CodeEditor>let x = 1;</CodeEditor> -->
-<CodeEditor code="Testing\nlet x = 1"/>
+
+<LineNumbers />
+
+<!-- <CodeEditor /> -->
 
 1. Ordered
 2. List
