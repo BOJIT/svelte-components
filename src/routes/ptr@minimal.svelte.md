@@ -19,6 +19,8 @@
 
 Excepteur aliquip `code` exercitation aliqua excepteur tempor id. Laborum id eiusmod excepteur occaecat culpa incididunt sit deserunt Lorem sint ipsum dolore. Aliqua aliquip amet ea cillum excepteur dolor laboris excepteur ea sint adipisicing.
 
+<CodeEditor lineNumbers={true} language="json" code={"{\n\t\n}"}/>
+
 ## Heading 2
 
 Magna [proident](https://github.com) consequat consequat ut non. Consectetur consequat duis ea amet ut [aliquip](https://example.com) ut sit cillum. Occaecat adipisicing pariatur sunt cillum.
@@ -68,10 +70,6 @@ x.concat(6);
 ---
 
 ##### Heading 5
-
-<!-- <CodeEditor>let x = 1;</CodeEditor> -->
-
-<CodeEditor lineNumbers={true} language="c"/>
 
 1. Ordered
 2. List
