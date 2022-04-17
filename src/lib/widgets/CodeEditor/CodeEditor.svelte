@@ -21,6 +21,21 @@
 	let edited = false;
 	let codeAtlastSave: string;
 
+	function handleKeydown(event) {
+		// Save override
+		if (navigator.userAgent.indexOf('Mac OS X') != -1) {
+			if(event.metaKey && event.which === 83) {
+				codeSaved();
+				event.preventDefault();
+			}
+		} else {
+			if(event.ctrlKey && event.which === 83) {
+				codeSaved();
+				event.preventDefault();
+			}
+		}
+	}
+
 	async function codeSaved() {
 		if(validationHook !== null) {
 			try {
@@ -57,6 +72,8 @@
 		}
 	});
 </script>
+
+<svelte:window on:keydown={handleKeydown}/>
 
 <div bind:this={button} class="button">
 	{#if edited }

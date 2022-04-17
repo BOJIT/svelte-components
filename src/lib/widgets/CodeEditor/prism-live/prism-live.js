@@ -5,23 +5,13 @@
 */
 
 import { browser } from "$app/env";
+import "blissfuljs/bliss.shy.min.js";
 
 export default async function() {
 
 	if(browser) {
 
 	const CURRENT_URL = document.currentScript? new URL(document.currentScript.src) : null;
-
-	if (!window.Bliss) {
-		// Load Bliss if not loaded
-		console.log("Bliss not loaded. Loading remotely from blissfuljs.com");
-
-		let bliss = document.createElement("script");
-		bliss.src = "https://blissfuljs.com/bliss.shy.min.js";
-		document.head.appendChild(bliss);
-
-		await new Promise(resolve => bliss.onload = resolve);
-	}
 
 	var $ = Bliss, $$ = Bliss.$;
 	var ready = Promise.resolve();
