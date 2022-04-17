@@ -5,7 +5,8 @@
 */
 
 import { browser } from "$app/env";
-import "blissfuljs/bliss.shy.min.js";
+
+import BlissGenerator from "./prism-bliss.shy.js";
 
 export default async function() {
 
@@ -13,6 +14,7 @@ export default async function() {
 
 	const CURRENT_URL = document.currentScript? new URL(document.currentScript.src) : null;
 
+	BlissGenerator();
 	var $ = Bliss, $$ = Bliss.$;
 	var ready = Promise.resolve();
 
