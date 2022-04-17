@@ -61,19 +61,9 @@
 			visibility: "mobile",
 		},
 	];
-
-	/* Example pre-page-loading routine */
-	async function loadCheck(resolve, reject) {
-		// Check browser compatibility
-		if('serial' in navigator) {
-			resolve();
-		} else {
-			reject("Web Serial API not supported in your browser!");
-		}
-	}
 </script>
 
-<App theme={palette.midnight} load={loadCheck}>
+<App theme={palette.midnight}>
 	<NavBar title="ploTTY" logo={logo} logoLink="https://github.com"
 		items={items}/>
 

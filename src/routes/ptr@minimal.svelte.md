@@ -62,7 +62,8 @@ x.concat(6);
 
 ##### Heading 5
 
-<CodeEditor>let x = 1;</CodeEditor>
+<!-- <CodeEditor>let x = 1;</CodeEditor> -->
+<CodeEditor code="Testing\nlet x = 1"/>
 
 1. Ordered
 2. List
