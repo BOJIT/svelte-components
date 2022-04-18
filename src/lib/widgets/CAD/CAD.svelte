@@ -5,13 +5,12 @@
 		},
 	*/
 	import { browser } from "$app/env";
-
-	// Need local import to treat as ES Module
-	import "./model-viewer/model-viewer.min.js";
+	import { onMount } from 'svelte';
 
 	export let geometry = null;
 	export let transparent = false;
 	export let aspect: string = "4:3";
+	export let rotate = false;
 
 	let padding = "0%";
 
@@ -19,19 +18,15 @@
 		let ratio = parseInt(aspect.split(':')[0]) / parseInt(aspect.split(':')[1]);
 		padding = (100 / ratio).toString().concat("%");
 	}
+
+	onMount(async () => {
+		await import('./model-viewer/model-viewer.min.js');
+	});
 </script>
 
-<svelte:head>
-	<!-- Patch for stopping SSR breaking on model-viewer load -->
-	{#if !browser }
-		<script>
-			var window = null;
-		</script>
-	{/if}
-</svelte:head>
-
 <div class="model-container" class:transparent style:padding-bottom={padding}>
-	<model-viewer src={geometry ? geometry : false} camera-controls />
+	<model-viewer src={geometry ? geometry : false}
+		camera-controls={!rotate || undefined} auto-rotate={rotate || undefined}/>
 </div>
 
 <style>

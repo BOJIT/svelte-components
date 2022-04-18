@@ -1,10 +1,6 @@
 <script lang="ts">
 	import Button from "$lib/smelte/components/Button/Button.svelte";
 	import Dialog from "$lib/smelte/components/Dialog/Dialog.svelte";
-	import CodeEditor from "$lib/widgets/CodeEditor/CodeEditor.svelte";
-	import CAD from "$lib/widgets/CAD/CAD.svelte";
-	import TestGeometry from "$lib/test/testGeometry.demo.glb";
-
 	import { message } from "$lib/core/Notification/Notification.svelte";
 
 	import RadioButtonGroup from "$lib/smelte/components/RadioButton/RadioButtonGroup.svelte";
@@ -28,7 +24,6 @@
 <Dialog bind:value={showDialog}>
 	<h5 slot="title">Settings</h5>
 	<div class="text-gray-700">I'm not sure about today's weather.</div>
-	<CodeEditor />
 	<div slot="actions">
 	  <Button text on:click={() => showDialog = false}>Disagree</Button>
 	  <Button text on:click={() => showDialog = false}>Agree</Button>
@@ -74,9 +69,5 @@
 		{ value: 'dark', label: 'Dark Mode' },
 		{ value: 'auto', label: 'Auto Mode'}
 	]} />
-
-
-<CAD geometry={TestGeometry} />
-
 
 <!----------------------------------------------------------------------------->

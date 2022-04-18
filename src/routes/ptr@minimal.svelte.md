@@ -7,7 +7,6 @@
 	import CopyButton from "$lib/widgets/CodeEditor/CopyButton.svelte";
 	import LineNumbers from "$lib/widgets/CodeEditor/LineNumbers.svelte";
 	import CAD from "$lib/widgets/CAD/CAD.svelte";
-	import TestGeometry from "$lib/test/testGeometry.demo.glb";
 
 	import "prismjs/prism.js";
 	import "prismjs/components/prism-bash.js";
@@ -27,9 +26,11 @@ Excepteur aliquip `code` exercitation aliqua excepteur tempor id. Laborum id eiu
 
 ## Heading 2
 
+<CAD geometry="https://cdn.bojit.org/files/glb/BOJIT_V3.glb" />
+
 Magna [proident](https://github.com) consequat consequat ut non. Consectetur consequat duis ea amet ut [aliquip](https://example.com) ut sit cillum.
 
-<CAD geometry={TestGeometry} />
+<CAD geometry="https://cdn.bojit.org/files/glb/kinectIP.glb" />
 
 Occaecat adipisicing pariatur sunt cillum.
 

@@ -12,6 +12,7 @@
 		width: 1000px;
 		margin: 0 auto;
 		margin-top: 1rem;
+		margin-bottom: 2rem;
 		box-sizing: border-box;
 		padding: 0 10px;
 	}
