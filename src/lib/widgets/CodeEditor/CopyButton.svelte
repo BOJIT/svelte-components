@@ -7,7 +7,10 @@
 	let button: HTMLElement;
 	let code: HTMLElement;
 
+	let icon = "content_copy";
+
 	function copyCode() {
+		icon = "done";
 		navigator.clipboard.writeText(code.textContent);
 		message.push({
 			type: "info",
@@ -15,6 +18,9 @@
 			message: "Text copied to clipboard",
 			timeout: 3,
 		});
+		setTimeout(() => {
+			icon = "content_copy";
+		}, 3000);
 	}
 
 	onMount(() => {
@@ -41,7 +47,7 @@
 
 <div bind:this={container}>
 	<div bind:this={button} class="button">
-		<Button icon="content_copy" iconColor={"var(--color-gray-500)"}
+		<Button icon={icon} iconColor={"var(--color-gray-500)"}
 			lozenge transparent on:click={copyCode}/>
 	</div>
 </div>

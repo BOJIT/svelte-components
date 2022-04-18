@@ -15,9 +15,10 @@
 	export let validationHook: null | ((resolve: (value: unknown) => void,
 								reject: (reason?: any) => void) => {}) = null;
 
-	let textarea: HTMLInputElement;
+	let textarea: HTMLTextAreaElement;
 	let button: HTMLElement;
 
+	let icon = "save";
 	let edited = false;
 	let codeAtlastSave: string;
 
@@ -40,6 +41,7 @@
 		if(validationHook !== null) {
 			try {
 				await new Promise(validationHook);
+				icon = 'done';
 			} catch (err) {
 				// Reset code to last save
 				textarea.value = codeAtlastSave;
@@ -47,11 +49,21 @@
 
 				textarea.dispatchEvent(event);
 				code = textarea.value;
+				icon = 'close';
 			}
+		} else {
+			icon = 'done';
 		}
 
 		codeAtlastSave = textarea.value;
-		edited = false;
+
+		setTimeout(() => {
+			edited = false;
+		}, 500);
+
+		setTimeout(() => {
+			icon = 'save';
+		}, 2000);
 	}
 
 	function codeChanged() {
@@ -78,7 +90,7 @@
 <div bind:this={button} class="button">
 	{#if edited }
 		<div transition:fade>
-			<Button icon="save" iconColor={"var(--color-gray-500)"}
+			<Button icon={icon} iconColor={"var(--color-gray-500)"}
 				lozenge transparent on:click={codeSaved}/>
 		</div>
 	{/if}
