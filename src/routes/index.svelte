@@ -2,6 +2,8 @@
 	import Button from "$lib/smelte/components/Button/Button.svelte";
 	import Dialog from "$lib/smelte/components/Dialog/Dialog.svelte";
 	import CodeEditor from "$lib/widgets/CodeEditor/CodeEditor.svelte";
+	import CAD from "$lib/widgets/CAD/CAD.svelte";
+	import TestGeometry from "$lib/test/testGeometry.demo.glb";
 
 	import { message } from "$lib/core/Notification/Notification.svelte";
 
@@ -73,6 +75,8 @@
 		{ value: 'auto', label: 'Auto Mode'}
 	]} />
 
+
+<CAD geometry={TestGeometry} />
 
 
 <!----------------------------------------------------------------------------->

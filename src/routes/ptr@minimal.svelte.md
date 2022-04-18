@@ -6,6 +6,8 @@
 	import CodeEditor from "$lib/widgets/CodeEditor/CodeEditor.svelte";
 	import CopyButton from "$lib/widgets/CodeEditor/CopyButton.svelte";
 	import LineNumbers from "$lib/widgets/CodeEditor/LineNumbers.svelte";
+	import CAD from "$lib/widgets/CAD/CAD.svelte";
+	import TestGeometry from "$lib/test/testGeometry.demo.glb";
 
 	import "prismjs/prism.js";
 	import "prismjs/components/prism-bash.js";
@@ -25,7 +27,11 @@ Excepteur aliquip `code` exercitation aliqua excepteur tempor id. Laborum id eiu
 
 ## Heading 2
 
-Magna [proident](https://github.com) consequat consequat ut non. Consectetur consequat duis ea amet ut [aliquip](https://example.com) ut sit cillum. Occaecat adipisicing pariatur sunt cillum.
+Magna [proident](https://github.com) consequat consequat ut non. Consectetur consequat duis ea amet ut [aliquip](https://example.com) ut sit cillum.
+
+<CAD geometry={TestGeometry} />
+
+Occaecat adipisicing pariatur sunt cillum.
 
 <LineNumbers />
 <CopyButton />

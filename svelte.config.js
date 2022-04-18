@@ -14,14 +14,15 @@ const config = {
 		adapter: adapter(),
 		package: {
 			files: (filepath) => {
-				if (filepath.endsWith(".demo.png")) return false;
-				if (filepath.endsWith(".stories.svelte")) return false;
-				if (filepath.endsWith(".stories.mdx")) return false;
+				if (filepath.includes(".demo.")) return false;
 				return true;
 			},
 		},
 		prerender: {
 			default: true
+		},
+		vite: {
+			assetsInclude: ['**/*.gltf', '**/*.glb'],
 		},
 	},
 };
