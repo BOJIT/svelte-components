@@ -127,6 +127,13 @@
 		border-radius: 0.5em;
 	}
 
+	/* CAD Editor overrides */
+	article > :global(.model-container) {
+		border-radius: 0.5em;
+		margin-top: 1rem;
+		margin-bottom: 1rem;
+	}
+
 	/* Separators */
 	article :global(hr) {
 		box-sizing: content-box;
