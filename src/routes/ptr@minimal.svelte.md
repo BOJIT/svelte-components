@@ -15,14 +15,17 @@
 	import "prismjs/components/prism-json.js";
 	import "prismjs/components/prism-python.js";
 
-	let code = "{\n\t\n}";
+	let codeA = "let x = {\n\t\n}";
+	let codeB = "{\n\t\n}";
 </script>
 
 # Heading 1
 
+<CodeEditor lineNumbers={true} language="js" bind:code={codeA}/>
+
 Excepteur aliquip `code` exercitation aliqua excepteur tempor id. Laborum id eiusmod excepteur occaecat culpa incididunt sit deserunt Lorem sint ipsum dolore. Aliqua aliquip amet ea cillum excepteur dolor laboris excepteur ea sint adipisicing.
 
-<CodeEditor lineNumbers={true} language="json" bind:code/>
+<CodeEditor lineNumbers={true} language="json" bind:code={codeB}/>
 
 ## Heading 2
 

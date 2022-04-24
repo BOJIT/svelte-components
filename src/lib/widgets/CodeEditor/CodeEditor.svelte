@@ -24,15 +24,17 @@
 
 	function handleKeydown(event) {
 		// Save override
-		if (navigator.userAgent.indexOf('Mac OS X') != -1) {
-			if(event.metaKey && event.which === 83) {
-				codeSaved();
-				event.preventDefault();
-			}
-		} else {
-			if(event.ctrlKey && event.which === 83) {
-				codeSaved();
-				event.preventDefault();
+		if(document.activeElement === textarea) {
+			if (navigator.userAgent.indexOf('Mac OS X') != -1) {
+				if(event.metaKey && event.which === 83) {
+					codeSaved();
+					event.preventDefault();
+				}
+			} else {
+				if(event.ctrlKey && event.which === 83) {
+					codeSaved();
+					event.preventDefault();
+				}
 			}
 		}
 	}
@@ -97,7 +99,7 @@
 </div>
 
 <textarea bind:this={textarea} class="prism-live language-{language}"
-	class:line-numbers={lineNumbers} on:input={codeChanged} />
+	class:line-numbers={lineNumbers} on:input={codeChanged}/>
 
 <style>
 	.button {
