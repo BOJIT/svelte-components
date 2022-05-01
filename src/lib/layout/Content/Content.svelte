@@ -122,10 +122,12 @@
 	/* Block Code overrides */
 	article > :global(pre[class*="language-"]) {
 		border-radius: 0.5em;
+		margin-bottom: 0.5rem;
 	}
 
 	article  > :global(div > pre[class*="language-"]) {
 		border-radius: 0.5em;
+		margin-bottom: 0.5rem;
 	}
 
 	/* CAD Editor overrides */

@@ -169,7 +169,6 @@ function swatchColor(idx) {
  * @brief Returns only once the theme has initialised
  */
 async function ready(timeout: number) {
-	console.log("THEME");
 	var start = Date.now();
 	return new Promise(waitUntilReady);
 

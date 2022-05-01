@@ -4,6 +4,7 @@
 	import 'simplebar/dist/simplebar.css';
 
 	import theme from "$lib/theme";
+	import type { SvelteComponent } from 'svelte';
 
 	/* Callback for tab click event */
 	function handleClick(idx: number) {
@@ -14,10 +15,10 @@
 		tabline.style.cssText = theme.swatchColor(idx);
 	}
 
-	/* Array of panel objects - see template above for structure */
-	export let tabs : string[];
-
-	// export let enclosed = false;
+	/* Array of tabs */
+	export let tabs : string[] = [];
+	export let components: SvelteComponent[] = null;
+	export let componentProps: object[] = null;
 
 	/* Keep track of current tab index */
 	export let index = 0;
@@ -25,23 +26,46 @@
 	let tabline: HTMLElement;
 </script>
 
-{#await theme.ready(1000) then value}
-<div data-simplebar>
-	<ul class="tabs">
-		<!-- Render each tab - updates when the list updates -->
-		{#each tabs as tab, idx}
-			<li style={theme.swatchColor(idx)} class="tab transition" class:is-active={idx == index}
-			on:click={() => handleClick(idx)} href="{void(0)}">
-				<h6>{tab}</h6>
-			</li>
+<div class="container">
+
+	{#await theme.ready(1000) then value}
+	<div data-simplebar>
+		<ul class="tabs">
+			<!-- Render each tab - updates when the list updates -->
+			{#each tabs as tab, idx}
+				<li style={theme.swatchColor(idx)} class="tab transition" class:is-active={idx == index}
+				on:click={() => handleClick(idx)} href="{void(0)}">
+					<h6 class="unselectable">{tab}</h6>
+				</li>
+			{/each}
+		</ul>
+		<hr bind:this={tabline} class="tabline transition" style={theme.swatchColor(index)}>
+	</div>
+	{/await}
+
+	{#if components != null}
+		{#each components as component, idx}
+			<div class="content" class:visible={idx == index}>
+				{#if componentProps[idx] && (typeof componentProps[idx] == "object")}
+					<svelte:component this={component} {...componentProps[idx]}/>
+				{:else}
+					<svelte:component this={component} />
+				{/if}
+			</div>
 		{/each}
-	</ul>
-	<hr bind:this={tabline} class="tabline transition" style={theme.swatchColor(index)}>
+	{/if}
+
 </div>
-{/await}
 
 <style>
+	.container {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+	}
+
 	.tabs {
+		flex: 0 0 auto;
 		overflow-x: scroll;
 		scrollbar-width: none;
 		display: flex;
@@ -87,5 +111,26 @@
 
 	:global(.mode-dark) .tabline {
 		border-color: var(--color-swatch-base-dark);
+	}
+
+	.content {
+		flex: 5 0 auto;
+		height: 100%;
+		width: 100%;
+		display: none;
+	}
+
+	.content.visible {
+		display: block;
+	}
+
+
+	.unselectable {
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
 	}
 </style>
