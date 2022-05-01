@@ -18,24 +18,26 @@ type Palette = {
 		background?: {
 			light: string,
 			dark: string
-		}
+		},
+	},
 
-		palette?: {
-			light: string[],
-			dark: string[]
-		}
-	}
+	swatch?: {
+		light: string[],
+		dark: string[],
+	},
 
 	fonts?: {
 		headings?: string,
 		body?: string,
-		monospace?: string
+		monospace?: string,
 	}
 }
 
 type ThemeMode = "light" | "dark" | "auto";
 
 /*-------------------------------- Private -----------------------------------*/
+
+let local_palette: Palette;	// Palette for reference
 
 /* Get OS Light/Dark Mode */
 function getOSTheme() {
@@ -55,6 +57,7 @@ const smelteDark = smelteTheme();
 
 const mode_store = writable(DEFAULT_THEME_MODE as ThemeMode);
 const os_store = writable(getOSTheme() as ThemeMode);
+const swatch_store = writable([] as string[]);
 
 /* Handle window theme change without page refresh */
 if(browser) {
@@ -83,10 +86,16 @@ state_store.subscribe((s) => {
 	switch(s) {
 		case "light":
 			smelteDark.set(false);
+			if(local_palette?.swatch !== undefined) {
+				swatch_store.set(local_palette.swatch.light);
+			}
 			break;
 
 		case "dark":
 			smelteDark.set(true);
+			if(local_palette?.swatch !== undefined) {
+				swatch_store.set(local_palette.swatch.dark);
+			}
 			break;
 	}
 });
@@ -95,10 +104,11 @@ state_store.subscribe((s) => {
 
 /**
  * @brief Initialise theme stores
- * @param palette Optional colour palette to override default theme
+ * @param palette Optional config to override default theme
  */
 function init(palette?: Palette) {
-	// TODO process palette
+	local_palette = palette;
+
 	const cols = flattenObj(generatePalette(flattenObj(palette.colours)));
 
 	for (const [key , val] of Object.entries(cols)) {
@@ -113,14 +123,23 @@ function init(palette?: Palette) {
 		}
 	}
 
+	if(palette.swatch !== undefined) {
+		swatch_store.set(palette.swatch[DEFAULT_THEME_MODE]);
+	}
 }
 
+
 /**
- * @brief Get palette colour (not part of main colourset)
- * @param idx Index of palette colour. This will wrap round at end of palette
+ * @brief Get swatch colour in length-safe manner
+ * @param cols colour array - typically the swatch store
+ * @param idx index to extract
  */
-function palette(idx: number) {
-	// TODO
+function swatchColor(cols, idx) {
+	if(cols.length == 0) {
+		return "#FF0000";	// Error: swatch not properly initialised
+	} else {
+		return cols[idx % cols.length];
+	}
 }
 
 /*-------------------------------- Private -----------------------------------*/
@@ -159,7 +178,8 @@ export type { Palette };
 
 export default {
 	Mode: mode_store,
+	Swatch: swatch_store,
+	swatchColor,
 	subscribe: state_store.subscribe,
 	init,
-	palette,
 }

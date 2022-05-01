@@ -3,12 +3,8 @@
 	import 'simplebar';
 	import 'simplebar/dist/simplebar.css';
 
-	import createRipple from "$lib/smelte/components/Ripple/ripple.js";
-
 	import theme from "$lib/theme";
-import Button from '$lib/smelte/components/Button/Button.svelte';
-
-	const ripple = createRipple("white");
+	const swatch = theme.Swatch;
 
 	/* Callback for tab click event */
 	function handleClick(idx) {
@@ -29,17 +25,17 @@ import Button from '$lib/smelte/components/Button/Button.svelte';
 		<!-- Render each tab - updates when the list updates -->
 		{#each tabs as tab, idx}
 			<li class="tab transition" class:is-active={idx == index}
+				style="background-color: {theme.swatchColor($swatch, idx)}"
 			on:click={() => handleClick(idx)} href="{void(0)}">
 				<h6>{tab}</h6>
 			</li>
 		{/each}
 	</ul>
-	<hr class="tabline">
+	<hr class="tabline" style="border-color: {theme.swatchColor($swatch, index)}">
 </div>
 
 <style>
 	.tabs {
-		/* flex: 0 0 auto; */
 		overflow-x: scroll;
 		scrollbar-width: none;
 		display: flex;

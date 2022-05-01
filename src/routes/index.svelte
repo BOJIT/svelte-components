@@ -28,6 +28,18 @@
 <Tabs tabs={[
 	"Test",
 	"Name",
+	"Name",
+	"Name",
+	"Name",
+	"Name",
+	"Name",
+	"Name",
+	"Name",
+	"Name",
+	"Name",
+	"Name",
+	"Name",
+	"Name",
 ]}/>
 
 <!-- <h3>Theme</h3>
