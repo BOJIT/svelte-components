@@ -1,7 +1,7 @@
 {
   "name": "@bojit/svelte-components",
   "private": false,
-  "version": "0.3.3",
+  "version": "0.3.4",
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
