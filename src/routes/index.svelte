@@ -2,6 +2,7 @@
 	import Button from "$lib/smelte/components/Button/Button.svelte";
 	import Dialog from "$lib/smelte/components/Dialog/Dialog.svelte";
 	import { message } from "$lib/core/Notification/Notification.svelte";
+	import Tabs from "$lib/widgets/Tabs/Tabs.svelte";
 
 	import RadioButtonGroup from "$lib/smelte/components/RadioButton/RadioButtonGroup.svelte";
 
@@ -10,12 +11,6 @@
 
 	let showDialog = false;
 </script>
-
-<style>
-	h3 {
-		padding: 1rem;
-	}
-	</style>
 
 <svelte:head>
 	<title>@bojit/svelte-components</title>
@@ -30,7 +25,12 @@
 	</div>
 </Dialog>
 
-<h3>Theme</h3>
+<Tabs tabs={[
+	"Test",
+	"Name",
+]}/>
+
+<!-- <h3>Theme</h3>
 
 <div>
 	<Button color="blue" on:click={() => {
@@ -68,6 +68,6 @@
 		{ value: 'light', label: 'Light Mode' },
 		{ value: 'dark', label: 'Dark Mode' },
 		{ value: 'auto', label: 'Auto Mode'}
-	]} />
+	]} /> -->
 
 <!----------------------------------------------------------------------------->
