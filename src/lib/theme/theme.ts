@@ -4,6 +4,7 @@ import { browser } from '$app/env';
 import { derived, writable } from 'svelte/store';
 import smelteTheme from '../smelte/dark';
 import generatePalette from '../smelte/utils/color';
+import tinycolor from 'tinycolor2';
 
 /*--------------------------------- Types ------------------------------------*/
 
@@ -37,8 +38,6 @@ type ThemeMode = "light" | "dark" | "auto";
 
 /*-------------------------------- Private -----------------------------------*/
 
-let local_palette: Palette;	// Palette for reference
-
 /* Get OS Light/Dark Mode */
 function getOSTheme() {
 	if(browser) {
@@ -54,10 +53,11 @@ function getOSTheme() {
 
 const DEFAULT_THEME_MODE: ThemeMode = "dark";
 const smelteDark = smelteTheme();
+let swatchLength: number;
+let themeReady = false;
 
 const mode_store = writable(DEFAULT_THEME_MODE as ThemeMode);
 const os_store = writable(getOSTheme() as ThemeMode);
-const swatch_store = writable([] as string[]);
 
 /* Handle window theme change without page refresh */
 if(browser) {
@@ -86,16 +86,10 @@ state_store.subscribe((s) => {
 	switch(s) {
 		case "light":
 			smelteDark.set(false);
-			if(local_palette?.swatch !== undefined) {
-				swatch_store.set(local_palette.swatch.light);
-			}
 			break;
 
 		case "dark":
 			smelteDark.set(true);
-			if(local_palette?.swatch !== undefined) {
-				swatch_store.set(local_palette.swatch.dark);
-			}
 			break;
 	}
 });
@@ -107,8 +101,6 @@ state_store.subscribe((s) => {
  * @param palette Optional config to override default theme
  */
 function init(palette?: Palette) {
-	local_palette = palette;
-
 	const cols = flattenObj(generatePalette(flattenObj(palette.colours)));
 
 	for (const [key , val] of Object.entries(cols)) {
@@ -124,21 +116,70 @@ function init(palette?: Palette) {
 	}
 
 	if(palette.swatch !== undefined) {
-		swatch_store.set(palette.swatch[DEFAULT_THEME_MODE]);
+		for (const [key , val] of Object.entries(palette.swatch)) {
+			val.forEach((el, idx) => {
+				let t = tinycolor(el);
+				setCssVar("swatch-base-" + idx + "-" + key, el, "--color-");
+				setCssVar("swatch-lighter-" + idx + "-" + key, t.lighten().toHexString(), "--color-");
+				setCssVar("swatch-darker-" + idx + "-" + key, t.darken().toHexString(), "--color-");
+				if(t.getLuminance() > 0.179) {
+					setCssVar("swatch-text-" + idx + "-" + key, "#000000", "--color-");
+				} else {
+					setCssVar("swatch-text-" + idx + "-" + key, "#FFFFFF", "--color-");
+				}
+			});
+
+			if((swatchLength == undefined) || (val.length) < swatchLength) {
+				swatchLength = val.length;
+			}
+		}
+	} else {
+		swatchLength = 0;
 	}
+
+	// Set theme as ready
+	themeReady = true;
 }
 
 
 /**
- * @brief Get swatch colour in length-safe manner
- * @param cols colour array - typically the swatch store
+ * @brief Get swatch colour in length-safe manner. Add as inline style
  * @param idx index to extract
  */
-function swatchColor(cols, idx) {
-	if(cols.length == 0) {
-		return "#FF0000";	// Error: swatch not properly initialised
+function swatchColor(idx) {
+	if((swatchLength == undefined) || (swatchLength == 0)) {
+		return "";	// Error: swatch not properly initialised
 	} else {
-		return cols[idx % cols.length];
+		const new_idx = idx % swatchLength;
+		const vars = [
+			"--color-swatch-base-light: var(--color-swatch-base-" + new_idx + "-light)",
+			"--color-swatch-lighter-light: var(--color-swatch-lighter-" + new_idx + "-light)",
+			"--color-swatch-darker-light: var(--color-swatch-darker-" + new_idx + "-light)",
+			"--color-swatch-text-light: var(--color-swatch-text-" + new_idx + "-light)",
+			"--color-swatch-base-dark: var(--color-swatch-base-" + new_idx + "-dark)",
+			"--color-swatch-lighter-dark: var(--color-swatch-lighter-" + new_idx + "-dark)",
+			"--color-swatch-darker-dark: var(--color-swatch-darker-" + new_idx + "-dark)",
+			"--color-swatch-text-dark: var(--color-swatch-text-" + new_idx + "-dark)",
+		];
+		return vars.join(';');
+	}
+}
+
+/**
+ * @brief Returns only once the theme has initialised
+ */
+async function ready(timeout: number) {
+	console.log("THEME");
+	var start = Date.now();
+	return new Promise(waitUntilReady);
+
+	function waitUntilReady(resolve, reject) {
+		if(themeReady)
+			resolve();
+		else if(timeout && (Date.now() - start) >= timeout)
+			reject(new Error("timeout"));
+		else
+			setTimeout(waitUntilReady.bind(this, resolve, reject), 30);
 	}
 }
 
@@ -178,8 +219,8 @@ export type { Palette };
 
 export default {
 	Mode: mode_store,
-	Swatch: swatch_store,
 	swatchColor,
+	ready,
 	subscribe: state_store.subscribe,
 	init,
 }
