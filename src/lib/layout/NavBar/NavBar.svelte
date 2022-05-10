@@ -41,10 +41,12 @@
 
 	<div class="nav-left">
 		<h1 class:dark={$theme == 'dark'}>{title}</h1>
+        <slot name = "nav-left"/>
 	</div>
 
 	<!-- Navbar Right-Hand Side -->
 	<div class="nav-right">
+        <slot name = "nav-right"/>
 		{#each items as item}
 			<div class:mobile={item.visibility === "mobile"} class:desktop={item.visibility === "desktop"}>
 				{#if item.type === "button"}
