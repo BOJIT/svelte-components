@@ -1,52 +1,57 @@
 <script lang="ts">
-	import "$lib/global.css";
-	import type { Palette } from "$lib/theme/theme";
-	import uiTheme, { palette } from "$lib/theme";
-	import SplashScreen from "$lib/core/SplashScreen/SplashScreen.svelte";
-	import Notification from "../Notification/Notification.svelte";
+    /**
+     * @note Relative imports currently required for css files to package correctly:
+     * https://github.com/sveltejs/kit/issues/1950
+    */
+    import "../../global.css";
 
-	/* Code highlighting - with some example languages */
-	import "$lib/widgets/CodeEditor/CodeLight.css";
-	import "$lib/widgets/CodeEditor/CodeDark.css";
-	import "prismjs/prism.js";
-	import "prismjs/plugins/line-numbers/prism-line-numbers.js";
-	import "prismjs/plugins/line-numbers/prism-line-numbers.css";
+    import type { Palette } from "$lib/theme/theme";
+    import uiTheme, { palette } from "$lib/theme";
+    import SplashScreen from "$lib/core/SplashScreen/SplashScreen.svelte";
+    import Notification from "../Notification/Notification.svelte";
 
-	export let theme: Palette = null;
-	export let load: null | ((resolve: (value: unknown) => void,
-								reject: (reason?: any) => void) => {}) = null;
+    /* Code highlighting - with some example languages */
+    import "../../widgets/CodeEditor/CodeLight.css";
+    import "../../widgets/CodeEditor/CodeDark.css";
+    import "prismjs/prism.js";
+    import "prismjs/plugins/line-numbers/prism-line-numbers.js";
+    import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 
-	async function loadCheck(resolve, reject) {
-		// Set theme
-		if(theme !== null) {
-			uiTheme.init(theme);
-		} else {
-			uiTheme.init(palette.midnight);	// Default Theme
-		}
+    export let theme: Palette = null;
+    export let load: null | ((resolve: (value: unknown) => void,
+                                reject: (reason?: any) => void) => {}) = null;
 
-		if(load !== null) {
-			try {
-				await new Promise(load);
-				resolve();
-			} catch (err) {
-				reject(err);
-			}
-		} else {
-			resolve();
-		}
-	}
+    async function loadCheck(resolve, reject) {
+        // Set theme
+        if(theme !== null) {
+            uiTheme.init(theme);
+        } else {
+            uiTheme.init(palette.midnight); // Default Theme
+        }
+
+        if(load !== null) {
+            try {
+                await new Promise(load);
+                resolve();
+            } catch (err) {
+                reject(err);
+            }
+        } else {
+            resolve();
+        }
+    }
 </script>
 
 <SplashScreen load={loadCheck}/>
 <div class="app">
-	<slot />
+    <slot />
 </div>
 <Notification />
 
 <style>
-	.app {
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-	}
+    .app {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
 </style>
