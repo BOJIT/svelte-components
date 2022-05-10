@@ -4,13 +4,11 @@
     @author Lea Verou
 */
 
-import { browser } from "$app/env";
-
 import BlissGenerator from "./prism-bliss.shy.js";
 
 export default async function() {
 
-    if(browser) {
+    if(typeof window !== 'undefined') {
 
     const CURRENT_URL = document.currentScript? new URL(document.currentScript.src) : null;
 

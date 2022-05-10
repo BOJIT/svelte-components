@@ -4,13 +4,15 @@
             assetsInclude: ['**[backslash]*.gltf', '**[backslash]*.glb'],
         },
     */
-    import { browser } from "$app/env";
     import { onMount } from 'svelte';
+
+    // import("focus-visible/dist/focus-visible.min.js");   // Polyfill
 
     export let geometry = null;
     export let transparent = false;
     export let aspect: string = "4:3";
     export let rotate = false;
+    export let pan = true;
 
     let padding = "0%";
 
@@ -19,13 +21,38 @@
         padding = (100 / ratio).toString().concat("%");
     }
 
+    let zoomable = false;
+    let click_start: number = Date.now();
+    let model_container: HTMLElement;
+
+    function mousedown() {
+        click_start = Date.now();
+    }
+
+    function mouseup() {
+        if(zoomable === false)
+            zoomable = true;
+        else {
+            if((Date.now() - click_start) < 200)
+                zoomable = false;
+        }
+    }
+
     onMount(async () => {
         await import('./model-viewer/model-viewer.min.js');
+
+        window.addEventListener('mouseup', function(event) {
+        if (event.target != model_container && event.target.parentNode != model_container) {
+            zoomable = false;
+        }
+    });
     });
 </script>
 
-<div class="model-container" class:transparent style:padding-bottom={padding}>
+<div class="model-container" class:transparent class:zoomable style:padding-bottom={padding}
+            bind:this={model_container} on:mousedown={mousedown} on:mouseup={mouseup}>
     <model-viewer src={geometry ? geometry : false}
+        disable-zoom={!zoomable || undefined} enable-pan={pan || undefined}
         camera-controls={!rotate || undefined} auto-rotate={rotate || undefined}/>
 </div>
 
@@ -46,6 +73,13 @@
         position: relative;
 
         background-color: #f5f2f0;
+
+        transition:border-color .2s ease-in;
+        -moz-transition:border-color .2s ease-in;
+        -o-transition:border-color .2s ease-in;
+        -webkit-transition:border-color .2s ease-in;
+        border-width: 0.1em;
+        border-color: transparent;
     }
 
     :global(.mode-dark) .model-container {
@@ -54,6 +88,14 @@
 
     .model-container.transparent {
         background-color: transparent;
+    }
+
+    .model-container.zoomable {
+        border-color: var(--color-primary-50);
+    }
+
+    :global(.mode-dark) .model-container.zoomable {
+        border-color: var(--color-primary-500);
     }
 </style>
 

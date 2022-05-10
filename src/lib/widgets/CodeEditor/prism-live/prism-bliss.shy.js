@@ -1,9 +1,7 @@
-import { browser } from "$app/env";
-
 export default function() {
 "use strict";
 
-if(browser) {
+if(typeof window !== 'undefined') {
 
 function overload(callback, start, end) {
     start = start === undefined ? 1 : start;

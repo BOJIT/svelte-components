@@ -1,6 +1,5 @@
 /*-------------------------------- Imports -----------------------------------*/
 
-import { browser } from '$app/env';
 import { derived, writable } from 'svelte/store';
 import smelteTheme from '../smelte/dark';
 import generatePalette from '../smelte/utils/color';
@@ -40,7 +39,7 @@ type ThemeMode = "light" | "dark" | "auto";
 
 /* Get OS Light/Dark Mode */
 function getOSTheme() {
-    if(browser) {
+    if(typeof window !== 'undefined') {
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             return "dark";
         } else {
@@ -60,7 +59,7 @@ const mode_store = writable(DEFAULT_THEME_MODE as ThemeMode);
 const os_store = writable(getOSTheme() as ThemeMode);
 
 /* Handle window theme change without page refresh */
-if(browser) {
+if(typeof window !== 'undefined') {
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
         os_store.set(getOSTheme());
     });
@@ -207,7 +206,7 @@ function flattenObj(obj: object) {
 function setCssVar(key: string, val: any, prefix: string) {
     const name = prefix.concat(key.split(/(?=[A-Z])/).join('-').toLowerCase());
 
-    if(browser) {
+    if(typeof window !== 'undefined') {
         document.documentElement.style.setProperty(name, val);
     }
 }
