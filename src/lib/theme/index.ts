@@ -6,9 +6,9 @@ import evergreen from './palette/evergreen';
 import midnight from './palette/midnight';
 
 const palette = {
-	quirky,
-	evergreen,
-	midnight,
+    quirky,
+    evergreen,
+    midnight,
 }
 
 export default theme;

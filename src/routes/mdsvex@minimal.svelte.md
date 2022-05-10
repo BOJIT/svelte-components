@@ -1,22 +1,22 @@
 <svelte:head>
-	<title>MDSVex Demo</title>
+    <title>MDSVex Demo</title>
 </svelte:head>
 
 <script>
-	import CodeEditor from "$lib/widgets/CodeEditor/CodeEditor.svelte";
-	import CopyButton from "$lib/widgets/CodeEditor/CopyButton.svelte";
-	import LineNumbers from "$lib/widgets/CodeEditor/LineNumbers.svelte";
-	import CAD from "$lib/widgets/CAD/CAD.svelte";
+    import CodeEditor from "$lib/widgets/CodeEditor/CodeEditor.svelte";
+    import CopyButton from "$lib/widgets/CodeEditor/CopyButton.svelte";
+    import LineNumbers from "$lib/widgets/CodeEditor/LineNumbers.svelte";
+    import CAD from "$lib/widgets/CAD/CAD.svelte";
 
-	import "prismjs/prism.js";
-	import "prismjs/components/prism-bash.js";
-	import "prismjs/components/prism-c.js";
-	import "prismjs/components/prism-cpp.js";
-	import "prismjs/components/prism-json.js";
-	import "prismjs/components/prism-python.js";
+    import "prismjs/prism.js";
+    import "prismjs/components/prism-bash.js";
+    import "prismjs/components/prism-c.js";
+    import "prismjs/components/prism-cpp.js";
+    import "prismjs/components/prism-json.js";
+    import "prismjs/components/prism-python.js";
 
-	let codeA = "let x = {\n\t\n}";
-	let codeB = "{\n\t\n}";
+    let codeA = "let x = {\n\t\n}";
+    let codeB = "{\n\t\n}";
 </script>
 
 # Title of Article
@@ -29,10 +29,10 @@ This is a basic demo of using `Svelte` components in markdown. Links look like [
 
 - Ordered List
 - Test
-	1. Nested
-	2. List
-		1. Test
-		2. TEST
+    1. Nested
+    2. List
+        1. Test
+        2. TEST
 
 ---
 
@@ -40,8 +40,8 @@ This is a basic demo of using `Svelte` components in markdown. Links look like [
 
 1. Ordered
 2. List
-	- Nested
-	- Unordered
+    - Nested
+    - Unordered
 
 
 ## Syntax highlighting
@@ -56,7 +56,7 @@ uint8_t test = {4, 5, 7};
 
 int main(uint8_t *main)
 {
-	test[4] = 5;
+    test[4] = 5;
 }
 ```
 

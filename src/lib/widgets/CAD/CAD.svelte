@@ -1,59 +1,59 @@
 <script lang="ts">
-	/* You may need to add the following to your SvelteKit config:
-		vite: {
-			assetsInclude: ['**[backslash]*.gltf', '**[backslash]*.glb'],
-		},
-	*/
-	import { browser } from "$app/env";
-	import { onMount } from 'svelte';
+    /* You may need to add the following to your SvelteKit config:
+        vite: {
+            assetsInclude: ['**[backslash]*.gltf', '**[backslash]*.glb'],
+        },
+    */
+    import { browser } from "$app/env";
+    import { onMount } from 'svelte';
 
-	export let geometry = null;
-	export let transparent = false;
-	export let aspect: string = "4:3";
-	export let rotate = false;
+    export let geometry = null;
+    export let transparent = false;
+    export let aspect: string = "4:3";
+    export let rotate = false;
 
-	let padding = "0%";
+    let padding = "0%";
 
-	$: {
-		let ratio = parseInt(aspect.split(':')[0]) / parseInt(aspect.split(':')[1]);
-		padding = (100 / ratio).toString().concat("%");
-	}
+    $: {
+        let ratio = parseInt(aspect.split(':')[0]) / parseInt(aspect.split(':')[1]);
+        padding = (100 / ratio).toString().concat("%");
+    }
 
-	onMount(async () => {
-		await import('./model-viewer/model-viewer.min.js');
-	});
+    onMount(async () => {
+        await import('./model-viewer/model-viewer.min.js');
+    });
 </script>
 
 <div class="model-container" class:transparent style:padding-bottom={padding}>
-	<model-viewer src={geometry ? geometry : false}
-		camera-controls={!rotate || undefined} auto-rotate={rotate || undefined}/>
+    <model-viewer src={geometry ? geometry : false}
+        camera-controls={!rotate || undefined} auto-rotate={rotate || undefined}/>
 </div>
 
 <style>
-	model-viewer {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0; bottom: 0; left: 0; right: 0;
-	}
+    model-viewer {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0; bottom: 0; left: 0; right: 0;
+    }
 
-	:global(:root) {
-		--poster-color: transparent;
-	}
+    :global(:root) {
+        --poster-color: transparent;
+    }
 
-	.model-container {
-		width: 100%;
-		position: relative;
+    .model-container {
+        width: 100%;
+        position: relative;
 
-		background-color: #f5f2f0;
-	}
+        background-color: #f5f2f0;
+    }
 
-	:global(.mode-dark) .model-container {
-		background-color: #2d2d2d;
-	}
+    :global(.mode-dark) .model-container {
+        background-color: #2d2d2d;
+    }
 
-	.model-container.transparent {
-		background-color: transparent;
-	}
+    .model-container.transparent {
+        background-color: transparent;
+    }
 </style>
 

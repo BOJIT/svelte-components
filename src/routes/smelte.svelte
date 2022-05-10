@@ -1,93 +1,93 @@
 <script lang="ts">
-	import {
-		Button,
-		TextField,
-		Checkbox,
-		RadioButtonGroup,
-		Switch,
-		List,
-		Select,
-		Slider,
-		Tooltip
-	} from "$lib/smelte";
+    import {
+        Button,
+        TextField,
+        Checkbox,
+        RadioButtonGroup,
+        Switch,
+        List,
+        Select,
+        Slider,
+        Tooltip
+    } from "$lib/smelte";
 
-	import theme from "$lib/theme";
-	const mode = theme.Mode;
+    import theme from "$lib/theme";
+    const mode = theme.Mode;
 
-	// Lists
-	const listOneLine = [{
-		text: 'Item 1',
-		icon: 'favorite',
-	}, {
-		text: 'Item 2',
-		icon: 'favorite',
-	}, {
-		text: 'Item 3',
-		icon: 'favorite',
-	}];
+    // Lists
+    const listOneLine = [{
+        text: 'Item 1',
+        icon: 'favorite',
+    }, {
+        text: 'Item 2',
+        icon: 'favorite',
+    }, {
+        text: 'Item 3',
+        icon: 'favorite',
+    }];
 
-	const listTwoLines = [{
-		text: 'Item 1',
-		icon: 'favorite',
-		subheading: 'Subheading 1',
-	}, {
-		text: 'Item 2',
-		icon: 'favorite',
-		subheading: 'Subheading 2',
-	}, {
-		text: 'Item 3',
-		icon: 'favorite',
-		subheading: 'Subheading 3',
-	}];
+    const listTwoLines = [{
+        text: 'Item 1',
+        icon: 'favorite',
+        subheading: 'Subheading 1',
+    }, {
+        text: 'Item 2',
+        icon: 'favorite',
+        subheading: 'Subheading 2',
+    }, {
+        text: 'Item 3',
+        icon: 'favorite',
+        subheading: 'Subheading 3',
+    }];
 
-	// Selects
-	let value1 = "";
-	let value2 = "";
-	let value3 = "";
-	let value4 = "";
+    // Selects
+    let value1 = "";
+    let value2 = "";
+    let value3 = "";
+    let value4 = "";
 
-	let showList = false;
+    let showList = false;
 
-	const items = [
-		{ value: 1, text: "One" },
-		{ value: 2, text: "Two" },
-		{ value: 3, text: "Three" },
-		{ value: 4, text: "Four" },
-	];
+    const items = [
+        { value: 1, text: "One" },
+        { value: 2, text: "Two" },
+        { value: 3, text: "Three" },
+        { value: 4, text: "Four" },
+    ];
 
-	let selectedItems = [];
+    let selectedItems = [];
 
-	function toggle(i) {
-		return v => v.detail
-		? selectedItems.push(i)
-		: selectedItems = selectedItems.filter(si => si !== i);
-	}
+    function toggle(i) {
+        return v => v.detail
+        ? selectedItems.push(i)
+        : selectedItems = selectedItems.filter(si => si !== i);
+    }
 
-	$: selectedLabel = selectedItems.map(i => i.text).join(", ");
+    $: selectedLabel = selectedItems.map(i => i.text).join(", ");
 
-	const label = "A select";
+    const label = "A select";
 </script>
 
 <style>
-	h3, h6 {
-		padding: 1rem;
-	}
+    h3, h6 {
+        padding: 1rem;
+    }
 </style>
 
 <svelte:head>
-	<title>@bojit/svelte-components</title>
+    <title>@bojit/svelte-components</title>
 </svelte:head>
 
 <h3>Theme</h3>
 
 <RadioButtonGroup
-	name='Theme',
-	bind:selected={$mode}
-	items={[
-		{ value: 'light', label: 'Light Mode' },
-		{ value: 'dark', label: 'Dark Mode' },
-		{ value: 'auto', label: 'Auto Mode'}
-	]} />
+    name='Theme',
+    bind:selected={$mode}
+    items={[
+        { value: 'light', label: 'Light Mode' },
+        { value: 'dark', label: 'Dark Mode' },
+        { value: 'auto', label: 'Auto Mode'}
+    ]} />
 
 <br><br><hr><!----------------------------------------------------------------->
 <h3>Text Fields</h3>
@@ -120,32 +120,32 @@
 <h3>Buttons</h3>
 
 <div>
-	<h6>Basic</h6>
-	<Button>Button</Button>
+    <h6>Basic</h6>
+    <Button>Button</Button>
 
-	<h6>Light</h6>
-	<Button light>Button</Button>
+    <h6>Light</h6>
+    <Button light>Button</Button>
 
-	<h6>Dark</h6>
-	<Button dark>Button</Button>
+    <h6>Dark</h6>
+    <Button dark>Button</Button>
 
-	<h6>Block</h6>
-	<Button color="alert" dark block>Button</Button>
+    <h6>Block</h6>
+    <Button color="alert" dark block>Button</Button>
 
-	<h6>Outlined</h6>
-	<Button color="secondary" light block outlined>Button</Button>
+    <h6>Outlined</h6>
+    <Button color="secondary" light block outlined>Button</Button>
 
-	<h6>Text</h6>
-	<Button text>Button</Button>
+    <h6>Text</h6>
+    <Button text>Button</Button>
 
-	<h6>Disabled</h6>
-	<Button block disabled>Button</Button>
+    <h6>Disabled</h6>
+    <Button block disabled>Button</Button>
 
-	<h6>FAB <a href="https://material.io/components/buttons-floating-action-button/">(Floating action button)</a></h6>
-	<Button color="alert" icon="change_history" />
+    <h6>FAB <a href="https://material.io/components/buttons-floating-action-button/">(Floating action button)</a></h6>
+    <Button color="alert" icon="change_history" />
 
-	<h6>Fab flat</h6>
-	<Button color="error" icon="change_history" text light flat />
+    <h6>Fab flat</h6>
+    <Button color="error" icon="change_history" text light flat />
 </div>
 
 
@@ -161,18 +161,18 @@
 <h6>Radio Buttons</h6>
 
 <RadioButtonGroup
-	name="test"
-	items={[{ value: 1, label: 'One' }, { value: 2, label: 'Two' }]} />
+    name="test"
+    items={[{ value: 1, label: 'One' }, { value: 2, label: 'Two' }]} />
 
 <RadioButtonGroup
-	name="Colored test"
-	color="blue"
-	items={[{ value: 1, label: 'One' }, { value: 2, label: 'Two' }]} />
+    name="Colored test"
+    color="blue"
+    items={[{ value: 1, label: 'One' }, { value: 2, label: 'Two' }]} />
 
 <RadioButtonGroup
-	name="test-disabled"
-	disabled
-	items={[{ value: 1, label: 'One' }, { value: 2, label: 'Two' }]} />
+    name="test-disabled"
+    disabled
+    items={[{ value: 1, label: 'One' }, { value: 2, label: 'Two' }]} />
 
 <h6>Switches</h6>
 
@@ -196,19 +196,19 @@
 <h3>Selects</h3>
 
 <p>
-	One may bind to a select via
-	<span class="code-inline">on:change</span>
-	event.
+    One may bind to a select via
+    <span class="code-inline">on:change</span>
+    event.
 </p>
 <small>Selected: {value1 || 'nothing'}</small>
 <div>
-	<Select {label} {items} on:change={v => (value1 = v.detail)} />
+    <Select {label} {items} on:change={v => (value1 = v.detail)} />
 </div>
 
 <p>
-	Or through binding
-	<span class="code-inline">on:value</span>
-	.
+    Or through binding
+    <span class="code-inline">on:value</span>
+    .
 </p>
 <small>Selected: {value2 || 'nothing'}</small>
 <Select color="success" bind:value={value2} {label} {items} />
@@ -223,35 +223,35 @@
 <p>Custom options slot</p>
 
 <Select
-	{selectedLabel}
-	outlined
-	color="red"
-	inputClasses={i => i.replace('rounded-t', 'rounded-full')}
-	appendClasses={i => i.replace('text-gray-700', 'text-red-700')}
-	label="Categories"
-	{items}
+    {selectedLabel}
+    outlined
+    color="red"
+    inputClasses={i => i.replace('rounded-t', 'rounded-full')}
+    appendClasses={i => i.replace('text-gray-700', 'text-red-700')}
+    label="Categories"
+    {items}
 >
-	<div slot="options" class="shadow rounded px-2 py-4 mt-0" on:click|stopPropagation>
-		{#each items as item}
-		<Checkbox
-			value={selectedItems.includes(item)}
-			class="block my-2"
-			color="red"
-			label={item.text}
-			on:change={toggle(item)}
-		/>
-		{/each}
-	</div>
+    <div slot="options" class="shadow rounded px-2 py-4 mt-0" on:click|stopPropagation>
+        {#each items as item}
+        <Checkbox
+            value={selectedItems.includes(item)}
+            class="block my-2"
+            color="red"
+            label={item.text}
+            on:change={toggle(item)}
+        />
+        {/each}
+    </div>
 </Select>
 
 <br><br><hr><!----------------------------------------------------------------->
 <h3>Tooltips</h3>
 
 <Tooltip>
-	<div slot="activator">
-		<Button>Hover me</Button>
-	</div>
-	How are you doing?
+    <div slot="activator">
+        <Button>Hover me</Button>
+    </div>
+    How are you doing?
 </Tooltip>
 
 <br><br><hr><!----------------------------------------------------------------->
