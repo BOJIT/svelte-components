@@ -1,6 +1,6 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-e4561d2f.js",
+    "file": "start-38237b49.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -18,13 +18,13 @@
     ]
   },
   "src/routes/__layout.svelte": {
-    "file": "pages/__layout.svelte-258c410c.js",
+    "file": "pages/__layout.svelte-9ebffa93.js",
     "src": "src/routes/__layout.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-5f070a6f.js",
-      "_logo.demo-ead02973.js",
+      "_logo.demo-676909a3.js",
       "_Button-02459998.js",
       "_Tabs-66ea35c4.js",
       "_prism-8ffb334e.js",
@@ -45,13 +45,13 @@
     ]
   },
   "src/routes/__layout-minimal.svelte": {
-    "file": "pages/__layout-minimal.svelte-45e3b809.js",
+    "file": "pages/__layout-minimal.svelte-0f1f4116.js",
     "src": "src/routes/__layout-minimal.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-5f070a6f.js",
-      "_logo.demo-ead02973.js",
+      "_logo.demo-676909a3.js",
       "_Content-c83bda96.js",
       "_Button-02459998.js",
       "_prism-8ffb334e.js",
@@ -137,15 +137,15 @@
   "_preload-helper-e4860ae8.js": {
     "file": "chunks/preload-helper-e4860ae8.js"
   },
-  "_logo.demo-ead02973.js": {
-    "file": "chunks/logo.demo-ead02973.js",
+  "_logo.demo-676909a3.js": {
+    "file": "chunks/logo.demo-676909a3.js",
     "imports": [
       "_index-5f070a6f.js",
       "_Button-02459998.js",
       "_prism-8ffb334e.js"
     ],
     "css": [
-      "assets/logo.demo-272c7435.css",
+      "assets/logo.demo-953a4292.css",
       "assets/ProgressCircular.svelte_svelte_type_style_lang-d350640c.css"
     ],
     "assets": [
