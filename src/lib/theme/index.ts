@@ -1,9 +1,9 @@
-import theme from './theme';
+import theme from './theme.js';
 
 /* Library Themes */
-import quirky from './palette/quirky';
-import evergreen from './palette/evergreen';
-import midnight from './palette/midnight';
+import quirky from './palette/quirky.js';
+import evergreen from './palette/evergreen.js';
+import midnight from './palette/midnight.js';
 
 const palette = {
     quirky,

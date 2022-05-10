@@ -5,7 +5,7 @@
     */
     import "../../global.css";
 
-    import type { Palette } from "$lib/theme/theme";
+    import type { Palette } from "$lib/theme/theme.js";
     import uiTheme, { palette } from "$lib/theme";
     import SplashScreen from "$lib/core/SplashScreen/SplashScreen.svelte";
     import Notification from "../Notification/Notification.svelte";

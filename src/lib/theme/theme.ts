@@ -1,8 +1,8 @@
 /*-------------------------------- Imports -----------------------------------*/
 
 import { derived, writable } from 'svelte/store';
-import smelteTheme from '../smelte/dark';
-import generatePalette from '../smelte/utils/color';
+import smelteTheme from '../smelte/dark.js';
+import generatePalette from '../smelte/utils/color.js';
 import tinycolor from 'tinycolor2';
 
 /*--------------------------------- Types ------------------------------------*/
