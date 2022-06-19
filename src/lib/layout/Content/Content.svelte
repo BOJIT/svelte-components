@@ -78,6 +78,8 @@
     article :global(p) {
         margin-top: 0;
         margin-bottom: 10px;
+        font-weight: 100;
+        font-size: 1.1em;
     }
 
     /* Links */
@@ -146,16 +148,15 @@
         box-sizing: content-box;
         overflow: hidden;
         background: transparent;
-        border-bottom: 1 solid var(--color-gray-900);
-        background-color: var(--color-gray-50);
+        border-top: 1px solid #ececec;
         height: .25em;
         padding: 0;
         margin: 24px 0;
     }
 
     :global(.mode-dark) article :global(hr) {
-        border-bottom: 1 solid var(--color-gray-50);
-        background-color: var(--color-gray-900);
+        background: transparent;
+        border-top: 1px solid #444444;
     }
 
     /* Lists */
@@ -184,5 +185,38 @@
     article :global(ul ol ol),
     article :global(ol ol ol) {
         list-style-type: lower-alpha;
+    }
+
+    /* Image */
+    article :global(img) {
+        width: 80%;
+        margin: 0 auto;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        display: block;
+    }
+
+    @media (max-width: 768px) {
+        article :global(img) {
+            width: 100%;
+        }
+    }
+
+    :global(.mode-dark) article :global(img) {
+        filter: brightness(0.8);
+    }
+
+    /* YouTube container */
+    article :global(.youtube-container) {
+        width: 80%;
+        margin: 0 auto;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        article :global(.youtube-container) {
+            width: 100%;
+        }
     }
 </style>
