@@ -12,11 +12,13 @@
     export let href = null;
 
     export let newTab = false;
+
+    export let label = "Accessibility Label";
 </script>
 
 
 {#if href !== null}
-    <a href={href} target={newTab ? "_blank" : ""}>
+    <a href={href} target={newTab ? "_blank" : ""} aria-label={label}>
         <slot />
     </a>
 {:else}

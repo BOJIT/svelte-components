@@ -14,6 +14,8 @@
     export let disabled = false;
     export let useRipple = true;
 
+    export let label = "Accessibility Label";
+
     // Style
     export let size: string = "2.5em";
     export let shape: 'circle' | 'square' | 'rounded' = 'rounded';
@@ -25,12 +27,12 @@
 <Link href={href} newTab={newTab}>
     {#if useRipple}
         <button disabled={disabled} class="{shape} overflow-hidden" class:hoverable={!disabled} style="background-color: {color}"
-            on:click={() => {dispatch('click');}} use:ripple>
+            on:click={() => {dispatch('click');}} use:ripple aria-label={label}>
             <svelte:component this={icon} height={size} color={iconColor}/>
         </button>
     {:else}
         <button disabled={disabled} class="{shape} overflow-hidden" class:hoverable={!disabled} style="background-color: {color}"
-            on:click={() => {dispatch('click');}}>
+            on:click={() => {dispatch('click');}} aria-label={label}>
             <svelte:component this={icon} height={size} color={iconColor}/>
         </button>
     {/if}
