@@ -14,7 +14,7 @@ const config = {
         adapter: adapter(),
         package: {
             files: (filepath) => {
-                if (filepath.includes(".demo.")) return false;
+                if (filepath.includes("test/")) return false;
                 return true;
             },
         },
@@ -28,3 +28,4 @@ const config = {
 };
 
 export default config;
+``

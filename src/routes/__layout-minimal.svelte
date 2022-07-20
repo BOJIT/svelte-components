@@ -14,7 +14,10 @@
     import Theme, { palette } from "$lib/theme";
     let mode = Theme.Mode;
 
-    import logo from "$lib/test/logo.demo.png";
+    import logo from "$lib/test/logo.png";
+
+    // Icons
+    import SunnyOutline from "@svicons/ionicons-outline/sunny.svelte";
 
     function toggleTheme() {
         if($mode == 'light')
@@ -27,7 +30,7 @@
         {
             type: "button",
             color: "transparent",
-            icon: "light_mode",
+            icon: SunnyOutline,
             callback: toggleTheme
         },
     ];
@@ -42,22 +45,6 @@
             <slot />
         </Content>
     </Main>
-
-    <Footer buttons={[
-        {
-            icon: "account_circle",
-            shape: "circle",
-        },
-        {
-            label: "",
-            icon: "settings",
-            shape: "circle"
-        },
-        {
-            label: "",
-            icon: "delete"
-        },
-    ]}/>
 </App>
 
 

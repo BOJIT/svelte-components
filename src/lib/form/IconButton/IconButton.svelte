@@ -1,16 +1,18 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
-    import type { SvelteComponent } from 'svelte/internal';
     import createRipple from "$lib/smelte/components/Ripple/ripple.js";
+
+    import Link from '$lib/core/Link/Link.svelte';
 
     const dispatch = createEventDispatcher();
 
     let ripple = createRipple('white');
 
-    export let logo: SvelteComponent;
+    export let icon: SvelteComponent;
     export let href: string = null;
     export let newTab = false;
     export let disabled = false;
+    export let useRipple = true;
 
     // Style
     export let size: string = "2.5em";
@@ -19,19 +21,21 @@
     export let iconColor: string = "white";
 </script>
 
-{#if href}
-<a {href} target={newTab ? "_blank" : ""}>
-    <button disabled={disabled} class="{shape} overflow-hidden" class:hoverable={!disabled} style="background-color: {color}"
-        on:click={() => {dispatch('click');}} use:ripple>
-        <svelte:component this={logo} height={size} color={iconColor}/>
-    </button>
-</a>
-{:else}
-<button disabled={disabled} class="{shape} overflow-hidden" class:hoverable={!disabled} style="background-color: {color}"
-    on:click={() => {dispatch('click');}} use:ripple>
-    <svelte:component this={logo} height={size} color={iconColor}/>
-</button>
-{/if}
+
+<Link href={href} newTab={newTab}>
+    {#if useRipple}
+        <button disabled={disabled} class="{shape} overflow-hidden" class:hoverable={!disabled} style="background-color: {color}"
+            on:click={() => {dispatch('click');}} use:ripple>
+            <svelte:component this={icon} height={size} color={iconColor}/>
+        </button>
+    {:else}
+        <button disabled={disabled} class="{shape} overflow-hidden" class:hoverable={!disabled} style="background-color: {color}"
+            on:click={() => {dispatch('click');}}>
+            <svelte:component this={icon} height={size} color={iconColor}/>
+        </button>
+    {/if}
+</Link>
+
 
 <style>
     button {

@@ -26,6 +26,7 @@
     let tabline: HTMLElement;
 </script>
 
+
 <div class="container">
 
     {#await theme.ready(1000) then value}
@@ -34,7 +35,7 @@
             <!-- Render each tab - updates when the list updates -->
             {#each tabs as tab, idx}
                 <li style={theme.swatchColor(idx)} class="tab transition" class:is-active={idx == index}
-                on:click={() => handleClick(idx)} href="{void(0)}">
+                on:click={() => handleClick(idx)} href="{void(0)}" >
                     <h6 class="unselectable">{tab}</h6>
                 </li>
             {/each}
@@ -56,6 +57,7 @@
     {/if}
 
 </div>
+
 
 <style>
     .container {

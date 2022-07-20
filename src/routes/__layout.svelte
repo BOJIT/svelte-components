@@ -6,10 +6,20 @@
     import type { NavItem } from "$lib/layout/NavBar/NavBar.svelte";
     import Dialog from "$lib/smelte/components/Dialog/Dialog.svelte";
     import Footer from "$lib/layout/Footer/Footer.svelte";
+    import ThemeSelector from "$lib/widgets/ThemeSelector/ThemeSelector.svelte";
 
     import Theme, { palette } from "$lib/theme";
 
-    import logo from "$lib/test/logo.demo.png";
+    import logo from "$lib/test/logo.png";
+
+    // Icons
+    import PlayOutline from "@svicons/ionicons-outline/play.svelte";
+    import StatsChartOutline from "@svicons/ionicons-outline/stats-chart.svelte";
+    import DocumentOutline from "@svicons/ionicons-outline/document.svelte";
+    import FolderOpenOutline from "@svicons/ionicons-outline/folder-open.svelte";
+    import CopyOutline from "@svicons/ionicons-outline/copy.svelte";
+    import OptionsOutline from "@svicons/ionicons-outline/options.svelte";
+    import MenuOutline from "@svicons/ionicons-outline/menu.svelte";
 
     let mode = Theme.Mode;
 
@@ -23,15 +33,13 @@
     let items: NavItem[] = [
         {
             type: "button",
-            color:  "success",
-            icon: "play_arrow",
-            // outlined: true,
+            color:  "green",
+            icon: PlayOutline,
         },
         {
             type: "button",
-            color:  "alert",
-            icon: "bar_chart",
-            // outlined: true,
+            color:  "orange",
+            icon: StatsChartOutline,
         },
         {
             type: "separator",
@@ -40,19 +48,19 @@
         {
             type: "button",
             color: "transparent",
-            icon: "note_add",
+            icon: DocumentOutline,
             visibility: "desktop",
         },
         {
             type: "button",
             color: "transparent",
-            icon: "file_open",
+            icon: FolderOpenOutline,
             visibility: "desktop",
         },
         {
             type: "button",
             color: "transparent",
-            icon: "file_copy",
+            icon: CopyOutline,
             visibility: "desktop",
             callback: () => {
                 showDialog = true;
@@ -64,14 +72,14 @@
         {
             type: "button",
             color: "transparent",
-            icon: "tune",
+            icon: OptionsOutline,
             visibility: "desktop",
             callback: toggleTheme
         },
         {
             type: "button",
             color: "transparent",
-            icon: "menu",
+            icon: MenuOutline,
             visibility: "mobile",
         },
     ];
@@ -101,6 +109,8 @@
     </div>
 </Dialog>
 
+<ThemeSelector />
+
 <App theme={palette.midnight}>
     <NavBar title="ploTTY" logo={logo} logoLink="https://github.com" items={items}/>
 
@@ -109,20 +119,19 @@
     <Footer buttons={[
         {
             label: "A1",
-            icon: "account_circle",
-            shape: "lozenge",
+            icon: PlayOutline,
             callback: () => {
                 console.log("HEY");
             }
         },
         {
             label: "B1",
-            icon: "settings",
-            shape: "lozenge"
+            icon: FolderOpenOutline,
+            shape: "square"
         },
         {
             label: "C1",
-            icon: "delete"
+            icon: StatsChartOutline
         },
     ]}/>
 </App>
