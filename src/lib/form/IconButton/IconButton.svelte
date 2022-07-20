@@ -24,7 +24,7 @@
 </script>
 
 
-<Link href={href} newTab={newTab}>
+<Link href={href} newTab={newTab} label={label}>
     {#if useRipple}
         <button disabled={disabled} class="{shape} overflow-hidden" class:hoverable={!disabled} style="background-color: {color}"
             on:click={() => {dispatch('click');}} use:ripple aria-label={label}>
