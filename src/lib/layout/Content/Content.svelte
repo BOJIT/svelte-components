@@ -133,13 +133,13 @@
     }
 
     /* CAD Editor overrides */
-    article > :global(.model-container) {
+    article :global(.model-container) {
         border-radius: 0.5em;
         margin-top: 1rem;
         margin-bottom: 1rem;
     }
 
-    article > :global(model-viewer) {
+    article :global(model-viewer) {
         border-radius: 0.4em;
     }
 
@@ -206,8 +206,8 @@
         filter: brightness(0.8);
     }
 
-    /* YouTube container */
-    article :global(.youtube-container) {
+    /* Padded Widget */
+    article :global(.content-padded) {
         width: 80%;
         margin: 0 auto;
         margin-top: 1rem;
@@ -215,7 +215,7 @@
     }
 
     @media (max-width: 768px) {
-        article :global(.youtube-container) {
+        article :global(.content-padded) {
             width: 100%;
         }
     }

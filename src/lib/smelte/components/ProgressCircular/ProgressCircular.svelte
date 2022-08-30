@@ -3,7 +3,7 @@
   export let color = "primary";
   export let width = 3;
   export let size = 70;
-  export let rawColor;
+  export let rawColor = undefined;
 
   $: style = progress > 0 ? `
       animation: none;

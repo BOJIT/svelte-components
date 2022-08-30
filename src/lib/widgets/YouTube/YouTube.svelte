@@ -13,7 +13,7 @@
     ];
 </script>
 
-<div class="youtube-container">
+<div class="content-padded">
     <div class="aspect-ratio">
         <iframe title="youtube-video" type="text/html" src={url.join("")} frameborder="0"></iframe>
     </div>

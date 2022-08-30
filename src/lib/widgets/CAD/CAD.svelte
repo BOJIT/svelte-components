@@ -49,12 +49,16 @@
     });
 </script>
 
-<div class="model-container" class:transparent class:zoomable style:padding-bottom={padding}
-            bind:this={model_container} on:mousedown={mousedown} on:mouseup={mouseup}>
-    <model-viewer src={geometry ? geometry : false}
-        disable-zoom={!zoomable || undefined} enable-pan={pan || undefined}
-        camera-controls={!rotate || undefined} auto-rotate={rotate || undefined}/>
+
+<div class="content-padded">
+    <div class="model-container" class:transparent class:zoomable style:padding-bottom={padding}
+                bind:this={model_container} on:mousedown={mousedown} on:mouseup={mouseup}>
+        <model-viewer src={geometry ? geometry : false}
+            disable-zoom={!zoomable || undefined} enable-pan={pan || undefined}
+            camera-controls={!rotate || undefined} auto-rotate={rotate || undefined}/>
+    </div>
 </div>
+
 
 <style>
     model-viewer {

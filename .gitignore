@@ -9,3 +9,4 @@ node_modules
 
 .vscode/javascript.code-snippets
 .vscode/settings.json
+.vscode/svelte.code-snippets

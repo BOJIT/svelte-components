@@ -12,6 +12,8 @@
     import { onMount } from "svelte";
     import Link from "$lib/core/Link/Link.svelte";
     import textFit from "./utils/textFit";
+    import ProgressCircular from "$lib/smelte/components/ProgressCircular";
+
 
     type Tile = {
         "type": "image" | "link" | "text",
@@ -32,6 +34,9 @@
     export let animation = "float-up 0.7s cubic-bezier(0.35, 0.5, 0.65, 0.95) both";
     // export let preload = 2*columns;
     // TODO implement lazy-loading
+
+    // State
+    let loading = true;
 
     // Helpers
     function elementArray(parent: HTMLElement, q: string) {
@@ -58,30 +63,40 @@
             // Move push to end of column
             let push = c.querySelector('.push') as HTMLElement;
             c.appendChild(push);
-
-            // Calculate target height
-            let margin = parseInt(window.getComputedStyle(push).getPropertyValue('margin-bottom'));
-            let height = c.offsetHeight - columnHeight(c, '.tile');
-
-            return {
-                push,
-                margin,
-                height
-            }
         });
 
-        // Compute push size and update DOM
-        let minHeight = Math.min(...pushData.map((p) => p.height));
-        pushData.forEach((p) => {
-            p.height = p.height - minHeight;
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                let pushData = cols.map((c: HTMLElement) => {
+                    // Calculate target height
+                    let endTile = Array.from(
+                        c.querySelectorAll('.tile')
+                    ).pop();
 
-            if(p.height < p.margin) {
-                p.height = 0;
-            } else {
-                p.height = p.height - p.margin;
-            }
+                    let push = c.querySelector('.push') as HTMLElement;
+                    let height = Math.round(endTile.getBoundingClientRect().bottom);
+                    let margin = parseInt(window.getComputedStyle(push).getPropertyValue('margin-bottom'));
 
-            p.push.style.height = `${p.height}px`;
+                    return {
+                        push,
+                        margin,
+                        height
+                    };
+                });
+
+                // Compute push size and update DOM
+                let minHeight = Math.max(...pushData.map((p) => p.height));
+                pushData.forEach((p) => {
+                    p.height = Math.abs(p.height - minHeight);
+                    if (p.height < p.margin) {
+                        p.height = 0;
+                    }
+                    else {
+                        p.height = p.height - p.margin;
+                    }
+                    p.push.style.height = `${p.height}px`;
+                });
+            });
         });
     }
 
@@ -120,13 +135,9 @@
         updatePushes(cols);
 
         // Make text fit
-        textFit(gallery.getElementsByClassName('textfit'), {multiline: true});
-    }
-
-    // Call layout function at any key point
-    function imageLoaded() {
-        let loaded = tiles.map((t) => t.loaded);
-        console.log(loaded);
+        requestAnimationFrame(() => {
+            textFit(gallery.getElementsByClassName('textfit'), { multiline: true });
+        });
     }
 
     $: layout();
@@ -164,11 +175,17 @@
             if(status.every((s) => s === true)) {
                 clearInterval(loadCheck);
                 layout();
+                loading = false;
             }
         }, 50);
     });
 </script>
 
+{#if loading}
+    <div class="loading-spinner">
+        <ProgressCircular />
+    </div>
+{/if}
 
 <div bind:this={gallery} class="gallery" style:gap={gap}>
     {#each {length: columns} as _, i}
@@ -205,7 +222,6 @@
     </div>
 </div>
 
-
 <style>
     /* General */
     .gallery {
@@ -224,6 +240,12 @@
         .column:not(.first) {
             display: none;
         }
+    }
+
+    /* Loading Spinner */
+    .loading-spinner {
+        display: flex;
+        justify-content: center;
     }
 
     /* Image Tiles */
