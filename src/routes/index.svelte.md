@@ -14,6 +14,7 @@
 - [Code Editor Demo](/demo/code-editor)
 - [Gallery Demo](/demo/gallery)
 - [Markdown Demo](/demo/markdown)
+- [Zoomable Canvas Demo](/demo/zoom-canvas)
 
 #### Archived
 - [Smelte Library Demo](/nav/smelte)
