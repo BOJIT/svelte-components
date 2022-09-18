@@ -1,6 +1,5 @@
 <script>
-  import { scale } from "svelte/transition";
-  import { onMount } from "svelte";
+  import { scale, fade } from "svelte/transition";
   import { quadIn } from "svelte/easing";
   import { Scrim } from "../Util";
   import { ClassBuilder } from "../../utils/classes.js";
@@ -18,8 +17,7 @@
 
   export let transitionProps = { duration: 150, easing: quadIn, delay: 150 };
 
-
-
+  export let fillWidth = false;
 
   const cb = new ClassBuilder(classes, classesDefault);
   const tcb = new ClassBuilder(titleClasses, titleClassesDefault);
@@ -48,10 +46,14 @@
     <div class="h-full w-full absolute flex items-center justify-center">
       <div
         in:scale={transitionProps}
+        out:fade={transitionProps}
         class={c}>
         <div class={t}>
           <slot name="title" />
         </div>
+        {#if fillWidth}
+            <div class="push" />
+        {/if}
         <slot />
         <div class={a}>
           <slot name="actions" />
@@ -60,3 +62,26 @@
     </div>
   </div>
 {/if}
+
+
+<style>
+    /* Desktop adjustments */
+    .push {
+        width: 500px;
+        height: 0px;
+    }
+
+    /* Tablet adjustments */
+    @media (max-width: 1200px) {
+        .push {
+            width: 500px;
+        }
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 768px) {
+        .push {
+            width: 90vw;
+        }
+    }
+</style>

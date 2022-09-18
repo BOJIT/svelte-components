@@ -14,6 +14,7 @@
 - [Code Editor Demo](/demo/code-editor)
 - [Gallery Demo](/demo/gallery)
 - [Markdown Demo](/demo/markdown)
+- [Selector Filter](/demo/selector-filter)
 - [Zoomable Canvas Demo](/demo/zoom-canvas)
 
 #### Archived
