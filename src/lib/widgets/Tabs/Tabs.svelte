@@ -35,7 +35,8 @@
             <!-- Render each tab - updates when the list updates -->
             {#each tabs as tab, idx}
                 <li style={theme.swatchColor(idx)} class="tab transition" class:is-active={idx == index}
-                on:click={() => handleClick(idx)} href="{void(0)}" >
+                on:click={() => handleClick(idx)} href="{void(0)}"
+                on:keypress={() => handleClick(idx)}>
                     <h6 class="unselectable">{tab}</h6>
                 </li>
             {/each}
@@ -83,6 +84,7 @@
         padding: 0.2rem 0.6rem;
         border-radius: 0.5rem;
         background-color: var(--color-gray-400);
+        list-style-type: none;
     }
 
     :global(.mode-dark) .tab {
@@ -109,6 +111,7 @@
 
     .tabline {
         border-color: var(--color-swatch-base-light);
+        margin: 0.2rem 0rem;
     }
 
     :global(.mode-dark) .tabline {
@@ -134,5 +137,8 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
+
+        margin-top: 0.2rem;
+        margin-bottom: 0.2rem;
     }
 </style>

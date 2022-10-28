@@ -8,26 +8,28 @@
 </script>
 
 <svelte:head>
-    <title>@bojit/svelte-components</title>
+    <title>Demo - Tabs</title>
 </svelte:head>
 
-<Tabs
-    tabs={[
-        "CAD",
-        "Text",
-        "Code Block",
-    ]}
-    components={[
-        TestTab1,
-        TestTab2,
-        CodeEditor,
-    ]}
-    componentProps={[
-        {},
-        {},
-        {
-            lineNumbers: true,
-            code: codeBlock
-        },
-    ]}
-/>
+<div>
+    <Tabs
+        tabs={[
+            "CAD",
+            "Text",
+            "Code Block",
+        ]}
+        components={[
+            TestTab1,
+            TestTab2,
+            CodeEditor,
+        ]}
+        componentProps={[
+            {},
+            {},
+            {
+                lineNumbers: true,
+                code: codeBlock
+            },
+        ]}
+    />
+</div>

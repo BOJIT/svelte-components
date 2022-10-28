@@ -10,6 +10,7 @@
 </script>
 
 <script lang="ts">
+    import type { ThemeMode } from "$lib/theme/theme";
     import theme from "$lib/theme";
     import IconButton from "$lib/form/IconButton/IconButton.svelte";
     import type { SvelteComponent } from "svelte";
@@ -19,18 +20,25 @@
     export let logoLink = null;
 
     export let items: NavItem[] = [];
+
+    export let themeOverride: ThemeMode = 'auto';
+
+    let local_theme = 'dark';
+    theme.subscribe((t) => {
+        local_theme = themeOverride == 'auto' ? t : themeOverride ;
+    });
 </script>
 
 <!-- Navbar -->
 <div class="nav" role="navigation" aria-label="main navigation"
-    class:bg-primary-50={$theme == 'light'}
-    class:bg-dark-700={$theme == 'dark'}>
+    class:bg-primary-50={local_theme == 'light'}
+    class:bg-dark-700={local_theme == 'dark'}>
 
     <!-- Navbar Left-Hand Side -->
     <div class="nav-left">
         {#if logo !== null}
             {#if logoLink !== null}
-                <a href="{logoLink}" target="_blank">
+                <a href="{logoLink}" target="_blank" rel="noreferrer">
                     <img src="{logo}" alt="logo" style="max-height:3rem">
                 </a>
             {:else}
@@ -40,7 +48,7 @@
     </div>
 
     <div class="nav-left">
-        <h1 class:dark={$theme == 'dark'}>{title}</h1>
+        <h1 class:dark={local_theme == 'dark'}>{title}</h1>
         <slot name = "nav-left"/>
     </div>
 
@@ -53,13 +61,13 @@
                     <IconButton
                         color={item.color} icon={item.icon}
                         size="1.7rem" shape={item.shape}
-                        iconColor={$theme == 'dark' ? "var(--color-white)" : "var(--color-dark-500)"}
+                        iconColor={local_theme == 'dark' ? "var(--color-white)" : "var(--color-dark-500)"}
                         on:click={item.callback}
                     />
                 {/if}
 
                 {#if item.type === "separator"}
-                <div class="separator" class:dark={$theme == 'dark'}>.</div>
+                <div class="separator" class:dark={local_theme == 'dark'}>.</div>
                 {/if}
             </div>
         {/each}

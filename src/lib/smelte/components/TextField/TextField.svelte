@@ -218,6 +218,7 @@
     <div
       class={aClasses}
       on:click={() => dispatch("click-append")}
+      on:keypress={() => {}}
     >
       <slot name="append">
         <Icon
@@ -234,6 +235,7 @@
     <div
       class={pClasses}
       on:click={() => dispatch("click-prepend")}
+      on:keypress={() => {}}
     >
       <slot name="prepend">
         <Icon
@@ -250,7 +252,7 @@
     {noUnderline}
     {outlined}
     {focused}
-    {error} 
+    {error}
     {color}  />
 
   {#if showHint}

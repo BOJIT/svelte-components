@@ -213,7 +213,7 @@ function setCssVar(key: string, val: any, prefix: string) {
 
 /*-------------------------------- Exports -----------------------------------*/
 
-export type { Palette };
+export type { Palette, ThemeMode };
 
 export default {
     Mode: mode_store,
