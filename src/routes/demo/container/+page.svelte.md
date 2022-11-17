@@ -2,13 +2,10 @@
     import { Container } from "$lib/layout";
 </script>
 
-<Container ratio="4:2">
-    <h1>Hello World</h1>
+# Container
+
+This is a generic container component. It uses relative positioning. Any filler content should fill 100% width and height. Use `aspect` to set the aspect ratio of this block
+
+<Container buttonLocation="bottom-right">
+    <iframe title="PCB BOM" src="https://openscopeproject.org/InteractiveHtmlBomDemo/html/carte_test.html"></iframe>
 </Container>
-
-
-<style>
-    h1 {
-        text-align: center;
-    }
-</style>

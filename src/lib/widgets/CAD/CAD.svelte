@@ -8,7 +8,7 @@
 
     // import("focus-visible/dist/focus-visible.min.js");   // Polyfill
 
-    export let geometry = null;
+    export let geometry: string | null = null;
     export let transparent = false;
     export let aspect: string = "4:3";
     export let rotate = false;
