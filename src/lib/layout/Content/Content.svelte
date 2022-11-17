@@ -132,15 +132,18 @@
         margin-bottom: 0.5rem;
     }
 
-    /* CAD Editor overrides */
-    article :global(.model-container) {
-        border-radius: 0.5em;
-        margin-top: 1rem;
-        margin-bottom: 1rem;
+    /* Block Quotes */
+    article > :global(blockquote) {
+        border-left: 4px solid var(--color-primary-400);
+        padding: 1rem;
+        font-style: bold;
+        color: var(--color-primary-900);
+        background-color: var(--color-primary-trans-dark);
     }
 
-    article :global(model-viewer) {
-        border-radius: 0.4em;
+    :global(.mode-dark) article > :global(blockquote) {
+        color: var(--color-primary-200);
+        background-color: var(--color-primary-trans-light);
     }
 
     /* Separators */
@@ -204,6 +207,18 @@
 
     :global(.mode-dark) article :global(img) {
         filter: brightness(0.8);
+    }
+
+
+    /* TODO REMOVE!!! CAD Editor overrides */
+    article :global(.model-container) {
+        border-radius: 0.5em;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    article :global(model-viewer) {
+        border-radius: 0.4em;
     }
 
     /* Padded Widget */

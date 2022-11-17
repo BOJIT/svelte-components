@@ -9,17 +9,19 @@
  */
 
 import CircleCaption from "./CircleCaption/CircleCaption.svelte";
+import Container from "./Container/Container.svelte";
 import Content from "./Content/Content.svelte";
 import Footer from "./Footer/Footer.svelte";
 import Main from "./Main/Main.svelte";
 import NavBar from "./NavBar/NavBar.svelte";
 import type { NavItem } from "./NavBar/NavBar.svelte";
 
-export { CircleCaption, Content, Footer, Main, NavBar };
+export { CircleCaption, Container, Content, Footer, Main, NavBar };
 export type { NavItem };
 
 export default {
     CircleCaption,
+    Container,
     Content,
     Footer,
     Main,

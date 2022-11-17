@@ -14,6 +14,7 @@
 
 - [CAD Demo](/demo/cad)
 - [Code Editor Demo](/demo/code-editor)
+- [Container Demo](/demo/container)
 - [Gallery Demo](/demo/gallery)
 - [Markdown Demo](/demo/markdown)
 - [Selector Filter](/demo/selector-filter)
