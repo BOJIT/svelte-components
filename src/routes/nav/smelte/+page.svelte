@@ -11,8 +11,7 @@
         Tooltip
     } from "$lib/smelte";
 
-    import theme from "$lib/theme";
-    const mode = theme.Mode;
+    import theme, { mode } from "$lib/theme";
 
     // Lists
     const listOneLine = [{

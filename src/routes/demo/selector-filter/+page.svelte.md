@@ -3,9 +3,8 @@
 </svelte:head>
 
 <script>
-    import Button from "$lib/smelte/components/Button/Button.svelte";
-
-    import SelectorFilter from "$lib/form/SelectorFilter/SelectorFilter.svelte";
+    import { Button } from "$lib/smelte";
+    import { SelectorFilter } from "$lib/form";
 
     export let visible = false;
 

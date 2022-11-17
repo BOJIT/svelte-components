@@ -1,12 +1,8 @@
 <script lang="ts">
-    import App from "$lib/core/App/App.svelte";
-    import Content from "$lib/layout/Content/Content.svelte";
-    import NavBar from "$lib/layout/NavBar/NavBar.svelte";
+    import { App } from "$lib/core";
+    import { Content, Main, NavBar } from "$lib/layout";
     import type { NavItem } from "$lib/layout/NavBar/NavBar.svelte";
-    import Main from "$lib/layout/Main/Main.svelte";
-
-    import Theme, { palette } from "$lib/theme";
-    let mode = Theme.Mode;
+    import { mode, palette } from "$lib/theme";
 
     import logo from "$lib/test/logo.png";
 

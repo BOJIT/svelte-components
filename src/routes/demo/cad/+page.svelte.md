@@ -3,7 +3,7 @@
 </svelte:head>
 
 <script>
-    import CAD from "$lib/widgets/CAD/CAD.svelte";
+    import { CAD } from "$lib/widgets";
 </script>
 
 # CAD

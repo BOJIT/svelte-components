@@ -3,22 +3,22 @@
 @import "@fontsource/comfortaa";
 @import "@fontsource/montserrat";
 @import "@fontsource/red-hat-mono";
-@import "./core/normalise.css";
+@import "./theme/normalise.css";
 @import "./smelte/smelte.css";
 
 * {-webkit-font-smoothing: antialiased;}
 
 html {
-	font-family: var(--font-body);
-	font-weight: 300;
+    font-family: var(--font-body);
+    font-weight: 300;
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: var(--font-headings);
+    font-family: var(--font-headings);
 }
 
 code {
-	font-family: var(--font-monospace);
+    font-family: var(--font-monospace);
 }
 
 body {
@@ -27,5 +27,5 @@ body {
 }
 
 body.mode-dark {
-	background-color: var(--color-dark-500);
+    background-color: var(--color-dark-500);
 }

@@ -6,6 +6,8 @@
 
 `@bojit/svelte-components` is a monorepo containing various widgets/UI elements used in BOJIT sites.
 
+> Note: This framework is not considered stable yet!
+
 ## Contents
 
 #### Widgets

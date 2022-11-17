@@ -1,8 +1,7 @@
 <script lang="ts">
-    import Tabs from "$lib/widgets/Tabs/Tabs.svelte";
+    import { Tabs, CodeEditor } from "$lib/widgets";
     import TestTab1 from "$lib/test/TestTab1.svelte";
     import TestTab2 from "$lib/test/TestTab2.svelte";
-    import CodeEditor from "$lib/widgets/CodeEditor/CodeEditor.svelte";
 
     let codeBlock = "let x = {\n\t\n}";
 </script>

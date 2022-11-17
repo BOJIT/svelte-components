@@ -3,7 +3,7 @@
 </svelte:head>
 
 <script>
-    import CodeEditor from "$lib/widgets/CodeEditor/CodeEditor.svelte";
+    import { CodeEditor } from "$lib/widgets";
 
     import "prismjs/prism.js";
     import "prismjs/components/prism-bash.js";

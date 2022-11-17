@@ -3,7 +3,7 @@
 </svelte:head>
 
 <script>
-    import Gallery from "$lib/widgets/Gallery/Gallery.svelte";
+    import { Gallery } from "$lib/widgets";
 
     const imgBase = "https://cdn.bojit.org/img";
 

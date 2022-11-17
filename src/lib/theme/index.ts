@@ -11,5 +11,7 @@ const palette = {
     midnight,
 }
 
+const mode = theme.Mode;
+
 export default theme;
-export { palette };
+export { mode, palette };
