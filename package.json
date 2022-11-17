@@ -6,6 +6,7 @@
         "dev": "vite dev",
         "build": "vite build",
         "preview": "vite preview",
+        "package": "svelte-package",
         "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
         "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
     },
@@ -13,8 +14,8 @@
         "@sveltejs/adapter-auto": "next",
         "@sveltejs/adapter-static": "^1.0.0-next.48",
         "@sveltejs/kit": "next",
+        "@sveltejs/package": "^1.0.0-next.6",
         "mdsvex": "^0.10.6",
-        "svelte": "^3.44.0",
         "svelte-check": "^2.7.1",
         "svelte-preprocess": "^4.10.6",
         "tslib": "^2.3.1",
@@ -32,6 +33,7 @@
         "@svicons/ionicons-solid": "^0.1.11",
         "prismjs": "^1.29.0",
         "simplebar": "^5.3.9",
+        "svelte": "^3.44.0",
         "svelte-waypoint": "^0.1.4",
         "tinycolor2": "^1.4.2"
     }
