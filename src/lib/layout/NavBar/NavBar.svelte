@@ -15,9 +15,9 @@
     import IconButton from "$lib/form/IconButton/IconButton.svelte";
     import type { SvelteComponent } from "svelte";
 
-    export let title = "App Title";
-    export let logo = null;
-    export let logoLink = null;
+    export let title: string = "App Title";
+    export let logo: string | null = null;
+    export let logoLink: string | null = null;
 
     export let items: NavItem[] = [];
 

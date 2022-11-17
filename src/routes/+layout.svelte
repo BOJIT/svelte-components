@@ -1,15 +1,9 @@
 <script lang="ts">
-    /* Import any used fonts here */
-    import "@fontsource/gloria-hallelujah";
-    import "@fontsource/nunito";
-    import "@fontsource/syne-mono";
-
     import App from "$lib/core/App/App.svelte";
     import Content from "$lib/layout/Content/Content.svelte";
     import NavBar from "$lib/layout/NavBar/NavBar.svelte";
     import type { NavItem } from "$lib/layout/NavBar/NavBar.svelte";
     import Main from "$lib/layout/Main/Main.svelte";
-    import Footer from "$lib/layout/Footer/Footer.svelte";
 
     import Theme, { palette } from "$lib/theme";
     let mode = Theme.Mode;
@@ -46,8 +40,13 @@
 </script>
 
 <App theme={palette.midnight}>
-    <NavBar title="@bojit/svelte-components" logo={logo} logoLink="https://github.com/BOJIT"
-        items={items}/>
+    <NavBar
+        title="@bojit/svelte-components"
+        logo={logo}
+        logoLink="https://github.com/BOJIT"
+        items={items}
+        themeOverride="dark"
+    />
 
     <Main>
         <Content>
