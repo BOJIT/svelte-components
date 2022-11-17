@@ -3,15 +3,24 @@
 </svelte:head>
 
 <script>
+    import { Container } from "$lib/layout";
     import { CAD } from "$lib/widgets";
 </script>
 
 # CAD
 
-Here is an embedded CAD model.
+This is the raw CAD widget...
 
-<CAD geometry="https://cdn.bojit.org/files/glb/BOJIT_V3.glb" aspect="16:10"/>
+---
 
-And another:
+<div style="width: 100%; height: 600px;">
+    <CAD geometry="https://cdn.bojit.org/files/glb/kinectIP.glb" />
+</div>
 
-<CAD geometry="https://cdn.bojit.org/files/glb/kinectIP.glb" />
+---
+
+Here it is in a container element!
+
+<Container>
+    <CAD geometry="https://cdn.bojit.org/files/glb/BOJIT_V3.glb"/>
+</Container>

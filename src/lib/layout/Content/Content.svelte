@@ -1,10 +1,17 @@
-<script lang="ts">
-
-</script>
+<!--
+ * @file Content.svelte
+ * @author James Bennion-Pedley
+ * @brief Section designed for containing main text/markdown content of page
+ * @date 17/11/2022
+ *
+ * @copyright Copyright (c) 2022
+ *
+-->
 
 <article>
     <slot/>
 </article>
+
 
 <style>
     /* Desktop article adjustments */
@@ -207,31 +214,5 @@
 
     :global(.mode-dark) article :global(img) {
         filter: brightness(0.8);
-    }
-
-
-    /* TODO REMOVE!!! CAD Editor overrides */
-    article :global(.model-container) {
-        border-radius: 0.5em;
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-    }
-
-    article :global(model-viewer) {
-        border-radius: 0.4em;
-    }
-
-    /* Padded Widget */
-    article :global(.content-padded) {
-        width: 80%;
-        margin: 0 auto;
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-    }
-
-    @media (max-width: 768px) {
-        article :global(.content-padded) {
-            width: 100%;
-        }
     }
 </style>
