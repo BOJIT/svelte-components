@@ -15,7 +15,6 @@
 		<link href="../_app/immutable/assets/Notification-5a55c16b.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/simplebar-72317f6f.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/Content-0774c0a5.css" rel="stylesheet">
-		<link href="../_app/immutable/assets/ZoomCanvas-01c924a5.css" rel="stylesheet">
 		<link rel="preload" as="font" type="font/woff2" href="../_app/immutable/assets/material-icons-base-400-normal-cc0462d5.woff2" crossorigin>
 		<link rel="preload" as="font" type="font/woff" href="../_app/immutable/assets/material-icons-base-400-normal-47b692f3.woff" crossorigin>
 		<link rel="preload" as="font" type="font/woff2" href="../_app/immutable/assets/material-icons-outlined-all-400-normal-1a2694ac.woff2" crossorigin>
@@ -53,7 +52,8 @@
 		<link rel="modulepreload" href="../_app/immutable/chunks/Link-2eb40228.js">
 		<link rel="modulepreload" href="../_app/immutable/modules/pages/_layout.ts-b8ee4d7c.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_layout-1daba58d.js">
-		<link rel="modulepreload" href="../_app/immutable/components/pages/demo/zoom-canvas/_page.svelte.md-18de22f9.js"><title>Demo - Zoom Canvas</title><!-- HEAD_svelte-115tnza_START --><!-- HEAD_svelte-115tnza_END -->
+		<link rel="modulepreload" href="../_app/immutable/components/pages/demo/container/_page.svelte.md-5c880aff.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/Container-71e93e59.js">
     </head>
     <body>
         <div style="display: contents">
@@ -90,26 +90,38 @@
 
     <main class="svelte-17szv2b">
 
-<article class="svelte-1mfh4m7">
-
-
-<h1>This is a Zoomable Canvas Element</h1>
-<p>Wrapped text behaviour either side looks like this:</p>
+<article class="svelte-1mfh4m7"><h1>Container</h1>
+<p>This is a generic container component. It uses relative positioning. Any filler content should fill 100% width and height. Use <code>aspect</code> to set the aspect ratio of this block</p>
 
 
 
 
-<div class="container svelte-3c5elr" style="padding-bottom: 56.25%;"><canvas class="svelte-3c5elr"><h4>Canvas element not supported in your browser!</h4></canvas>
-    
+
+<div class="container-padded svelte-16kvgxe"><div class="container-aspect svelte-16kvgxe" style="padding-bottom: 75%;"><div class="controls svelte-16kvgxe  bottom  right">
+
+
+
+
+<button  class="rounded overflow-hidden svelte-eemtoe hoverable" style="background-color: #8b8b8b22" aria-label="Accessibility Label"><svg height="1.5em" color="white" fill="currentColor" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M432 320v112H320m101.8-10.23L304 304M80 192V80h112M90.2 90.23 208 208M320 80h112v112M421.77 90.2 304 208M192 432H80V320m10.23 101.8L208 304"></path></svg></button></div>
+        <div class="container svelte-16kvgxe"><iframe title="PCB BOM" src="https://openscopeproject.org/InteractiveHtmlBomDemo/html/carte_test.html"></iframe></div></div></div>
+
+
+
+<div class="shrink svelte-16kvgxe   bottom  right">
+
+
+
+
+<button  class="rounded overflow-hidden svelte-eemtoe hoverable" style="background-color: #8b8b8b22" aria-label="Accessibility Label"><svg height="2em" color="white" fill="currentColor" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M304 416V304h112m-101.8 10.23L432 432M208 96v112H96m101.8-10.23L80 80m336 128H304V96m10.23 101.8L432 80M96 304h112v112m-10.23-101.8L80 432"></path></svg></button>
 </div>
-<p>More text</p>
+<p>This block can be expanded to be full-screen.</p>
 </article>
 </main></div>
 <div class="container svelte-115fuv0">
 </div>
 
 
-		<script type="module" data-sveltekit-hydrate="1nc8cws">
+		<script type="module" data-sveltekit-hydrate="cqjz9t">
 			import { start } from "../_app/immutable/start-755490d1.js";
 
 			start({
@@ -117,14 +129,14 @@
 				hydrate: {
 					status: 200,
 					error: null,
-					node_ids: [0, 9],
+					node_ids: [0, 5],
 					params: {},
-					route: {"id":"/demo/zoom-canvas"},
+					route: {"id":"/demo/container"},
 					data: [null,null],
 					form: null
 				},
 				paths: {"base":"","assets":""},
-				target: document.querySelector('[data-sveltekit-hydrate="1nc8cws"]').parentNode,
+				target: document.querySelector('[data-sveltekit-hydrate="cqjz9t"]').parentNode,
 				trailing_slash: "never"
 			});
 		</script>

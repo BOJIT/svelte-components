@@ -2,41 +2,71 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <meta name="description" content="" />
         <link rel="icon" href="../favicon.png" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta http-equiv="content-security-policy" content=""><title>Demo - Code Editor</title><!-- HEAD_svelte-1v1wq4z_START --><!-- HEAD_svelte-1v1wq4z_END -->
-	<link rel="stylesheet" href="/_app/assets/pages/__layout.svelte-3bd5515e.css">
-	<link rel="stylesheet" href="/_app/assets/ProgressCircular.svelte_svelte_type_style_lang-d350640c.css">
-	<link rel="stylesheet" href="/_app/assets/Button-99b01934.css">
-	<link rel="stylesheet" href="/_app/assets/Notification-ff698542.css">
-	<link rel="stylesheet" href="/_app/assets/IconButton-468306c1.css">
-	<link rel="stylesheet" href="/_app/assets/CodeEditor-f364f1f8.css">
-	<link rel="modulepreload" href="/_app/start-2d2b665a.js">
-	<link rel="modulepreload" href="/_app/chunks/index-fbcbac4f.js">
-	<link rel="modulepreload" href="/_app/chunks/index-8e516c57.js">
-	<link rel="modulepreload" href="/_app/chunks/preload-helper-e4860ae8.js">
-	<link rel="modulepreload" href="/_app/pages/__layout.svelte-f3c68f5a.js">
-	<link rel="modulepreload" href="/_app/chunks/theme-ae59133e.js">
-	<link rel="modulepreload" href="/_app/chunks/Button-d4e9235f.js">
-	<link rel="modulepreload" href="/_app/chunks/ProgressCircular-31427653.js">
-	<link rel="modulepreload" href="/_app/chunks/Notification-f1b500f1.js">
-	<link rel="modulepreload" href="/_app/chunks/prism-c1682f5d.js">
-	<link rel="modulepreload" href="/_app/chunks/_commonjsHelpers-850449cf.js">
-	<link rel="modulepreload" href="/_app/chunks/IconButton-30fb4891.js">
-	<link rel="modulepreload" href="/_app/chunks/Link-390b6a0b.js">
-	<link rel="modulepreload" href="/_app/pages/demo/code-editor.svelte.md-f3196ea7.js">
-	<link rel="modulepreload" href="/_app/chunks/CodeEditor-1b37da9c.js">
-	<link rel="modulepreload" href="/_app/chunks/prism-json-99d87c69.js">
+        <meta name="viewport" content="width=device-width" />
+        <meta http-equiv="content-security-policy" content="">
+		<link href="../_app/immutable/assets/_layout-2669519c.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/ProgressCircular-d8879343.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/Button-80b6c944.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/NavBar-399c268a.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/Dialog-9044659b.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/Underline-bcf03cd4.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/SelectorFilter-bc2fdc20.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/Notification-5a55c16b.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/simplebar-72317f6f.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/Content-0774c0a5.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/ThemeSelector-65e2221d.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/YouTube-5238c084.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/ZoomCanvas-01c924a5.css" rel="stylesheet">
+		<link rel="preload" as="font" type="font/woff2" href="../_app/immutable/assets/material-icons-base-400-normal-cc0462d5.woff2" crossorigin>
+		<link rel="preload" as="font" type="font/woff" href="../_app/immutable/assets/material-icons-base-400-normal-47b692f3.woff" crossorigin>
+		<link rel="preload" as="font" type="font/woff2" href="../_app/immutable/assets/material-icons-outlined-all-400-normal-1a2694ac.woff2" crossorigin>
+		<link rel="preload" as="font" type="font/woff" href="../_app/immutable/assets/material-icons-outlined-all-400-normal-63c23c91.woff" crossorigin>
+		<link rel="preload" as="font" type="font/woff2" href="../_app/immutable/assets/comfortaa-cyrillic-ext-400-normal-fa7b417f.woff2" crossorigin>
+		<link rel="preload" as="font" type="font/woff" href="../_app/immutable/assets/comfortaa-all-400-normal-264ea535.woff" crossorigin>
+		<link rel="preload" as="font" type="font/woff2" href="../_app/immutable/assets/comfortaa-cyrillic-400-normal-265bfb5d.woff2" crossorigin>
+		<link rel="preload" as="font" type="font/woff2" href="../_app/immutable/assets/comfortaa-greek-400-normal-9a3c1b7a.woff2" crossorigin>
+		<link rel="preload" as="font" type="font/woff2" href="../_app/immutable/assets/comfortaa-latin-ext-400-normal-e73109d5.woff2" crossorigin>
+		<link rel="preload" as="font" type="font/woff2" href="../_app/immutable/assets/comfortaa-latin-400-normal-7beee22f.woff2" crossorigin>
+		<link rel="preload" as="font" type="font/woff2" href="../_app/immutable/assets/montserrat-cyrillic-ext-400-normal-68ce5e02.woff2" crossorigin>
+		<link rel="preload" as="font" type="font/woff" href="../_app/immutable/assets/montserrat-all-400-normal-805f620f.woff" crossorigin>
+		<link rel="preload" as="font" type="font/woff2" href="../_app/immutable/assets/montserrat-cyrillic-400-normal-7849168d.woff2" crossorigin>
+		<link rel="preload" as="font" type="font/woff2" href="../_app/immutable/assets/montserrat-latin-ext-400-normal-a663bd98.woff2" crossorigin>
+		<link rel="preload" as="font" type="font/woff2" href="../_app/immutable/assets/montserrat-latin-400-normal-ddc148b8.woff2" crossorigin>
+		<link rel="preload" as="font" type="font/woff2" href="../_app/immutable/assets/red-hat-mono-latin-ext-400-normal-09a7890f.woff2" crossorigin>
+		<link rel="preload" as="font" type="font/woff" href="../_app/immutable/assets/red-hat-mono-all-400-normal-d2e83901.woff" crossorigin>
+		<link rel="preload" as="font" type="font/woff2" href="../_app/immutable/assets/red-hat-mono-latin-400-normal-b37fd35a.woff2" crossorigin>
+		<link rel="modulepreload" href="../_app/immutable/start-755490d1.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/index-949f6906.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/singletons-dedc1f03.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/index-4c109546.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/preload-helper-b21cceae.js">
+		<link rel="modulepreload" href="../_app/immutable/components/pages/_layout.svelte-4b3de89f.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/index-8200bf23.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/ripple-3b16fdc2.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/ProgressCircular-b70c9616.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/Button-2f53c698.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/Notification-7954157a.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/prism-5f685a49.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_commonjsHelpers-094ef602.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/simplebar-c2495cc7.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/Content-39a81f85.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/Content.svelte_svelte_type_style_lang-8de6b294.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/Link-2eb40228.js">
+		<link rel="modulepreload" href="../_app/immutable/modules/pages/_layout.ts-b8ee4d7c.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/_layout-1daba58d.js">
+		<link rel="modulepreload" href="../_app/immutable/components/pages/demo/code-editor/_page.svelte.md-6db55821.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/CodeEditor-290d89ee.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/prism-json-afd35f4a.js"><title>Demo - Code Editor</title><!-- HEAD_svelte-1v1wq4z_START --><!-- HEAD_svelte-1v1wq4z_END -->
     </head>
     <body>
-        <div>
+        <div style="display: contents">
 
 
 <div class="splash svelte-9egd74" style="background-color: #303233"><svg class="circular svelte-1xkiyez" style="width: 70px; height: 70px;"><circle class="path stroke-primary svelte-1xkiyez" cx="35" cy="35" fill="none" r="21" stroke-width="3" stroke-miterlimit="10" style=" stroke: #7783a8; "></circle></svg></div>
 <div class="app svelte-1ikovc4">
 <div class="nav svelte-ufvlb6  bg-dark-700" role="navigation" aria-label="main navigation">
-    <div class="nav-left svelte-ufvlb6"><a href="https://github.com/BOJIT" target="_blank" rel="noreferrer"><img src="/_app/assets/logo-86225c3f.png" alt="logo" style="max-height:3rem"></a></div>
+    <div class="nav-left svelte-ufvlb6"><a href="https://github.com/BOJIT" target="_blank" rel="noreferrer"><img src="/_app/immutable/assets/logo-86225c3f.png" alt="logo" style="max-height:3rem"></a></div>
 
     <div class="nav-left svelte-ufvlb6"><h1 class="svelte-ufvlb6 dark">@bojit/svelte-components</h1>
         </div>
@@ -62,7 +92,9 @@
             </div></div>
 </div>
 
-    <main class="svelte-17szv2b"><article class="svelte-1w80n2f">
+    <main class="svelte-17szv2b">
+
+<article class="svelte-1mfh4m7">
 
 
 <h1>Code Editor</h1>
@@ -84,26 +116,25 @@
 </div>
 
 
-		<script type="module" data-hydrate="hcp3n7">
-		import { start } from "/_app/start-2d2b665a.js";
-		start({
-			target: document.querySelector('[data-hydrate="hcp3n7"]').parentNode,
-			paths: {"base":"","assets":""},
-			session: {},
-			route: true,
-			spa: false,
-			trailing_slash: "never",
-			hydrate: {
-				status: 200,
-				error: null,
-				nodes: [
-					import("/_app/pages/__layout.svelte-f3c68f5a.js"),
-						import("/_app/pages/demo/code-editor.svelte.md-f3196ea7.js")
-				],
-				params: {},
-				routeId: "demo/code-editor"
-			}
-		});
-	</script></div>
+		<script type="module" data-sveltekit-hydrate="13l15bq">
+			import { start } from "../_app/immutable/start-755490d1.js";
+
+			start({
+				env: {},
+				hydrate: {
+					status: 200,
+					error: null,
+					node_ids: [0, 4],
+					params: {},
+					route: {"id":"/demo/code-editor"},
+					data: [null,null],
+					form: null
+				},
+				paths: {"base":"","assets":""},
+				target: document.querySelector('[data-sveltekit-hydrate="13l15bq"]').parentNode,
+				trailing_slash: "never"
+			});
+		</script>
+	</div>
     </body>
 </html>
