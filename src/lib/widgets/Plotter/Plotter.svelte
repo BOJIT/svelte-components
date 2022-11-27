@@ -31,14 +31,36 @@
 
     // Plotter Props
     export let resX: number = 100;
-    export let resY: number = 50;
-
-    export let rangeY: [number, number] = [-1, 1];
+    export let resY: [number, number] = [-1, 1];
 
     export let numLines: number = 1;
 
     export function update(points: number[]) {
-        console.log("Updating");
+        if(pause)
+            return;
+
+        if(demo)
+            return;
+
+        if(points.length !== numLines) {
+            console.warn("Data Length Mismatch");
+            return;
+        }
+
+        const sf = (2*fullRange)/(resY[1] - resY[0]);
+        let rangeProportion = Math.abs(resY[0])/(resY[1] - resY[0]);
+        let ofst = -fullRange + 2*fullRange*rangeProportion;
+
+        if((resY[0] < 0) && (resY[1] > 0)) {
+        } else {
+            ofst = -fullRange - resY[0]*sf;
+        }
+
+        for(let i = 0; i < numLines; i++) {
+            const fl = new Float32Array(1);
+            fl[0] = points[i]*sf + ofst;
+            lines[i].shiftAdd(fl);
+        }
     }
 
     export function clear() {
@@ -60,6 +82,15 @@
 
     /*---------------------------- Helper Functions --------------------------*/
 
+    function getYAxisPosition() {
+        if((resY[0] < 0) && (resY[1] > 0)) {
+            let rangeProportion = Math.abs(resY[0])/(resY[1] - resY[0]);
+            return -fullRange + 2*fullRange*rangeProportion;
+        } else {
+            return -fullRange;
+        }
+    }
+
     function drawCanvas() {
         const devicePixelRatio = window.devicePixelRatio || 1;
         canvas.width = canvas.clientWidth * devicePixelRatio;
@@ -69,7 +100,7 @@
         // Add grid lines
         const AxisX = new WebglLine(new ColorRGBA(255, 255, 255, 255), resX);
         AxisX.arrangeX();
-        AxisX.constY(0);
+        AxisX.constY(getYAxisPosition());
         wglp.addAuxLine(AxisX);
 
         const AxisY = new WebglLine(new ColorRGBA(255, 255, 255, 255), resX);
@@ -94,6 +125,7 @@
 
             lines[i] = new WebglLine(colour, resX);
             lines[i].arrangeX();
+            lines[i].constY(getYAxisPosition());
         }
     }
 
@@ -147,7 +179,11 @@
 <Container bind:aspect={aspect} wide={wide} tray={[
     {
         icon: pause ? IconPlay: IconPause,
-        callback: () => { pause = !pause; },
+        callback: () => {
+            if(pause)
+                clear();
+            pause = !pause;
+        },
     },
     {
         icon: IconRefresh,
