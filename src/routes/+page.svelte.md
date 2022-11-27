@@ -19,6 +19,7 @@
 - [Container Demo](/demo/container)
 - [Gallery Demo](/demo/gallery)
 - [Markdown Demo](/demo/markdown)
+- [Plotter Demo](/demo/plotter)
 - [Selector Filter](/demo/selector-filter)
 - [Zoomable Canvas Demo](/demo/zoom-canvas)
 

@@ -23,7 +23,3 @@ This is a generic container component. It uses relative positioning. Any filler 
 </Container>
 
 This block can be expanded to be full-screen.
-
-<Container buttonLocation="bottom-right" wide>
-    <iframe title="PCB BOM" src="https://openscopeproject.org/InteractiveHtmlBomDemo/html/carte_test.html"></iframe>
-</Container>
