@@ -9,4 +9,4 @@
 
 This is a line plotter component, designed for fast real-time plotting.
 
-<Plotter wide/>
+<Plotter wide numLines={5}/>
