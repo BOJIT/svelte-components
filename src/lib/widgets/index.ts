@@ -15,6 +15,7 @@ import Gallery from "./Gallery/Gallery.svelte";
 import PcbViewer from "./PcbViewer/PcbViewer.svelte";
 import Plotter from "./Plotter/Plotter.svelte";
 import Tabs from "./Tabs/Tabs.svelte";
+import Terminal from "./Terminal/Terminal.svelte";
 import ThemeSelector from "./ThemeSelector/ThemeSelector.svelte";
 import YouTube from "./YouTube/YouTube.svelte";
 import ZoomCanvas from "./ZoomCanvas/ZoomCanvas.svelte";
@@ -27,6 +28,7 @@ export {
     PcbViewer,
     Plotter,
     Tabs,
+    Terminal,
     ThemeSelector,
     YouTube,
     ZoomCanvas
@@ -40,6 +42,7 @@ export default {
     PcbViewer,
     Plotter,
     Tabs,
+    Terminal,
     ThemeSelector,
     YouTube,
     ZoomCanvas

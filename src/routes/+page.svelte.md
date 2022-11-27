@@ -20,7 +20,8 @@
 - [Gallery Demo](/demo/gallery)
 - [Markdown Demo](/demo/markdown)
 - [Plotter Demo](/demo/plotter)
-- [Selector Filter](/demo/selector-filter)
+- [Selector Filter Demo](/demo/selector-filter)
+- [Terminal Demo](/demo/terminal)
 - [Zoomable Canvas Demo](/demo/zoom-canvas)
 
 #### Archived

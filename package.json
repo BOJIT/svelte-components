@@ -1,7 +1,7 @@
 {
     "name": "@bojit/svelte-components",
     "private": false,
-    "version": "1.2.0",
+    "version": "1.2.1",
     "scripts": {
         "dev": "vite dev",
         "build": "vite build",
@@ -32,11 +32,14 @@
         "@fontsource/red-hat-mono": "^4.5.11",
         "@svicons/ionicons-outline": "^0.1.11",
         "@svicons/ionicons-solid": "^0.1.11",
+        "@types/w3c-web-serial": "^1.0.3",
         "prismjs": "^1.29.0",
         "simplebar": "^5.3.9",
         "svelte": "^3.44.0",
         "svelte-waypoint": "^0.1.4",
         "tinycolor2": "^1.4.2",
-        "webgl-plot": "^0.7.0"
+        "webgl-plot": "^0.7.0",
+        "xterm": "^5.0.0",
+        "xterm-addon-fit": "^0.6.0"
     }
 }
