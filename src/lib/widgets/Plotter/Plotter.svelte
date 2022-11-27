@@ -77,6 +77,7 @@
     let wglp: WebglPlot | null = null;
 
     let lines: WebglLine[] = [];
+    let colours: string[] = [];
 
     const fullRange = 0.9;
 
@@ -123,10 +124,15 @@
             let p = 1;
             const colour = new ColorRGBA(swatch[p][0]/255, swatch[p][1]/255, swatch[p][2]/255, 1);
 
+            colours[i] = `rgb(${swatch[p][0]}, ${swatch[p][1]}, ${swatch[p][2]})`;
             lines[i] = new WebglLine(colour, resX);
             lines[i].arrangeX();
             lines[i].constY(getYAxisPosition());
         }
+
+        // Truncate arrays if line number is reduced
+        lines.length = numLines;
+        colours.length = numLines;
     }
 
     function demoSignals() {
@@ -191,11 +197,38 @@
     },
 ]}>
     <canvas bind:this={canvas}/>
+    <div slot="overlay" class="legend">
+        <div class="legend-flex">
+            {#each colours as c}
+                <div class="legend-square" style="background-color: {c};" />
+            {/each}
+        </div>
+    </div>
 </Container>
 
 
 <style>
     canvas {
         margin: 0.5%;
+    }
+
+    .legend {
+        position: relative;
+    }
+
+    .legend-flex {
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        gap: 0.3rem;
+        bottom: 0.6rem;
+        right: 0.6rem;
+    }
+
+    .legend-square {
+        width: 0.75rem;
+        height: 0.75rem;
+        border-radius: 0.2rem;
+        background-color: red;
     }
 </style>

@@ -82,6 +82,9 @@
         <div class="container" class:zoom>
             <slot />
         </div>
+        <div class="container overlay" class:zoom>
+            <slot name="overlay"/>
+        </div>
     </div>
 </div>
 
@@ -95,6 +98,7 @@
     class:left={buttonCSS[2]}
     class:right={buttonCSS[3]}
 >
+
     <IconButton icon={IconContract} color="#8b8b8b22" size="2em" useRipple={false}
         on:click={() => { zoom = false; }}/>
 
@@ -229,5 +233,11 @@
         display: flex;
         flex-direction: row-reverse;
         gap: 0.5rem;
+    }
+
+    .overlay {
+        background-color: transparent !important;
+        z-index: 101;
+        pointer-events: none;
     }
 </style>

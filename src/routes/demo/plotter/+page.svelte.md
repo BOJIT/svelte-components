@@ -9,7 +9,7 @@
     const xrange = 100;
     const ymin = -50;
     const ymax = 50;
-    const numLines = 2;
+    const numLines = 8;
 
     onMount(() => {
         let t = 0;
@@ -31,6 +31,6 @@
 This is a line plotter component, designed for fast real-time plotting.
 
 <Plotter bind:this={plotter} wide numLines={numLines}
-    resX={xrange} resY={[ymin, ymax]}/>
+    resX={xrange} resY={[ymin, ymax]} demo/>
 
 Y min = {ymin} , Y max = {ymax}, X range = {xrange} steps.
