@@ -9,16 +9,24 @@
 -->
 
 <script lang='ts'>
+    import type { SvelteComponent } from "svelte";
     import { fade } from "svelte/transition";
     import { IconButton } from "$lib/form";
     import IconExpand from "@svicons/ionicons-outline/expand.svelte";
     import IconContract from "@svicons/ionicons-outline/contract.svelte";
 
+    type TrayButton = {
+        icon: SvelteComponent,
+        callback: () => void,
+    }
+
     export let aspect: string = "4:3";
     export let zoomable: boolean = true;
-
+    export let wide: boolean = false;
     export let buttonLocation: "top-left" | "top-right" |
                                "bottom-left" | "bottom-right" = "top-right";
+
+    export let tray: TrayButton[] = [];
 
     let zoom = false;
     let padding = "0%";
@@ -49,9 +57,9 @@
 </script>
 
 
-<div class="container-padded">
+<div class="container-padded" class:wide>
     <div class="container-aspect" style:padding-bottom={padding}>
-        <div class="controls"
+        <div class="controls tray"
             class:top={buttonCSS[0]}
             class:bottom={buttonCSS[1]}
             class:left={buttonCSS[2]}
@@ -64,6 +72,12 @@
                         zoom = true;
                 }}
             />
+
+            { #each tray as t }
+                <IconButton icon={t.icon} color="#8b8b8b22" size="1.5em" useRipple={false}
+                on:click={t.callback}/>
+            { /each }
+
         </div>
         <div class="container" class:zoom>
             <slot />
@@ -75,14 +89,19 @@
     <div class="scrim" in:fade={{duration: 2}}/>
 {/if}
 
-<div class="shrink" class:zoom
+<div class="shrink tray" class:zoom
     class:top={buttonCSS[0]}
     class:bottom={buttonCSS[1]}
     class:left={buttonCSS[2]}
     class:right={buttonCSS[3]}
 >
     <IconButton icon={IconContract} color="#8b8b8b22" size="2em" useRipple={false}
-    on:click={() => { zoom = false; }}/>
+        on:click={() => { zoom = false; }}/>
+
+    { #each tray as t }
+        <IconButton icon={t.icon} color="#8b8b8b22" size="2em" useRipple={false}
+            on:click={t.callback}/>
+    { /each }
 </div>
 
 
@@ -139,6 +158,10 @@
         }
     }
 
+    .container-padded.wide {
+        width: 100%;
+    }
+
     /* Child must fill container */
     .container > :global(*) {
         width: 100%;
@@ -150,8 +173,10 @@
         position: fixed;
         top: 1rem;
         left: 1rem;
-        width: calc(100vw - 2rem);
-        height: calc(100vh - 2rem);
+        bottom: 1rem;
+        right: 1rem;
+        width: auto;
+        height: auto;
         z-index: 100;
         overflow: hidden;
 
@@ -176,11 +201,11 @@
 
     .shrink {
         position: fixed;
-        display: none;
+        visibility: hidden;
     }
 
     .shrink.zoom {
-        display: block;
+        visibility: visible;
         z-index: 101;
     }
 
@@ -198,5 +223,11 @@
 
     .shrink.right {
         right: 1.5rem;
+    }
+
+    .tray {
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 0.5rem;
     }
 </style>
