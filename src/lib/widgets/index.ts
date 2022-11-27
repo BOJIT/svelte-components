@@ -13,6 +13,7 @@ import Chart from "./Chart/Chart.svelte";
 import CodeEditor from "./CodeEditor/CodeEditor.svelte";
 import Gallery from "./Gallery/Gallery.svelte";
 import PcbViewer from "./PcbViewer/PcbViewer.svelte";
+import Plotter from "./Plotter/Plotter.svelte";
 import Tabs from "./Tabs/Tabs.svelte";
 import ThemeSelector from "./ThemeSelector/ThemeSelector.svelte";
 import YouTube from "./YouTube/YouTube.svelte";
@@ -24,6 +25,7 @@ export {
     CodeEditor,
     Gallery,
     PcbViewer,
+    Plotter,
     Tabs,
     ThemeSelector,
     YouTube,
@@ -36,6 +38,7 @@ export default {
     CodeEditor,
     Gallery,
     PcbViewer,
+    Plotter,
     Tabs,
     ThemeSelector,
     YouTube,

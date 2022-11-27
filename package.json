@@ -15,6 +15,7 @@
         "@sveltejs/adapter-static": "^1.0.0-next.48",
         "@sveltejs/kit": "next",
         "@sveltejs/package": "^1.0.0-next.6",
+        "localforage": "^1.10.0",
         "mdsvex": "^0.10.6",
         "svelte-check": "^2.7.1",
         "svelte-preprocess": "^4.10.6",
@@ -35,6 +36,7 @@
         "simplebar": "^5.3.9",
         "svelte": "^3.44.0",
         "svelte-waypoint": "^0.1.4",
-        "tinycolor2": "^1.4.2"
+        "tinycolor2": "^1.4.2",
+        "webgl-plot": "^0.7.0"
     }
 }

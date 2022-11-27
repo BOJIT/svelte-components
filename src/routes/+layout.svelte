@@ -6,6 +6,9 @@
 
     import logo from "$lib/test/logo.png";
 
+    // Local storage
+    import storage from "$lib/test/storage";
+
     // Icons
     import Contrast from "@svicons/ionicons-outline/contrast.svelte";
     import Home from "@svicons/ionicons-outline/home.svelte";
@@ -33,9 +36,14 @@
             }
         },
     ];
+
+    async function load(resolve, reject) {
+        await storage.init();
+        resolve();
+    }
 </script>
 
-<App theme={palette.midnight}>
+<App theme={palette.midnight} load={load}>
     <NavBar
         title="@bojit/svelte-components"
         logo={logo}
