@@ -14,11 +14,16 @@
 
     import { WebglPlot, WebglLine, ColorRGBA } from "webgl-plot";
 
+    import theme from "$lib/theme";
+
     import IconPause from "@svicons/ionicons-outline/pause.svelte";
     import IconPlay from "@svicons/ionicons-outline/play.svelte";
     import IconRefresh from "@svicons/ionicons-outline/refresh.svelte";
 
     /*------------------------------ Public API ------------------------------*/
+
+    // Test mode: for demo purposes
+    export let demo: boolean = false;
 
     // Feed-through Container Props
     export let aspect: string | undefined;
@@ -37,7 +42,7 @@
     }
 
     export function clear() {
-        console.log("Updating");
+        console.log("Clearing");
     }
 
     /*--------------------------------- State --------------------------------*/
@@ -74,13 +79,17 @@
 
     function createLines() {
         for (let i = 0; i < numLines; i++) {
-            const color = new ColorRGBA(Math.random(), Math.random(), Math.random(), 1);
-            lines[i] = new WebglLine(color, resX);
+            const swatch = theme.swatchColorJS(i);
+
+            let p = 1;
+            const colour = new ColorRGBA(swatch[p][0]/255, swatch[p][1]/255, swatch[p][2]/255, 1);
+
+            lines[i] = new WebglLine(colour, resX);
             lines[i].arrangeX();
         }
     }
 
-    function testUpdate() {
+    function demoSignals() {
         if(pause)
             return;
 
@@ -112,7 +121,9 @@
 
         // Register new frame callback
         function newFrame() {
-            testUpdate();
+            if(demo)
+                demoSignals();
+
             wglp?.update();
             requestAnimationFrame(newFrame);
         }

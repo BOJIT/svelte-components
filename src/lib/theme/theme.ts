@@ -145,7 +145,7 @@ function init(palette?: Palette) {
  * @brief Get swatch colour in length-safe manner. Add as inline style
  * @param idx index to extract
  */
-function swatchColor(idx) {
+function swatchColor(idx: number) {
     if((swatchLength == undefined) || (swatchLength == 0)) {
         return "";  // Error: swatch not properly initialised
     } else {
@@ -162,6 +162,25 @@ function swatchColor(idx) {
         ];
         return vars.join(';');
     }
+}
+
+/**
+ * @brief Get swatch colour in length-safe manner. For elements that don't accept CSS
+ * @param idx index to extract
+ */
+function swatchColorJS(idx: number) {
+    if((typeof swatchLength !== 'undefined') && (swatchLength !== 0)) {
+        const new_idx = idx % swatchLength;
+        if(typeof document !== 'undefined') {
+            const style = getComputedStyle(document.documentElement);
+            const l = hexToRgb(style.getPropertyValue('--color-swatch-base-' + new_idx + '-light'));
+            const d = hexToRgb(style.getPropertyValue('--color-swatch-base-' + new_idx + '-dark'));
+
+            if((l !== null) && (d !== null))
+                return [l, d];
+        }
+    }
+    return [[255, 255, 255], [255, 255, 255]];  // Error: swatch not properly initialised
 }
 
 /**
@@ -211,6 +230,10 @@ function setCssVar(key: string, val: any, prefix: string) {
     }
 }
 
+function hexToRgb(hex: string, result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)) {
+    return result ? result.map(i => parseInt(i, 16)).slice(1) : null;
+}
+
 /*-------------------------------- Exports -----------------------------------*/
 
 export type { Palette, ThemeMode };
@@ -218,6 +241,7 @@ export type { Palette, ThemeMode };
 export default {
     Mode: mode_store,
     swatchColor,
+    swatchColorJS,
     ready,
     subscribe: state_store.subscribe,
     init,
