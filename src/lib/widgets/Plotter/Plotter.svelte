@@ -33,7 +33,7 @@
     export let resX: number = 100;
     export let resY: number = 50;
 
-    export let rangeY: [number, number] = [0, 1024];
+    export let rangeY: [number, number] = [-1, 1];
 
     export let numLines: number = 1;
 
@@ -42,7 +42,9 @@
     }
 
     export function clear() {
-        console.log("Clearing");
+        wglp?.clear();
+        createLines();
+        drawCanvas();
     }
 
     /*--------------------------------- State --------------------------------*/
@@ -53,6 +55,8 @@
     let wglp: WebglPlot | null = null;
 
     let lines: WebglLine[] = [];
+
+    const fullRange = 0.9;
 
     /*---------------------------- Helper Functions --------------------------*/
 
@@ -66,11 +70,15 @@
         const AxisX = new WebglLine(new ColorRGBA(255, 255, 255, 255), resX);
         AxisX.arrangeX();
         AxisX.constY(0);
-        wglp.addLine(AxisX);
+        wglp.addAuxLine(AxisX);
 
-        // const AxisY = new WebglLine(new ColorRGBA(255, 255, 255, 255), resX);
-        // // AxisY.arrangeY();
-        // wglp.addLine(AxisY);
+        const AxisY = new WebglLine(new ColorRGBA(255, 255, 255, 255), resX);
+        for(let i = 0; i < resX; i++) {
+            const n = -fullRange + (2*fullRange*i/resX);
+            AxisY.setX(i, -1);
+            AxisY.setY(i, n);
+        }
+        wglp.addAuxLine(AxisY);
 
         lines.forEach((l) => {
             wglp?.addLine(l);
@@ -94,7 +102,7 @@
             return;
 
         const freq = 0.005;
-        const amp = 0.5;
+        const amp = 0.7;
         const noise = 0.1;
         const phaseStep = 2 * Math.PI /numLines;
 
@@ -143,7 +151,7 @@
     },
     {
         icon: IconRefresh,
-        callback: () => {},
+        callback: clear,
     },
 ]}>
     <canvas bind:this={canvas}/>
@@ -151,5 +159,7 @@
 
 
 <style>
-
+    canvas {
+        margin: 0.5%;
+    }
 </style>

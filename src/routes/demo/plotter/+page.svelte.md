@@ -5,8 +5,8 @@
     import IconAmericanFootball from "@svicons/ionicons-outline/american-football.svelte";
 </script>
 
-# Container
+# Plotter
 
 This is a line plotter component, designed for fast real-time plotting.
 
-<Plotter wide demo numLines={5}/>
+<Plotter wide demo numLines={5} resX={100}/>
