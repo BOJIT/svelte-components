@@ -36,5 +36,7 @@ Click Here!
 
 <Dialog bind:value={visible}>
     <div slot="title" class="title">Select Item</div>
-    <SelectorFilter items={items} dialog/>
+    <SelectorFilter items={items} dialog on:select={() => {
+        visible = false;
+    }}/>
 </Dialog>

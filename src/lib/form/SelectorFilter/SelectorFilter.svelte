@@ -18,9 +18,6 @@
     import 'simplebar';
     import 'simplebar/dist/simplebar.css';
 
-    /* Mark-JS*/
-    // import Mark from './mark.es6.min.js';
-
     /*------------------------------- Interface ------------------------------*/
 
     // Public props
@@ -44,9 +41,7 @@
 
     let  focused: boolean;
     const dispatch = createEventDispatcher();
-
     let entries: HTMLElement;
-    let mark: any = undefined;
 
     /*-------------------------------- Helpers -------------------------------*/
 
@@ -59,18 +54,38 @@
     }
 
     function inputChange() {
-        // /* Highlight Matches */
-        // if(instance) {
-        //     instance.unmark({
-        //         done: () => {
-        //             instance.mark(search);
-        //         }
-        //     });
-        // }
-
         /* Get number of matches */
         visibleItems = items.filter(s => s.toLowerCase().includes(search.toLowerCase()));
         matches = visibleItems.length;
+
+        /* Clear previous highlighting */
+        // let fields = entries.querySelectorAll(".list-item");
+        // if(fields !== null) {
+        //     fields.forEach((f) => {
+        //         let labelDiv = f.querySelector('div');
+        //         if(labelDiv)
+        //             labelDiv.innerHTML = labelDiv.innerHTML.replace(/(<mark class="highlight">|<\/mark>)/gim, '');
+        //     });
+        // }
+
+        // setTimeout(() => {
+        //     /* Highlight Matches */
+        //     let fields = entries.querySelectorAll(".list-item");
+
+        //     if(fields !== null) {
+        //         fields.forEach((f) => {
+        //             let label = f.querySelector('div')?.innerHTML;
+        //             if(label && visibleItems.includes(label)) {
+        //                 const regex = new RegExp(search, 'gi');
+        //                 // Remove old highlighting and add new
+        //                 label = label.replace(/(<mark class="highlight">|<\/mark>)/gim, '');
+        //                 let newlabel = label.replace(regex, '<mark class="highlight">$&</mark>');
+
+        //                 f.querySelector('div').innerHTML = newlabel;
+        //             }
+        //         });
+        //     }
+        // } , 10);
     }
 
     function optionSelected(option: string) {
@@ -82,7 +97,7 @@
     /*---------------------------- Lifecycle Hooks ---------------------------*/
 
     onMount(async () => {
-        // let Mark = await import('./mark.es6.min.js');
+        // let Mark = await import('./mark.min.js');
         // mark = new Mark(entries);
     });
 </script>
