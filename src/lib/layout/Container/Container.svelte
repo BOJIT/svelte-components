@@ -237,7 +237,7 @@
 
     .overlay {
         background-color: transparent !important;
-        z-index: 101;
+        z-index: 98;
         pointer-events: none;
     }
 </style>

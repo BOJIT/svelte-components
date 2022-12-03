@@ -10,7 +10,10 @@
 
     export let items = [
         "Test",
-        "Check"
+        "Check",
+        "Frogs",
+        "Test",
+        "Spawn",
     ];
 </script>
 
@@ -18,7 +21,7 @@
 
 Use inline:
 
-<SelectorFilter items={items}/>
+<SelectorFilter items={items} maxHeight="15rem"/>
 
 Or... launch dialogue with the button below:
 

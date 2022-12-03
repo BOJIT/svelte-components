@@ -12,4 +12,6 @@
   style="opacity: {opacity}"
   in:fade={inProps}
   out:fade={outProps}
-  on:click />
+  on:click
+  on:keypress
+  />

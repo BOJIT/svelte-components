@@ -34,3 +34,4 @@ This is a line plotter component, designed for fast real-time plotting.
     resX={xrange} resY={[ymin, ymax]} demo/>
 
 Y min = {ymin} , Y max = {ymax}, X range = {xrange} steps.
+
