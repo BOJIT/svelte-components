@@ -7,6 +7,7 @@
   export let outlined = false;
   export let focused = false;
   export let error = false;
+  export let success = false;
   export let color = "primary";
 
   let defaultClasses = `mx-auto w-0`;
@@ -32,7 +33,9 @@
       .flush()
       .add(txt(), focused && !error)
       .add('bg-error-500', error)
+      .add('bg-success-500', success)
       .add('w-full', focused || error)
+      .add('w-full', focused || success)
       .add(bg(), focused)
       .add(add)
       .remove(remove)
@@ -42,6 +45,7 @@
   const props = filterProps([
     'focused',
     'error',
+    'success',
     'outlined',
     'labelOnTop',
     'prepend',

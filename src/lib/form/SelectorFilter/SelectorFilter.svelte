@@ -9,7 +9,8 @@
 -->
 
 <script lang='ts'>
-    import Dialog from "$lib/smelte/components/Dialog/Dialog.svelte";
+    import { onMount } from 'svelte';
+    import { createEventDispatcher } from 'svelte';
     import TextField from "$lib/smelte/components/TextField/TextField.svelte";
     import List from "$lib/smelte/components/List/List.svelte";
 
@@ -17,43 +18,89 @@
     import 'simplebar';
     import 'simplebar/dist/simplebar.css';
 
+    /* Mark-JS*/
+    // import Mark from './mark.es6.min.js';
+
+    /*------------------------------- Interface ------------------------------*/
+
     // Public props
-    export let label:string = "parameter";
-    export let items:string[] = [];
-    export let maxHeight:string = "10rem";
+    export let label: string = "parameter";
+    export let items: string[] = [];
+    export let maxHeight: string = "10rem";
 
-    // Dialogue props
-    export let dialog = false;
-    export let visible = false;
-    export let dialog_title:string = "Select Item";
+    // Dialogue styling
+    export let dialog: boolean = false;
 
-    // State
+    /*--------------------------------- State --------------------------------*/
+
+    let search: string = "";
+    let matches: number = items.length;
+
+    export let visibleItems: string[] = items;
     let listItems: object[] = [];
-    $ : listItems = items.map((i) => {
+    $ : listItems = visibleItems.map((i) => {
         return { 'text': i, 'icon': 'chevron_right' }
+    });
+
+    let  focused: boolean;
+    const dispatch = createEventDispatcher();
+
+    let entries: HTMLElement;
+    let mark: any = undefined;
+
+    /*-------------------------------- Helpers -------------------------------*/
+
+    function handleKeydown(event: KeyboardEvent) {
+        if(!focused)
+            return;
+
+        if((event.key === 'Enter') && (matches === 1))
+            optionSelected(visibleItems[0]);   // Fill box
+    }
+
+    function inputChange() {
+        // /* Highlight Matches */
+        // if(instance) {
+        //     instance.unmark({
+        //         done: () => {
+        //             instance.mark(search);
+        //         }
+        //     });
+        // }
+
+        /* Get number of matches */
+        visibleItems = items.filter(s => s.toLowerCase().includes(search.toLowerCase()));
+        matches = visibleItems.length;
+    }
+
+    function optionSelected(option: string) {
+        search = option;   // Fill box
+        focused = false;
+        dispatch('select', option);
+    }
+
+    /*---------------------------- Lifecycle Hooks ---------------------------*/
+
+    onMount(async () => {
+        // let Mark = await import('./mark.es6.min.js');
+        // mark = new Mark(entries);
     });
 </script>
 
 
-{#if dialog}
-    <Dialog bind:value={visible}>
-        <div slot="title">{dialog_title}</div>
+<svelte:window on:keydown={handleKeydown}/>
 
-    <div class="contents dialog">
-        <TextField label={label} prepend="search"/>
-        <div class="overflow" data-simplebar style:max-height={maxHeight}>
-            <List items={listItems} />
-        </div>
+<div class="contents" class:dialog>
+    <TextField label={label} prepend="search" bind:focused={focused}
+        bind:value={search} on:input={inputChange}
+        error={matches === 0 ? "No Matches" : ""}
+        success={matches === 1 ? "Success" : ""}
+    />
+    <div class="overflow" data-simplebar style:max-height={maxHeight}
+        bind:this={entries}>
+        <List items={listItems} on:change={(e) => { optionSelected(e.detail); }}/>
     </div>
-    </Dialog>
-{:else}
-    <div class="contents">
-        <TextField label={label} prepend="search"/>
-        <div class="overflow" data-simplebar style:max-height={maxHeight}>
-            <List items={listItems} />
-        </div>
-    </div>
-{/if}
+</div>
 
 
 <style>
@@ -68,6 +115,7 @@
     }
 
     .overflow {
+        min-height: 1.5rem;
         border-bottom: 1px solid var(--color-gray-600);
         overflow: scroll;
         background-color: #44444411;

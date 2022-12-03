@@ -19,6 +19,7 @@
   export let placeholder = "";
   export let hint = "";
   export let error = false;
+  export let success = false;
   export let append = "";
   export let prepend = "";
   export let persistentHint = false;
@@ -83,6 +84,8 @@
       .add('border-error-500 caret-error-500', error)
       .remove(caret(), error)
       .add(caret(), !error)
+      .remove(caret(), success)
+      .add(caret(), !success)
       .add(border(), outlined && focused && !error)
       .add('bg-gray-100 dark:bg-dark-600', !outlined)
       .add('bg-gray-300 dark:bg-dark-200', focused && !outlined)
@@ -106,6 +109,7 @@
       .remove('mb-6 mt-2', dense && !outlined)
       .add('mb-4 mt-1', dense)
       .replace({ 'text-gray-600': 'text-error-500' }, error)
+      .replace({ 'text-gray-600': 'text-success-500' }, success)
       .add('text-gray-200', disabled)
       .get();
 
@@ -118,6 +122,7 @@
     'placeholder',
     'hint',
     'error',
+    'success',
     'append',
     'prepend',
     'persistentHint',
@@ -149,6 +154,7 @@
       {labelOnTop}
       {focused}
       {error}
+      {success}
       {outlined}
       {prepend}
       {color}
@@ -253,11 +259,13 @@
     {outlined}
     {focused}
     {error}
+    {success}
     {color}  />
 
   {#if showHint}
     <Hint
       {error}
+      {success}
       {hint} />
   {/if}
 </div>

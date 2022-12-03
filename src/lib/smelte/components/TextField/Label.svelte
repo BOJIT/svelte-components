@@ -5,6 +5,7 @@
 
   export let focused = false;
   export let error = false;
+  export let success = false;
   export let outlined = false;
   export let labelOnTop = false;
   export let prepend = false;
@@ -34,6 +35,7 @@
       .flush()
       .add(txt(), focused && !error)
       .add('text-error-500', focused && error)
+      .add('text-success-500', focused && success)
       .add('label-top text-xs', labelOnTop)
       .add('text-xs', focused)
       .remove('pt-4 pb-2 px-4 px-1 pt-0', labelOnTop && outlined)
@@ -50,6 +52,7 @@
   const props = filterProps([
     'focused',
     'error',
+    'success',
     'outlined',
     'labelOnTop',
     'prepend',

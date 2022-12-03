@@ -3,7 +3,7 @@
 </svelte:head>
 
 <script>
-    import { Button } from "$lib/smelte";
+    import { Button, Dialog } from "$lib/smelte";
     import { SelectorFilter } from "$lib/form";
 
     export let visible = false;
@@ -12,16 +12,19 @@
         "Test",
         "Check",
         "Frogs",
-        "Test",
+        "Target",
         "Spawn",
     ];
 </script>
+
 
 # This is a Selector Filter
 
 Use inline:
 
-<SelectorFilter items={items} maxHeight="15rem"/>
+<SelectorFilter items={items} maxHeight="15rem" on:select={(s)=>{
+    console.log("Select: ", s.detail);
+}}/>
 
 Or... launch dialogue with the button below:
 
@@ -31,4 +34,7 @@ Or... launch dialogue with the button below:
 Click Here!
 </Button>
 
-<SelectorFilter dialog bind:visible items={items}/>
+<Dialog bind:value={visible}>
+    <div slot="title" class="title">Select Item</div>
+    <SelectorFilter items={items} dialog/>
+</Dialog>
