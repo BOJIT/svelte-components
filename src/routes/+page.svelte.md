@@ -25,5 +25,5 @@
 - [Zoomable Canvas Demo](/demo/zoom-canvas)
 
 #### Archived
-- [Smelte Library Demo](/nav/smelte)
-- [Misc. Demo (TODO sort)](/nav)
+- [Misc. Demo (TODO sort)](/nav/tab2)
+- [Smelte Library Demo](/nav/tab3)

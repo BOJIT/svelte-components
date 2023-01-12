@@ -1,7 +1,7 @@
 <!--
- * @file Tabs.svelte
+ * @file TabsV1.svelte
  * @author James Bennion-Pedley
- * @brief Simple Tab Element - either uses links or embedded components
+ * @brief Here for backward compatibility ONLY
  * @date 12/01/2023
  *
  * @copyright Copyright (c) 2023
@@ -15,14 +15,6 @@
 
     import theme from "$lib/theme";
     import type { SvelteComponent } from 'svelte';
-    import Tab from '$lib/smelte/components/Tabs/Tab.svelte';
-
-    type Tab = {
-        label: string,
-        link?: string,
-        component?: SvelteComponent,
-        props?: object
-    }
 
     /* Callback for tab click event */
     function handleClick(idx: number) {
@@ -34,7 +26,10 @@
     }
 
     /* Array of tabs */
-    export let tabs : Tab[] = [];
+    export let tabs : string[] = [];
+    export let links: string[] = [];    // TODO find better system to encapsulate
+    export let components: SvelteComponent[] = null;
+    export let componentProps: object[] = null;
 
     /* Keep track of current tab index */
     export let index = 0;
@@ -44,43 +39,37 @@
 
 
 <div class="container">
+
     {#await theme.ready(1000) then value}
     <div data-simplebar>
         <ul class="tabs">
             <!-- Render each tab - updates when the list updates -->
             {#each tabs as tab, idx}
-            {#if "link" in tab }
-            <a href={tab.link}>
                 <li style={theme.swatchColor(idx)} class="tab transition" class:is-active={idx == index}
-                on:click={() => handleClick(idx)}
+                on:click={() => handleClick(idx)} href="{void(0)}"
                 on:keypress={() => handleClick(idx)}>
-                    <h6 class="unselectable">{tab.label}</h6>
+                    <h6 class="unselectable">{tab}</h6>
                 </li>
-            </a>
-            {:else}
-                <li style={theme.swatchColor(idx)} class="tab transition" class:is-active={idx == index}
-                on:click={() => handleClick(idx)}
-                on:keypress={() => handleClick(idx)}>
-                    <h6 class="unselectable">{tab.label}</h6>
-                </li>
-            {/if}
             {/each}
         </ul>
         <hr bind:this={tabline} class="tabline transition" style={theme.swatchColor(index)}>
     </div>
     {/await}
 
-    {#each tabs as tab, idx}
-        {#if "component" in tab }
+    {#if components != null}
+        {#each components as component, idx}
             <div class="content" class:visible={idx == index}>
-                {#if "props" in tab}
-                    <svelte:component this={tab.component} {...tab.props}/>
+                {#if componentProps[idx] && (typeof componentProps[idx] == "object")}
+                    <svelte:component this={component} {...componentProps[idx]}/>
                 {:else}
-                    <svelte:component this={tab.component} />
+                    <svelte:component this={component} />
                 {/if}
             </div>
-        {/if}
-    {/each}
+        {/each}
+    {/if}
+
+
+
 </div>
 
 
@@ -142,15 +131,6 @@
         border-color: var(--color-swatch-base-dark);
     }
 
-    h6 {
-        margin-bottom: 0rem !important;
-    }
-
-    a {
-        text-decoration: none !important;
-        color: inherit !important;
-    }
-
     .content {
         flex: 5 0 auto;
         height: 100%;
@@ -161,6 +141,7 @@
     .content.visible {
         display: block;
     }
+
 
     .unselectable {
         -webkit-touch-callout: none;

@@ -74,8 +74,10 @@
 </style>
 
 <svelte:head>
-    <title>@bojit/svelte-components</title>
+    <title>Tab 3 - Smelte Demo</title>
 </svelte:head>
+
+<h1>Tab 3 - Smelte Demo</h1>
 
 <h3>Theme</h3>
 

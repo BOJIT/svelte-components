@@ -8,8 +8,12 @@
     import SunnyOutline from "@svicons/ionicons-outline/sunny.svelte";
 </script>
 
+<svelte:head>
+    <title>Tab 2 - MDsveX Demo</title>
+</svelte:head>
+
 <Content>
-    <h1>I am regular markdown!</h1>
+    <h1>Tab 2 - MDsveX Demo</h1>
 
     <p>This is normal text</p>
 
