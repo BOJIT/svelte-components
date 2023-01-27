@@ -282,6 +282,11 @@
         -moz-transition: opacity 0.2s ease-in;
         -webkit-transition: opacity 0.2s ease-in;
         -o-transition: opacity 0.2s ease-in;
+
+        -webkit-user-select: none;  /* Safari */
+        -moz-user-select: none;     /* Firefox */
+        -ms-user-select: none;      /* IE10+/Edge */
+        user-select: none;          /* Standard */
     }
 
     .tile .image-holder:hover img {
