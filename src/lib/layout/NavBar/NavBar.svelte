@@ -4,6 +4,7 @@
         icon?: SvelteComponent,
         shape?: "square" | "circle" | "rounded",
         color?: string,
+        label?: string,
         visibility?: "mobile" | "desktop"
         callback?: (() => void)
     }
@@ -61,6 +62,7 @@
                     <IconButton
                         color={item.color} icon={item.icon}
                         size="1.7rem" shape={item.shape}
+                        label={item.label ? item.label : "label"}
                         iconColor={local_theme == 'dark' ? "var(--color-white)" : "var(--color-dark-500)"}
                         on:click={item.callback}
                     />

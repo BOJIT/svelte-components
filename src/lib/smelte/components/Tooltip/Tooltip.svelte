@@ -6,12 +6,12 @@
 
   export let classes = classesDefault;
 
-
+  export let active = true;
   export let show = false;
 
   export let timeout = null;
-  export let delayHide = 100;
-  export let delayShow = 100;
+  export let delayHide = 300;
+  export let delayShow = 300;
 
   const cb = new ClassBuilder(classes, classesDefault);
   $: c = cb
@@ -21,6 +21,8 @@
     .get();
 
   function showTooltip() {
+    if(!active) return;
+
     if (show) return;
 
     show = true;
@@ -33,6 +35,8 @@
   }
 
   function hideTooltip() {
+    if(!active) return;
+
     if (!show) return;
 
     show = false;

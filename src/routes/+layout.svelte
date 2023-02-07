@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { goto } from "$app/navigation";
+
     import { App } from "$lib/core";
     import { Content, Main, NavBar } from "$lib/layout";
     import type { NavItem } from "$lib/layout/NavBar/NavBar.svelte";
@@ -25,14 +27,16 @@
             type: "button",
             color: "transparent",
             icon: Contrast,
+            label: "Change Theme",
             callback: toggleTheme
         },
         {
             type: "button",
             color: "transparent",
             icon: Home,
+            label: "Home",
             callback: () => {
-                window.location.href = "/";
+                goto('/');
             }
         },
     ];

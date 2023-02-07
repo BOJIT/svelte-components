@@ -3,6 +3,7 @@
     import createRipple from "$lib/smelte/components/Ripple/ripple.js";
 
     import Link from '$lib/core/Link/Link.svelte';
+    import Tooltip from '$lib/smelte/components/Tooltip/Tooltip.svelte';
 
     const dispatch = createEventDispatcher();
 
@@ -14,7 +15,7 @@
     export let disabled = false;
     export let useRipple = true;
 
-    export let label = "Accessibility Label";
+    export let label = "label";
 
     // Style
     export let size: string = "2.5em";
@@ -26,15 +27,40 @@
 
 <Link href={href} newTab={newTab} label={label}>
     {#if useRipple}
-        <button disabled={disabled} class="{shape} overflow-hidden" class:hoverable={!disabled} style="background-color: {color}"
-            on:click={() => {dispatch('click');}} use:ripple aria-label={label}>
-            <svelte:component this={icon} height={size} color={iconColor}/>
-        </button>
+        <Tooltip active={label !== "label"}>
+            <div slot="activator">
+                <button
+                    disabled={disabled}
+                    class="{shape} overflow-hidden"
+                    class:hoverable={!disabled}
+                    class:transparent={color === 'transparent'}
+                    style="background-color: {color}"
+                    on:click={() => {dispatch('click');}}
+                    use:ripple
+                    aria-label={label}
+                >
+                    <svelte:component this={icon} height={size} color={iconColor}/>
+                </button>
+            </div>
+            {label}
+        </Tooltip>
     {:else}
-        <button disabled={disabled} class="{shape} overflow-hidden" class:hoverable={!disabled} style="background-color: {color}"
-            on:click={() => {dispatch('click');}} aria-label={label}>
-            <svelte:component this={icon} height={size} color={iconColor}/>
-        </button>
+        <Tooltip active={label !== "label"}>
+            <div slot="activator">
+                <button
+                    disabled={disabled}
+                    class="{shape} overflow-hidden"
+                    class:hoverable={!disabled}
+                    class:transparent={color === 'transparent'}
+                    style="background-color: {color}"
+                    on:click={() => {dispatch('click');}}
+                    aria-label={label}
+                >
+                    <svelte:component this={icon} height={size} color={iconColor}/>
+                </button>
+            </div>
+            {label}
+        </Tooltip>
     {/if}
 </Link>
 
@@ -43,10 +69,15 @@
     button {
         padding: 0.7rem;
         transition: filter 0.2s;
+        transition: background-color 0.2s;
     }
 
     button.hoverable:hover {
         filter: brightness(160%);
+    }
+
+    button.hoverable.transparent:hover {
+        background-color: #72727226 !important;
     }
 
     button.circle {
