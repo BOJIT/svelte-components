@@ -9,11 +9,11 @@
  */
 
 import IconButton from "./IconButton/IconButton.svelte";
-import SelectorFilter from "./SelectorFilter/SelectorFilter.svelte";
+import SearchableList from "./SearchableList/SearchableList.svelte";
 
-export { IconButton, SelectorFilter };
+export { IconButton, SearchableList };
 
 export default {
     IconButton,
-    SelectorFilter
+    SearchableList,
 }
