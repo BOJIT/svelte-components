@@ -3,8 +3,9 @@
 </svelte:head>
 
 <script>
-    import { Button, Dialog } from "$lib/smelte";
     import { SearchableList } from "$lib/form";
+    import { BaseDialog } from "$lib/layout";
+    import { Button } from "$lib/smelte";
 
     export let visible = false;
 
@@ -35,7 +36,7 @@
 </script>
 
 
-# This is a Selector Filter
+# This is a Searchable List
 
 Use inline:
 
@@ -53,12 +54,12 @@ Or... launch dialogue with the button below:
 Click Here!
 </Button>
 
-<Dialog bind:value={visible}>
-    <div slot="title" class="title">Select Item</div>
+<BaseDialog bind:visible title="Searchable List">
     <SearchableList bind:this={searchableList} items={item2} maxHeight="10rem" on:select={(s)=>{
         console.log("Select: ", s.detail);
+        setTimeout(() => {visible = false}, 200);
     }}/>
-</Dialog>
+</BaseDialog>
 
 
 <style>

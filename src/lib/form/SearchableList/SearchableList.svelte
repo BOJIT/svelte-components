@@ -142,6 +142,7 @@
                     icon={l.icon} highlight={$searchString}
                     selected={i === selectedIndex}
                     on:click={() => {
+                        selectedIndex = i;
                         dispatch('select', searchList(items, $searchString)[i].key);
                     }}
                 />

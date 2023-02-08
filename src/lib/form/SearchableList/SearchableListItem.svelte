@@ -13,7 +13,7 @@
 
     import { createEventDispatcher, SvelteComponent } from "svelte";
 
-    // import createRipple from "@bojit/svelte-components/smelte/components/Ripple/ripple.js";
+    import createRipple from "$lib/smelte/components/Ripple/ripple.js";
 
     /*--------------------------------- Props --------------------------------*/
 
@@ -24,7 +24,7 @@
     export let selected: boolean = false;
 
     let dispatch = createEventDispatcher();
-    // let ripple = createRipple('white');
+    let ripple = createRipple('white');
 
     /*-------------------------------- Methods -------------------------------*/
 
