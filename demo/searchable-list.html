@@ -15,10 +15,7 @@
 		<link href="../_app/immutable/assets/prism-5a55c16b.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/Container-95931165.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/Content-0774c0a5.css" rel="stylesheet">
-		<link href="../_app/immutable/assets/CAD-212d6d67.css" rel="stylesheet">
-		<link href="../_app/immutable/assets/ThemeSelector-7eca398a.css" rel="stylesheet">
-		<link href="../_app/immutable/assets/YouTube-5238c084.css" rel="stylesheet">
-		<link href="../_app/immutable/assets/ZoomCanvas-01c924a5.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/_page.svelte-45d31552.css" rel="stylesheet">
 		<link rel="preload" as="font" type="font/woff2" href="../_app/immutable/assets/material-icons-base-400-normal-cc0462d5.woff2" crossorigin>
 		<link rel="preload" as="font" type="font/woff" href="../_app/immutable/assets/material-icons-base-400-normal-47b692f3.woff" crossorigin>
 		<link rel="preload" as="font" type="font/woff2" href="../_app/immutable/assets/material-icons-outlined-all-400-normal-1a2694ac.woff2" crossorigin>
@@ -58,10 +55,8 @@
 		<link rel="modulepreload" href="../_app/immutable/chunks/Tooltip-51cc66bc.js">
 		<link rel="modulepreload" href="../_app/immutable/modules/pages/_layout.ts-b8ee4d7c.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/_layout-1daba58d.js">
-		<link rel="modulepreload" href="../_app/immutable/components/pages/demo/terminal/_page.svelte.md-3ae226c3.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/List-cec6f92b.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/refresh-cd33d14c.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/Container-09db8ca4.js">
+		<link rel="modulepreload" href="../_app/immutable/components/pages/demo/searchable-list/_page.svelte.md-b0de4895.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/TextField-e71cbb53.js"><title>Demo - Selection Filter</title><!-- HEAD_svelte-1eh1b59_START --><!-- HEAD_svelte-1eh1b59_END -->
     </head>
     <body>
         <div style="display: contents">
@@ -102,98 +97,93 @@
 
     <main class="svelte-17szv2b">
 
-<article class="svelte-1mfh4m7"><h1>Terminal</h1>
-<p>This is a built-in serial terminal widget: it uses the Web Serial API</p>
+<article class="svelte-1mfh4m7">
+
+
+<h1>This is a Searchable List</h1>
+<p>Use inline:</p>
+<div class="pad svelte-1nyv8o7">
 
 
 
 
 
 
+<div class="container"><form autocomplete="off" class="overflow svelte-1l7hlmc"><div class="mt-2 mb-6 relative text-gray-600 dark:text-gray-100">
+
+  <input id="smelte_textfield_0" aria-label="" class="   rounded-t text-black dark:text-gray-100 w-full border rounded bg-transparent py-4 duration-200 ease-in  caret-secondary-500   caret-secondary-500   pr-4 pl-10 " placeholder="" value="">
+
+  
+
+  <div class="absolute left-0 top-0 pb-2 pl-2 pt-4 text-xs text-gray-700 z-10">
+        <i aria-hidden="true" class="material-icons icon text-xl select-none   duration-200 ease-in svelte-zzky5a" style="color: default;  ">search</i>
+      </div>
+
+  <div class="line absolute bottom-0 left-0 w-full bg-gray-600 undefined svelte-xd9zs6 hidden"><div class="mx-auto w-0 svelte-xd9zs6" style="height: 2px; transition: width .2s ease"></div></div>
+
+  </div></form>
+
+    <div class="overflow svelte-1l7hlmc" data-simplebar style="max-height: 100rem;"><div class="list svelte-1l7hlmc">
 
 
 
 
-
-
-<div class="container-padded svelte-esbggh wide"><div class="container-aspect svelte-esbggh" style="padding-bottom: 75%;"><div class="controls tray svelte-esbggh top   right">
-
-
-
-
-<div class="relative inline-block"><div><div slot="activator"><button  class="rounded overflow-hidden svelte-kgdi7p hoverable" style="background-color: #8b8b8b22" aria-label="label"><svg height="1.5em" color="white" fill="currentColor" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M432 320v112H320m101.8-10.23L304 304M80 192V80h112M90.2 90.23 208 208M320 80h112v112M421.77 90.2 304 208M192 432H80V320m10.23 101.8L208 304"></path></svg></button></div></div>
-
-  </div>
-
-            
-
-
-
-
-<div class="relative inline-block"><div><div slot="activator"><button  class="rounded overflow-hidden svelte-kgdi7p hoverable" style="background-color: #8b8b8b22" aria-label="label"><svg height="1.5em" color="white" fill="currentColor" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M320 146s24.36-12-64-12a160 160 0 1 0 160 160"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m256 58 80 80-80 80"></path></svg></button></div></div>
-
-  </div>
-
-
-
-
-<div class="relative inline-block"><div><div slot="activator"><button  class="rounded overflow-hidden svelte-kgdi7p hoverable" style="background-color: #8b8b8b22" aria-label="label"><svg height="1.5em" color="white" fill="currentColor" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M224 184h128m-128 72h128m-128 71h128"></path><path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" d="M448 258c0-106-86-192-192-192S64 152 64 258s86 192 192 192 192-86 192-192z"></path><circle cx="168" cy="184" r="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></circle><circle cx="168" cy="257" r="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></circle><circle cx="168" cy="328" r="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></circle></svg></button></div></div>
-
-  </div>
-
-
-
-
-<div class="relative inline-block"><div><div slot="activator"><button  class="rounded overflow-hidden svelte-kgdi7p hoverable" style="background-color: #8b8b8b22" aria-label="label"><svg height="1.5em" color="white" fill="currentColor" viewBox="0 0 512 512"><circle cx="256" cy="256" r="26"></circle><circle cx="346" cy="256" r="26"></circle><circle cx="166" cy="256" r="26"></circle><path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"></path></svg></button></div></div>
-
-  </div></div>
-        <div class="container svelte-esbggh"><div class="console svelte-1w1dcoz"><h6 class="svelte-1w1dcoz">Terminal - COMX</h6>
-        <hr class="svelte-1w1dcoz">
-        <div class="xterm-container svelte-1w1dcoz"></div>
-        <div class="serial-overlay svelte-1w1dcoz"><h6 class="svelte-1w1dcoz">[No Available Ports]</h6></div></div></div>
-        <div class="container overlay svelte-esbggh"></div></div></div>
-
-
-
-<div class="shrink tray svelte-esbggh  top   right">
-
-
-
-
-<div class="relative inline-block"><div><div slot="activator"><button  class="rounded overflow-hidden svelte-kgdi7p hoverable" style="background-color: #8b8b8b22" aria-label="label"><svg height="2em" color="white" fill="currentColor" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M304 416V304h112m-101.8 10.23L432 432M208 96v112H96m101.8-10.23L80 80m336 128H304V96m10.23 101.8L432 80M96 304h112v112m-10.23-101.8L80 432"></path></svg></button></div></div>
-
-  </div>
-
-    
-
-
-
-
-<div class="relative inline-block"><div><div slot="activator"><button  class="rounded overflow-hidden svelte-kgdi7p hoverable" style="background-color: #8b8b8b22" aria-label="label"><svg height="2em" color="white" fill="currentColor" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M320 146s24.36-12-64-12a160 160 0 1 0 160 160"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m256 58 80 80-80 80"></path></svg></button></div></div>
-
-  </div>
-
-
-
-
-<div class="relative inline-block"><div><div slot="activator"><button  class="rounded overflow-hidden svelte-kgdi7p hoverable" style="background-color: #8b8b8b22" aria-label="label"><svg height="2em" color="white" fill="currentColor" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M224 184h128m-128 72h128m-128 71h128"></path><path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" d="M448 258c0-106-86-192-192-192S64 152 64 258s86 192 192 192 192-86 192-192z"></path><circle cx="168" cy="184" r="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></circle><circle cx="168" cy="257" r="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></circle><circle cx="168" cy="328" r="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></circle></svg></button></div></div>
-
-  </div>
-
-
-
-
-<div class="relative inline-block"><div><div slot="activator"><button  class="rounded overflow-hidden svelte-kgdi7p hoverable" style="background-color: #8b8b8b22" aria-label="label"><svg height="2em" color="white" fill="currentColor" viewBox="0 0 512 512"><circle cx="256" cy="256" r="26"></circle><circle cx="346" cy="256" r="26"></circle><circle cx="166" cy="256" r="26"></circle><path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"></path></svg></button></div></div>
-
-  </div>
+<div class="container overflow-hidden svelte-o631pk"><div class="left svelte-o631pk"></div>
+    <div class="text left svelte-o631pk"><h5 class="svelte-o631pk"><!-- HTML_TAG_START -->Check<!-- HTML_TAG_END --></h5>
+        </div>
 </div>
+
+
+
+
+<div class="container overflow-hidden svelte-o631pk"><div class="left svelte-o631pk"></div>
+    <div class="text left svelte-o631pk"><h5 class="svelte-o631pk"><!-- HTML_TAG_START -->Frogs<!-- HTML_TAG_END --></h5>
+        </div>
+</div>
+
+
+
+
+<div class="container overflow-hidden svelte-o631pk"><div class="left svelte-o631pk"></div>
+    <div class="text left svelte-o631pk"><h5 class="svelte-o631pk"><!-- HTML_TAG_START -->Spawn<!-- HTML_TAG_END --></h5>
+        </div>
+</div>
+
+
+
+
+<div class="container overflow-hidden svelte-o631pk"><div class="left svelte-o631pk"></div>
+    <div class="text left svelte-o631pk"><h5 class="svelte-o631pk"><!-- HTML_TAG_START -->Target<!-- HTML_TAG_END --></h5>
+        </div>
+</div>
+
+
+
+
+<div class="container overflow-hidden svelte-o631pk"><div class="left svelte-o631pk"></div>
+    <div class="text left svelte-o631pk"><h5 class="svelte-o631pk"><!-- HTML_TAG_START -->Test<!-- HTML_TAG_END --></h5>
+        </div>
+</div></div></div>
+</div></div>
+<p>Or… launch dialogue with the button below:</p>
+<button class="py-2 px-4 uppercase text-sm font-medium relative overflow-hidden text-white duration-200 ease-in  bg-primary-500  hover:bg-primary-400   hover:shadow shadow  rounded  button       svelte-j1346v" type="button">
+    Click Here!
+</button>
+
+
+
+
+
+
+
+
 </article>
 </main></div>
 <div class="container svelte-115fuv0">
 </div>
 
 
-		<script type="module" data-sveltekit-hydrate="10ug8kr">
+		<script type="module" data-sveltekit-hydrate="120vubm">
 			import { start } from "../_app/immutable/start-522c8576.js";
 
 			start({
@@ -201,14 +191,14 @@
 				hydrate: {
 					status: 200,
 					error: null,
-					node_ids: [0, 11],
+					node_ids: [0, 10],
 					params: {},
-					route: {"id":"/demo/terminal"},
+					route: {"id":"/demo/searchable-list"},
 					data: [null,null],
 					form: null
 				},
 				paths: {"base":"","assets":""},
-				target: document.querySelector('[data-sveltekit-hydrate="10ug8kr"]').parentNode,
+				target: document.querySelector('[data-sveltekit-hydrate="120vubm"]').parentNode,
 				trailing_slash: "never"
 			});
 		</script>
