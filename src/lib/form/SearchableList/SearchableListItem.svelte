@@ -13,7 +13,8 @@
 
     import { createEventDispatcher, SvelteComponent } from "svelte";
 
-    import createRipple from "$lib/smelte/components/Ripple/ripple.js";
+    // import createRipple from "$lib/smelte/components/Ripple/ripple.js";
+    import IconButton from "$lib/form/IconButton/IconButton.svelte";
 
     /*--------------------------------- Props --------------------------------*/
 
@@ -23,8 +24,10 @@
     export let highlight: string = "";
     export let selected: boolean = false;
 
+    export let buttons: SvelteComponent[] = [];
+
     let dispatch = createEventDispatcher();
-    let ripple = createRipple('white');
+    // let ripple = createRipple('white');
 
     /*-------------------------------- Methods -------------------------------*/
 
@@ -42,18 +45,33 @@
 </script>
 
 
-<div class="container overflow-hidden" class:selected on:click={() => {
-    dispatch('click');
+<div class="container overflow-hidden" class:selected on:click={(e) => {
+    if(e.target && e.target.tagName === 'BUTTON')
+        return;
+
+    if(e.target.parentNode.tagName === 'BUTTON')
+        return
+
+        dispatch('click');
 }} on:keypress>
     <div class="left">
-        <svelte:component this={icon} height="2rem"/>
+        <svelte:component this={icon} height="1.75rem"/>
     </div>
-    <div class="text left">
+    <div class="text">
         <h5>{@html highlightedString(name, highlight)}</h5>
         {#if description !== "" && description !== undefined}
             <h6>{description}</h6>
         {/if}
     </div>
+    {#if buttons !== undefined}
+        {#each buttons as b, i}
+            <IconButton icon={b} size="2.1rem" color="transparent"
+                on:click={() => {
+                    dispatch('button', i);
+                }}
+            />
+        {/each}
+    {/if}
 </div>
 
 
@@ -64,12 +82,18 @@
         max-width: 18ch;
         text-overflow: ellipsis;
         white-space: nowrap;
+
+        font-weight: 200 !important;
+        font-size: 1.2rem !important;
     }
 
     h6 {
         margin: 0rem !important;
         color: var(--color-gray-600);
         padding-top: 0.2rem;
+
+        font-weight: 200 !important;
+        font-size: 0.85rem !important;
     }
 
     .container {
@@ -82,7 +106,9 @@
         transition: box-shadow 0.2s;
 
         display: flex;
+        gap: 0.4rem;
         align-items: center;
+        padding: 0.125rem;
     }
 
     :global(.mode-dark) .container {
@@ -102,11 +128,13 @@
     }
 
     .left {
-        padding: 1rem;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
     }
 
     .text {
         flex-grow: 1;
+        padding: 0.5rem;
         padding-left: 0rem;
     }
 

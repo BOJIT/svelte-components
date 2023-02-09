@@ -37,6 +37,7 @@
 
     export let items: ListDict = {};
     export let maxHeight: string = "30rem";
+    export let buttons: SvelteComponent[] = [];
 
     let field: HTMLElement;
     let list: HTMLElement;
@@ -141,9 +142,16 @@
                 <SearchableListItem name={l.key} description={l.description}
                     icon={l.icon} highlight={$searchString}
                     selected={i === selectedIndex}
+                    buttons={buttons}
                     on:click={() => {
                         selectedIndex = i;
                         dispatch('select', searchList(items, $searchString)[i].key);
+                    }}
+                    on:button={(e) => {
+                        dispatch('button', {
+                            "key": l.key,
+                            "index": e.detail,
+                        })
                     }}
                 />
             {/each}
