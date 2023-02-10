@@ -101,6 +101,8 @@
         pointer-events: none;
         padding: 0.5rem;
         overflow: hidden;
+
+        z-index: 100;
     }
 
     @media screen and (max-width: 768px) {

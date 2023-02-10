@@ -83,7 +83,13 @@ Click Here!
 
 <BaseDialog bind:visible title="Searchable List">
     <SearchableList bind:this={searchableList} items={item} maxHeight="10rem" on:select={(e)=>{
-        setTimeout(() => {visible = false}, 200);
+        // setTimeout(() => {visible = false}, 200);
+        message.push({
+                type: 'info',
+                title: 'Standard Message',
+                message: 'test',
+                // timeout: 5,
+            });
     }}/>
 </BaseDialog>
 

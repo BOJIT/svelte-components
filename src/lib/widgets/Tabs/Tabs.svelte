@@ -38,6 +38,8 @@
     /* Keep track of current tab index */
     export let index = 0;
 
+    export let fade: boolean = false;
+
     let tabline: HTMLElement;
     let tabroot: HTMLElement;
 
@@ -46,8 +48,11 @@
             // All tab children
             let tabSlots = tabroot.querySelectorAll("div.tab");
             tabSlots.forEach((t) => t.classList.remove('active'));
-            if(tabSlots[index] !== undefined)
-                tabSlots[index].classList.add('active');
+            if(tabSlots[index] !== undefined) {
+                setTimeout(() => {
+                    tabSlots[index].classList.add('active');
+                }, 50);
+            }
         }
     }
 </script>
@@ -92,7 +97,7 @@
         {/if}
     {/each}
 
-    <div class="tabroot" bind:this={tabroot}>
+    <div class="tabroot" class:fade bind:this={tabroot}>
         <slot />
     </div>
 </div>
@@ -198,10 +203,16 @@
         grid-row: 1;
         top: 0;
         width: 100%;
-        visibility: hidden;
+        /* visibility: hidden; */
+        opacity: 0;
+    }
+
+    .tabroot.fade > :global(div.tab) {
+        transition: opacity 0.3s;
     }
 
     .tabroot > :global(div.tab.active) {
-        visibility: visible;
+        /* visibility: visible; */
+        opacity: 100;
     }
 </style>
