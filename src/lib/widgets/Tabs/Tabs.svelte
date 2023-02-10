@@ -205,6 +205,7 @@
         width: 100%;
         /* visibility: hidden; */
         opacity: 0;
+        pointer-events: none;
     }
 
     .tabroot.fade > :global(div.tab) {
@@ -214,5 +215,6 @@
     .tabroot > :global(div.tab.active) {
         /* visibility: visible; */
         opacity: 100;
+        pointer-events: auto;
     }
 </style>

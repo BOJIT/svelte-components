@@ -15,6 +15,7 @@
 
     // import createRipple from "$lib/smelte/components/Ripple/ripple.js";
     import IconButton from "$lib/form/IconButton/IconButton.svelte";
+    import theme from "$lib/theme";
 
     /*--------------------------------- Props --------------------------------*/
 
@@ -66,6 +67,7 @@
     {#if buttons !== undefined}
         {#each buttons as b, i}
             <IconButton icon={b} size="2.1rem" color="transparent"
+                iconColor={$theme === 'light' ? 'black' : 'white'}
                 on:click={() => {
                     dispatch('button', i);
                 }}

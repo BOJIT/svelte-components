@@ -11,6 +11,7 @@
 <script lang='ts'>
     /*-------------------------------- Imports -------------------------------*/
 
+    import Button from "$lib/smelte/components/Button/Button.svelte";
     import Tabs from "$lib/widgets/Tabs/Tabs.svelte";
 
     /*--------------------------------- Props --------------------------------*/
@@ -32,6 +33,7 @@
 <Tabs tabs={items}>
     <div class="tab">
         <p>This is tab 1</p>
+        <Button>TEST</Button>
     </div>
 
     <div class="tab">
