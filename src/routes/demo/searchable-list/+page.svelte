@@ -1,6 +1,6 @@
 <script lang="ts">
     import { message } from "$lib/core";
-    import { SearchableList } from "$lib/form";
+    import { SearchableList, TextIconButton } from "$lib/form";
     import { BaseDialog } from "$lib/layout";
     import { Button } from "$lib/smelte";
 
@@ -68,6 +68,10 @@
         }}
     />
 </div>
+
+<br>
+<TextIconButton icon={Folder} label="Upload" outlined color="white" shape="circle"/>
+<br><br>
 
 <p>Or... launch dialogue with the button below:</p>
 

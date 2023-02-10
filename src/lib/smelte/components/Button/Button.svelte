@@ -213,7 +213,8 @@
 	}
 
 	button.circle {
-		border-radius: 50% !important;
+		/* border-radius: 50% !important; */
+		border-radius: 20vmin;
 	}
 
 	button.transparent {
