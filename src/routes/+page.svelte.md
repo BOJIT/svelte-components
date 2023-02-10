@@ -21,6 +21,7 @@
 - [Markdown Demo](/demo/markdown)
 - [Plotter Demo](/demo/plotter)
 - [Searchable List Demo](/demo/searchable-list)
+- [Tabs Demo](/demo/tabs)
 - [Terminal Demo](/demo/terminal)
 - [Zoomable Canvas Demo](/demo/zoom-canvas)
 

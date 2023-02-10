@@ -15,7 +15,6 @@
 
     import theme from "$lib/theme";
     import type { SvelteComponent } from 'svelte';
-    import Tab from '$lib/smelte/components/Tabs/Tab.svelte';
 
     type Tab = {
         label: string,
@@ -40,6 +39,17 @@
     export let index = 0;
 
     let tabline: HTMLElement;
+    let tabroot: HTMLElement;
+
+    $: {
+        if(tabroot) {
+            // All tab children
+            let tabSlots = tabroot.querySelectorAll("div.tab");
+            tabSlots.forEach((t) => t.classList.remove('active'));
+            if(tabSlots[index] !== undefined)
+                tabSlots[index].classList.add('active');
+        }
+    }
 </script>
 
 
@@ -81,6 +91,10 @@
             </div>
         {/if}
     {/each}
+
+    <div class="tabroot" bind:this={tabroot}>
+        <slot />
+    </div>
 </div>
 
 
@@ -172,5 +186,22 @@
 
         margin-top: 0.2rem;
         margin-bottom: 0.2rem;
+    }
+
+    /* Tab anchor */
+    .tabroot {
+        display: grid;
+    }
+
+    .tabroot > :global(div.tab) {
+        grid-column: 1;
+        grid-row: 1;
+        top: 0;
+        width: 100%;
+        visibility: hidden;
+    }
+
+    .tabroot > :global(div.tab.active) {
+        visibility: visible;
     }
 </style>

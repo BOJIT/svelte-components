@@ -55,6 +55,4 @@
         margin-left: -0.4rem;
         align-items: center;
     }
-
-
 </style>
