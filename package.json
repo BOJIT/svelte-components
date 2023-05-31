@@ -63,6 +63,11 @@
             "svelte": "./package/layout/index.js",
             "default": "./package/layout/index.js"
         },
+        "./smelte": {
+            "types": "./package/smelte/index.d.ts",
+            "svelte": "./package/smelte/index.js",
+            "default": "./package/smelte/index.js"
+        },
         "./theme": {
             "types": "./package/theme/index.d.ts",
             "svelte": "./package/theme/index.js",
