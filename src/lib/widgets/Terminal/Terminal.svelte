@@ -16,16 +16,16 @@
     - Add option to register init hook
 -->
 
-<script lang='ts'>
-    import { onDestroy, onMount } from 'svelte';
-    import { createEventDispatcher } from 'svelte';
+<script lang="ts">
+    import { onDestroy, onMount } from "svelte";
+    import { createEventDispatcher } from "svelte";
 
-    import { message } from '$lib/core';
-    import { Container } from '$lib/layout';
-    import Button from '$lib/smelte/components/Button/Button.svelte';
+    import { message } from "$lib/core";
+    import { Container } from "$lib/layout";
+    import Button from "$lib/smelte/components/Button/Button.svelte";
     import List from "$lib/smelte/components/List/List.svelte";
-    import theme from '$lib/theme';
-    import type { ThemeMode } from '$lib/theme/theme';
+    import theme from "$lib/theme";
+    import type { ThemeMode } from "$lib/theme/theme";
 
     import IconElipsis from "@svicons/ionicons-outline/ellipsis-horizontal-circle.svelte";
     import IconListCircle from "@svicons/ionicons-outline/list-circle.svelte";
@@ -36,18 +36,17 @@
     // import { FitAddon } from 'xterm-addon-fit';
     // import "xterm/css/xterm.css"
 
-
     const dispatch = createEventDispatcher();
 
     // Types
     type Port = {
-        'icon': string,
-        'text': string,
-        'port': SerialPort
-    }
+        icon: string;
+        text: string;
+        port: SerialPort;
+    };
 
     export let name = "COMX";
-    export let rows = 15;
+    // export let rows = 15;
     export let active = false;
     export let baud = 115200;
     export let interactive = true;
@@ -60,8 +59,10 @@
     let port: string | undefined = undefined;
 
     // Port stream handlers
-    let port_readable: ReadableStreamDefaultReader<Uint8Array> | undefined = undefined;
-    let port_writable: WritableStreamDefaultWriter<Uint8Array> | undefined = undefined;
+    let port_readable: ReadableStreamDefaultReader<Uint8Array> | undefined =
+        undefined;
+    let port_writable: WritableStreamDefaultWriter<Uint8Array> | undefined =
+        undefined;
 
     // Handle terminal row resizing
     $: {
@@ -76,14 +77,14 @@
 
     // Send from outside component
     export async function send(data: string) {
-        if(active) {
+        if (active) {
             terminalInput(data);
         }
     }
 
     // Terminal Functions
     async function terminalInput(data: string) {
-        if(interactive) {
+        if (interactive) {
             let enc = new TextEncoder();
             let u8 = enc.encode(data);
             console.log(u8);
@@ -94,7 +95,7 @@
     function terminalOutput(data: any) {
         // terminal.write(data.value);
 
-        dispatch('recv', data.value);
+        dispatch("recv", data.value);
         // Infinite promise stream
         port_readable?.read().then(terminalOutput);
     }
@@ -126,33 +127,37 @@
     }
 
     async function refreshPorts() {
-        if('serial' in navigator) {
+        if ("serial" in navigator) {
             let serial_ports = await navigator.serial.getPorts();
-            ports = await Promise.all(serial_ports.map(async (sp: SerialPort, idx: number) => {
-                let info = sp.getInfo();
-                let name = '';
-                if('usbProductId' in info) {
-                    name = `${idx + 1} - VID: ${info.usbVendorId}, PID: ${info.usbProductId}`;
-                } else {
-                    name = `${idx + 1} - Unknown Device`;
-                }
+            ports = await Promise.all(
+                serial_ports.map(async (sp: SerialPort, idx: number) => {
+                    let info = sp.getInfo();
+                    let name = "";
+                    if ("usbProductId" in info) {
+                        name = `${idx + 1} - VID: ${info.usbVendorId}, PID: ${
+                            info.usbProductId
+                        }`;
+                    } else {
+                        name = `${idx + 1} - Unknown Device`;
+                    }
 
-                return {
-                    'icon': 'cable',
-                    'text': name,
-                    'port': sp,
-                }
-            }));
+                    return {
+                        icon: "cable",
+                        text: name,
+                        port: sp,
+                    };
+                })
+            );
         }
     }
 
     async function requestPort() {
-        if('serial' in navigator) {
+        if ("serial" in navigator) {
             try {
                 let port = await navigator.serial.requestPort();
                 console.log(port);
                 refreshPorts();
-            } catch(err) {
+            } catch (err) {
                 // No need to do anything
             }
         }
@@ -161,17 +166,17 @@
     async function openPort() {
         let active_port = ports.find((p: Port) => p.text === port);
 
-        if(active_port !== undefined) {
+        if (active_port !== undefined) {
             try {
                 await active_port.port.open({
-                    'baudRate': baud,
+                    baudRate: baud,
                 });
-            } catch(e) {
+            } catch (e) {
                 message.push({
-                    'type': 'error',
-                    'title': 'Port Open Failed!',
-                    'message': 'Failed to open Serial Port!',
-                    'timeout': 5
+                    type: "error",
+                    title: "Port Open Failed!",
+                    message: "Failed to open Serial Port!",
+                    timeout: 5,
                 });
 
                 console.error(e);
@@ -209,9 +214,9 @@
         // terminal.onData(terminalInput);
 
         // Check if we need to show overlay
-        if(port !== undefined) {
+        if (port !== undefined) {
             // Serial Init goes here!
-            if(await openPort() === true) {
+            if ((await openPort()) === true) {
                 return;
             }
         }
@@ -220,47 +225,52 @@
         try {
             await refreshPorts();
             setInterval(refreshPorts, 3000); // TODO clear!
-        } catch(err) {
+        } catch (err) {
             // Ignore - this just means we need a user interaction
         }
     });
 
     onDestroy(() => {
         // window?.removeEventListener('resize', terminalFit);
-    })
+    });
 </script>
 
-
-<Container wide tray={[
-    {
-        icon: IconRefresh,
-        callback: refreshPorts,
-    },
-    {
-        icon: IconListCircle,
-        callback: requestPort,
-    },
-    {
-        icon: IconElipsis,
-        callback: launchSettings,
-    },
-]}>
+<Container
+    wide
+    tray={[
+        {
+            icon: IconRefresh,
+            callback: refreshPorts,
+        },
+        {
+            icon: IconListCircle,
+            callback: requestPort,
+        },
+        {
+            icon: IconElipsis,
+            callback: launchSettings,
+        },
+    ]}
+>
     <div class="console">
         <h6>Terminal - {name}</h6>
-        <hr>
-        <div class="xterm-container" bind:this={container}></div>
+        <hr />
+        <div class="xterm-container" bind:this={container} />
         {#if !active}
             <div class="serial-overlay">
                 {#if ports.length == 0}
                     <h6>[No Available Ports]</h6>
                 {:else}
-                    <List bind:value={port} on:change={openPort} items={ports}/>
+                    <List
+                        bind:value={port}
+                        on:change={openPort}
+                        items={ports}
+                    />
                 {/if}
             </div>
         {/if}
     </div>
 </Container>
-
 
 <style>
     .serial-overlay {

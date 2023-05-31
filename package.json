@@ -11,17 +11,16 @@
         "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
     },
     "devDependencies": {
-        "@sveltejs/adapter-auto": "next",
-        "@sveltejs/adapter-static": "^1.0.0-next.48",
-        "@sveltejs/kit": "next",
-        "@sveltejs/package": "^1.0.0-next.6",
+        "@sveltejs/adapter-auto": "2.0.0",
+        "@sveltejs/adapter-static": "2.0.0",
+        "@sveltejs/kit": "^1.5.0",
+        "@sveltejs/package": "^2.0.0",
         "localforage": "^1.10.0",
         "mdsvex": "^0.10.6",
         "svelte-check": "^2.7.1",
-        "svelte-preprocess": "^4.10.6",
-        "tslib": "^2.3.1",
-        "typescript": "^4.7.4",
-        "vite": "^3.1.0"
+        "tslib": "^2.4.1",
+        "typescript": "^4.9.3",
+        "vite": "^4.0.0"
     },
     "type": "module",
     "dependencies": {
