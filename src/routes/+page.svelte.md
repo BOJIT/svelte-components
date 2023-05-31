@@ -23,7 +23,6 @@
 - [Searchable List Demo](/demo/searchable-list)
 - [Tabs Demo](/demo/tabs)
 - [Terminal Demo](/demo/terminal)
-- [Zoomable Canvas Demo](/demo/zoom-canvas)
 
 #### Archived
 - [Misc. Demo (TODO sort)](/nav/tab2)

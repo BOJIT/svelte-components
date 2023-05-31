@@ -8,7 +8,7 @@
  *
 -->
 
-<script lang='ts'>
+<script lang="ts">
     import type { SvelteComponent } from "svelte";
     import { fade } from "svelte/transition";
     import { IconButton } from "$lib/form";
@@ -16,15 +16,18 @@
     import IconContract from "@svicons/ionicons-outline/contract.svelte";
 
     type TrayButton = {
-        icon: SvelteComponent,
-        callback: () => void,
-    }
+        icon: SvelteComponent;
+        callback: () => void;
+    };
 
     export let aspect: string = "4:3";
     export let zoomable: boolean = true;
     export let wide: boolean = false;
-    export let buttonLocation: "top-left" | "top-right" |
-                               "bottom-left" | "bottom-right" = "top-right";
+    export let buttonLocation:
+        | "top-left"
+        | "top-right"
+        | "bottom-left"
+        | "bottom-right" = "top-right";
 
     export let tray: TrayButton[] = [];
 
@@ -35,11 +38,12 @@
 
     $: {
         // Aspect ratio:
-        let ratio = parseInt(aspect.split(':')[0]) / parseInt(aspect.split(':')[1]);
+        let ratio =
+            parseInt(aspect.split(":")[0]) / parseInt(aspect.split(":")[1]);
         padding = (100 / ratio).toString().concat("%");
 
         // Button location:
-        switch(buttonLocation) {
+        switch (buttonLocation) {
             case "top-left":
                 buttonCSS = [true, false, true, false];
                 break;
@@ -53,61 +57,79 @@
                 buttonCSS = [false, true, false, true];
                 break;
         }
-    };
+    }
 </script>
-
 
 <div class="container-padded" class:wide>
     <div class="container-aspect" style:padding-bottom={padding}>
-        <div class="controls tray"
+        <div
+            class="controls tray"
             class:top={buttonCSS[0]}
             class:bottom={buttonCSS[1]}
             class:left={buttonCSS[2]}
             class:right={buttonCSS[3]}
         >
-            <IconButton icon={IconExpand} color="#8b8b8b22"
-                size="1.5em" useRipple={false}
+            <IconButton
+                icon={IconExpand}
+                color="#8b8b8b22"
+                size="1.5em"
+                useRipple={false}
                 on:click={() => {
-                    if(zoomable)
-                        zoom = true;
+                    if (zoomable) zoom = true;
                 }}
             />
 
-            { #each tray as t }
-                <IconButton icon={t.icon} color="#8b8b8b22" size="1.5em" useRipple={false}
-                on:click={t.callback}/>
-            { /each }
-
+            {#each tray as t}
+                <IconButton
+                    icon={t.icon}
+                    color="#8b8b8b22"
+                    size="1.5em"
+                    useRipple={false}
+                    on:click={t.callback}
+                />
+            {/each}
         </div>
         <div class="container" class:zoom>
             <slot />
         </div>
         <div class="container overlay" class:zoom>
-            <slot name="overlay"/>
+            <slot name="overlay" />
         </div>
     </div>
 </div>
 
 {#if zoom}
-    <div class="scrim" in:fade={{duration: 2}}/>
+    <div class="scrim" in:fade={{ duration: 2 }} />
 {/if}
 
-<div class="shrink tray" class:zoom
+<div
+    class="shrink tray"
+    class:zoom
     class:top={buttonCSS[0]}
     class:bottom={buttonCSS[1]}
     class:left={buttonCSS[2]}
     class:right={buttonCSS[3]}
 >
+    <IconButton
+        icon={IconContract}
+        color="#8b8b8b22"
+        size="2em"
+        useRipple={false}
+        on:click={() => {
+            zoom = false;
+        }}
+    />
 
-    <IconButton icon={IconContract} color="#8b8b8b22" size="2em" useRipple={false}
-        on:click={() => { zoom = false; }}/>
-
-    { #each tray as t }
-        <IconButton icon={t.icon} color="#8b8b8b22" size="2em" useRipple={false}
-            on:click={t.callback}/>
-    { /each }
+    {#each tray as t}
+        <IconButton
+            icon={t.icon}
+            color="#8b8b8b22"
+            size="2em"
+            useRipple={false}
+            on:click={t.callback}
+        />
+    {/each}
 </div>
-
 
 <style>
     .container-padded {
@@ -181,7 +203,7 @@
         right: 1rem;
         width: auto;
         height: auto;
-        z-index: 100;
+        z-index: 24;
         overflow: hidden;
 
         /* Add edging */
@@ -194,7 +216,7 @@
         left: 0;
         width: 100vw;
         height: 100vh;
-        z-index: 99;
+        z-index: 23;
 
         background-color: rgba(29, 29, 29, 0.744);
     }
@@ -210,7 +232,7 @@
 
     .shrink.zoom {
         visibility: visible;
-        z-index: 101;
+        z-index: 25;
     }
 
     .shrink.top {
@@ -237,7 +259,7 @@
 
     .overlay {
         background-color: transparent !important;
-        z-index: 98;
+        z-index: 22;
         pointer-events: none;
     }
 </style>

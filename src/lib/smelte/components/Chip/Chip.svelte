@@ -1,101 +1,107 @@
 <script>
-  import { createEventDispatcher } from "svelte";
-  import { scale } from "svelte/transition";
-  import createRipple from "../Ripple/ripple.js";
-  import utils, { ClassBuilder, filterProps } from "../../utils/classes.js";
+    import { createEventDispatcher } from "svelte";
+    import { scale } from "svelte/transition";
+    import createRipple from "../Ripple/ripple.js";
+    import utils, { ClassBuilder, filterProps } from "../../utils/classes.js";
 
-  import Icon from "../Icon";
+    import Icon from "../Icon";
 
+    export let removable = false;
+    export let icon = "";
+    export let outlined = false;
+    export let selected = false;
+    export let selectable = true;
+    export let color = "primary";
+    export let remove = "";
+    export let add = "";
+    export let replace = {};
 
+    $: ripple = createRipple(color);
 
-  export let removable = false;
-  export let icon = "";
-  export let outlined = false;
-  export let selected = false;
-  export let selectable = true;
-  export let color = "primary";
-  export let remove = "";
-  export let add = "";
-  export let replace = {};
+    let value = true;
 
-  $: ripple = createRipple(color);
+    const dispatch = createEventDispatcher();
 
-  let value = true;
+    function close() {
+        dispatch("close");
+        value = false;
+    }
 
-  const dispatch = createEventDispatcher();
+    function select() {
+        if (!selectable) return;
 
-  function close() {
-    dispatch("close");
-    value = false;
-  }
+        selected = true;
+    }
 
-  function select() {
-    if (!selectable) return;
+    const { bg, txt, border } = utils(color);
 
-    selected = true;
-  }
+    const cb = new ClassBuilder();
 
-  const { bg, txt, border } = utils(color);
+    $: classes = cb
+        .flush()
+        .add(
+            "relative overflow-hidden flex items-center rounded-full px-2 py-1"
+        )
+        .add("bg-transparent border", outlined)
+        .add(
+            "border-gray-400 border-solid hover:bg-gray-100 dark-hover:bg-dark-400 bg-gray-300 dark:bg-dark-600",
+            !selected
+        )
+        .add(
+            `${border()} dark:${border("800")} ${txt()} ${bg(100)} hover:${bg(
+                50
+            )}`,
+            selected
+        )
+        .remove(remove)
+        .replace(replace)
+        .add(add)
+        .get();
 
-  const cb = new ClassBuilder();
+    const props = filterProps(
+        ["removable", "icon", "outlined", "selected", "selectable", "color"],
+        $$props
+    );
 
-  $: classes = cb
-    .flush()
-    .add('relative overflow-hidden flex items-center rounded-full px-2 py-1')
-    .add('bg-transparent border', outlined)
-    .add('border-gray-400 border-solid hover:bg-gray-100 dark-hover:bg-dark-400 bg-gray-300 dark:bg-dark-600', !selected)
-    .add(`${border()} dark:${border('800')} ${txt()} ${bg(100)} hover:${bg(50)}`, selected)
-    .remove(remove)
-    .replace(replace)
-    .add(add)
-    .get();
+    $: iconClass = selected
+        ? `hover:${bg(300)} ${bg(400)}`
+        : "hover:bg-gray-400 bg-gray-500 dark:bg-gray-800";
 
-  const props = filterProps([
-    'removable',
-    'icon',
-    'outlined',
-    'selected',
-    'selectable',
-    'color',
-  ], $$props);
-
-  $: iconClass = selected ? `hover:${bg(300)} ${bg(400)}` : "hover:bg-gray-400 bg-gray-500 dark:bg-gray-800";
-
-   $: c = cb
-      .flush()
-      .add($$props.class)
-      .get();
+    $: c = cb.flush().add($$props.class).get();
 </script>
 
-<style>
-  .p-1\/2 {
-    padding: 0.125rem;
-  }
-</style>
-
 {#if value}
-  <span class="{c} mx-1 inline-block" out:scale={{ duration: 100 }}>
-    <button
-      class={classes}
-      on:click
-      use:ripple
-      {...props}
-      on:click={select}>
-      {#if icon}
-        <Icon small class={selected ? txt(400) : 'text-gray-600'}>
-          {icon}
-        </Icon>
-      {/if}
-      <span class="px-2 text-sm">
-        <slot />
-      </span>
-      {#if removable}
-        <span
-          class="rounded-full p-1/2 inline-flex items-center cursor-pointer {iconClass}"
-          on:click|stopPropagation={close}>
-          <Icon class="text-white dark:text-white" xs>clear</Icon>
-        </span>
-      {/if}
-    </button>
-  </span>
+    <span class="{c} mx-1 inline-block" out:scale={{ duration: 100 }}>
+        <button
+            class={classes}
+            on:click
+            use:ripple
+            {...props}
+            on:click={select}
+        >
+            {#if icon}
+                <Icon small class={selected ? txt(400) : "text-gray-600"}>
+                    {icon}
+                </Icon>
+            {/if}
+            <span class="px-2 text-sm">
+                <slot />
+            </span>
+            {#if removable}
+                <span
+                    class="rounded-full p-1/2 inline-flex items-center cursor-pointer {iconClass}"
+                    on:click|stopPropagation={close}
+                    on:keypress
+                >
+                    <Icon class="text-white dark:text-white" xs>clear</Icon>
+                </span>
+            {/if}
+        </button>
+    </span>
 {/if}
+
+<style>
+    .p-1\/2 {
+        padding: 0.125rem;
+    }
+</style>

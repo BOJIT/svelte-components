@@ -18,7 +18,6 @@ import Tabs from "./Tabs/Tabs.svelte";
 import Terminal from "./Terminal/Terminal.svelte";
 import ThemeSelector from "./ThemeSelector/ThemeSelector.svelte";
 import YouTube from "./YouTube/YouTube.svelte";
-import ZoomCanvas from "./ZoomCanvas/ZoomCanvas.svelte";
 
 export {
     CAD,
@@ -31,7 +30,6 @@ export {
     Terminal,
     ThemeSelector,
     YouTube,
-    ZoomCanvas
 };
 
 export default {
@@ -44,6 +42,5 @@ export default {
     Tabs,
     Terminal,
     ThemeSelector,
-    YouTube,
-    ZoomCanvas
+    YouTube
 }

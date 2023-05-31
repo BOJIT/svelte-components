@@ -8,36 +8,44 @@
         List,
         Select,
         Slider,
-        Tooltip
+        Tooltip,
     } from "$lib/smelte";
 
     import theme, { mode } from "$lib/theme";
 
     // Lists
-    const listOneLine = [{
-        text: 'Item 1',
-        icon: 'favorite',
-    }, {
-        text: 'Item 2',
-        icon: 'favorite',
-    }, {
-        text: 'Item 3',
-        icon: 'favorite',
-    }];
+    const listOneLine = [
+        {
+            text: "Item 1",
+            icon: "favorite",
+        },
+        {
+            text: "Item 2",
+            icon: "favorite",
+        },
+        {
+            text: "Item 3",
+            icon: "favorite",
+        },
+    ];
 
-    const listTwoLines = [{
-        text: 'Item 1',
-        icon: 'favorite',
-        subheading: 'Subheading 1',
-    }, {
-        text: 'Item 2',
-        icon: 'favorite',
-        subheading: 'Subheading 2',
-    }, {
-        text: 'Item 3',
-        icon: 'favorite',
-        subheading: 'Subheading 3',
-    }];
+    const listTwoLines = [
+        {
+            text: "Item 1",
+            icon: "favorite",
+            subheading: "Subheading 1",
+        },
+        {
+            text: "Item 2",
+            icon: "favorite",
+            subheading: "Subheading 2",
+        },
+        {
+            text: "Item 3",
+            icon: "favorite",
+            subheading: "Subheading 3",
+        },
+    ];
 
     // Selects
     let value1 = "";
@@ -57,21 +65,16 @@
     let selectedItems = [];
 
     function toggle(i) {
-        return v => v.detail
-        ? selectedItems.push(i)
-        : selectedItems = selectedItems.filter(si => si !== i);
+        return (v) =>
+            v.detail
+                ? selectedItems.push(i)
+                : (selectedItems = selectedItems.filter((si) => si !== i));
     }
 
-    $: selectedLabel = selectedItems.map(i => i.text).join(", ");
+    $: selectedLabel = selectedItems.map((i) => i.text).join(", ");
 
     const label = "A select";
 </script>
-
-<style>
-    h3, h6 {
-        padding: 1rem;
-    }
-</style>
 
 <svelte:head>
     <title>Tab 3 - Smelte Demo</title>
@@ -82,15 +85,19 @@
 <h3>Theme</h3>
 
 <RadioButtonGroup
-    name='Theme',
+    name="Theme"
+    ,
     bind:selected={$mode}
     items={[
-        { value: 'light', label: 'Light Mode' },
-        { value: 'dark', label: 'Dark Mode' },
-        { value: 'auto', label: 'Auto Mode'}
-    ]} />
+        { value: "light", label: "Light Mode" },
+        { value: "dark", label: "Dark Mode" },
+        { value: "auto", label: "Auto Mode" },
+    ]}
+/>
 
-<br><br><hr><!----------------------------------------------------------------->
+<br /><br />
+<hr />
+<!----------------------------------------------------------------->
 <h3>Text Fields</h3>
 
 <h6>Basic</h6>
@@ -117,7 +124,9 @@
 <h6>With basic validation (type="number" min="10" max="100")</h6>
 <TextField label="Test label" outlined type="number" min="10" max="100" />
 
-<br><br><hr><!----------------------------------------------------------------->
+<br /><br />
+<hr />
+<!----------------------------------------------------------------->
 <h3>Buttons</h3>
 
 <div>
@@ -142,15 +151,21 @@
     <h6>Disabled</h6>
     <Button block disabled>Button</Button>
 
-    <h6>FAB <a href="https://material.io/components/buttons-floating-action-button/">(Floating action button)</a></h6>
+    <h6>
+        FAB <a
+            href="https://material.io/components/buttons-floating-action-button/"
+            >(Floating action button)</a
+        >
+    </h6>
     <Button color="alert" icon="change_history" />
 
     <h6>Fab flat</h6>
     <Button color="error" icon="change_history" text light flat />
 </div>
 
-
-<br><br><hr><!----------------------------------------------------------------->
+<br /><br />
+<hr />
+<!----------------------------------------------------------------->
 <h3>Selection Controls</h3>
 
 <h6>Checkboxes</h6>
@@ -163,17 +178,29 @@
 
 <RadioButtonGroup
     name="test"
-    items={[{ value: 1, label: 'One' }, { value: 2, label: 'Two' }]} />
+    items={[
+        { value: 1, label: "One" },
+        { value: 2, label: "Two" },
+    ]}
+/>
 
 <RadioButtonGroup
     name="Colored test"
     color="blue"
-    items={[{ value: 1, label: 'One' }, { value: 2, label: 'Two' }]} />
+    items={[
+        { value: 1, label: "One" },
+        { value: 2, label: "Two" },
+    ]}
+/>
 
 <RadioButtonGroup
     name="test-disabled"
     disabled
-    items={[{ value: 1, label: 'One' }, { value: 2, label: 'Two' }]} />
+    items={[
+        { value: 1, label: "One" },
+        { value: 2, label: "Two" },
+    ]}
+/>
 
 <h6>Switches</h6>
 
@@ -181,7 +208,9 @@
 
 <Switch color="error" />
 
-<br><br><hr><!----------------------------------------------------------------->
+<br /><br />
+<hr />
+<!----------------------------------------------------------------->
 <h3>Lists</h3>
 
 <h6>One-line</h6>
@@ -193,7 +222,9 @@
 <h6>Dense</h6>
 <List dense items={listTwoLines} />
 
-<br><br><hr><!----------------------------------------------------------------->
+<br /><br />
+<hr />
+<!----------------------------------------------------------------->
 <h3>Selects</h3>
 
 <p>
@@ -201,9 +232,9 @@
     <span class="code-inline">on:change</span>
     event.
 </p>
-<small>Selected: {value1 || 'nothing'}</small>
+<small>Selected: {value1 || "nothing"}</small>
 <div>
-    <Select {label} {items} on:change={v => (value1 = v.detail)} />
+    <Select {label} {items} on:change={(v) => (value1 = v.detail)} />
 </div>
 
 <p>
@@ -211,14 +242,14 @@
     <span class="code-inline">on:value</span>
     .
 </p>
-<small>Selected: {value2 || 'nothing'}</small>
+<small>Selected: {value2 || "nothing"}</small>
 <Select color="success" bind:value={value2} {label} {items} />
 
 <p>Select may be outlined.</p>
 <Select bind:value={value2} outlined {label} {items} />
 
 <p>Select may even be an autocomplete search component.</p>
-<small>Selected: {value3 || 'nothing'}</small>
+<small>Selected: {value3 || "nothing"}</small>
 <Select bind:value={value3} outlined autocomplete {label} {items} />
 
 <p>Custom options slot</p>
@@ -227,25 +258,32 @@
     {selectedLabel}
     outlined
     color="red"
-    inputClasses={i => i.replace('rounded-t', 'rounded-full')}
-    appendClasses={i => i.replace('text-gray-700', 'text-red-700')}
+    inputClasses={(i) => i.replace("rounded-t", "rounded-full")}
+    appendClasses={(i) => i.replace("text-gray-700", "text-red-700")}
     label="Categories"
     {items}
 >
-    <div slot="options" class="shadow rounded px-2 py-4 mt-0" on:click|stopPropagation>
+    <div
+        slot="options"
+        class="shadow rounded px-2 py-4 mt-0"
+        on:click|stopPropagation
+        on:keydown
+    >
         {#each items as item}
-        <Checkbox
-            value={selectedItems.includes(item)}
-            class="block my-2"
-            color="red"
-            label={item.text}
-            on:change={toggle(item)}
-        />
+            <Checkbox
+                value={selectedItems.includes(item)}
+                class="block my-2"
+                color="red"
+                label={item.text}
+                on:change={toggle(item)}
+            />
         {/each}
     </div>
 </Select>
 
-<br><br><hr><!----------------------------------------------------------------->
+<br /><br />
+<hr />
+<!----------------------------------------------------------------->
 <h3>Tooltips</h3>
 
 <Tooltip>
@@ -255,9 +293,18 @@
     How are you doing?
 </Tooltip>
 
-<br><br><hr><!----------------------------------------------------------------->
+<br /><br />
+<hr />
+<!----------------------------------------------------------------->
 <h3>Sliders</h3>
 
 <Slider min="0" max="100" />
 
-<br><br>
+<br /><br />
+
+<style>
+    h3,
+    h6 {
+        padding: 1rem;
+    }
+</style>
