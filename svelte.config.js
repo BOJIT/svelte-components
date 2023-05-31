@@ -13,12 +13,6 @@ const config = {
     kit: {
         adapter: adapter(),
     },
-    package: {
-        files: (filepath) => {
-            if (filepath.includes("test/")) return false;
-            return true;
-        },
-    },
-};
+    };
 
 export default config;

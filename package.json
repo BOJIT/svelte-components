@@ -6,7 +6,7 @@
         "dev": "vite dev",
         "build": "vite build",
         "preview": "vite preview",
-        "package": "svelte-package",
+        "package": "svelte-package -o package",
         "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
         "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
     },
@@ -40,5 +40,95 @@
         "webgl-plot": "^0.7.0",
         "xterm": "^5.0.0",
         "xterm-addon-fit": "^0.6.0"
+    },
+    "exports": {
+        "./package.json": "./package.json",
+        ".": {
+            "types": "./package/index.d.ts",
+            "svelte": "./package/index.js",
+            "default": "./package/index.js"
+        },
+        "./core": {
+            "types": "./package/core/index.d.ts",
+            "svelte": "./package/core/index.js",
+            "default": "./package/core/index.js"
+        },
+        "./form": {
+            "types": "./package/form/index.d.ts",
+            "svelte": "./package/form/index.js",
+            "default": "./package/form/index.js"
+        },
+        "./layout": {
+            "types": "./package/layout/index.d.ts",
+            "svelte": "./package/layout/index.js",
+            "default": "./package/layout/index.js"
+        },
+        "./theme": {
+            "types": "./package/theme/index.d.ts",
+            "svelte": "./package/theme/index.js",
+            "default": "./package/theme/index.js"
+        },
+        "./theme/palette/evergreen": {
+            "types": "./package/theme/palette/evergreen.d.ts",
+            "default": "./package/theme/palette/evergreen.js"
+        },
+        "./theme/palette/midnight": {
+            "types": "./package/theme/palette/midnight.d.ts",
+            "default": "./package/theme/palette/midnight.js"
+        },
+        "./theme/palette/quirky": {
+            "types": "./package/theme/palette/quirky.d.ts",
+            "default": "./package/theme/palette/quirky.js"
+        },
+        "./theme/theme": {
+            "types": "./package/theme/theme.d.ts",
+            "default": "./package/theme/theme.js"
+        },
+        "./widgets": {
+            "types": "./package/widgets/index.d.ts",
+            "svelte": "./package/widgets/index.js",
+            "default": "./package/widgets/index.js"
+        }
+    },
+    "files": [
+        "package"
+    ],
+    "svelte": "./package/index.js",
+    "typesVersions": {
+        ">4.0": {
+            "core": [
+                "./package/core/index.d.ts"
+            ],
+            "form": [
+                "./package/form/index.d.ts"
+            ],
+            "index": [
+                "./package/index.d.ts"
+            ],
+            "layout": [
+                "./package/layout/index.d.ts"
+            ],
+            "smelte": [
+                "./package/smelte/index.d.ts"
+            ],
+            "theme": [
+                "./package/theme/index.d.ts"
+            ],
+            "theme/palette/evergreen": [
+                "./package/theme/palette/evergreen.d.ts"
+            ],
+            "theme/palette/midnight": [
+                "./package/theme/palette/midnight.d.ts"
+            ],
+            "theme/palette/quirky": [
+                "./package/theme/palette/quirky.d.ts"
+            ],
+            "theme/theme": [
+                "./package/theme/theme.d.ts"
+            ],
+            "widgets": [
+                "./package/widgets/index.d.ts"
+            ]
+        }
     }
 }
