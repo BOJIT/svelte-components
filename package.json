@@ -24,6 +24,8 @@
     },
     "type": "module",
     "dependencies": {
+        "@codemirror/lang-javascript": "^6.1.9",
+        "@codemirror/theme-one-dark": "^6.1.2",
         "@fontsource/comfortaa": "^4.5.10",
         "@fontsource/material-icons": "^4.5.4",
         "@fontsource/material-icons-outlined": "^4.5.4",
@@ -32,6 +34,7 @@
         "@svicons/ionicons-outline": "^0.1.11",
         "@svicons/ionicons-solid": "^0.1.11",
         "@types/w3c-web-serial": "^1.0.3",
+        "codemirror": "^6.0.1",
         "prismjs": "^1.29.0",
         "simplebar": "^5.3.9",
         "svelte": "^3.44.0",
