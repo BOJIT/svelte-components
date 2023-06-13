@@ -15,10 +15,12 @@
 
     import { onMount, onDestroy, createEventDispatcher } from "svelte";
 
-    import { basicSetup, EditorView } from "codemirror";
+    import { basicSetup } from "codemirror";
+    import { indentWithTab } from "@codemirror/commands";
     import { Compartment } from "@codemirror/state";
+    import { keymap, EditorView } from "@codemirror/view";
 
-    import { oneDark } from "@codemirror/theme-one-dark";
+    import { oneDark } from "./theme-dark";
     import { javascript } from "@codemirror/lang-javascript";
 
     import theme from "$lib/theme";
@@ -26,38 +28,16 @@
     /*--------------------------------- Props --------------------------------*/
 
     export let code: string = "";
-    export let language: LanguageSupport = javascript();
+    export let language: LanguageSupport = javascript(); // Not reactive
     export let padding: string = "0px";
+    export let maxHeight: string = "auto";
 
     const dispatch = createEventDispatcher();
 
     let div: HTMLDivElement;
     let editorView: EditorView;
 
-    let oneLight = EditorView.theme(
-        {
-            "&": {
-                color: "#24292e",
-                backgroundColor: "#ffffff22",
-            },
-            ".cm-content": {
-                caretColor: "#0e9",
-            },
-            "&.cm-focused .cm-cursor": {
-                borderLeftColor: "#0e9",
-            },
-            "&.cm-focused .cm-selectionBackground, ::selection": {
-                backgroundColor: "#074",
-            },
-            ".cm-gutters": {
-                backgroundColor: "#fff",
-                color: "#6e7781",
-                border: "none",
-            },
-        },
-        { dark: true }
-    );
-
+    let oneLight = EditorView.baseTheme({});
     const editorTheme = new Compartment();
 
     /*-------------------------------- Methods -------------------------------*/
@@ -89,12 +69,19 @@
     });
 
     onMount(() => {
+        // Mount editor
         editorView = new EditorView({
             doc: code,
-            extensions: [basicSetup, editorTheme.of(oneLight), language],
+            extensions: [
+                basicSetup,
+                keymap.of([indentWithTab]),
+                editorTheme.of(oneLight),
+                language,
+            ],
             parent: div,
         });
 
+        // Initial config
         editorView.dispatch({
             effects: editorTheme.reconfigure(
                 $theme === "light" ? oneLight : oneDark
@@ -110,5 +97,16 @@
 <svelte:window on:keydown={save} />
 
 <div class="padding" style:padding>
-    <div bind:this={div} class="editor" />
+    <div bind:this={div} class="editor" style={`--max-height: ${maxHeight}`} />
 </div>
+
+<style>
+    .editor {
+        --max-height: auto;
+    }
+
+    .editor :global(.cm-scroller) {
+        font-family: var(--font-monospace);
+        max-height: var(--max-height);
+    }
+</style>
