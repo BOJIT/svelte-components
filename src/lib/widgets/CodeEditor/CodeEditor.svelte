@@ -1,111 +1,153 @@
+<!--
+ * @file CodeEditor.svelte
+ * @author James Bennion-Pedley
+ * @brief Interactive Code Editor
+ * @date 12/06/2023
+ *
+ * @copyright Copyright (c) 2023
+ *
+-->
+
 <script lang="ts">
-    import { onMount } from "svelte";
+    /*-------------------------------- Imports -------------------------------*/
+
+    import { onMount, onDestroy, createEventDispatcher } from "svelte";
     import { fade } from "svelte/transition";
-    import Button from "$lib/smelte/components/Button/Button.svelte";
 
-    // Uses the Prism JS syntax highlighter. When using mdsvex,
-    // the syntax highlighters should be included automatically.
-    // When using standalone, include them manually.
-    import PrismLive from "./prism-live/prism-live.js";
-    import "./prism-live/prism-live.css";
+    import { basicSetup } from "codemirror";
+    import { indentWithTab } from "@codemirror/commands";
+    import type { LanguageSupport } from "@codemirror/language";
+    import { Compartment } from "@codemirror/state";
+    import { keymap, EditorView, type ViewUpdate } from "@codemirror/view";
 
-    export let language = "js";
-    export let lineNumbers = false;
-    export let code = "";
-    export let validationHook: null | ((resolve: (value: unknown) => void,
-                                reject: (reason?: any) => void) => {}) = null;
+    import { oneDark } from "./theme-dark";
+    import { javascript } from "@codemirror/lang-javascript";
 
-    let textarea: HTMLTextAreaElement;
-    let button: HTMLElement;
+    import theme from "$lib/theme";
 
-    let icon = "save";
-    let edited = false;
-    let codeAtlastSave: string;
+    /*--------------------------------- Props --------------------------------*/
 
-    function handleKeydown(event) {
-        // Save override
-        if(document.activeElement === textarea) {
-            if (navigator.userAgent.indexOf('Mac OS X') != -1) {
-                if(event.metaKey && event.which === 83) {
-                    codeSaved();
-                    event.preventDefault();
-                }
-            } else {
-                if(event.ctrlKey && event.which === 83) {
-                    codeSaved();
-                    event.preventDefault();
-                }
+    export let code: string = "";
+    export let language: LanguageSupport = javascript(); // Not reactive
+    export let padding: string = "0px";
+    export let maxHeight: string = "auto";
+
+    const dispatch = createEventDispatcher();
+
+    let div: HTMLDivElement;
+    let editorView: EditorView;
+
+    const oneLight = EditorView.baseTheme({});
+    const editorTheme = new Compartment();
+    const editorLanguage = new Compartment();
+
+    let unsavedChanges: boolean = false;
+
+    /*-------------------------------- Methods -------------------------------*/
+
+    export function focus() {
+        editorView.focus();
+    }
+
+    function codeChanged(v: ViewUpdate) {
+        unsavedChanges = true;
+        code = v.state.doc.toString();
+    }
+
+    function save(event: KeyboardEvent) {
+        if (editorView.hasFocus !== true) return;
+
+        // Hook for CTRL+S along with optional 'save button'
+        if ((event.ctrlKey || event.metaKey) && event.key === "s") {
+            event.preventDefault();
+            if (unsavedChanges == true) {
+                unsavedChanges = false;
+                dispatch("save");
             }
         }
     }
 
-    async function codeSaved() {
-        if(validationHook !== null) {
-            try {
-                await new Promise(validationHook);
-                icon = 'done';
-            } catch (err) {
-                // Reset code to last save
-                textarea.value = codeAtlastSave;
-                var event = new Event('input');
+    /*------------------------------- Lifecycle ------------------------------*/
 
-                textarea.dispatchEvent(event);
-                code = textarea.value;
-                icon = 'close';
-            }
-        } else {
-            icon = 'done';
-        }
+    theme.subscribe((t) => {
+        editorView?.dispatch({
+            effects: editorTheme.reconfigure(
+                t === "light" ? oneLight : oneDark
+            ),
+        });
+    });
 
-        codeAtlastSave = textarea.value;
+    onMount(() => {
+        // Mount editor
+        editorView = new EditorView({
+            doc: code,
+            extensions: [
+                basicSetup,
+                keymap.of([indentWithTab]),
+                editorTheme.of(oneLight),
+                // Listen for changes
+                EditorView.updateListener.of((v: ViewUpdate) => {
+                    if (v.docChanged) codeChanged(v);
+                }),
+                editorLanguage.of(language),
+            ],
+            parent: div,
+        });
 
-        setTimeout(() => {
-            edited = false;
-        }, 500);
+        // Initial config
+        editorView.dispatch({
+            effects: editorTheme.reconfigure(
+                $theme === "light" ? oneLight : oneDark
+            ),
+        });
+    });
 
-        setTimeout(() => {
-            icon = 'save';
-        }, 2000);
-    }
-
-    function codeChanged() {
-        edited = true;
-        code = textarea.value;
-    }
-
-    onMount(async () => {
-        textarea.textContent = code;
-        codeAtlastSave = textarea.textContent;
-
-        await PrismLive();
-
-        if(textarea.previousElementSibling.nodeName === "PRE") {
-            let div = textarea.parentElement;
-            div.style.position = "relative";
-            div.appendChild(button);
-        }
+    onDestroy(() => {
+        editorView?.destroy();
     });
 </script>
 
-<svelte:window on:keydown={handleKeydown}/>
+<svelte:window on:keydown={save} />
 
-<div bind:this={button} class="button">
-    {#if edited }
-        <div transition:fade>
-            <Button icon={icon} iconColor={"var(--color-gray-500)"}
-                lozenge transparent on:click={codeSaved}/>
-        </div>
+<div class="container" style:padding>
+    <div bind:this={div} class="editor" style={`--max-height: ${maxHeight}`} />
+    {#if unsavedChanges}
+        <div class="overlay" transition:fade={{ duration: 100 }} />
     {/if}
 </div>
 
-<textarea bind:this={textarea} class="prism-live language-{language}"
-    class:line-numbers={lineNumbers} on:input={codeChanged}/>
-
 <style>
-    .button {
+    .container {
+        position: relative;
+    }
+
+    .overlay {
         position: absolute;
-        right: 0.5rem;
-        top: 0.5rem;
-        z-index: 2;
+        top: 0.6rem;
+        right: 0.3rem;
+        width: 0.8rem;
+        height: 0.79rem;
+        background-color: #b4b4b4;
+        border-radius: 50%;
+    }
+
+    :global(.mode-dark) .overlay {
+        background-color: white;
+    }
+
+    .editor {
+        --max-height: auto;
+        position: static;
+        height: 100%;
+        width: 100%;
+    }
+
+    .editor :global(.cm-scroller) {
+        font-family: var(--font-monospace);
+        max-height: var(--max-height);
+    }
+
+    .editor :global(.cm-tooltip) {
+        font-family: var(--font-monospace);
     }
 </style>

@@ -4,28 +4,24 @@
 
 <script>
     import { Container } from "$lib/layout";
-    import { CodeEditor2 } from "$lib/widgets";
+    import { CodeEditor } from "$lib/widgets";
+
+    import { python } from "@codemirror/lang-python";
 
     let codeA = "let x = {\n  prop: 1\n}";
-    let codeB = "{\n\t\n}";
+    let codeB = "def my_function():\n  pass";
 </script>
 
 # Code Editor
 
 Below is an interactive JS Editor:
 
-<!-- <Container> -->
-<CodeEditor2 bind:code={codeA} on:save={() => {
+<CodeEditor bind:code={codeA} on:save={() => {
     console.log("saved");
 }} maxHeight="16rem"/>
-<!-- </Container> -->
-
----
-
-{codeA};
 
 ---
 
 Other languages are supported too!
 
-<!-- <CodeEditor lineNumbers={true} language="json" bind:code={codeB}/> -->
+<CodeEditor language={python()} bind:code={codeB}/>
