@@ -62,7 +62,7 @@
             event.preventDefault();
             if (unsavedChanges == true) {
                 unsavedChanges = false;
-                dispatch("save");
+                dispatch("save", code);
             }
         }
     }
