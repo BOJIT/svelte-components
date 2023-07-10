@@ -21,20 +21,89 @@
     import { createEventDispatcher } from "svelte";
 
     import { message } from "$lib/core";
+    import { SearchableList } from "$lib/form";
     import { Container } from "$lib/layout";
-    import Button from "$lib/smelte/components/Button/Button.svelte";
-    import List from "$lib/smelte/components/List/List.svelte";
+    import { List, Dialog } from "$lib/smelte";
     import theme from "$lib/theme";
     import type { ThemeMode } from "$lib/theme/theme";
 
+    import IconClose from "@svicons/ionicons-outline/close-circle.svelte";
     import IconElipsis from "@svicons/ionicons-outline/ellipsis-horizontal-circle.svelte";
     import IconListCircle from "@svicons/ionicons-outline/list-circle.svelte";
     import IconRefresh from "@svicons/ionicons-outline/refresh.svelte";
 
     /* XTermJS */
-    // import { Terminal } from 'xterm';
-    // import { FitAddon } from 'xterm-addon-fit';
-    // import "xterm/css/xterm.css"
+    import { Terminal } from "xterm";
+    import { FitAddon } from "xterm-addon-fit";
+    import "xterm/css/xterm.css";
+
+    /*------------------------------ Public API ------------------------------*/
+
+    // Feed-through Container Props
+    export let aspect: string | undefined;
+    export let wide: boolean = false;
+
+    // Terminal Props
+    export let name = "COMX";
+    export let rows = 15;
+    export let active = false;
+    export let baud = 115200;
+    export let interactive = true;
+
+    // Send characters
+    export async function send(data: string) {
+        if (active) {
+            await terminalInput(data);
+        }
+    }
+
+    /*--------------------------------- State --------------------------------*/
+
+    let menuVisible = false;
+
+    let baudOptions = {
+        "4800": {},
+        "9600": {},
+        "19200": {},
+        "28800": {},
+        "38400": {},
+        "57600": {},
+        "76800": {},
+        "115200": {},
+        "576000": {},
+    };
+
+    let tray = [
+        {
+            icon: IconRefresh,
+            callback: refreshPorts,
+        },
+        {
+            icon: IconListCircle,
+            callback: requestPort,
+        },
+        {
+            icon: IconElipsis,
+            callback: () => {
+                menuVisible = true;
+            },
+        },
+    ];
+
+    let trayActive = [
+        {
+            icon: IconRefresh,
+            callback: refreshPorts,
+        },
+        {
+            icon: IconListCircle,
+            callback: requestPort,
+        },
+        {
+            icon: IconClose,
+            callback: closePort,
+        },
+    ];
 
     const dispatch = createEventDispatcher();
 
@@ -45,15 +114,10 @@
         port: SerialPort;
     };
 
-    export let name = "COMX";
-    // export let rows = 15;
-    export let active = false;
-    export let baud = 115200;
-    export let interactive = true;
-
     let container: HTMLElement;
-    // let terminal: Terminal;
-    // let fitAddon: FitAddon;
+    let terminal: Terminal;
+    let fitAddon: FitAddon;
+    let resizeObserver: ResizeObserver | null = null;
 
     let ports: Port[] = [];
     let port: string | undefined = undefined;
@@ -66,20 +130,15 @@
 
     // Handle terminal row resizing
     $: {
-        // terminal?.resize(terminal.cols, rows);
-        // terminal?.scrollToBottom();
+        terminal?.resize(terminal.cols, rows);
+        terminal?.scrollToBottom();
     }
+
+    /*--------------------------- Helper Functions ---------------------------*/
 
     // Handle window resizing
     function terminalFit() {
-        // fitAddon?.fit();
-    }
-
-    // Send from outside component
-    export async function send(data: string) {
-        if (active) {
-            terminalInput(data);
-        }
+        fitAddon?.fit();
     }
 
     // Terminal Functions
@@ -87,45 +146,40 @@
         if (interactive) {
             let enc = new TextEncoder();
             let u8 = enc.encode(data);
-            console.log(u8);
             await port_writable?.write(u8);
         }
     }
 
     function terminalOutput(data: any) {
-        // terminal.write(data.value);
-
-        dispatch("recv", data.value);
-        // Infinite promise stream
-        port_readable?.read().then(terminalOutput);
+        if (data.value !== undefined) {
+            terminal.write(data.value);
+            dispatch("recv", data.value);
+            // Infinite promise stream
+            port_readable?.read().then(terminalOutput);
+        }
     }
 
     // Handle Theme
     function setTheme(t: ThemeMode) {
-        // if(t == 'light') {
-        //     terminal.options.theme = {
-        //         foreground: "#2d2d2d",
-        //         cursor: "#2d2d2d",
-        //         background: '#00000000',
-        //     };
-        // } else {
-        //     terminal.options.theme = {
-        //         foreground: "#f5f5f5",
-        //         cursor: "#f5f5f5",
-        //         background: '#00000000',
-        //     };
-        // }
+        if (t == "light") {
+            terminal.options.theme = {
+                foreground: "#2d2d2d",
+                cursor: "#2d2d2d",
+                background: "#00000000",
+            };
+        } else {
+            terminal.options.theme = {
+                foreground: "#f5f5f5",
+                cursor: "#f5f5f5",
+                background: "#00000000",
+            };
+        }
     }
     theme.subscribe((t) => {
-        // if(terminal !== undefined)
-        //     setTheme(t);
+        if (terminal !== undefined) setTheme(t);
     });
 
-    // Serial Port Functions(
-    function launchSettings() {
-        console.error("Not Implemented!");
-    }
-
+    // Serial Port Functions
     async function refreshPorts() {
         if ("serial" in navigator) {
             let serial_ports = await navigator.serial.getPorts();
@@ -195,23 +249,41 @@
         }
     }
 
+    async function closePort() {
+        let active_port = ports.find((p: Port) => p.text === port);
+
+        if (active_port !== undefined) {
+            await port_readable?.cancel();
+            await port_writable?.close();
+            await active_port.port.close();
+            active = false;
+        }
+    }
+
+    /*--------------------------- Lifecycle Hooks ----------------------------*/
+
     onMount(async () => {
         // Create Terminal
-        // terminal = new Terminal({
-        //     theme: {
-        //         background: '#00000000',
-        //     },
-        //     allowTransparency: true,
-        //     convertEol: true,
-        //     rows: rows,
-        // });
+        terminal = new Terminal({
+            theme: {
+                background: "#00000000",
+            },
+            allowTransparency: true,
+            convertEol: true,
+            rows: rows,
+        });
 
-        // fitAddon = new FitAddon();
-        // terminal.loadAddon(fitAddon);
-        // terminal.open(container);
-        // terminalFit();
-        // window.addEventListener('resize', terminalFit);
-        // terminal.onData(terminalInput);
+        fitAddon = new FitAddon();
+        terminal.loadAddon(fitAddon);
+        terminal.open(container);
+        terminal.onData(terminalInput);
+        terminalFit();
+
+        // Redraw on size change
+        resizeObserver = new ResizeObserver(function (entries) {
+            terminalFit();
+        });
+        resizeObserver.observe(container);
 
         // Check if we need to show overlay
         if (port !== undefined) {
@@ -231,83 +303,78 @@
     });
 
     onDestroy(() => {
-        // window?.removeEventListener('resize', terminalFit);
+        resizeObserver?.unobserve(container);
     });
 </script>
 
-<Container
-    wide
-    tray={[
-        {
-            icon: IconRefresh,
-            callback: refreshPorts,
-        },
-        {
-            icon: IconListCircle,
-            callback: requestPort,
-        },
-        {
-            icon: IconElipsis,
-            callback: launchSettings,
-        },
-    ]}
->
+<Container bind:aspect {wide} tray={active ? trayActive : tray}>
     <div class="console">
-        <h6>Terminal - {name}</h6>
-        <hr />
-        <div class="xterm-container" bind:this={container} />
-        {#if !active}
-            <div class="serial-overlay">
-                {#if ports.length == 0}
-                    <h6>[No Available Ports]</h6>
-                {:else}
-                    <List
-                        bind:value={port}
-                        on:change={openPort}
-                        items={ports}
-                    />
-                {/if}
-            </div>
-        {/if}
+        <div class="console-header" class:active>
+            <h6>Terminal - {name}</h6>
+            <hr />
+        </div>
+        <div class="console-overlay" class:active>
+            <h6>Baud Rate: <span class="baud">{baud}</span></h6>
+            <hr />
+            {#if ports.length == 0}
+                <h6>[No Available Ports]</h6>
+            {:else}
+                <List bind:value={port} on:change={openPort} items={ports} />
+            {/if}
+        </div>
+        <div class="xterm-container" class:active bind:this={container} />
     </div>
 </Container>
 
+<Dialog bind:value={menuVisible}>
+    <div slot="title" class="title">Baud Rate</div>
+    <SearchableList
+        items={baudOptions}
+        on:select={(e) => {
+            baud = parseInt(e.detail);
+            menuVisible = false;
+        }}
+    />
+</Dialog>
+
 <style>
-    .serial-overlay {
-        background-color: #f5f2f0;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        padding: 1em;
-    }
-
-    .serial-overlay > :global(ul) {
-        padding-left: 0px;
-        padding-right: 0px;
-    }
-
-    .console > * {
+    .console-overlay {
         margin: 0.5rem;
-        padding-top: 3.5rem;
     }
 
-    h6 {
+    .console-overlay > :global(ul) {
+        padding-left: 0.25rem;
+        padding-right: 0.25rem;
+    }
+
+    .console-overlay.active {
+        display: none;
+    }
+
+    .console-header {
+        display: none;
+        margin: 0.5rem;
+    }
+
+    .console h6 {
         font-size: 0.8em;
         color: var(--color-gray-600);
         padding: 0.2em;
+        margin-top: 3rem;
+        margin-bottom: 0;
         text-align: center;
     }
 
-    hr {
+    .console hr {
         border-color: var(--color-gray-400);
-        padding-bottom: 0.5em;
+        margin: 0.25rem;
     }
 
-    :global(.mode-dark) .serial-overlay {
-        background-color: #2d2d2d;
+    .console-header.active {
+        display: block;
     }
+
+    /* Theme */
 
     :global(.mode-dark) h6 {
         color: var(--color-gray-300);
@@ -317,11 +384,37 @@
         border-color: var(--color-gray-600);
     }
 
+    /* Terminal Styling */
+
+    .xterm-container {
+        visibility: hidden;
+        margin: 0 1rem;
+    }
+
+    .xterm-container.active {
+        visibility: visible;
+    }
+
     :global(.xterm-viewport)::-webkit-scrollbar {
         display: none;
     }
     :global(.xterm-viewport) {
         -ms-overflow-style: none;
         scrollbar-width: none; /* Firefox */
+    }
+
+    .baud {
+        color: var(--color-primary-300);
+    }
+
+    .title {
+        min-width: 40rem;
+    }
+
+    @media (max-width: 768px) {
+        .title {
+            min-width: 0;
+            width: 80vw;
+        }
     }
 </style>

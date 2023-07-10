@@ -12,6 +12,7 @@ import CAD from "./CAD/CAD.svelte";
 import Chart from "./Chart/Chart.svelte";
 import CodeEditor from "./CodeEditor/CodeEditor.svelte";
 import Gallery from "./Gallery/Gallery.svelte";
+import Histogram from "./Histogram/Histogram.svelte";
 import PcbViewer from "./PcbViewer/PcbViewer.svelte";
 import Plotter from "./Plotter/Plotter.svelte";
 import Tabs from "./Tabs/Tabs.svelte";
@@ -24,6 +25,7 @@ export {
     Chart,
     CodeEditor,
     Gallery,
+    Histogram,
     PcbViewer,
     Plotter,
     Tabs,
@@ -37,6 +39,7 @@ export default {
     Chart,
     CodeEditor,
     Gallery,
+    Histogram,
     PcbViewer,
     Plotter,
     Tabs,
