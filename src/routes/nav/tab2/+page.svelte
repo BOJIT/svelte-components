@@ -6,6 +6,8 @@
     import TextField from "$lib/smelte/components/TextField/TextField.svelte";
 
     import SunnyOutline from "@svicons/ionicons-outline/sunny.svelte";
+
+    import { message } from "$lib/core";
 </script>
 
 <svelte:head>
@@ -17,19 +19,27 @@
 
     <p>This is normal text</p>
 
-    <hr>
+    <hr />
 
     <div>
-        <IconButton icon={SunnyOutline} />
+        <IconButton
+            icon={SunnyOutline}
+            on:click={() => {
+                message.push({
+                    type: "info",
+                    title: "testing here GRDQGEQDGEQGQERjkkll ll ",
+                    message:
+                        "lorem ipsum yadadfegqh g aegljqebleqjbgqel agfeqgjqegj ",
+                });
+            }}
+        />
     </div>
 
-    <hr>
+    <hr />
     <Button>TEST BUTTON</Button>
     <Button>TEST BUTTON</Button>
 
-    <br><br>
+    <br /><br />
 
-    <TextField label="name" prepend="search"/>
-
+    <TextField label="name" prepend="search" />
 </Content>
-

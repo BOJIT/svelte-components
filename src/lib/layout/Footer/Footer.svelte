@@ -5,23 +5,30 @@
     import type { SvelteComponent } from "svelte";
 
     type FooterButton = {
-        icon: SvelteComponent,
-        label?: string,
-        shape?: "square" | "circle" | "rounded",
-        color?: string,
-        callback?: (() => void)
-    }
+        icon: typeof SvelteComponent;
+        label?: string;
+        shape?: "square" | "circle" | "rounded";
+        color?: string;
+        callback?: () => void;
+    };
 
     export let buttons: FooterButton[] = [];
 </script>
 
-<footer class:bg-primary-50={$theme === 'light'} class:bg-dark-700={$theme === 'dark'}>
+<footer
+    class:bg-primary-50={$theme === "light"}
+    class:bg-dark-700={$theme === "dark"}
+>
     {#each buttons as button}
         <div class="button-label">
             <IconButton
-                color={button.color} icon={button.icon}
-                size="2.3rem" shape={button.shape}
-                iconColor={$theme == 'dark' ? "var(--color-white)" : "var(--color-dark-500)"}
+                color={button.color}
+                icon={button.icon}
+                size="2.3rem"
+                shape={button.shape}
+                iconColor={$theme == "dark"
+                    ? "var(--color-white)"
+                    : "var(--color-dark-500)"}
                 on:click={button.callback}
             />
             {#if button.label !== undefined}

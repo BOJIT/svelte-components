@@ -10,30 +10,30 @@
 
 <script lang="ts">
     /* Custom Scrollbar */
-    import 'simplebar';
-    import 'simplebar/dist/simplebar.css';
+    import "simplebar";
+    import "simplebar/dist/simplebar.css";
 
     import theme from "$lib/theme";
-    import type { SvelteComponent } from 'svelte';
+    import type { SvelteComponent } from "svelte";
 
     type Tab = {
-        label: string,
-        link?: string,
-        component?: SvelteComponent,
-        props?: object
-    }
+        label: string;
+        link?: string;
+        component?: typeof SvelteComponent;
+        props?: object;
+    };
 
     /* Callback for tab click event */
     function handleClick(idx: number) {
         index = idx;
 
         // Update tabline
-        tabline.removeAttribute('style');
+        tabline.removeAttribute("style");
         tabline.style.cssText = theme.swatchColor(idx);
     }
 
     /* Array of tabs */
-    export let tabs : Tab[] = [];
+    export let tabs: Tab[] = [];
 
     /* Keep track of current tab index */
     export let index = 0;
@@ -44,52 +44,63 @@
     let tabroot: HTMLElement;
 
     $: {
-        if(tabroot) {
+        if (tabroot) {
             // All tab children
             let tabSlots = tabroot.querySelectorAll("div.tab");
-            tabSlots.forEach((t) => t.classList.remove('active'));
-            if(tabSlots[index] !== undefined) {
+            tabSlots.forEach((t) => t.classList.remove("active"));
+            if (tabSlots[index] !== undefined) {
                 setTimeout(() => {
-                    tabSlots[index].classList.add('active');
+                    tabSlots[index].classList.add("active");
                 }, 50);
             }
         }
     }
 </script>
 
-
 <div class="container">
     {#await theme.ready(1000) then value}
-    <div data-simplebar>
-        <ul class="tabs">
-            <!-- Render each tab - updates when the list updates -->
-            {#each tabs as tab, idx}
-            {#if "link" in tab }
-            <a href={tab.link}>
-                <li style={theme.swatchColor(idx)} class="tab transition" class:is-active={idx == index}
-                on:click={() => handleClick(idx)}
-                on:keypress={() => handleClick(idx)}>
-                    <h6 class="unselectable">{tab.label}</h6>
-                </li>
-            </a>
-            {:else}
-                <li style={theme.swatchColor(idx)} class="tab transition" class:is-active={idx == index}
-                on:click={() => handleClick(idx)}
-                on:keypress={() => handleClick(idx)}>
-                    <h6 class="unselectable">{tab.label}</h6>
-                </li>
-            {/if}
-            {/each}
-        </ul>
-        <hr bind:this={tabline} class="tabline transition" style={theme.swatchColor(index)}>
-    </div>
+        <div data-simplebar>
+            <ul class="tabs">
+                <!-- Render each tab - updates when the list updates -->
+                {#each tabs as tab, idx}
+                    {#if "link" in tab}
+                        <a href={tab.link}>
+                            <li
+                                style={theme.swatchColor(idx)}
+                                class="tab transition"
+                                class:is-active={idx == index}
+                                on:click={() => handleClick(idx)}
+                                on:keypress={() => handleClick(idx)}
+                            >
+                                <h6 class="unselectable">{tab.label}</h6>
+                            </li>
+                        </a>
+                    {:else}
+                        <li
+                            style={theme.swatchColor(idx)}
+                            class="tab transition"
+                            class:is-active={idx == index}
+                            on:click={() => handleClick(idx)}
+                            on:keypress={() => handleClick(idx)}
+                        >
+                            <h6 class="unselectable">{tab.label}</h6>
+                        </li>
+                    {/if}
+                {/each}
+            </ul>
+            <hr
+                bind:this={tabline}
+                class="tabline transition"
+                style={theme.swatchColor(index)}
+            />
+        </div>
     {/await}
 
     {#each tabs as tab, idx}
-        {#if "component" in tab }
+        {#if "component" in tab}
             <div class="content" class:visible={idx == index}>
                 {#if "props" in tab}
-                    <svelte:component this={tab.component} {...tab.props}/>
+                    <svelte:component this={tab.component} {...tab.props} />
                 {:else}
                     <svelte:component this={tab.component} />
                 {/if}
@@ -101,7 +112,6 @@
         <slot />
     </div>
 </div>
-
 
 <style>
     .container {

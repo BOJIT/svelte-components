@@ -8,7 +8,7 @@
  *
 -->
 
-<script lang='ts'>
+<script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
     import type { SvelteComponent } from "svelte";
@@ -18,9 +18,9 @@
 
     /*--------------------------------- Props --------------------------------*/
 
-    export let icon: SvelteComponent;
+    export let icon: typeof SvelteComponent;
     export let label: string = "example";
-    export let shape: 'circle' | 'square' | 'rounded' = 'rounded';
+    export let shape: "circle" | "square" | "rounded" = "rounded";
 
     // Pass through
     export let color;
@@ -32,20 +32,22 @@
     /*-------------------------------- Methods -------------------------------*/
 
     /*------------------------------- Lifecycle ------------------------------*/
-
 </script>
 
-
 <Button
-    bind:color bind:disabled bind:outlined
-    square={shape === 'square'}
-    lozenge={shape === 'rounded'}
-    circle={shape === 'circle'}
+    bind:color
+    bind:disabled
+    bind:outlined
+    square={shape === "square"}
+    lozenge={shape === "rounded"}
+    circle={shape === "circle"}
     on:click={() => {
-        dispatch('click');
+        dispatch("click");
     }}
-><div class="pos"><svelte:component this={icon} height="1.5rem"/>{label}</div></Button>
-
+    ><div class="pos">
+        <svelte:component this={icon} height="1.5rem" />{label}
+    </div></Button
+>
 
 <style>
     .pos {

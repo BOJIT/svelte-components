@@ -1,13 +1,13 @@
 <script lang="ts" context="module">
     export type NavItem = {
-        type: "button" | "separator" | "component",
-        icon?: SvelteComponent,
-        shape?: "square" | "circle" | "rounded",
-        color?: string,
-        label?: string,
-        visibility?: "mobile" | "desktop"
-        callback?: (() => void)
-    }
+        type: "button" | "separator" | "component";
+        icon?: typeof SvelteComponent;
+        shape?: "square" | "circle" | "rounded";
+        color?: string;
+        label?: string;
+        visibility?: "mobile" | "desktop";
+        callback?: () => void;
+    };
 </script>
 
 <script lang="ts">
@@ -22,54 +22,66 @@
 
     export let items: NavItem[] = [];
 
-    export let themeOverride: ThemeMode = 'auto';
+    export let themeOverride: ThemeMode = "auto";
 
-    let local_theme = 'dark';
+    let local_theme = "dark";
     theme.subscribe((t) => {
-        local_theme = themeOverride == 'auto' ? t : themeOverride ;
+        local_theme = themeOverride == "auto" ? t : themeOverride;
     });
 </script>
 
 <!-- Navbar -->
-<div class="nav" role="navigation" aria-label="main navigation"
-    class:bg-primary-50={local_theme == 'light'}
-    class:bg-dark-700={local_theme == 'dark'}>
-
+<div
+    class="nav"
+    role="navigation"
+    aria-label="main navigation"
+    class:bg-primary-50={local_theme == "light"}
+    class:bg-dark-700={local_theme == "dark"}
+>
     <!-- Navbar Left-Hand Side -->
     <div class="nav-left">
         {#if logo !== null}
             {#if logoLink !== null}
-                <a href="{logoLink}" target="_blank" rel="noreferrer">
-                    <img src="{logo}" alt="logo" style="max-height:3rem">
+                <a href={logoLink} target="_blank" rel="noreferrer">
+                    <img src={logo} alt="logo" style="max-height:3rem" />
                 </a>
             {:else}
-                <img src="{logo}" alt="logo" style="max-height:3rem">
+                <img src={logo} alt="logo" style="max-height:3rem" />
             {/if}
         {/if}
     </div>
 
     <div class="nav-left">
-        <h1 class:dark={local_theme == 'dark'}>{title}</h1>
-        <slot name = "nav-left"/>
+        <h1 class:dark={local_theme == "dark"}>{title}</h1>
+        <slot name="nav-left" />
     </div>
 
     <!-- Navbar Right-Hand Side -->
     <div class="nav-right">
-        <slot name = "nav-right"/>
+        <slot name="nav-right" />
         {#each items as item}
-            <div class:mobile={item.visibility === "mobile"} class:desktop={item.visibility === "desktop"}>
+            <div
+                class:mobile={item.visibility === "mobile"}
+                class:desktop={item.visibility === "desktop"}
+            >
                 {#if item.type === "button"}
                     <IconButton
-                        color={item.color} icon={item.icon}
-                        size="1.7rem" shape={item.shape}
+                        color={item.color}
+                        icon={item.icon}
+                        size="1.7rem"
+                        shape={item.shape}
                         label={item.label ? item.label : "label"}
-                        iconColor={local_theme == 'dark' ? "var(--color-white)" : "var(--color-dark-500)"}
+                        iconColor={local_theme == "dark"
+                            ? "var(--color-white)"
+                            : "var(--color-dark-500)"}
                         on:click={item.callback}
                     />
                 {/if}
 
                 {#if item.type === "separator"}
-                <div class="separator" class:dark={local_theme == 'dark'}>.</div>
+                    <div class="separator" class:dark={local_theme == "dark"}>
+                        .
+                    </div>
                 {/if}
             </div>
         {/each}

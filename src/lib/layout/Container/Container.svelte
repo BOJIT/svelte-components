@@ -16,7 +16,7 @@
     import IconContract from "@svicons/ionicons-outline/contract.svelte";
 
     type TrayButton = {
-        icon: SvelteComponent;
+        icon: typeof SvelteComponent;
         callback: () => void;
     };
 

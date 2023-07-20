@@ -25,7 +25,7 @@
 
     type Theme = {
         theme: "light" | "dark" | "auto";
-        icon: SvelteComponent;
+        icon: typeof SvelteComponent;
     };
 
     /*--------------------------------- Props --------------------------------*/

@@ -1,25 +1,25 @@
 <script lang="ts" context="module">
-    import { writable } from 'svelte/store';
+    import { writable } from "svelte/store";
 
     /* Popup Overlays */
     type Popup = {
-        title: string,
-        message: string,
-        type: "info" | "warning" | "error"
-        timeout?: number
-        uid?: number
-    }
+        title: string;
+        message: string;
+        type: "info" | "warning" | "error";
+        timeout?: number;
+        uid?: number;
+    };
 
-    const store = writable([]);   // Array of message popups
+    const store = writable([]); // Array of message popups
     let popup_uid = 1;
 
     function reset() {
-        store.set([])
+        store.set([]);
     }
 
     function close(uid: number) {
         store.update((popups) => {
-            return popups.filter(t => t.uid !== uid);
+            return popups.filter((t) => t.uid !== uid);
         });
     }
 
@@ -28,8 +28,8 @@
             entry.uid = popup_uid++;
             popups = [entry, ...popups];
             /* Auto-remove from store if timeout specified */
-            if("timeout" in entry) {
-                setTimeout(() => close(entry.uid), entry.timeout*1000);
+            if ("timeout" in entry) {
+                setTimeout(() => close(entry.uid), entry.timeout * 1000);
             }
             return popups;
         });
@@ -40,15 +40,15 @@
         set: store.set,
         reset: reset,
         close: close,
-        push: push
-    }
+        push: push,
+    };
 
     export { message };
 </script>
 
 <script lang="ts">
-    import { fade, fly } from 'svelte/transition';
-    import { flip } from 'svelte/animate';
+    import { fade, fly } from "svelte/transition";
+    import { flip } from "svelte/animate";
 
     import {
         InformationCircle,
@@ -56,36 +56,49 @@
         CloseCircle,
     } from "@svicons/ionicons-outline";
 
-    import Icon from "$lib/smelte/components/Icon/Icon.svelte";
-    import Button from '$lib/smelte/components/Button/Button.svelte';
+    import Button from "$lib/smelte/components/Button/Button.svelte";
     import theme from "$lib/theme";
 </script>
 
 <div class="container">
     {#each $message as entry (entry.uid)}
-        <div in:fly="{{ x:-500, delay: 300 }}" out:fade animate:flip
-                class="popup"
-                class:dark={$theme == 'dark'}
-                class:is-info="{entry.type === "info"}"
-                class:is-warning="{entry.type === "warning"}"
-                class:is-error="{entry.type === "error"}">
-            <div class="popup-icon">
-                {#if entry.type === "info"}
-                    <InformationCircle height="2.5rem"/>
-                {:else if entry.type === "warning"}
-                    <AlertCircle height="2.5rem"/>
-                {:else if entry.type === "error"}
-                    <CloseCircle height="2.5rem"/>
-                {/if}
+        <div
+            in:fly={{ x: -500, delay: 300 }}
+            out:fade
+            animate:flip
+            class="popup"
+            class:dark={$theme == "dark"}
+            class:is-info={entry.type === "info"}
+            class:is-warning={entry.type === "warning"}
+            class:is-error={entry.type === "error"}
+        >
+            <div class="popup-flex">
+                <div class="popup-icon">
+                    {#if entry.type === "info"}
+                        <InformationCircle height="2.5rem" />
+                    {:else if entry.type === "warning"}
+                        <AlertCircle height="2.5rem" />
+                    {:else if entry.type === "error"}
+                        <CloseCircle height="2.5rem" />
+                    {/if}
+                </div>
+                <div class="popup-message">
+                    <h3>{entry.title}</h3>
+                    <p>{entry.message}</p>
+                </div>
             </div>
-            <div class="popup-message transition">
-                <h3>{entry.title}</h3>
-                <p>{entry.message}</p>
-            </div>
+
             <div class="popup-delete">
-                <Button on:click={() => message.close(entry.uid)}
-                    icon={"cancel"} transparent circle small
-                    iconColor={$theme == 'dark' ? "var(--color-white)" : "var(--color-dark-500)"}></Button>
+                <Button
+                    on:click={() => message.close(entry.uid)}
+                    icon={"cancel"}
+                    transparent
+                    circle
+                    small
+                    iconColor={$theme == "dark"
+                        ? "var(--color-white)"
+                        : "var(--color-dark-500)"}
+                />
             </div>
         </div>
     {/each}
@@ -94,7 +107,7 @@
 <style>
     .container {
         position: fixed;
-        height: 7em;    /* TODO make dependent on message height + a bit */
+        height: 7em; /* TODO make dependent on message height + a bit */
         width: 30em;
         bottom: 0;
         left: 0;
@@ -118,10 +131,13 @@
         border-radius: 0.5rem;
         padding: 0.2rem;
         box-shadow: 0.5px 0.5px 1px var(--color-black-trans-dark);
+        position: relative;
+    }
 
+    .popup-flex {
+        max-width: 100%;
         display: flex;
         align-items: center;
-        /* justify-content: space-between; */
     }
 
     .popup-icon {
@@ -133,14 +149,11 @@
     }
 
     .popup-message {
-        flex: 1 0 auto;
+        flex: 1 1 auto;
         padding: 0.5rem;
         vertical-align: middle;
         margin-top: 0.3rem;
-
-        overflow: hidden;
-        max-width: 22.5em;
-        text-overflow: ellipsis;
+        min-width: 0;
         white-space: nowrap;
     }
 
@@ -150,7 +163,6 @@
         line-height: 1;
 
         overflow: hidden;
-        max-width: 22.5em;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
@@ -160,29 +172,15 @@
         text-overflow: ellipsis;
 
         overflow: hidden;
-        max-width: 22.5em;
+        /* overflow: wrap; */
         text-overflow: ellipsis;
         white-space: nowrap;
     }
 
-    @media screen and (max-width: 768px) {
-        .popup-message {
-            max-width: calc(100% - 5em);
-        }
-
-        .popup-message h3 {
-            max-width: calc(100% - 5em);
-        }
-
-        .popup-message p {
-            max-width: calc(100% - 5em);
-        }
-    }
-
     .popup-delete {
-        margin-left: auto;
-        flex: 0 0 auto;
-        align-self: flex-start;
+        position: absolute;
+        top: 1px;
+        right: 1px;
     }
 
     .is-info {

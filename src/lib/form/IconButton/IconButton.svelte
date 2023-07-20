@@ -1,15 +1,15 @@
 <script lang="ts">
-    import { createEventDispatcher } from 'svelte';
+    import { createEventDispatcher, type SvelteComponent } from "svelte";
     import createRipple from "$lib/smelte/components/Ripple/ripple.js";
 
-    import Link from '$lib/core/Link/Link.svelte';
-    import Tooltip from '$lib/smelte/components/Tooltip/Tooltip.svelte';
+    import Link from "$lib/core/Link/Link.svelte";
+    import Tooltip from "$lib/smelte/components/Tooltip/Tooltip.svelte";
 
     const dispatch = createEventDispatcher();
 
-    let ripple = createRipple('white');
+    let ripple = createRipple("white");
 
-    export let icon: SvelteComponent;
+    export let icon: typeof SvelteComponent;
     export let href: string = null;
     export let newTab = false;
     export let disabled = false;
@@ -19,27 +19,32 @@
 
     // Style
     export let size: string = "2.5em";
-    export let shape: 'circle' | 'square' | 'rounded' = 'rounded';
+    export let shape: "circle" | "square" | "rounded" = "rounded";
     export let color: string = "var(--color-primary-500)";
     export let iconColor: string = "white";
 </script>
 
-
-<Link href={href} newTab={newTab} label={label}>
+<Link {href} {newTab} {label}>
     {#if useRipple}
         <Tooltip active={label !== "label"}>
             <div slot="activator">
                 <button
-                    disabled={disabled}
+                    {disabled}
                     class="{shape} overflow-hidden"
                     class:hoverable={!disabled}
-                    class:transparent={color === 'transparent'}
+                    class:transparent={color === "transparent"}
                     style="background-color: {color}"
-                    on:click={() => {dispatch('click');}}
+                    on:click={() => {
+                        dispatch("click");
+                    }}
                     use:ripple
                     aria-label={label}
                 >
-                    <svelte:component this={icon} height={size} color={iconColor}/>
+                    <svelte:component
+                        this={icon}
+                        height={size}
+                        color={iconColor}
+                    />
                 </button>
             </div>
             {label}
@@ -48,22 +53,27 @@
         <Tooltip active={label !== "label"}>
             <div slot="activator">
                 <button
-                    disabled={disabled}
+                    {disabled}
                     class="{shape} overflow-hidden"
                     class:hoverable={!disabled}
-                    class:transparent={color === 'transparent'}
+                    class:transparent={color === "transparent"}
                     style="background-color: {color}"
-                    on:click={() => {dispatch('click');}}
+                    on:click={() => {
+                        dispatch("click");
+                    }}
                     aria-label={label}
                 >
-                    <svelte:component this={icon} height={size} color={iconColor}/>
+                    <svelte:component
+                        this={icon}
+                        height={size}
+                        color={iconColor}
+                    />
                 </button>
             </div>
             {label}
         </Tooltip>
     {/if}
 </Link>
-
 
 <style>
     button {

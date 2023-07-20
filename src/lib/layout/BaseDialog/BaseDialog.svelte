@@ -8,7 +8,7 @@
  *
 -->
 
-<script lang='ts'>
+<script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
     import type { SvelteComponent } from "svelte";
@@ -16,51 +16,43 @@
 
     import { Dialog } from "$lib/smelte";
 
-    import {
-        Settings,
-    } from "@svicons/ionicons-outline";
+    import { Settings } from "@svicons/ionicons-outline";
 
     /*--------------------------------- Props --------------------------------*/
 
     export let visible: boolean = true;
     export let title: string = "placeholder";
-    export let icon: SvelteComponent = Settings;
+    export let icon: typeof SvelteComponent = Settings;
 
     let dispatch = createEventDispatcher();
 
     /*-------------------------------- Methods -------------------------------*/
 
     function handleKeydown(event: KeyboardEvent) {
-        if(!visible)
-            return; // Only handle keybindings when visible
+        if (!visible) return; // Only handle keybindings when visible
 
-        if(event.key === 'Escape')
-             visible = false;
+        if (event.key === "Escape") visible = false;
 
-        if(event.key === 'Enter')
-            dispatch('enter');
+        if (event.key === "Enter") dispatch("enter");
     }
 
     /*------------------------------- Lifecycle ------------------------------*/
-
 </script>
 
-
-<svelte:window on:keydown={handleKeydown}/>
+<svelte:window on:keydown={handleKeydown} />
 
 <Dialog bind:value={visible} fullWidth>
     <div slot="title" class="title">
-        <svelte:component this={icon} height="1.5rem"/>
+        <svelte:component this={icon} height="1.5rem" />
         {title}
     </div>
 
     <slot />
 
     <div slot="actions">
-        <slot name="actions"/>
+        <slot name="actions" />
     </div>
 </Dialog>
-
 
 <style>
     .title {
