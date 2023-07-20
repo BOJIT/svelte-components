@@ -14,12 +14,17 @@
     import { onMount, onDestroy, createEventDispatcher } from "svelte";
     import { fade } from "svelte/transition";
 
-    import { basicSetup } from "codemirror";
     import { indentWithTab } from "@codemirror/commands";
-    import type { LanguageSupport } from "@codemirror/language";
+    import { type LanguageSupport, indentUnit } from "@codemirror/language";
     import { Compartment } from "@codemirror/state";
-    import { keymap, EditorView, type ViewUpdate } from "@codemirror/view";
+    import {
+        keymap,
+        lineNumbers as lineNumbersExtension,
+        EditorView,
+        type ViewUpdate,
+    } from "@codemirror/view";
 
+    import { codeSetup } from "./codeSetup";
     import { oneDark } from "./theme-dark";
     import { javascript } from "@codemirror/lang-javascript";
 
@@ -31,6 +36,7 @@
     export let language: LanguageSupport = javascript(); // Not reactive
     export let padding: string = "0px";
     export let maxHeight: string = "auto";
+    export let lineNumbers: boolean = true;
 
     const dispatch = createEventDispatcher();
 
@@ -39,6 +45,7 @@
 
     const oneLight = EditorView.baseTheme({});
     const editorTheme = new Compartment();
+    const editorLineNumbers = new Compartment();
     const editorLanguage = new Compartment();
 
     let unsavedChanges: boolean = false;
@@ -69,6 +76,12 @@
 
     /*------------------------------- Lifecycle ------------------------------*/
 
+    $: editorView?.dispatch({
+        effects: editorLineNumbers.reconfigure(
+            lineNumbers ? lineNumbersExtension() : []
+        ),
+    });
+
     theme.subscribe((t) => {
         editorView?.dispatch({
             effects: editorTheme.reconfigure(
@@ -82,7 +95,9 @@
         editorView = new EditorView({
             doc: code,
             extensions: [
-                basicSetup,
+                indentUnit.of("    "),
+                editorLineNumbers.of(lineNumbers ? lineNumbersExtension() : []),
+                codeSetup,
                 keymap.of([indentWithTab]),
                 editorTheme.of(oneLight),
                 // Listen for changes
@@ -112,13 +127,22 @@
 <div class="container" style:padding>
     <div bind:this={div} class="editor" style={`--max-height: ${maxHeight}`} />
     {#if unsavedChanges}
-        <div class="overlay" transition:fade={{ duration: 100 }} />
+        <div
+            on:keypress
+            on:click={() => {
+                unsavedChanges = false;
+                dispatch("save", code);
+            }}
+            class="overlay"
+            transition:fade={{ duration: 100 }}
+        />
     {/if}
 </div>
 
 <style>
     .container {
         position: relative;
+        padding-left: 1rem;
     }
 
     .overlay {
@@ -129,6 +153,10 @@
         height: 0.79rem;
         background-color: #b4b4b4;
         border-radius: 50%;
+    }
+
+    .overlay:hover {
+        box-shadow: 0px 0px 4px #4195fc;
     }
 
     :global(.mode-dark) .overlay {

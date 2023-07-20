@@ -42,7 +42,8 @@
         "tinycolor2": "^1.4.2",
         "webgl-plot": "^0.7.0",
         "xterm": "^5.0.0",
-        "xterm-addon-fit": "^0.6.0"
+        "xterm-addon-fit": "^0.6.0",
+        "xterm-addon-webgl": "^0.15.0"
     },
     "exports": {
         "./package.json": "./package.json",

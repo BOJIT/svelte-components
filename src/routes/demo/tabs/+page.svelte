@@ -8,7 +8,7 @@
  *
 -->
 
-<script lang='ts'>
+<script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
     import Button from "$lib/smelte/components/Button/Button.svelte";
@@ -17,16 +17,19 @@
     /*--------------------------------- Props --------------------------------*/
 
     const items = [
-        { label: "Line 1"},
-        { label: "Line 2"},
-        { label: "Line 3"},
+        { label: "Line 1" },
+        { label: "Line 2" },
+        { label: "Line 3" },
     ];
 
     /*-------------------------------- Methods -------------------------------*/
 
     /*------------------------------- Lifecycle ------------------------------*/
-
 </script>
+
+<svelte:head>
+    <title>Demo - Tabs</title>
+</svelte:head>
 
 <h1>Tabs Demo</h1>
 
@@ -49,5 +52,3 @@
 </Tabs>
 
 <h2>Below</h2>
-
-

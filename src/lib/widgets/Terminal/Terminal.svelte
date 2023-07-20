@@ -33,8 +33,7 @@
     import IconRefresh from "@svicons/ionicons-outline/refresh.svelte";
 
     /* XTermJS */
-    import { Terminal } from "xterm";
-    import { FitAddon } from "xterm-addon-fit";
+    import type { Terminal } from "xterm";
     import "xterm/css/xterm.css";
 
     /*------------------------------ Public API ------------------------------*/
@@ -116,7 +115,6 @@
 
     let container: HTMLElement;
     let terminal: Terminal;
-    let fitAddon: FitAddon;
     let resizeObserver: ResizeObserver | null = null;
 
     let ports: Port[] = [];
@@ -135,11 +133,6 @@
     }
 
     /*--------------------------- Helper Functions ---------------------------*/
-
-    // Handle window resizing
-    function terminalFit() {
-        fitAddon?.fit();
-    }
 
     // Terminal Functions
     async function terminalInput(data: string) {
@@ -263,6 +256,11 @@
     /*--------------------------- Lifecycle Hooks ----------------------------*/
 
     onMount(async () => {
+        // XTerm cannot be server-side rendered
+        const { Terminal } = await import("xterm");
+        const { FitAddon } = await import("xterm-addon-fit");
+        const { WebglAddon } = await import("xterm-addon-webgl");
+
         // Create Terminal
         terminal = new Terminal({
             theme: {
@@ -273,15 +271,23 @@
             rows: rows,
         });
 
-        fitAddon = new FitAddon();
+        let fitAddon = new FitAddon();
+        let webglAddon = new WebglAddon();
+        webglAddon.onContextLoss((e) => {
+            webglAddon.dispose();
+        });
+
         terminal.loadAddon(fitAddon);
+        terminal.loadAddon(webglAddon);
         terminal.open(container);
+
         terminal.onData(terminalInput);
-        terminalFit();
+
+        fitAddon.fit();
 
         // Redraw on size change
         resizeObserver = new ResizeObserver(function (entries) {
-            terminalFit();
+            fitAddon?.fit();
         });
         resizeObserver.observe(container);
 
