@@ -63,7 +63,7 @@
 <div class="container">
     {#each $message as entry (entry.uid)}
         <div
-            in:fly={{ x: -500, delay: 300 }}
+            in:fly={{ x: -500, delay: 500 }}
             out:fade
             animate:flip
             class="popup"
@@ -125,7 +125,9 @@
     }
 
     .popup {
+        bottom: 0px;
         width: 100%;
+        height: 100%;
         margin-bottom: 0.5rem !important;
         pointer-events: auto;
         border-radius: 0.5rem;
@@ -135,6 +137,7 @@
     }
 
     .popup-flex {
+        height: 100%;
         max-width: 100%;
         display: flex;
         align-items: center;
@@ -154,7 +157,6 @@
         vertical-align: middle;
         margin-top: 0.3rem;
         min-width: 0;
-        white-space: nowrap;
     }
 
     .popup-message h3 {
@@ -168,13 +170,13 @@
     }
 
     .popup-message p {
-        line-height: 2;
+        margin-top: 0.3rem;
+        line-height: 1.2;
         text-overflow: ellipsis;
 
         overflow: hidden;
-        /* overflow: wrap; */
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        overflow-y: scroll;
+        max-height: 3em;
     }
 
     .popup-delete {

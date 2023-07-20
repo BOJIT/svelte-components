@@ -27,9 +27,8 @@
             on:click={() => {
                 message.push({
                     type: "info",
-                    title: "testing here GRDQGEQDGEQGQERjkkll ll ",
-                    message:
-                        "lorem ipsum yadadfegqh g aegljqebleqjbgqel agfeqgjqegj ",
+                    title: "Test Notification",
+                    message: "lorem ipsum dolor amet",
                 });
             }}
         />
