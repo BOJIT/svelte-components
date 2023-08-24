@@ -84,7 +84,7 @@
     h5 {
         margin: 0rem !important;
         overflow: hidden;
-        max-width: 18ch;
+        /* max-width: 18ch; */
         text-overflow: ellipsis;
         white-space: nowrap;
 
@@ -102,9 +102,7 @@
     }
 
     .container {
-        /* padding: 1rem; */
         border-radius: 0.5rem;
-        overflow: hidden;
         background-color: #f5f2f0;
         border: 4px solid transparent;
         transition: background-color 0.2s;
@@ -141,6 +139,7 @@
         flex-grow: 1;
         padding: 0.5rem;
         padding-left: 0rem;
+        overflow: hidden;
     }
 
     h5 :global(.highlight) {

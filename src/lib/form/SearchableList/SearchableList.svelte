@@ -27,6 +27,7 @@
         key?: string;
         description?: string;
         icon?: typeof SvelteComponent;
+        buttons?: (typeof SvelteComponent)[];
     };
 
     type ListDict = {
@@ -153,7 +154,7 @@
                     icon={l.icon}
                     highlight={$searchString}
                     selected={i === selectedIndex}
-                    {buttons}
+                    buttons={l.buttons ? buttons.concat(l.buttons) : buttons}
                     on:click={() => {
                         selectedIndex = i;
                         dispatch(
