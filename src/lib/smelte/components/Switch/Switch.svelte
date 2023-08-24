@@ -6,6 +6,9 @@
     import Ripple from "../Ripple";
 
     import { ClassBuilder } from "../../utils/classes.js";
+    import { createEventDispatcher } from "svelte";
+
+    const dispatch = createEventDispatcher();
 
     const classesDefault = `inline-flex items-center mb-2 cursor-pointer z-10`;
     const trackClassesDefault =
@@ -57,6 +60,7 @@
         if (disabled) return;
 
         value = !value;
+        dispatch("change", value);
     }
 
     let eltId = "smelte_checkbox_" + counter++;
