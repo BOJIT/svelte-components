@@ -1,7 +1,7 @@
 {
     "name": "@bojit/svelte-components",
     "private": false,
-    "version": "1.6.4",
+    "version": "1.6.5",
     "scripts": {
         "dev": "vite dev",
         "build": "vite build",

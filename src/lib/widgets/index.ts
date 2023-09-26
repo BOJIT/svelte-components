@@ -11,6 +11,8 @@
 import CAD from "./CAD/CAD.svelte";
 import Chart from "./Chart/Chart.svelte";
 import CodeEditor from "./CodeEditor/CodeEditor.svelte";
+import CopyButton from "./CodeEditor/CopyButton.svelte";
+import LineNumbers from "./CodeEditor/LineNumbers.svelte";
 import Gallery from "./Gallery/Gallery.svelte";
 import Histogram from "./Histogram/Histogram.svelte";
 import PcbViewer from "./PcbViewer/PcbViewer.svelte";
@@ -24,6 +26,8 @@ export {
     CAD,
     Chart,
     CodeEditor,
+    CopyButton,
+    LineNumbers,
     Gallery,
     Histogram,
     PcbViewer,
