@@ -23,6 +23,7 @@
     export let visible: boolean = true;
     export let title: string = "placeholder";
     export let icon: typeof SvelteComponent = Settings;
+    export let persistent: boolean = false;
 
     let dispatch = createEventDispatcher();
 
@@ -31,7 +32,7 @@
     function handleKeydown(event: KeyboardEvent) {
         if (!visible) return; // Only handle keybindings when visible
 
-        if (event.key === "Escape") visible = false;
+        if (!persistent && (event.key === "Escape")) visible = false;
 
         if (event.key === "Enter") dispatch("enter");
     }
@@ -41,7 +42,7 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-<Dialog bind:value={visible} fullWidth>
+<Dialog bind:value={visible} fullWidth persistent={persistent}>
     <div slot="title" class="title">
         <svelte:component this={icon} height="1.5rem" />
         {title}
