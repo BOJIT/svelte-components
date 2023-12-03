@@ -25,6 +25,7 @@
 
     type ListItem = {
         key?: string;
+        searchKey?: string; // Use when the search string may not be unique
         description?: string;
         icon?: typeof SvelteComponent;
         buttons?: (typeof SvelteComponent)[];
@@ -99,23 +100,30 @@
             )
                 dispatch(
                     "select",
-                    searchList(items, $searchString)[selectedIndex].key
+                    searchList(items, $searchString)[selectedIndex].key,
                 );
 
             setTimeout(focus, 100);
         }
     }
 
-    function searchList(dict: ListDict, search: string) {
+    function searchList(dict: ListDict, search: string): ListItem[] {
         // Sort alphabetically, return matching keys
         let keys = Object.keys(dict).sort((a, b) => a.localeCompare(b));
+
         if (search !== "")
-            keys = keys.filter((s) =>
-                s.toLowerCase().includes(search.toLowerCase())
-            );
+            keys = keys.filter((s) => {
+                // Use search key if present
+                const cmp: string =
+                    dict[s].searchKey !== undefined
+                        ? (dict[s].searchKey as string)
+                        : s;
+                return cmp.toLowerCase().includes(search.toLowerCase());
+            });
+
         const list = keys.map((k) => {
             let e: ListItem = dict[k];
-            e.key = k;
+            e.key = k; // e.key always reflects the Object key. searchKey may differ
             return e;
         });
 
@@ -139,7 +147,8 @@
             prepend="search"
             bind:value={$searchString}
             color="secondary"
-            error={searchList(items, $searchString).length === 0
+            error={searchList(items, $searchString).length === 0 &&
+            Object.keys(items).length !== 0
                 ? "Item Not Found"
                 : false}
         />
@@ -149,7 +158,7 @@
         <div class="list" bind:this={list}>
             {#each searchList(items, $searchString) as l, i}
                 <SearchableListItem
-                    name={l.key}
+                    name={l.searchKey ? l.searchKey : l.key}
                     description={l.description}
                     icon={l.icon}
                     highlight={$searchString}
@@ -159,7 +168,7 @@
                         selectedIndex = i;
                         dispatch(
                             "select",
-                            searchList(items, $searchString)[i].key
+                            searchList(items, $searchString)[i].key,
                         );
                     }}
                     on:button={(e) => {
