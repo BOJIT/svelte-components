@@ -15,10 +15,7 @@
 		<link href="../_app/immutable/assets/Notifications.e2fcff8a.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/simplebar.affe01d7.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/Content.5c401e21.css" rel="stylesheet">
-		<link href="../_app/immutable/assets/YouTube.8697218a.css" rel="stylesheet">
-		<link href="../_app/immutable/assets/Tabs.77e8844f.css" rel="stylesheet">
-		<link href="../_app/immutable/assets/CAD.212d6d67.css" rel="stylesheet">
-		<link href="../_app/immutable/assets/ThemeSelector.71d26a50.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/4.45d31552.css" rel="stylesheet">
 		<link rel="modulepreload" href="../_app/immutable/entry/start.d2c4c926.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/index.ed07b2e6.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.8a1edde3.js">
@@ -38,10 +35,10 @@
 		<link rel="modulepreload" href="../_app/immutable/chunks/IconButton.ca06011f.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Link.1417a882.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Tooltip.8ec322a6.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/5.63df101e.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/Container.ba49eb36.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/CAD.7400391f.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/ThemeSelector.svelte_svelte_type_style_lang.186b0848.js"><title>Demo - CAD</title><!-- HEAD_svelte-8kvn9t_START --><!-- HEAD_svelte-8kvn9t_END -->
+		<link rel="modulepreload" href="../_app/immutable/nodes/4.5fd81dad.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/TextField.3818664d.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/TextIconButton.fb419969.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/Dialog.638cb362.js"><title>Demo - Addable List</title><!-- HEAD_svelte-rmwe2o_START --><!-- HEAD_svelte-rmwe2o_END -->
     </head>
     <body>
         <div style="display: contents">
@@ -84,45 +81,107 @@
 
 <article class="svelte-1mfh4m7">
 
+<h1>This is a Addable List</h1>
 
-<h1>CAD</h1>
-<p>This is the raw CAD widget…</p>
-<hr>
-<div style="width: 100%; height: 600px;"><div class="model-container svelte-lwth"><model-viewer src="https://cdn.bojit.org/files/glb/kinectIP.glb" disable-zoom="true" enable-pan="true" camera-controls="true" class="svelte-lwth"></model-viewer>
-</div></div>
-<hr>
-<p>Here it is in a container element!</p>
+<p>Use inline:</p>
+
+<div class="pad svelte-1nyv8o7">
 
 
 
+<div class="container"><form autocomplete="off" class="overflow side-layout svelte-1dab18e"><div class="side-box svelte-1dab18e"><div class="mt-2 mb-6 relative text-gray-600 dark:text-gray-100">
 
-<div class="container-padded svelte-f9uyvn"><div class="container-aspect svelte-f9uyvn" style="padding-bottom: 75%;"><div class="controls tray svelte-f9uyvn top   right">
+  <input id="smelte_textfield_0" aria-label="" class="  px-4 rounded-t text-black dark:text-gray-100 w-full border rounded bg-transparent py-4 duration-200 ease-in  caret-secondary-500   caret-secondary-500  " placeholder="" value="">
 
+  
 
+  
 
+  <div class="line absolute bottom-0 left-0 w-full bg-gray-600 undefined svelte-xd9zs6 hidden"><div class="mx-auto w-0 svelte-xd9zs6" style="height: 2px; transition: width .2s ease"></div></div>
 
-<div class="relative inline-block"><div><div slot="activator"><button  class="rounded overflow-hidden svelte-kgdi7p hoverable" style="background-color: #8b8b8b22" aria-label="label"><svg height="1.5em" color="white" fill="currentColor" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M432 320v112H320m101.8-10.23L304 304M80 192V80h112M90.2 90.23 208 208M320 80h112v112M421.77 90.2 304 208M192 432H80V320m10.23 101.8L208 304"></path></svg></button></div></div>
+  </div></div>
 
-  </div>
-
-            </div>
-        <div class="container svelte-f9uyvn"><div class="model-container svelte-lwth"><model-viewer src="https://cdn.bojit.org/files/glb/BOJIT_V3.glb" disable-zoom="true" enable-pan="true" camera-controls="true" class="svelte-lwth"></model-viewer>
-</div></div>
-        <div class="container overlay svelte-f9uyvn"></div></div></div>
-
-
-
-<div class="shrink tray svelte-f9uyvn  top   right">
+        
 
 
 
 
-<div class="relative inline-block"><div><div slot="activator"><button  class="rounded overflow-hidden svelte-kgdi7p hoverable" style="background-color: #8b8b8b22" aria-label="label"><svg height="2em" color="white" fill="currentColor" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M304 416V304h112m-101.8 10.23L432 432M208 96v112H96m101.8-10.23L80 80m336 128H304V96m10.23 101.8L432 80M96 304h112v112m-10.23-101.8L80 432"></path></svg></button></div></div>
+<div class="relative inline-block"><div><div slot="activator"><button disabled class="rounded overflow-hidden svelte-kgdi7p" style="background-color: var(--color-error-400)" aria-label="label"><svg height="2.3rem" color="white" fill="currentColor" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M256 112v288m144-144H112"></path></svg></button></div></div>
 
-  </div>
+  </div></form>
+    <div style="height: 1rem"></div>
 
+    <div class="overflow svelte-1dab18e" data-simplebar style="max-height: 100rem;"><div class="list svelte-1dab18e">
+                
+
+
+
+<div class="container overflow-hidden svelte-mbjjk1"><div class="left svelte-mbjjk1"></div>
+    <div class="text svelte-mbjjk1"><h5 class="svelte-mbjjk1"><!-- HTML_TAG_START -->Target<!-- HTML_TAG_END --></h5>
+        </div>
     
+
+
+
+
+<div class="relative inline-block"><div><div slot="activator"><button  class="rounded overflow-hidden svelte-kgdi7p hoverable transparent" style="background-color: transparent" aria-label="label"><svg height="2.1rem" color="white" fill="currentColor" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M440 432H72a40 40 0 0 1-40-40V120a40 40 0 0 1 40-40h75.89a40 40 0 0 1 22.19 6.72l27.84 18.56a40 40 0 0 0 22.19 6.72H440a40 40 0 0 1 40 40v240a40 40 0 0 1-40 40zM32 192h448"></path></svg></button></div></div>
+
+  </div>
+
+
+
+
+<div class="relative inline-block"><div><div slot="activator"><button  class="rounded overflow-hidden svelte-kgdi7p hoverable transparent" style="background-color: transparent" aria-label="label"><svg height="2.1rem" color="white" fill="currentColor" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M400 256H112"></path></svg></button></div></div>
+
+  </div>
 </div>
+                
+
+
+
+<div class="container overflow-hidden svelte-mbjjk1"><div class="left svelte-mbjjk1"></div>
+    <div class="text svelte-mbjjk1"><h5 class="svelte-mbjjk1"><!-- HTML_TAG_START -->Test<!-- HTML_TAG_END --></h5>
+        </div>
+    
+
+
+
+
+<div class="relative inline-block"><div><div slot="activator"><button  class="rounded overflow-hidden svelte-kgdi7p hoverable transparent" style="background-color: transparent" aria-label="label"><svg height="2.1rem" color="white" fill="currentColor" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M440 432H72a40 40 0 0 1-40-40V120a40 40 0 0 1 40-40h75.89a40 40 0 0 1 22.19 6.72l27.84 18.56a40 40 0 0 0 22.19 6.72H440a40 40 0 0 1 40 40v240a40 40 0 0 1-40 40zM32 192h448"></path></svg></button></div></div>
+
+  </div>
+
+
+
+
+<div class="relative inline-block"><div><div slot="activator"><button  class="rounded overflow-hidden svelte-kgdi7p hoverable transparent" style="background-color: transparent" aria-label="label"><svg height="2.1rem" color="white" fill="currentColor" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M400 256H112"></path></svg></button></div></div>
+
+  </div>
+</div></div></div>
+</div></div>
+
+<br>
+
+
+
+
+<button class="py-2 px-4 uppercase text-sm font-medium relative overflow-hidden bg-transparent border border-solid  border-white text-white hover:bg-white dark-hover:bg-white  border-solid  rounded  button    circle   svelte-96w5id" square="false" lozenge="false" circle type="button">
+    <div class="pos svelte-1sx3snv"><svg height="1.5rem" fill="currentColor" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M440 432H72a40 40 0 0 1-40-40V120a40 40 0 0 1 40-40h75.89a40 40 0 0 1 22.19 6.72l27.84 18.56a40 40 0 0 0 22.19 6.72H440a40 40 0 0 1 40 40v240a40 40 0 0 1-40 40zM32 192h448"></path></svg>Upload</div></button>
+<br><br>
+
+<p>Or... launch dialogue with the button below:</p>
+
+<button class="py-2 px-4 uppercase text-sm font-medium relative overflow-hidden text-white duration-200 ease-in  bg-primary-500  hover:bg-primary-400   hover:shadow shadow  rounded  button       svelte-96w5id" type="button">
+    Click Here!
+</button>
+
+
+
+
+
+
+
+
 </article>
 </main></div>
 <div class="container svelte-178h05s">
@@ -146,7 +205,7 @@
 						import("../_app/immutable/entry/app.e7cae6ff.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
-							node_ids: [0, 5],
+							node_ids: [0, 4],
 							data,
 							form: null,
 							error: null
