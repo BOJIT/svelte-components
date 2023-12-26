@@ -11,17 +11,18 @@
         "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
     },
     "devDependencies": {
-        "@sveltejs/adapter-auto": "^3.0.0",
-        "@sveltejs/adapter-static": "^3.0.0",
-        "@sveltejs/kit": "^2.0.0",
-        "@sveltejs/package": "^2.0.0",
+        "@sveltejs/adapter-auto": "^3.0.1",
+        "@sveltejs/adapter-static": "^3.0.1",
+        "@sveltejs/kit": "^2.0.4",
+        "@sveltejs/package": "^2.0.4",
         "@sveltejs/vite-plugin-svelte": "^3.0.0",
         "localforage": "^1.10.0",
-        "mdsvex": "^0.10.6",
-        "svelte-check": "^3.4.3",
+        "mdsvex": "^0.11.0",
+        "svelte": "^4.2.8",
+        "svelte-check": "^3.6.0",
         "tslib": "^2.4.1",
         "typescript": "^5.0.0",
-        "vite": "^5.0.0"
+        "vite": "^5.0.3"
     },
     "type": "module",
     "dependencies": {
@@ -38,7 +39,6 @@
         "codemirror": "^6.0.1",
         "prismjs": "^1.29.0",
         "simplebar": "^5.3.9",
-        "svelte": "^4.0.0",
         "svelte-waypoint": "^0.1.4",
         "tinycolor2": "^1.4.2",
         "webgl-plot": "^0.7.0",
