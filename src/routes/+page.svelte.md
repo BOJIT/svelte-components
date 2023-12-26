@@ -14,6 +14,7 @@
 
 #### Widgets
 
+- [Addable List Demo](/demo/addable-list)
 - [CAD Demo](/demo/cad)
 - [Code Editor Demo](/demo/code-editor)
 - [Container Demo](/demo/container)

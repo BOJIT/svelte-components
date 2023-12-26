@@ -39,7 +39,7 @@
       .add('label-top text-xs', labelOnTop)
       .add('text-xs', focused)
       .remove('pt-4 pb-2 px-4 px-1 pt-0', labelOnTop && outlined)
-      .add(`ml-3 p-1 pt-0 mt-0 bg-${bgColor} dark:bg-dark-500`, labelOnTop && outlined)
+      .add(`ml-3 p-1 pt-0 mt-0 bg-${bgColor} dark:bg-${bgColor}`, labelOnTop && outlined)
       .remove('px-4', prepend)
       .add('pr-4 pl-10', prepend)
       .remove('pt-4', dense)
