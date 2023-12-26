@@ -35,9 +35,9 @@
 </script>
 
 {#if visible}
-    <div transition:fade="{{duration: 200}}" class="splash" style="background-color: {bgColor}">
+    <div transition:fade|global="{{duration: 200}}" class="splash" style="background-color: {bgColor}">
         {#if error}
-            <div transition:fade="{{delay: 100}}" class="error-message">
+            <div transition:fade|global="{{delay: 100}}" class="error-message">
                 <Icon color="gray" size={"3rem"}>{"warning"}</Icon>
                 <h5>Error: {errorMessage}</h5>
             </div>

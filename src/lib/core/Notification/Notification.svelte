@@ -63,8 +63,8 @@
 <div class="container">
     {#each $message as entry (entry.uid)}
         <div
-            in:fly={{ x: -500, delay: 500 }}
-            out:fade
+            in:fly|global={{ x: -500, delay: 500 }}
+            out:fade|global
             animate:flip
             class="popup"
             class:dark={$theme == "dark"}

@@ -134,7 +134,7 @@
                 dispatch("save", code);
             }}
             class="overlay"
-            transition:fade={{ duration: 100 }}
+            transition:fade|global={{ duration: 100 }}
         />
     {/if}
 </div>

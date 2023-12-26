@@ -22,7 +22,7 @@
 
     export let visible: boolean = true;
     export let title: string = "placeholder";
-    export let icon: typeof SvelteComponent = Settings;
+    export let icon: typeof SvelteComponent<any> = Settings;
     export let persistent: boolean = false;
 
     let dispatch = createEventDispatcher();

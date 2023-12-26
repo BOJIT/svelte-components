@@ -31,8 +31,8 @@
     type ListItem = {
         key?: string;
         description?: string;
-        icon?: typeof SvelteComponent;
-        buttons?: (typeof SvelteComponent)[];
+        icon?: typeof SvelteComponent<any>;
+        buttons?: (typeof SvelteComponent<any>)[];
     };
 
     type ListDict = {
@@ -43,7 +43,7 @@
 
     export let items: ListDict = {};
     export let maxHeight: string = "30rem";
-    export let buttons: (typeof SvelteComponent)[] = [];
+    export let buttons: (typeof SvelteComponent<any>)[] = [];
 
     export let addTemplate = {};
 
@@ -70,6 +70,7 @@
 
         items[$addString] = structuredClone(addTemplate);
         $addString = "";
+        dispatch("change", items);
     }
 
     function sortList(dict: ListDict): ListItem[] {
@@ -138,6 +139,7 @@
                         if (e.detail === btns.length - 1) {
                             if (l.key) delete items[l.key];
                             items = items;
+                            dispatch("change", items);
                             return;
                         }
                         dispatch("button", {

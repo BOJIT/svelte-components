@@ -21,11 +21,11 @@
 
     export let name: string = "Unknown";
     export let description: string | undefined = "";
-    export let icon: typeof SvelteComponent | undefined = undefined;
+    export let icon: typeof SvelteComponent<any> | undefined = undefined;
     export let highlight: string = "";
     export let selected: boolean = false;
 
-    export let buttons: (typeof SvelteComponent)[] = [];
+    export let buttons: (typeof SvelteComponent<any>)[] = [];
 
     let dispatch = createEventDispatcher();
     // let ripple = createRipple('white');

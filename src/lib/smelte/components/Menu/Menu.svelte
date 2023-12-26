@@ -41,7 +41,7 @@
     <slot name="activator" />
     <slot name="menu">
         {#if open}
-            <div class={l} in:fly={inProps} out:fly={outProps}>
+            <div class={l} in:fly|global={inProps} out:fly|global={outProps}>
                 <List
                     bind:value
                     select

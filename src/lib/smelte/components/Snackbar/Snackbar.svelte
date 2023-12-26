@@ -106,8 +106,8 @@
         <div class={wClasses}>
             <div
                 bind:this={node}
-                in:scale={inProps}
-                out:fade={outProps}
+                in:scale|global={inProps}
+                out:fade|global={outProps}
                 on:click={() => (value = false)}
                 on:keypress
             >

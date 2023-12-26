@@ -53,7 +53,7 @@
   class:z-50={app}
   class="top-0 left-0 w-full h-1 bg-{color}-100 overflow-hidden relative"
   class:hidden={app && !initialized}
-  transition:slide={{ duration: 300 }}>
+  transition:slide|global={{ duration: 300 }}>
   <div
     class="bg-{color}-500 h-1 absolute"
     class:inc={!progress}

@@ -87,7 +87,7 @@
     {/each}
   </thead>
   {#if loading && !hideProgress}
-    <div class="absolute w-full" transition:slide>
+    <div class="absolute w-full" transition:slide|global>
       <ProgressLinear />
     </div>
   {/if}

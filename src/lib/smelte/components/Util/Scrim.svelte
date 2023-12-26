@@ -10,8 +10,8 @@
 <div
   class="bg-black fixed top-0 left-0 z-10 w-full h-full"
   style="opacity: {opacity}"
-  in:fade={inProps}
-  out:fade={outProps}
+  in:fade|global={inProps}
+  out:fade|global={outProps}
   on:click
   on:keypress
   />

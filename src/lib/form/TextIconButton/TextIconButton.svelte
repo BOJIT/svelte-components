@@ -18,7 +18,7 @@
 
     /*--------------------------------- Props --------------------------------*/
 
-    export let icon: typeof SvelteComponent;
+    export let icon: typeof SvelteComponent<any>;
     export let label: string = "example";
     export let shape: "circle" | "square" | "rounded" = "rounded";
 

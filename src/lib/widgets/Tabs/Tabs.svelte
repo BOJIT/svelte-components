@@ -19,7 +19,7 @@
     type Tab = {
         label: string;
         link?: string;
-        component?: typeof SvelteComponent;
+        component?: typeof SvelteComponent<any>;
         props?: object;
     };
 

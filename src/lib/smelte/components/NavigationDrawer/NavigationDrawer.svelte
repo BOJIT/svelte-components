@@ -73,7 +73,7 @@
 {#if show}
   <aside
     class={c}
-    transition:fly={transitionProps}
+    transition:fly|global={transitionProps}
   >
     {#if !persistent}
       <Scrim on:click={() => show = false} />

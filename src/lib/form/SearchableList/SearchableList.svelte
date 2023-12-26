@@ -27,8 +27,8 @@
         key?: string;
         searchKey?: string; // Use when the search string may not be unique
         description?: string;
-        icon?: typeof SvelteComponent;
-        buttons?: (typeof SvelteComponent)[];
+        icon?: typeof SvelteComponent<any>;
+        buttons?: (typeof SvelteComponent<any>)[];
     };
 
     type ListDict = {
@@ -39,7 +39,7 @@
 
     export let items: ListDict = {};
     export let maxHeight: string = "30rem";
-    export let buttons: (typeof SvelteComponent)[] = [];
+    export let buttons: (typeof SvelteComponent<any>)[] = [];
 
     let field: HTMLElement;
     let list: HTMLElement;

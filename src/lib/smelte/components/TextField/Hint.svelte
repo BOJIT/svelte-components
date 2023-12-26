@@ -35,7 +35,7 @@
 
 <div
   class={classes}
-  transition:fly={transitionProps}>
+  transition:fly|global={transitionProps}>
   {@html hint || ''}
   {error || ''}
 </div>

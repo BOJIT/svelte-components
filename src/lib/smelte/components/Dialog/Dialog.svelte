@@ -45,8 +45,8 @@
     <Scrim {opacity} on:click={() => !persistent && (value = false)} />
     <div class="h-full w-full absolute flex items-center justify-center">
       <div
-        in:scale={transitionProps}
-        out:fade={transitionProps}
+        in:scale|global={transitionProps}
+        out:fade|global={transitionProps}
         class={c}>
         <div class={t}>
           <slot name="title" />

@@ -9,7 +9,7 @@
 
     let ripple = createRipple("white");
 
-    export let icon: typeof SvelteComponent;
+    export let icon: typeof SvelteComponent<any>;
     export let href: string = null;
     export let newTab = false;
     export let disabled = false;

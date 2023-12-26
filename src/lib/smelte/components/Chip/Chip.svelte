@@ -71,7 +71,7 @@
 </script>
 
 {#if value}
-    <span class="{c} mx-1 inline-block" out:scale={{ duration: 100 }}>
+    <span class="{c} mx-1 inline-block" out:scale|global={{ duration: 100 }}>
         <button
             class={classes}
             on:click

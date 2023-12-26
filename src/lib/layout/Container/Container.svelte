@@ -16,7 +16,7 @@
     import IconContract from "@svicons/ionicons-outline/contract.svelte";
 
     type TrayButton = {
-        icon: typeof SvelteComponent;
+        icon: typeof SvelteComponent<any>;
         callback: () => void;
     };
 
@@ -99,7 +99,7 @@
 </div>
 
 {#if zoom}
-    <div class="scrim" in:fade={{ duration: 2 }} />
+    <div class="scrim" in:fade|global={{ duration: 2 }} />
 {/if}
 
 <div

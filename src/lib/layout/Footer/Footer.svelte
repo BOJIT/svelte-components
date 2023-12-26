@@ -5,7 +5,7 @@
     import type { SvelteComponent } from "svelte";
 
     type FooterButton = {
-        icon: typeof SvelteComponent;
+        icon: typeof SvelteComponent<any>;
         label?: string;
         shape?: "square" | "circle" | "rounded";
         color?: string;

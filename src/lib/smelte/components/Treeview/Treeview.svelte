@@ -62,7 +62,7 @@
     </ListItem>
 
     {#if item.items && expanded.includes(item)}
-      <div in:slide class="ml-6">
+      <div in:slide|global class="ml-6">
         <svelte:self
           {...$$props}
           items={item.items}
