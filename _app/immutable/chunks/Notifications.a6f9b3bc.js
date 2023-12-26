@@ -1,1 +1,0 @@
-import{w as r}from"./index.5e085704.js";import"./Button.svelte_svelte_type_style_lang.529a035a.js";function l(e,s){return t=>s.update(_=>[..._,{message:t,ts:new Date,color:e,toString(){return t}}])}function n(){const e=r([]);return{subscribe:e.subscribe,notify:l("gray",e),error:l("error",e),alert:l("alert",e),remove:s=>e.update(t=>(t.splice(s,1),t))}}n();
