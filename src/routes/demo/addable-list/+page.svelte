@@ -11,18 +11,7 @@
 
     let item = {
         Test: {},
-        "Check - this key carefully!!!": {
-            description: "TEST",
-            icon: Document,
-            buttons: [Document],
-        },
-        Frogs: {
-            icon: Document,
-        },
         Target: {},
-        Spawn: {
-            icon: Document,
-        },
     };
 
     $: if (visible) {
@@ -43,8 +32,8 @@
 <div class="pad">
     <AddableList
         items={item}
+        buttons={[Folder]}
         maxHeight="100rem"
-        buttons={[Folder, FolderOpen]}
         on:select={(e) => {
             console.log("Select: ", e.detail);
             message.push({
@@ -58,7 +47,7 @@
             console.log("Button: ", e.detail);
             message.push({
                 type: "info",
-                title: "Standard Message",
+                title: "Button Press Message",
                 message: e.detail.key + " : " + e.detail.index,
                 timeout: 5,
             });

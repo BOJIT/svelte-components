@@ -14,18 +14,22 @@
     import { writable, type Writable } from "svelte/store";
     import { createEventDispatcher, SvelteComponent } from "svelte";
 
+    import { Add, Remove } from "@svicons/ionicons-outline";
+
+    import theme from "$lib/theme";
+
     import TextField from "$lib/smelte/components/TextField/TextField.svelte";
 
     /* Custom Scrollbar */
     import "simplebar";
     import "simplebar/dist/simplebar.css";
     import SearchableListItem from "./AddableListItem.svelte";
+    import IconButton from "../IconButton/IconButton.svelte";
 
     /*--------------------------------- Types --------------------------------*/
 
     type ListItem = {
         key?: string;
-        searchKey?: string; // Use when the search string may not be unique
         description?: string;
         icon?: typeof SvelteComponent;
         buttons?: (typeof SvelteComponent)[];
@@ -41,10 +45,14 @@
     export let maxHeight: string = "30rem";
     export let buttons: (typeof SvelteComponent)[] = [];
 
+    export let addTemplate = {};
+
     let field: HTMLElement;
     let list: HTMLElement;
-    let searchString: Writable<string> = writable("");
+    let addString: Writable<string> = writable("");
     let selectedIndex: number | null = null;
+
+    let validAddString: boolean = false;
 
     const dispatch = createEventDispatcher();
 
@@ -57,69 +65,16 @@
         input?.focus();
     }
 
-    function moveIndex(dir: "up" | "down") {
-        if (dir === "down") {
-            if (selectedIndex && selectedIndex > 0) selectedIndex--;
-        } else {
-            if (selectedIndex === null) selectedIndex = 0;
-            else if (
-                selectedIndex <
-                searchList(items, $searchString).length - 1
-            )
-                selectedIndex++;
-        }
+    function addEntry() {
+        if (!validAddString) return;
 
-        // Ensure component is in view
-        if (selectedIndex !== null) {
-            const sel = list.children.item(selectedIndex);
-            sel?.scrollIntoView(dir === "down");
-        }
+        items[$addString] = structuredClone(addTemplate);
+        $addString = "";
     }
 
-    function handleKeydown(event: KeyboardEvent) {
-        // Do we have focus?
-        if (field === undefined) return;
-        let input = field.querySelector("input");
-        if (input !== document.activeElement) return;
-
-        // Move selection up and down
-        if (event.key === "ArrowDown") {
-            event.preventDefault();
-            moveIndex("up");
-        } else if (event.key === "ArrowUp") {
-            event.preventDefault();
-            moveIndex("down");
-        }
-
-        // Refocus on enter, dispatch if selected
-        else if (event.key === "Enter") {
-            event.preventDefault();
-            if (
-                selectedIndex !== null &&
-                selectedIndex < searchList(items, $searchString).length
-            )
-                dispatch(
-                    "select",
-                    searchList(items, $searchString)[selectedIndex].key,
-                );
-
-            setTimeout(focus, 100);
-        }
-    }
-
-    function searchList(dict: ListDict, search: string): ListItem[] {
+    function sortList(dict: ListDict): ListItem[] {
         // Sort alphabetically, return matching keys
         let keys = Object.keys(dict).sort((a, b) => a.localeCompare(b));
-
-        if (search !== "")
-            keys = keys.filter((s) => {
-                // Use search key if present
-                const cmp: string =
-                    dict[s].searchKey !== undefined
-                        ? (dict[s].searchKey as string)
-                        : s;
-                return cmp.toLowerCase().includes(search.toLowerCase());
-            });
 
         const list = keys.map((k) => {
             let e: ListItem = dict[k];
@@ -129,49 +84,62 @@
 
         // See if selected entry needs updating
         if (selectedIndex && selectedIndex >= list.length) selectedIndex = null;
-
         if (list.length === 1) selectedIndex = 0;
 
         return list;
     }
 
     /*------------------------------- Lifecycle ------------------------------*/
+
+    addString.subscribe((a) => {
+        validAddString = !(a === "" || a in items);
+    });
 </script>
 
-<svelte:window on:keydown={handleKeydown} />
-
 <div class="container">
-    <form autocomplete="off" bind:this={field} class="overflow">
-        <TextField
-            outlined
-            prepend="search"
-            bind:value={$searchString}
-            color="secondary"
-            error={searchList(items, $searchString).length === 0 &&
-            Object.keys(items).length !== 0
-                ? "Item Not Found"
-                : false}
+    <form autocomplete="off" bind:this={field} class="overflow side-layout">
+        <div class="side-box">
+            <TextField
+                outlined
+                bind:value={$addString}
+                color="secondary"
+                error={$addString in items ? "duplicate entry" : ""}
+            />
+        </div>
+
+        <IconButton
+            icon={Add}
+            size="2.3rem"
+            disabled={!validAddString}
+            color={validAddString
+                ? "var(--color-secondary-300)"
+                : "var(--color-error-400)"}
+            iconColor={$theme === "light" ? "black" : "white"}
+            on:click={addEntry}
         />
     </form>
+    <div style="height: 1rem" />
 
     <div class="overflow" data-simplebar style:max-height={maxHeight}>
         <div class="list" bind:this={list}>
-            {#each searchList(items, $searchString) as l, i}
+            {#each sortList(items) as l, i}
+                {@const btns = (
+                    l.buttons ? buttons.concat(l.buttons) : buttons
+                ).concat(Remove)}
                 <SearchableListItem
-                    name={l.searchKey ? l.searchKey : l.key}
+                    name={l.key}
                     description={l.description}
                     icon={l.icon}
-                    highlight={$searchString}
-                    selected={i === selectedIndex}
-                    buttons={l.buttons ? buttons.concat(l.buttons) : buttons}
+                    buttons={btns}
                     on:click={() => {
-                        selectedIndex = i;
-                        dispatch(
-                            "select",
-                            searchList(items, $searchString)[i].key,
-                        );
+                        dispatch("select", sortList(items)[i].key);
                     }}
                     on:button={(e) => {
+                        if (e.detail === btns.length - 1) {
+                            if (l.key) delete items[l.key];
+                            items = items;
+                            return;
+                        }
                         dispatch("button", {
                             key: l.key,
                             index: e.detail,
@@ -188,6 +156,23 @@
         padding-left: 4px;
         padding-right: 4px;
         padding-bottom: 4px;
+    }
+
+    .side-layout {
+        width: 100%;
+
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    .side-box {
+        flex: 1 0 auto;
+    }
+
+    .side-box > :global(div) {
+        margin-bottom: 0.5rem;
     }
 
     .list {
