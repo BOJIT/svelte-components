@@ -1,6 +1,6 @@
 # @bojit/svelte-components
 
-BOJIT styled component library built on top of [Shadcn-Svelte](https://shadcn-svelte.com/).
+BOJIT styled component library built on top of [Smelte](https://smeltejs.com).
 
 ## Usage
 

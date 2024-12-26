@@ -1,144 +1,61 @@
 {
     "name": "@bojit/svelte-components",
     "private": false,
-    "version": "1.8.1",
+    "version": "2.0.0",
     "scripts": {
         "dev": "vite dev",
-        "build": "vite build",
+        "build": "vite build && npm run package",
         "preview": "vite preview",
-        "package": "svelte-package -o package",
+        "package": "svelte-kit sync && svelte-package && publint",
+        "prepublishOnly": "npm run package",
         "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-        "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
-    },
-    "devDependencies": {
-        "@sveltejs/adapter-auto": "^3.0.1",
-        "@sveltejs/adapter-static": "^3.0.1",
-        "@sveltejs/kit": "^2.0.4",
-        "@sveltejs/package": "^2.0.4",
-        "@sveltejs/vite-plugin-svelte": "^3.0.0",
-        "localforage": "^1.10.0",
-        "mdsvex": "^0.11.0",
-        "svelte": "^4.2.8",
-        "svelte-check": "^3.6.0",
-        "tslib": "^2.4.1",
-        "typescript": "^5.0.0",
-        "vite": "^5.0.3"
-    },
-    "type": "module",
-    "dependencies": {
-        "@codemirror/lang-javascript": "^6.1.9",
-        "@codemirror/lang-python": "^6.1.3",
-        "@fontsource/comfortaa": "^4.5.10",
-        "@fontsource/material-icons": "^4.5.4",
-        "@fontsource/material-icons-outlined": "^4.5.4",
-        "@fontsource/montserrat": "^4.5.13",
-        "@fontsource/red-hat-mono": "^4.5.11",
-        "@svicons/ionicons-outline": "^0.1.11",
-        "@svicons/ionicons-solid": "^0.1.11",
-        "@types/w3c-web-serial": "^1.0.3",
-        "codemirror": "^6.0.1",
-        "prismjs": "^1.29.0",
-        "simplebar": "^5.3.9",
-        "svelte-waypoint": "^0.1.4",
-        "tinycolor2": "^1.4.2",
-        "webgl-plot": "^0.7.0",
-        "xterm": "^5.0.0",
-        "xterm-addon-fit": "^0.6.0",
-        "xterm-addon-webgl": "^0.15.0"
-    },
-    "exports": {
-        "./package.json": "./package.json",
-        ".": {
-            "types": "./package/index.d.ts",
-            "svelte": "./package/index.js",
-            "default": "./package/index.js"
-        },
-        "./core": {
-            "types": "./package/core/index.d.ts",
-            "svelte": "./package/core/index.js",
-            "default": "./package/core/index.js"
-        },
-        "./form": {
-            "types": "./package/form/index.d.ts",
-            "svelte": "./package/form/index.js",
-            "default": "./package/form/index.js"
-        },
-        "./layout": {
-            "types": "./package/layout/index.d.ts",
-            "svelte": "./package/layout/index.js",
-            "default": "./package/layout/index.js"
-        },
-        "./smelte": {
-            "types": "./package/smelte/index.d.ts",
-            "svelte": "./package/smelte/index.js",
-            "default": "./package/smelte/index.js"
-        },
-        "./theme": {
-            "types": "./package/theme/index.d.ts",
-            "svelte": "./package/theme/index.js",
-            "default": "./package/theme/index.js"
-        },
-        "./theme/palette/evergreen": {
-            "types": "./package/theme/palette/evergreen.d.ts",
-            "default": "./package/theme/palette/evergreen.js"
-        },
-        "./theme/palette/midnight": {
-            "types": "./package/theme/palette/midnight.d.ts",
-            "default": "./package/theme/palette/midnight.js"
-        },
-        "./theme/palette/quirky": {
-            "types": "./package/theme/palette/quirky.d.ts",
-            "default": "./package/theme/palette/quirky.js"
-        },
-        "./theme/theme": {
-            "types": "./package/theme/theme.d.ts",
-            "default": "./package/theme/theme.js"
-        },
-        "./widgets": {
-            "types": "./package/widgets/index.d.ts",
-            "svelte": "./package/widgets/index.js",
-            "default": "./package/widgets/index.js"
-        }
+        "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+        "format": "prettier --write .",
+        "lint": "prettier --check ."
     },
     "files": [
-        "package"
+        "dist",
+        "!dist/**/*.test.*",
+        "!dist/**/*.spec.*"
     ],
-    "svelte": "./package/index.js",
-    "typesVersions": {
-        ">4.0": {
-            "core": [
-                "./package/core/index.d.ts"
-            ],
-            "form": [
-                "./package/form/index.d.ts"
-            ],
-            "index": [
-                "./package/index.d.ts"
-            ],
-            "layout": [
-                "./package/layout/index.d.ts"
-            ],
-            "smelte": [
-                "./package/smelte/index.d.ts"
-            ],
-            "theme": [
-                "./package/theme/index.d.ts"
-            ],
-            "theme/palette/evergreen": [
-                "./package/theme/palette/evergreen.d.ts"
-            ],
-            "theme/palette/midnight": [
-                "./package/theme/palette/midnight.d.ts"
-            ],
-            "theme/palette/quirky": [
-                "./package/theme/palette/quirky.d.ts"
-            ],
-            "theme/theme": [
-                "./package/theme/theme.d.ts"
-            ],
-            "widgets": [
-                "./package/widgets/index.d.ts"
-            ]
+    "sideEffects": [
+        "**/*.css"
+    ],
+    "svelte": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "svelte": "./dist/index.js"
         }
+    },
+    "peerDependencies": {
+        "svelte": "^5.0.0"
+    },
+    "devDependencies": {
+        "@sveltejs/adapter-auto": "^3.0.0",
+        "@sveltejs/adapter-static": "^3.0.8",
+        "@sveltejs/kit": "^2.0.0",
+        "@sveltejs/package": "^2.0.0",
+        "@sveltejs/vite-plugin-svelte": "^4.0.0",
+        "@types/w3c-web-serial": "^1.0.7",
+        "autoprefixer": "^10.4.20",
+        "bits-ui": "^1.0.0-next.74",
+        "clsx": "^2.1.1",
+        "lucide-svelte": "^0.469.0",
+        "mdsvex": "^0.11.2",
+        "prettier": "^3.3.2",
+        "prettier-plugin-svelte": "^3.2.6",
+        "prettier-plugin-tailwindcss": "^0.6.5",
+        "publint": "^0.2.0",
+        "svelte": "^5.0.0",
+        "svelte-check": "^4.0.0",
+        "tailwind-merge": "^2.6.0",
+        "tailwind-variants": "^0.3.0",
+        "tailwindcss": "^3.4.9",
+        "tailwindcss-animate": "^1.0.7",
+        "typescript": "^5.0.0",
+        "vite": "^5.4.11"
     }
 }
