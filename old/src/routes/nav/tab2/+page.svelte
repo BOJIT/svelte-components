@@ -1,13 +1,13 @@
 <script>
-    import Content from "$lib/layout/Content/Content.svelte";
+    import Content from '$lib/layout/Content/Content.svelte';
 
-    import IconButton from "$lib/form/IconButton/IconButton.svelte";
-    import Button from "$lib/smelte/components/Button/Button.svelte";
-    import TextField from "$lib/smelte/components/TextField/TextField.svelte";
+    import IconButton from '$lib/form/IconButton/IconButton.svelte';
+    import Button from '$lib/smelte/components/Button/Button.svelte';
+    import TextField from '$lib/smelte/components/TextField/TextField.svelte';
 
-    import SunnyOutline from "@svicons/ionicons-outline/sunny.svelte";
+    import SunnyOutline from '@svicons/ionicons-outline/sunny.svelte';
 
-    import { message } from "$lib/core";
+    import { message } from '$lib/core';
 </script>
 
 <svelte:head>
@@ -26,9 +26,9 @@
             icon={SunnyOutline}
             on:click={() => {
                 message.push({
-                    type: "info",
-                    title: "Test Notification",
-                    message: "lorem ipsum dolor amet",
+                    type: 'info',
+                    title: 'Test Notification',
+                    message: 'lorem ipsum dolor amet'
                 });
             }}
         />

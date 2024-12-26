@@ -11,15 +11,15 @@
 <script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
-    import { writable, type Writable } from "svelte/store";
-    import { createEventDispatcher, SvelteComponent } from "svelte";
+    import { writable, type Writable } from 'svelte/store';
+    import { createEventDispatcher, SvelteComponent } from 'svelte';
 
-    import TextField from "$lib/smelte/components/TextField/TextField.svelte";
+    import TextField from '$lib/smelte/components/TextField/TextField.svelte';
 
     /* Custom Scrollbar */
-    import "simplebar";
-    import "simplebar/dist/simplebar.css";
-    import SearchableListItem from "./SearchableListItem.svelte";
+    import 'simplebar';
+    import 'simplebar/dist/simplebar.css';
+    import SearchableListItem from './SearchableListItem.svelte';
 
     /*--------------------------------- Types --------------------------------*/
 
@@ -38,12 +38,12 @@
     /*--------------------------------- Props --------------------------------*/
 
     export let items: ListDict = {};
-    export let maxHeight: string = "30rem";
+    export let maxHeight: string = '30rem';
     export let buttons: (typeof SvelteComponent<any>)[] = [];
 
     let field: HTMLElement;
     let list: HTMLElement;
-    let searchString: Writable<string> = writable("");
+    let searchString: Writable<string> = writable('');
     let selectedIndex: number | null = null;
 
     const dispatch = createEventDispatcher();
@@ -53,55 +53,45 @@
     export function focus() {
         if (field === undefined) return;
 
-        let input = field.querySelector("input");
+        let input = field.querySelector('input');
         input?.focus();
     }
 
-    function moveIndex(dir: "up" | "down") {
-        if (dir === "down") {
+    function moveIndex(dir: 'up' | 'down') {
+        if (dir === 'down') {
             if (selectedIndex && selectedIndex > 0) selectedIndex--;
         } else {
             if (selectedIndex === null) selectedIndex = 0;
-            else if (
-                selectedIndex <
-                searchList(items, $searchString).length - 1
-            )
-                selectedIndex++;
+            else if (selectedIndex < searchList(items, $searchString).length - 1) selectedIndex++;
         }
 
         // Ensure component is in view
         if (selectedIndex !== null) {
             const sel = list.children.item(selectedIndex);
-            sel?.scrollIntoView(dir === "down");
+            sel?.scrollIntoView(dir === 'down');
         }
     }
 
     function handleKeydown(event: KeyboardEvent) {
         // Do we have focus?
         if (field === undefined) return;
-        let input = field.querySelector("input");
+        let input = field.querySelector('input');
         if (input !== document.activeElement) return;
 
         // Move selection up and down
-        if (event.key === "ArrowDown") {
+        if (event.key === 'ArrowDown') {
             event.preventDefault();
-            moveIndex("up");
-        } else if (event.key === "ArrowUp") {
+            moveIndex('up');
+        } else if (event.key === 'ArrowUp') {
             event.preventDefault();
-            moveIndex("down");
+            moveIndex('down');
         }
 
         // Refocus on enter, dispatch if selected
-        else if (event.key === "Enter") {
+        else if (event.key === 'Enter') {
             event.preventDefault();
-            if (
-                selectedIndex !== null &&
-                selectedIndex < searchList(items, $searchString).length
-            )
-                dispatch(
-                    "select",
-                    searchList(items, $searchString)[selectedIndex].key,
-                );
+            if (selectedIndex !== null && selectedIndex < searchList(items, $searchString).length)
+                dispatch('select', searchList(items, $searchString)[selectedIndex].key);
 
             setTimeout(focus, 100);
         }
@@ -111,13 +101,11 @@
         // Sort alphabetically, return matching keys
         let keys = Object.keys(dict).sort((a, b) => a.localeCompare(b));
 
-        if (search !== "")
+        if (search !== '')
             keys = keys.filter((s) => {
                 // Use search key if present
                 const cmp: string =
-                    dict[s].searchKey !== undefined
-                        ? (dict[s].searchKey as string)
-                        : s;
+                    dict[s].searchKey !== undefined ? (dict[s].searchKey as string) : s;
                 return cmp.toLowerCase().includes(search.toLowerCase());
             });
 
@@ -147,9 +135,8 @@
             prepend="search"
             bind:value={$searchString}
             color="secondary"
-            error={searchList(items, $searchString).length === 0 &&
-            Object.keys(items).length !== 0
-                ? "Item Not Found"
+            error={searchList(items, $searchString).length === 0 && Object.keys(items).length !== 0
+                ? 'Item Not Found'
                 : false}
         />
     </form>
@@ -166,15 +153,12 @@
                     buttons={l.buttons ? buttons.concat(l.buttons) : buttons}
                     on:click={() => {
                         selectedIndex = i;
-                        dispatch(
-                            "select",
-                            searchList(items, $searchString)[i].key,
-                        );
+                        dispatch('select', searchList(items, $searchString)[i].key);
                     }}
                     on:button={(e) => {
-                        dispatch("button", {
+                        dispatch('button', {
                             key: l.key,
-                            index: e.detail,
+                            index: e.detail
                         });
                     }}
                 />

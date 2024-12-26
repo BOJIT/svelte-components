@@ -1,33 +1,32 @@
 <script>
-    import { createEventDispatcher } from "svelte";
-    import Card from "../Card/Card.svelte";
-    import TextField from "../TextField";
-    import Button from "../Button";
-    import Ripple from "../Ripple";
-    import { getWeekDays, weekStart } from "./util";
+    import { createEventDispatcher } from 'svelte';
+    import Card from '../Card/Card.svelte';
+    import TextField from '../TextField';
+    import Button from '../Button';
+    import Ripple from '../Ripple';
+    import { getWeekDays, weekStart } from './util';
 
     const dispatch = createEventDispatcher();
 
     export let open = false;
     export let value = null;
-    export let locale = "default";
-    export let todayClasses =
-        "text-primary-600 rounded-full border border-primary-600";
-    export let selectedClasses = "bg-primary-600 text-white rounded-full";
+    export let locale = 'default';
+    export let todayClasses = 'text-primary-600 rounded-full border border-primary-600';
+    export let selectedClasses = 'bg-primary-600 text-white rounded-full';
     export let closeOnSelect = true;
     export let dense;
     export let paginatorProps = {
-        color: "gray",
+        color: 'gray',
         text: true,
         flat: true,
         dark: true,
-        remove: "px-4 px-3 m-4 p-4",
-        iconClasses: (c) => c.replace("p-4", ""),
+        remove: 'px-4 px-3 m-4 p-4',
+        iconClasses: (c) => c.replace('p-4', ''),
         disabledClasses: (c) =>
             c
-                .replace("text-white", "text-gray-200")
-                .replace("bg-gray-300", "bg-transparent")
-                .replace("text-gray-700", ""),
+                .replace('text-white', 'text-gray-200')
+                .replace('bg-gray-300', 'bg-transparent')
+                .replace('text-gray-700', '')
     };
 
     let temp = value || new Date();
@@ -38,14 +37,14 @@
         temp = new Date(temp.valueOf());
     }
 
-    $: if (typeof temp === "string") {
+    $: if (typeof temp === 'string') {
         temp = new Date(temp);
     }
 
     const today = new Date().getDate();
 
-    $: year = temp.toLocaleString(locale, { year: "numeric" });
-    $: month = temp.toLocaleString(locale, { month: "short" });
+    $: year = temp.toLocaleString(locale, { year: 'numeric' });
+    $: month = temp.toLocaleString(locale, { month: 'short' });
     $: firstDayOfWeek = weekStart(locale);
     $: weekdays = getWeekDays(locale, firstDayOfWeek);
 
@@ -66,18 +65,16 @@
         );
     }
 
-    $: daysInMonth = [...new Array(lastDayOfMonth.getDate() || 0)].map(
-        (i, j) => ({
-            day: j + 1,
-            isToday: isCurrentYear && isCurrentMonth && j + 1 === today,
-            selected: dayIsSelected(j + 1),
-        })
-    );
+    $: daysInMonth = [...new Array(lastDayOfMonth.getDate() || 0)].map((i, j) => ({
+        day: j + 1,
+        isToday: isCurrentYear && isCurrentMonth && j + 1 === today,
+        selected: dayIsSelected(j + 1)
+    }));
 
     function select(day) {
         selected = day;
         temp = new Date(temp.getFullYear(), temp.getMonth(), selected);
-        dispatch("change", temp);
+        dispatch('change', temp);
 
         value = temp;
 
@@ -98,31 +95,19 @@
 </script>
 
 <div>
-    <Card
-        class="absolute z-20 p-4 w-auto dark:bg-dark-400 bg-white {dense
-            ? '-my-4'
-            : ''}"
-    >
-        <div class="flex justify-between mb-4">
-            <span class="text-gray-600 uppercase">{year} {month}</span>
+    <Card class="dark:bg-dark-400 absolute z-20 w-auto bg-white p-4 {dense ? '-my-4' : ''}">
+        <div class="mb-4 flex justify-between">
+            <span class="uppercase text-gray-600">{year} {month}</span>
             <div class="flex">
-                <Button
-                    icon="keyboard_arrow_left"
-                    {...paginatorProps}
-                    on:click={prev}
-                />
-                <Button
-                    icon="keyboard_arrow_right"
-                    {...paginatorProps}
-                    on:click={next}
-                />
+                <Button icon="keyboard_arrow_left" {...paginatorProps} on:click={prev} />
+                <Button icon="keyboard_arrow_right" {...paginatorProps} on:click={next} />
             </div>
         </div>
 
-        <div class="md:w-64 sm:w-full">
-            <div class="flex uppercase text-gray-400 text-xs text-left">
+        <div class="sm:w-full md:w-64">
+            <div class="flex text-left text-xs uppercase text-gray-400">
                 {#each weekdays as weekday}
-                    <div class="w-1/7 text-center p-1">
+                    <div class="w-1/7 p-1 text-center">
                         {weekday}
                     </div>
                 {/each}
@@ -132,14 +117,13 @@
                 {#each daysInMonth as i}
                     <div class="w-1/7 p-1">
                         <div
-                            class="w-8 h-8 duration-100 relative {i.isToday &&
-                            !i.selected
+                            class="relative h-8 w-8 duration-100 {i.isToday && !i.selected
                                 ? todayClasses
                                 : ''} {i.selected ? selectedClasses : ''}"
                             on:click={() => select(i.day)}
                             on:keydown
                         >
-                            <Ripple color="gray" class="p-1 w-full h-full">
+                            <Ripple color="gray" class="h-full w-full p-1">
                                 {i.day}
                             </Ripple>
                         </div>

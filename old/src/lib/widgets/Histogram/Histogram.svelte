@@ -8,14 +8,14 @@
  *
 -->
 
-<script lang='ts'>
-    import { onDestroy, onMount } from "svelte";
-    import { Container } from "$lib/layout";
-    import theme from "$lib/theme";
+<script lang="ts">
+    import { onDestroy, onMount } from 'svelte';
+    import { Container } from '$lib/layout';
+    import theme from '$lib/theme';
 
-    import IconPause from "@svicons/ionicons-outline/pause.svelte";
-    import IconPlay from "@svicons/ionicons-outline/play.svelte";
-    import IconRefresh from "@svicons/ionicons-outline/refresh.svelte";
+    import IconPause from '@svicons/ionicons-outline/pause.svelte';
+    import IconPlay from '@svicons/ionicons-outline/play.svelte';
+    import IconRefresh from '@svicons/ionicons-outline/refresh.svelte';
 
     /*------------------------------ Public API ------------------------------*/
 
@@ -29,29 +29,26 @@
     export let resY: [number, number] = [0, 100];
 
     export function update(vals: number[]) {
-        if(pause)
-            return;
+        if (pause) return;
 
-        if(vals.length !== numBars) {
-            console.warn("Data Length Mismatch");
+        if (vals.length !== numBars) {
+            console.warn('Data Length Mismatch');
             return;
         }
 
-        for(let i = 0; i < numBars; i++) {
+        for (let i = 0; i < numBars; i++) {
             labels[i] = vals[i].toFixed(2);
             let h = vals[i];
-            let p = Math.abs(resY[0] + h)/(resY[1] - resY[0])*100;
+            let p = (Math.abs(resY[0] + h) / (resY[1] - resY[0])) * 100;
 
-            if(p < 0)
-                p = 0;
-            else if(p > 100)
-                p = 100;
+            if (p < 0) p = 0;
+            else if (p > 100) p = 100;
             bars[i] = p;
         }
     }
 
     export function clear() {
-        for(let i = 0; i < numBars; i++) {
+        for (let i = 0; i < numBars; i++) {
             bars[i] = 0;
             labels[i] = undefined;
         }
@@ -67,28 +64,29 @@
     let demoInterval: any;
     let demoCount: number = 0;
 
-    $: if(demo) {
+    $: if (demo) {
         demoInterval = setInterval(demoSignals, 10);
     } else {
-        if(demoInterval)
-            clearInterval(demoInterval);
-            clear();
+        if (demoInterval) clearInterval(demoInterval);
+        clear();
     }
 
     /*-------------------------------- Helpers -------------------------------*/
 
     function demoSignals() {
-        if(pause)
-            return;
+        if (pause) return;
 
         const freq = 0.1;
-        const phaseStep = 2 * Math.PI /numBars;
+        const phaseStep = (2 * Math.PI) / numBars;
 
-        let i = demoCount/100; // 10ms Update rate
+        let i = demoCount / 100; // 10ms Update rate
         let vals: number[] = [];
 
-        for(let l = 0; l < numBars; l++) {
-            vals[l] = (resY[1] - resY[0])/2 * Math.sin(Math.PI * i * freq * Math.PI * 2 + l*phaseStep) + (resY[1] + resY[0])/2;
+        for (let l = 0; l < numBars; l++) {
+            vals[l] =
+                ((resY[1] - resY[0]) / 2) *
+                    Math.sin(Math.PI * i * freq * Math.PI * 2 + l * phaseStep) +
+                (resY[1] + resY[0]) / 2;
         }
         update(vals);
 
@@ -99,43 +97,43 @@
 
     onMount(async () => {
         // Create Histogram Bars
-        for(let i = 0; i < numBars; i++) {
+        for (let i = 0; i < numBars; i++) {
             bars[i] = 0;
         }
     });
 
     onDestroy(() => {
-        if(demoInterval)
-            clearInterval(demoInterval);
+        if (demoInterval) clearInterval(demoInterval);
     });
 </script>
 
-
-<Container bind:aspect={aspect} wide={wide} tray={[
-    {
-        icon: pause ? IconPlay: IconPause,
-        callback: () => {
-            if(pause)
-                clear();
-            pause = !pause;
+<Container
+    bind:aspect
+    {wide}
+    tray={[
+        {
+            icon: pause ? IconPlay : IconPause,
+            callback: () => {
+                if (pause) clear();
+                pause = !pause;
+            }
         },
-    },
-    {
-        icon: IconRefresh,
-        callback: clear,
-    },
-]}>
+        {
+            icon: IconRefresh,
+            callback: clear
+        }
+    ]}
+>
     <div class="zone">
         {#each bars as b, idx}
             <div class="bar">
                 <div class="bar-fill" style={`height: ${b}%; ${theme.swatchColor(idx)}`}>
-                    <p>{labels[idx] !== undefined ? labels[idx] : ""}</p>
+                    <p>{labels[idx] !== undefined ? labels[idx] : ''}</p>
                 </div>
             </div>
         {/each}
     </div>
 </Container>
-
 
 <style>
     .zone {

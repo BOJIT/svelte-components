@@ -1,15 +1,15 @@
 <script>
-    import { ClassBuilder } from "../../utils/classes.js";
+    import { ClassBuilder } from '../../utils/classes.js';
 
-    import ListItem from "./ListItem.svelte";
+    import ListItem from './ListItem.svelte';
 
     export let items = [];
-    export let value = "";
+    export let value = '';
     export let dense = false;
     export let select = false;
 
     export const level = null;
-    export const text = "";
+    export const text = '';
     export const item = {};
     export const to = null;
     export const selectedClasses = (i) => i;
@@ -18,7 +18,7 @@
 
     export let useRipple = true;
 
-    const classesDefault = "py-2 rounded";
+    const classesDefault = 'py-2 rounded';
 
     export let classes = classesDefault;
 
@@ -38,11 +38,7 @@
 
     const cb = new ClassBuilder($$props.class);
 
-    $: c = cb
-        .flush()
-        .add(classes, true, classesDefault)
-        .add($$props.class)
-        .get();
+    $: c = cb.flush().add(classes, true, classesDefault).add($$props.class).get();
 </script>
 
 <ul class={c} class:rounded-t-none={select}>
@@ -51,14 +47,7 @@
             {#if item.to !== undefined}
                 <slot name="item" {item} {dense} {value}>
                     <a tabindex={i + 1} href={item.to}>
-                        <ListItem
-                            bind:value
-                            {...item}
-                            id={id(item)}
-                            {dense}
-                            {useRipple}
-                            on:change
-                        >
+                        <ListItem bind:value {...item} id={id(item)} {dense} {useRipple} on:change>
                             {item.text}
                         </ListItem>
                     </a>

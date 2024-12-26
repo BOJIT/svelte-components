@@ -8,17 +8,17 @@
  *
 -->
 
-<script lang='ts'>
-    import { Container } from "$lib/layout";
-    import { onDestroy, onMount } from "svelte";
+<script lang="ts">
+    import { Container } from '$lib/layout';
+    import { onDestroy, onMount } from 'svelte';
 
-    import { WebglPlot, WebglLine, ColorRGBA } from "webgl-plot";
+    import { WebglPlot, WebglLine, ColorRGBA } from 'webgl-plot';
 
-    import theme from "$lib/theme";
+    import theme from '$lib/theme';
 
-    import IconPause from "@svicons/ionicons-outline/pause.svelte";
-    import IconPlay from "@svicons/ionicons-outline/play.svelte";
-    import IconRefresh from "@svicons/ionicons-outline/refresh.svelte";
+    import IconPause from '@svicons/ionicons-outline/pause.svelte';
+    import IconPlay from '@svicons/ionicons-outline/play.svelte';
+    import IconRefresh from '@svicons/ionicons-outline/refresh.svelte';
 
     /*------------------------------ Public API ------------------------------*/
 
@@ -36,29 +36,27 @@
     export let numLines: number = 1;
 
     export function update(points: number[]) {
-        if(pause)
-            return;
+        if (pause) return;
 
-        if(demo)
-            return;
+        if (demo) return;
 
-        if(points.length !== numLines) {
-            console.warn("Data Length Mismatch");
+        if (points.length !== numLines) {
+            console.warn('Data Length Mismatch');
             return;
         }
 
-        const sf = (2*fullRange)/(resY[1] - resY[0]);
-        let rangeProportion = Math.abs(resY[0])/(resY[1] - resY[0]);
-        let ofst = -fullRange + 2*fullRange*rangeProportion;
+        const sf = (2 * fullRange) / (resY[1] - resY[0]);
+        let rangeProportion = Math.abs(resY[0]) / (resY[1] - resY[0]);
+        let ofst = -fullRange + 2 * fullRange * rangeProportion;
 
-        if((resY[0] < 0) && (resY[1] > 0)) {
+        if (resY[0] < 0 && resY[1] > 0) {
         } else {
-            ofst = -fullRange - resY[0]*sf;
+            ofst = -fullRange - resY[0] * sf;
         }
 
-        for(let i = 0; i < numLines; i++) {
+        for (let i = 0; i < numLines; i++) {
             const fl = new Float32Array(1);
-            fl[0] = points[i]*sf + ofst;
+            fl[0] = points[i] * sf + ofst;
             lines[i].shiftAdd(fl);
         }
     }
@@ -84,9 +82,9 @@
     /*---------------------------- Helper Functions --------------------------*/
 
     function getYAxisPosition() {
-        if((resY[0] < 0) && (resY[1] > 0)) {
-            let rangeProportion = Math.abs(resY[0])/(resY[1] - resY[0]);
-            return -fullRange + 2*fullRange*rangeProportion;
+        if (resY[0] < 0 && resY[1] > 0) {
+            let rangeProportion = Math.abs(resY[0]) / (resY[1] - resY[0]);
+            return -fullRange + 2 * fullRange * rangeProportion;
         } else {
             return -fullRange;
         }
@@ -105,8 +103,8 @@
         wglp.addAuxLine(AxisX);
 
         const AxisY = new WebglLine(new ColorRGBA(255, 255, 255, 255), resX);
-        for(let i = 0; i < resX; i++) {
-            const n = -fullRange + (2*fullRange*i/resX);
+        for (let i = 0; i < resX; i++) {
+            const n = -fullRange + (2 * fullRange * i) / resX;
             AxisY.setX(i, -1);
             AxisY.setY(i, n);
         }
@@ -114,7 +112,7 @@
 
         lines.forEach((l) => {
             wglp?.addLine(l);
-        })
+        });
     }
 
     function createLines() {
@@ -122,7 +120,12 @@
             const swatch = theme.swatchColorJS(i);
 
             let p = 1;
-            const colour = new ColorRGBA(swatch[p][0]/255, swatch[p][1]/255, swatch[p][2]/255, 1);
+            const colour = new ColorRGBA(
+                swatch[p][0] / 255,
+                swatch[p][1] / 255,
+                swatch[p][2] / 255,
+                1
+            );
 
             colours[i] = `rgb(${swatch[p][0]}, ${swatch[p][1]}, ${swatch[p][2]})`;
             lines[i] = new WebglLine(colour, resX);
@@ -136,17 +139,16 @@
     }
 
     function demoSignals() {
-        if(pause)
-            return;
+        if (pause) return;
 
         const freq = 0.005;
         const amp = 0.7;
         const noise = 0.1;
-        const phaseStep = 2 * Math.PI /numLines;
+        const phaseStep = (2 * Math.PI) / numLines;
 
-        for(let l = 0; l < numLines; l++) {
+        for (let l = 0; l < numLines; l++) {
             for (let i = 0; i < lines[l].numPoints; i++) {
-                const ySin = Math.sin(Math.PI * i * freq * Math.PI * 2 + l*phaseStep);
+                const ySin = Math.sin(Math.PI * i * freq * Math.PI * 2 + l * phaseStep);
                 const yNoise = Math.random() - 0.5;
                 lines[l].setY(i, ySin * amp + yNoise * noise);
             }
@@ -160,15 +162,14 @@
         drawCanvas();
 
         // Redraw on size change
-        resizeObserver = new ResizeObserver(function(entries) {
+        resizeObserver = new ResizeObserver(function (entries) {
             drawCanvas();
         });
         resizeObserver.observe(canvas);
 
         // Register new frame callback
         function newFrame() {
-            if(demo)
-                demoSignals();
+            if (demo) demoSignals();
 
             wglp?.update();
             requestAnimationFrame(newFrame);
@@ -181,22 +182,24 @@
     });
 </script>
 
-
-<Container bind:aspect={aspect} wide={wide} tray={[
-    {
-        icon: pause ? IconPlay: IconPause,
-        callback: () => {
-            if(pause)
-                clear();
-            pause = !pause;
+<Container
+    bind:aspect
+    {wide}
+    tray={[
+        {
+            icon: pause ? IconPlay : IconPause,
+            callback: () => {
+                if (pause) clear();
+                pause = !pause;
+            }
         },
-    },
-    {
-        icon: IconRefresh,
-        callback: clear,
-    },
-]}>
-    <canvas bind:this={canvas}/>
+        {
+            icon: IconRefresh,
+            callback: clear
+        }
+    ]}
+>
+    <canvas bind:this={canvas} />
     <div slot="overlay" class="legend">
         <div class="legend-flex">
             {#each colours as c}
@@ -205,7 +208,6 @@
         </div>
     </div>
 </Container>
-
 
 <style>
     canvas {

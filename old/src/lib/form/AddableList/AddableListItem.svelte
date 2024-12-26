@@ -11,18 +11,18 @@
 <script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
-    import { createEventDispatcher, SvelteComponent } from "svelte";
+    import { createEventDispatcher, SvelteComponent } from 'svelte';
 
     // import createRipple from "$lib/smelte/components/Ripple/ripple.js";
-    import IconButton from "$lib/form/IconButton/IconButton.svelte";
-    import theme from "$lib/theme";
+    import IconButton from '$lib/form/IconButton/IconButton.svelte';
+    import theme from '$lib/theme';
 
     /*--------------------------------- Props --------------------------------*/
 
-    export let name: string = "Unknown";
-    export let description: string | undefined = "";
+    export let name: string = 'Unknown';
+    export let description: string | undefined = '';
     export let icon: typeof SvelteComponent<any> | undefined = undefined;
-    export let highlight: string = "";
+    export let highlight: string = '';
     export let selected: boolean = false;
 
     export let buttons: (typeof SvelteComponent<any>)[] = [];
@@ -33,11 +33,11 @@
     /*-------------------------------- Methods -------------------------------*/
 
     function highlightedString(str: string, cmp: string) {
-        if (cmp === "") return str;
+        if (cmp === '') return str;
 
-        const re = new RegExp(cmp, "gi");
+        const re = new RegExp(cmp, 'gi');
         const marked = str.replace(re, function (match) {
-            return '<span class="highlight">' + match + "</span>";
+            return '<span class="highlight">' + match + '</span>';
         });
 
         return marked;
@@ -48,11 +48,11 @@
     class="container overflow-hidden"
     class:selected
     on:click={(e) => {
-        if (e.target && e.target.tagName === "BUTTON") return;
+        if (e.target && e.target.tagName === 'BUTTON') return;
 
-        if (e.target.parentNode.tagName === "BUTTON") return;
+        if (e.target.parentNode.tagName === 'BUTTON') return;
 
-        dispatch("click");
+        dispatch('click');
     }}
     on:keypress
 >
@@ -61,7 +61,7 @@
     </div>
     <div class="text">
         <h5>{@html highlightedString(name, highlight)}</h5>
-        {#if description !== "" && description !== undefined}
+        {#if description !== '' && description !== undefined}
             <h6>{description}</h6>
         {/if}
     </div>
@@ -71,9 +71,9 @@
                 icon={b}
                 size="2.1rem"
                 color="transparent"
-                iconColor={$theme === "light" ? "black" : "white"}
+                iconColor={$theme === 'light' ? 'black' : 'white'}
                 on:click={() => {
-                    dispatch("button", i);
+                    dispatch('button', i);
                 }}
             />
         {/each}

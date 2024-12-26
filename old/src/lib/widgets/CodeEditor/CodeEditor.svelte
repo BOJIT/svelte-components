@@ -11,31 +11,31 @@
 <script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
-    import { onMount, onDestroy, createEventDispatcher } from "svelte";
-    import { fade } from "svelte/transition";
+    import { onMount, onDestroy, createEventDispatcher } from 'svelte';
+    import { fade } from 'svelte/transition';
 
-    import { indentWithTab } from "@codemirror/commands";
-    import { type LanguageSupport, indentUnit } from "@codemirror/language";
-    import { Compartment } from "@codemirror/state";
+    import { indentWithTab } from '@codemirror/commands';
+    import { type LanguageSupport, indentUnit } from '@codemirror/language';
+    import { Compartment } from '@codemirror/state';
     import {
         keymap,
         lineNumbers as lineNumbersExtension,
         EditorView,
-        type ViewUpdate,
-    } from "@codemirror/view";
+        type ViewUpdate
+    } from '@codemirror/view';
 
-    import { codeSetup } from "./codeSetup";
-    import { oneDark } from "./theme-dark";
-    import { javascript } from "@codemirror/lang-javascript";
+    import { codeSetup } from './codeSetup';
+    import { oneDark } from './theme-dark';
+    import { javascript } from '@codemirror/lang-javascript';
 
-    import theme from "$lib/theme";
+    import theme from '$lib/theme';
 
     /*--------------------------------- Props --------------------------------*/
 
-    export let code: string = "";
+    export let code: string = '';
     export let language: LanguageSupport = javascript(); // Not reactive
-    export let padding: string = "0px";
-    export let maxHeight: string = "auto";
+    export let padding: string = '0px';
+    export let maxHeight: string = 'auto';
     export let lineNumbers: boolean = true;
 
     const dispatch = createEventDispatcher();
@@ -65,11 +65,11 @@
         if (editorView.hasFocus !== true) return;
 
         // Hook for CTRL+S along with optional 'save button'
-        if ((event.ctrlKey || event.metaKey) && event.key === "s") {
+        if ((event.ctrlKey || event.metaKey) && event.key === 's') {
             event.preventDefault();
             if (unsavedChanges == true) {
                 unsavedChanges = false;
-                dispatch("save", code);
+                dispatch('save', code);
             }
         }
     }
@@ -77,16 +77,12 @@
     /*------------------------------- Lifecycle ------------------------------*/
 
     $: editorView?.dispatch({
-        effects: editorLineNumbers.reconfigure(
-            lineNumbers ? lineNumbersExtension() : []
-        ),
+        effects: editorLineNumbers.reconfigure(lineNumbers ? lineNumbersExtension() : [])
     });
 
     theme.subscribe((t) => {
         editorView?.dispatch({
-            effects: editorTheme.reconfigure(
-                t === "light" ? oneLight : oneDark
-            ),
+            effects: editorTheme.reconfigure(t === 'light' ? oneLight : oneDark)
         });
     });
 
@@ -95,7 +91,7 @@
         editorView = new EditorView({
             doc: code,
             extensions: [
-                indentUnit.of("    "),
+                indentUnit.of('    '),
                 editorLineNumbers.of(lineNumbers ? lineNumbersExtension() : []),
                 codeSetup,
                 keymap.of([indentWithTab]),
@@ -104,16 +100,14 @@
                 EditorView.updateListener.of((v: ViewUpdate) => {
                     if (v.docChanged) codeChanged(v);
                 }),
-                editorLanguage.of(language),
+                editorLanguage.of(language)
             ],
-            parent: div,
+            parent: div
         });
 
         // Initial config
         editorView.dispatch({
-            effects: editorTheme.reconfigure(
-                $theme === "light" ? oneLight : oneDark
-            ),
+            effects: editorTheme.reconfigure($theme === 'light' ? oneLight : oneDark)
         });
     });
 
@@ -131,7 +125,7 @@
             on:keypress
             on:click={() => {
                 unsavedChanges = false;
-                dispatch("save", code);
+                dispatch('save', code);
             }}
             class="overlay"
             transition:fade|global={{ duration: 100 }}

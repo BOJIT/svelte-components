@@ -8,58 +8,58 @@
         List,
         Select,
         Slider,
-        Tooltip,
-    } from "$lib/smelte";
+        Tooltip
+    } from '$lib/smelte';
 
-    import theme, { mode } from "$lib/theme";
+    import theme, { mode } from '$lib/theme';
 
     // Lists
     const listOneLine = [
         {
-            text: "Item 1",
-            icon: "favorite",
+            text: 'Item 1',
+            icon: 'favorite'
         },
         {
-            text: "Item 2",
-            icon: "favorite",
+            text: 'Item 2',
+            icon: 'favorite'
         },
         {
-            text: "Item 3",
-            icon: "favorite",
-        },
+            text: 'Item 3',
+            icon: 'favorite'
+        }
     ];
 
     const listTwoLines = [
         {
-            text: "Item 1",
-            icon: "favorite",
-            subheading: "Subheading 1",
+            text: 'Item 1',
+            icon: 'favorite',
+            subheading: 'Subheading 1'
         },
         {
-            text: "Item 2",
-            icon: "favorite",
-            subheading: "Subheading 2",
+            text: 'Item 2',
+            icon: 'favorite',
+            subheading: 'Subheading 2'
         },
         {
-            text: "Item 3",
-            icon: "favorite",
-            subheading: "Subheading 3",
-        },
+            text: 'Item 3',
+            icon: 'favorite',
+            subheading: 'Subheading 3'
+        }
     ];
 
     // Selects
-    let value1 = "";
-    let value2 = "";
-    let value3 = "";
-    let value4 = "";
+    let value1 = '';
+    let value2 = '';
+    let value3 = '';
+    let value4 = '';
 
     let showList = false;
 
     const items = [
-        { value: 1, text: "One" },
-        { value: 2, text: "Two" },
-        { value: 3, text: "Three" },
-        { value: 4, text: "Four" },
+        { value: 1, text: 'One' },
+        { value: 2, text: 'Two' },
+        { value: 3, text: 'Three' },
+        { value: 4, text: 'Four' }
     ];
 
     let selectedItems = [];
@@ -71,9 +71,9 @@
                 : (selectedItems = selectedItems.filter((si) => si !== i));
     }
 
-    $: selectedLabel = selectedItems.map((i) => i.text).join(", ");
+    $: selectedLabel = selectedItems.map((i) => i.text).join(', ');
 
-    const label = "A select";
+    const label = 'A select';
 </script>
 
 <svelte:head>
@@ -89,9 +89,9 @@
     ,
     bind:selected={$mode}
     items={[
-        { value: "light", label: "Light Mode" },
-        { value: "dark", label: "Dark Mode" },
-        { value: "auto", label: "Auto Mode" },
+        { value: 'light', label: 'Light Mode' },
+        { value: 'dark', label: 'Dark Mode' },
+        { value: 'auto', label: 'Auto Mode' }
     ]}
 />
 
@@ -152,8 +152,7 @@
     <Button block disabled>Button</Button>
 
     <h6>
-        FAB <a
-            href="https://material.io/components/buttons-floating-action-button/"
+        FAB <a href="https://material.io/components/buttons-floating-action-button/"
             >(Floating action button)</a
         >
     </h6>
@@ -179,8 +178,8 @@
 <RadioButtonGroup
     name="test"
     items={[
-        { value: 1, label: "One" },
-        { value: 2, label: "Two" },
+        { value: 1, label: 'One' },
+        { value: 2, label: 'Two' }
     ]}
 />
 
@@ -188,8 +187,8 @@
     name="Colored test"
     color="blue"
     items={[
-        { value: 1, label: "One" },
-        { value: 2, label: "Two" },
+        { value: 1, label: 'One' },
+        { value: 2, label: 'Two' }
     ]}
 />
 
@@ -197,8 +196,8 @@
     name="test-disabled"
     disabled
     items={[
-        { value: 1, label: "One" },
-        { value: 2, label: "Two" },
+        { value: 1, label: 'One' },
+        { value: 2, label: 'Two' }
     ]}
 />
 
@@ -232,7 +231,7 @@
     <span class="code-inline">on:change</span>
     event.
 </p>
-<small>Selected: {value1 || "nothing"}</small>
+<small>Selected: {value1 || 'nothing'}</small>
 <div>
     <Select {label} {items} on:change={(v) => (value1 = v.detail)} />
 </div>
@@ -242,14 +241,14 @@
     <span class="code-inline">on:value</span>
     .
 </p>
-<small>Selected: {value2 || "nothing"}</small>
+<small>Selected: {value2 || 'nothing'}</small>
 <Select color="success" bind:value={value2} {label} {items} />
 
 <p>Select may be outlined.</p>
 <Select bind:value={value2} outlined {label} {items} />
 
 <p>Select may even be an autocomplete search component.</p>
-<small>Selected: {value3 || "nothing"}</small>
+<small>Selected: {value3 || 'nothing'}</small>
 <Select bind:value={value3} outlined autocomplete {label} {items} />
 
 <p>Custom options slot</p>
@@ -258,21 +257,16 @@
     {selectedLabel}
     outlined
     color="red"
-    inputClasses={(i) => i.replace("rounded-t", "rounded-full")}
-    appendClasses={(i) => i.replace("text-gray-700", "text-red-700")}
+    inputClasses={(i) => i.replace('rounded-t', 'rounded-full')}
+    appendClasses={(i) => i.replace('text-gray-700', 'text-red-700')}
     label="Categories"
     {items}
 >
-    <div
-        slot="options"
-        class="shadow rounded px-2 py-4 mt-0"
-        on:click|stopPropagation
-        on:keydown
-    >
+    <div slot="options" class="mt-0 rounded px-2 py-4 shadow" on:click|stopPropagation on:keydown>
         {#each items as item}
             <Checkbox
                 value={selectedItems.includes(item)}
-                class="block my-2"
+                class="my-2 block"
                 color="red"
                 label={item.text}
                 on:change={toggle(item)}

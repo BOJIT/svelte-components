@@ -1,14 +1,14 @@
 <script>
-    import { createEventDispatcher } from "svelte";
-    import { fly } from "svelte/transition";
-    import { quadOut, quadIn } from "svelte/easing";
-    import List from "../List";
-    import TextField from "../TextField";
-    import { ClassBuilder } from "../../utils/classes.js";
+    import { createEventDispatcher } from 'svelte';
+    import { fly } from 'svelte/transition';
+    import { quadOut, quadIn } from 'svelte/easing';
+    import List from '../List';
+    import TextField from '../TextField';
+    import { ClassBuilder } from '../../utils/classes.js';
 
-    const classesDefault = "cursor-pointer relative";
+    const classesDefault = 'cursor-pointer relative';
     const listClassesDefault =
-        "absolute w-auto top-10 bg-white left-0 bg-white rounded shadow z-20 dark:bg-dark-500";
+        'absolute w-auto top-10 bg-white left-0 bg-white rounded shadow z-20 dark:bg-dark-500';
 
     export let items = [];
     export let open = false;
@@ -19,11 +19,7 @@
 
     const cb = new ClassBuilder($$props.class);
 
-    $: c = cb
-        .flush()
-        .add(classes, true, classesDefault)
-        .add($$props.class)
-        .get();
+    $: c = cb.flush().add(classes, true, classesDefault).add($$props.class).get();
 
     const lcb = new ClassBuilder(listClasses, listClassesDefault);
 

@@ -1,28 +1,28 @@
 <script lang="ts">
-    import { message } from "$lib/core";
-    import { SearchableList, TextIconButton } from "$lib/form";
-    import { BaseDialog } from "$lib/layout";
-    import { Button } from "$lib/smelte";
+    import { message } from '$lib/core';
+    import { SearchableList, TextIconButton } from '$lib/form';
+    import { BaseDialog } from '$lib/layout';
+    import { Button } from '$lib/smelte';
 
-    import { Document, Folder, FolderOpen } from "@svicons/ionicons-outline";
+    import { Document, Folder, FolderOpen } from '@svicons/ionicons-outline';
 
     export let visible = false;
     let searchableList: SearchableList;
 
     let item = {
         Test: {},
-        "Check - this key carefully!!!": {
-            description: "TEST",
+        'Check - this key carefully!!!': {
+            description: 'TEST',
             icon: Document,
-            buttons: [Document],
+            buttons: [Document]
         },
         Frogs: {
-            icon: Document,
+            icon: Document
         },
         Target: {},
         Spawn: {
-            icon: Document,
-        },
+            icon: Document
+        }
     };
 
     $: if (visible) {
@@ -46,34 +46,28 @@
         maxHeight="100rem"
         buttons={[Folder, FolderOpen]}
         on:select={(e) => {
-            console.log("Select: ", e.detail);
+            console.log('Select: ', e.detail);
             message.push({
-                type: "warning",
-                title: "Standard Message",
+                type: 'warning',
+                title: 'Standard Message',
                 message: e.detail,
-                timeout: 5,
+                timeout: 5
             });
         }}
         on:button={(e) => {
-            console.log("Button: ", e.detail);
+            console.log('Button: ', e.detail);
             message.push({
-                type: "info",
-                title: "Standard Message",
-                message: e.detail.key + " : " + e.detail.index,
-                timeout: 5,
+                type: 'info',
+                title: 'Standard Message',
+                message: e.detail.key + ' : ' + e.detail.index,
+                timeout: 5
             });
         }}
     />
 </div>
 
 <br />
-<TextIconButton
-    icon={Folder}
-    label="Upload"
-    outlined
-    color="white"
-    shape="circle"
-/>
+<TextIconButton icon={Folder} label="Upload" outlined color="white" shape="circle" />
 <br /><br />
 
 <p>Or... launch dialogue with the button below:</p>
@@ -94,9 +88,9 @@
         on:select={(e) => {
             // setTimeout(() => {visible = false}, 200);
             message.push({
-                type: "info",
-                title: "Standard Message",
-                message: "test",
+                type: 'info',
+                title: 'Standard Message',
+                message: 'test'
                 // timeout: 5,
             });
         }}

@@ -1,20 +1,20 @@
 <script>
-    import { ClassBuilder } from "../../utils/classes.js";
-    import { createEventDispatcher } from "svelte";
-    import Icon from "../Icon";
-    import createRipple from "../Ripple/ripple.js";
+    import { ClassBuilder } from '../../utils/classes.js';
+    import { createEventDispatcher } from 'svelte';
+    import Icon from '../Icon';
+    import createRipple from '../Ripple/ripple.js';
 
     const classesDefault =
-        "focus:bg-gray-50 dark-focus:bg-gray-700 hover:bg-gray-transDark relative duration-100 p-4 cursor-pointer text-gray-700 dark:text-gray-100 flex items-center z-10";
-    const selectedClassesDefault = "bg-gray-200 dark:bg-primary-transLight";
-    const subheadingClassesDefault = "text-gray-600 p-0 text-sm";
-    const disabledClassesDefault = "text-gray-600";
+        'focus:bg-gray-50 dark-focus:bg-gray-700 hover:bg-gray-transDark relative duration-100 p-4 cursor-pointer text-gray-700 dark:text-gray-100 flex items-center z-10';
+    const selectedClassesDefault = 'bg-gray-200 dark:bg-primary-transLight';
+    const subheadingClassesDefault = 'text-gray-600 p-0 text-sm';
+    const disabledClassesDefault = 'text-gray-600';
 
-    export let icon = "";
-    export let id = "";
-    export let value = "";
-    export let text = "";
-    export let subheading = "";
+    export let icon = '';
+    export let id = '';
+    export let value = '';
+    export let text = '';
+    export let subheading = '';
     export let disabled = false;
     export let dense = false;
     export let selected = false;
@@ -22,7 +22,7 @@
     export let subheadingClasses = subheadingClassesDefault;
     export let disabledClasses = disabledClassesDefault;
 
-    export let to = "";
+    export let to = '';
     export const item = null;
     export const items = [];
     export const level = null;
@@ -36,7 +36,7 @@
     function change() {
         if (disabled) return;
         value = id;
-        dispatch("change", id, to);
+        dispatch('change', id, to);
     }
 
     export let classes = classesDefault;
@@ -45,8 +45,8 @@
     $: c = cb
         .flush()
         .add(selectedClasses, selected, selectedClassesDefault)
-        .add("overflow-hidden", useRipple)
-        .add("py-2", dense)
+        .add('overflow-hidden', useRipple)
+        .add('py-2', dense)
         .add(disabledClasses, disabled)
         .add($$props.class)
         .get();
@@ -59,7 +59,7 @@
         </Icon>
     {/if}
 
-    <div class="flex flex-col p-0 list-item">
+    <div class="flex list-item flex-col p-0">
         <div class={$$props.class}>
             <slot>{text}</slot>
         </div>

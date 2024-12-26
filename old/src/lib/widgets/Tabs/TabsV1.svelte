@@ -13,7 +13,7 @@
     import 'simplebar';
     import 'simplebar/dist/simplebar.css';
 
-    import theme from "$lib/theme";
+    import theme from '$lib/theme';
     import type { SvelteComponent } from 'svelte';
 
     /* Callback for tab click event */
@@ -26,8 +26,8 @@
     }
 
     /* Array of tabs */
-    export let tabs : string[] = [];
-    export let links: string[] = [];    // TODO find better system to encapsulate
+    export let tabs: string[] = [];
+    export let links: string[] = []; // TODO find better system to encapsulate
     export let components: SvelteComponent[] = null;
     export let componentProps: object[] = null;
 
@@ -37,41 +37,40 @@
     let tabline: HTMLElement;
 </script>
 
-
 <div class="container">
-
     {#await theme.ready(1000) then value}
-    <div data-simplebar>
-        <ul class="tabs">
-            <!-- Render each tab - updates when the list updates -->
-            {#each tabs as tab, idx}
-                <li style={theme.swatchColor(idx)} class="tab transition" class:is-active={idx == index}
-                on:click={() => handleClick(idx)} href="{void(0)}"
-                on:keypress={() => handleClick(idx)}>
-                    <h6 class="unselectable">{tab}</h6>
-                </li>
-            {/each}
-        </ul>
-        <hr bind:this={tabline} class="tabline transition" style={theme.swatchColor(index)}>
-    </div>
+        <div data-simplebar>
+            <ul class="tabs">
+                <!-- Render each tab - updates when the list updates -->
+                {#each tabs as tab, idx}
+                    <li
+                        style={theme.swatchColor(idx)}
+                        class="tab transition"
+                        class:is-active={idx == index}
+                        on:click={() => handleClick(idx)}
+                        href={void 0}
+                        on:keypress={() => handleClick(idx)}
+                    >
+                        <h6 class="unselectable">{tab}</h6>
+                    </li>
+                {/each}
+            </ul>
+            <hr bind:this={tabline} class="tabline transition" style={theme.swatchColor(index)} />
+        </div>
     {/await}
 
     {#if components != null}
         {#each components as component, idx}
             <div class="content" class:visible={idx == index}>
-                {#if componentProps[idx] && (typeof componentProps[idx] == "object")}
-                    <svelte:component this={component} {...componentProps[idx]}/>
+                {#if componentProps[idx] && typeof componentProps[idx] == 'object'}
+                    <svelte:component this={component} {...componentProps[idx]} />
                 {:else}
                     <svelte:component this={component} />
                 {/if}
             </div>
         {/each}
     {/if}
-
-
-
 </div>
-
 
 <style>
     .container {
@@ -141,7 +140,6 @@
     .content.visible {
         display: block;
     }
-
 
     .unselectable {
         -webkit-touch-callout: none;

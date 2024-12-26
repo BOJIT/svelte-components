@@ -1,5 +1,5 @@
-import Snackbar from "./Snackbar.svelte";
-import Notifications, { notifier } from "./Notifications.svelte";
+import Snackbar from './Snackbar.svelte';
+import Notifications, { notifier } from './Notifications.svelte';
 
 export { notifier, Notifications };
 

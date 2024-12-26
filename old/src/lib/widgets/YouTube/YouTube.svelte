@@ -1,21 +1,21 @@
 <script lang="ts">
-    export let src = "";
+    export let src = '';
     export let autoplay = false;
-    export let playlist = "";
+    export let playlist = '';
 
     let url: string[] = [];
     $: url = [
         src,
-        "?version=3",
-        "&modestbranding=1",
-        autoplay ? "&autoplay=1&loop=1&controls=0&mute=1" : "",
-        playlist !== "" ? `&playlist=${playlist}` : "",
+        '?version=3',
+        '&modestbranding=1',
+        autoplay ? '&autoplay=1&loop=1&controls=0&mute=1' : '',
+        playlist !== '' ? `&playlist=${playlist}` : ''
     ];
 </script>
 
 <div class="content-padded">
     <div class="aspect-ratio">
-        <iframe title="youtube-video" type="text/html" src={url.join("")} frameborder="0"></iframe>
+        <iframe title="youtube-video" type="text/html" src={url.join('')} frameborder="0"></iframe>
     </div>
 </div>
 
@@ -37,6 +37,7 @@
         position: absolute;
         width: 100%;
         height: 100%;
-        left: 0; top: 0;
+        left: 0;
+        top: 0;
     }
 </style>

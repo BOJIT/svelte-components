@@ -11,20 +11,20 @@
 <script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
-    import { writable, type Writable } from "svelte/store";
-    import { createEventDispatcher, SvelteComponent } from "svelte";
+    import { writable, type Writable } from 'svelte/store';
+    import { createEventDispatcher, SvelteComponent } from 'svelte';
 
-    import { Add, Remove } from "@svicons/ionicons-outline";
+    import { Add, Remove } from '@svicons/ionicons-outline';
 
-    import theme from "$lib/theme";
+    import theme from '$lib/theme';
 
-    import TextField from "$lib/smelte/components/TextField/TextField.svelte";
+    import TextField from '$lib/smelte/components/TextField/TextField.svelte';
 
     /* Custom Scrollbar */
-    import "simplebar";
-    import "simplebar/dist/simplebar.css";
-    import SearchableListItem from "./AddableListItem.svelte";
-    import IconButton from "../IconButton/IconButton.svelte";
+    import 'simplebar';
+    import 'simplebar/dist/simplebar.css';
+    import SearchableListItem from './AddableListItem.svelte';
+    import IconButton from '../IconButton/IconButton.svelte';
 
     /*--------------------------------- Types --------------------------------*/
 
@@ -42,14 +42,14 @@
     /*--------------------------------- Props --------------------------------*/
 
     export let items: ListDict = {};
-    export let maxHeight: string = "30rem";
+    export let maxHeight: string = '30rem';
     export let buttons: (typeof SvelteComponent<any>)[] = [];
 
     export let addTemplate = {};
 
     let field: HTMLElement;
     let list: HTMLElement;
-    let addString: Writable<string> = writable("");
+    let addString: Writable<string> = writable('');
     let selectedIndex: number | null = null;
 
     let validAddString: boolean = false;
@@ -61,7 +61,7 @@
     export function focus() {
         if (field === undefined) return;
 
-        let input = field.querySelector("input");
+        let input = field.querySelector('input');
         input?.focus();
     }
 
@@ -69,8 +69,8 @@
         if (!validAddString) return;
 
         items[$addString] = structuredClone(addTemplate);
-        $addString = "";
-        dispatch("change", items);
+        $addString = '';
+        dispatch('change', items);
     }
 
     function sortList(dict: ListDict): ListItem[] {
@@ -93,7 +93,7 @@
     /*------------------------------- Lifecycle ------------------------------*/
 
     addString.subscribe((a) => {
-        validAddString = !(a === "" || a in items);
+        validAddString = !(a === '' || a in items);
     });
 </script>
 
@@ -104,7 +104,7 @@
                 outlined
                 bind:value={$addString}
                 color="secondary"
-                error={$addString in items ? "duplicate entry" : ""}
+                error={$addString in items ? 'duplicate entry' : ''}
             />
         </div>
 
@@ -112,10 +112,8 @@
             icon={Add}
             size="2.3rem"
             disabled={!validAddString}
-            color={validAddString
-                ? "var(--color-secondary-300)"
-                : "var(--color-error-400)"}
-            iconColor={$theme === "light" ? "black" : "white"}
+            color={validAddString ? 'var(--color-secondary-300)' : 'var(--color-error-400)'}
+            iconColor={$theme === 'light' ? 'black' : 'white'}
             on:click={addEntry}
         />
     </form>
@@ -124,27 +122,25 @@
     <div class="overflow" data-simplebar style:max-height={maxHeight}>
         <div class="list" bind:this={list}>
             {#each sortList(items) as l, i}
-                {@const btns = (
-                    l.buttons ? buttons.concat(l.buttons) : buttons
-                ).concat(Remove)}
+                {@const btns = (l.buttons ? buttons.concat(l.buttons) : buttons).concat(Remove)}
                 <SearchableListItem
                     name={l.key}
                     description={l.description}
                     icon={l.icon}
                     buttons={btns}
                     on:click={() => {
-                        dispatch("select", sortList(items)[i].key);
+                        dispatch('select', sortList(items)[i].key);
                     }}
                     on:button={(e) => {
                         if (e.detail === btns.length - 1) {
                             if (l.key) delete items[l.key];
                             items = items;
-                            dispatch("change", items);
+                            dispatch('change', items);
                             return;
                         }
-                        dispatch("button", {
+                        dispatch('button', {
                             key: l.key,
-                            index: e.detail,
+                            index: e.detail
                         });
                     }}
                 />

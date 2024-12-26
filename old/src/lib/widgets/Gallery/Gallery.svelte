@@ -8,30 +8,29 @@
  *
 -->
 
-<script lang='ts'>
-    import { onMount } from "svelte";
-    import Link from "$lib/core/Link/Link.svelte";
-    import textFit from "./utils/textFit";
-    import ProgressCircular from "$lib/smelte/components/ProgressCircular";
-
+<script lang="ts">
+    import { onMount } from 'svelte';
+    import Link from '$lib/core/Link/Link.svelte';
+    import textFit from './utils/textFit';
+    import ProgressCircular from '$lib/smelte/components/ProgressCircular';
 
     type Tile = {
-        "type": "image" | "link" | "text",
-        "caption": string,
-        "subcaption"?: string
-        "image"?: string,
-        "link"?: string,
-        "colour"?: string,
-        "handle"?: HTMLElement, // Private
-        "loaded"?: boolean      // Private
+        type: 'image' | 'link' | 'text';
+        caption: string;
+        subcaption?: string;
+        image?: string;
+        link?: string;
+        colour?: string;
+        handle?: HTMLElement; // Private
+        loaded?: boolean; // Private
     };
 
     // Props
     export let columns = 3;
     export let tiles: Tile[] = [];
-    export let gap = "1rem";
+    export let gap = '1rem';
     export let animate = false;
-    export let animation = "float-up 0.7s cubic-bezier(0.35, 0.5, 0.65, 0.95) both";
+    export let animation = 'float-up 0.7s cubic-bezier(0.35, 0.5, 0.65, 0.95) both';
     // export let preload = 2*columns;
     // TODO implement lazy-loading
 
@@ -47,11 +46,13 @@
         let height: number = 0;
         let subtiles = elementArray(col, q);
 
-        if(subtiles.length > 0) {
-            let margin = parseInt(window.getComputedStyle(subtiles[0]).getPropertyValue('margin-bottom'));
+        if (subtiles.length > 0) {
+            let margin = parseInt(
+                window.getComputedStyle(subtiles[0]).getPropertyValue('margin-bottom')
+            );
 
             subtiles.forEach((s: HTMLElement) => {
-                height += (s.offsetHeight + margin);
+                height += s.offsetHeight + margin;
             });
         }
 
@@ -69,13 +70,13 @@
             requestAnimationFrame(() => {
                 let pushData = cols.map((c: HTMLElement) => {
                     // Calculate target height
-                    let endTile = Array.from(
-                        c.querySelectorAll('.tile')
-                    ).pop();
+                    let endTile = Array.from(c.querySelectorAll('.tile')).pop();
 
                     let push = c.querySelector('.push') as HTMLElement;
                     let height = Math.round(endTile.getBoundingClientRect().bottom);
-                    let margin = parseInt(window.getComputedStyle(push).getPropertyValue('margin-bottom'));
+                    let margin = parseInt(
+                        window.getComputedStyle(push).getPropertyValue('margin-bottom')
+                    );
 
                     return {
                         push,
@@ -90,8 +91,7 @@
                     p.height = Math.abs(p.height - minHeight);
                     if (p.height < p.margin) {
                         p.height = 0;
-                    }
-                    else {
+                    } else {
                         p.height = p.height - p.margin;
                     }
                     p.push.style.height = `${p.height}px`;
@@ -104,12 +104,12 @@
     let gallery: HTMLElement;
     let scratch: HTMLElement;
     function layout() {
-        if(!gallery) return;
+        if (!gallery) return;
 
         // Get visible columns
         let cols = elementArray(gallery, '.column').filter((c: HTMLElement) => {
             return c.offsetParent !== null;
-        })
+        });
 
         // Move to scratch space for layuout
         tiles.forEach((t) => {
@@ -143,15 +143,15 @@
     $: layout();
     onMount(() => {
         // Create callback for image loading state
-        window.addEventListener("resize", layout);
+        window.addEventListener('resize', layout);
 
         // Add frame animation on scroll if desired
-        if(animate) {
+        if (animate) {
             let targets = elementArray(gallery, '.animate');
 
             targets.forEach((t: HTMLElement) => {
                 let observer = new IntersectionObserver((e) => {
-                    if(e[0].isIntersecting) {
+                    if (e[0].isIntersecting) {
                         // Apply CSS animations
                         t.style.visibility = 'visible';
                         t.style.animation = animation;
@@ -172,7 +172,7 @@
                 return t.handle.querySelector('img').complete;
             });
 
-            if(status.every((s) => s === true)) {
+            if (status.every((s) => s === true)) {
                 clearInterval(loadCheck);
                 layout();
                 loading = false;
@@ -187,8 +187,8 @@
     </div>
 {/if}
 
-<div bind:this={gallery} class="gallery" style:gap={gap}>
-    {#each {length: columns} as _, i}
+<div bind:this={gallery} class="gallery" style:gap>
+    {#each { length: columns } as _, i}
         <div class="column" class:first={i == 0}>
             <div class="push" style:margin-bottom={gap} class:animate>
                 <div class="push-tile"></div>
@@ -200,21 +200,21 @@
         {#each tiles as t}
             <div class="tile" style:margin-bottom={gap} bind:this={t.handle} class:animate>
                 <Link href={t.link ? t.link : null}>
-                    {#if t.type === "image"}
-                    <div class="image-holder">
-                        <img src={t.image} alt={t.caption} />
-                        <div class="textfit">{t.caption}</div>
-                    </div>
-                    {:else if t.type === "text"}
-                    <div style:background-color={t.colour} class="text">
-                        <h2>{t.caption}</h2>
-                    </div>
-                    {:else if t.type === "link"}
-                    <div style:background-color={t.colour} class="text">
-                        <h2>{t.caption}</h2>
-                        <hr>
-                        <h4>{t.subcaption}</h4>
-                    </div>
+                    {#if t.type === 'image'}
+                        <div class="image-holder">
+                            <img src={t.image} alt={t.caption} />
+                            <div class="textfit">{t.caption}</div>
+                        </div>
+                    {:else if t.type === 'text'}
+                        <div style:background-color={t.colour} class="text">
+                            <h2>{t.caption}</h2>
+                        </div>
+                    {:else if t.type === 'link'}
+                        <div style:background-color={t.colour} class="text">
+                            <h2>{t.caption}</h2>
+                            <hr />
+                            <h4>{t.subcaption}</h4>
+                        </div>
                     {/if}
                 </Link>
             </div>
@@ -283,10 +283,10 @@
         -webkit-transition: opacity 0.2s ease-in;
         -o-transition: opacity 0.2s ease-in;
 
-        -webkit-user-select: none;  /* Safari */
-        -moz-user-select: none;     /* Firefox */
-        -ms-user-select: none;      /* IE10+/Edge */
-        user-select: none;          /* Standard */
+        -webkit-user-select: none; /* Safari */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* IE10+/Edge */
+        user-select: none; /* Standard */
     }
 
     .tile .image-holder:hover img {
@@ -307,7 +307,8 @@
         -o-transition: background-color 0.2s ease-in;
     }
 
-    .tile .text h2, h4 {
+    .tile .text h2,
+    h4 {
         text-align: center;
         margin: 0;
         padding: 15px;
@@ -346,7 +347,7 @@
     }
 
     :global(.mode-dark) .tile .text:hover {
-        background-color:  whitesmoke !important;
+        background-color: whitesmoke !important;
     }
 
     :global(.mode-dark) .tile .text:hover h2 {
@@ -381,12 +382,12 @@
     /* Animation */
     @keyframes -global-float-up {
         0% {
-        transform: translateY(500px);
-        opacity: 0;
+            transform: translateY(500px);
+            opacity: 0;
         }
         100% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
+            transform: translateY(0) rotate(0deg);
+            opacity: 1;
         }
     }
 

@@ -11,16 +11,12 @@
 <script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
-    import Button from "$lib/smelte/components/Button/Button.svelte";
-    import Tabs from "$lib/widgets/Tabs/Tabs.svelte";
+    import Button from '$lib/smelte/components/Button/Button.svelte';
+    import Tabs from '$lib/widgets/Tabs/Tabs.svelte';
 
     /*--------------------------------- Props --------------------------------*/
 
-    const items = [
-        { label: "Line 1" },
-        { label: "Line 2" },
-        { label: "Line 3" },
-    ];
+    const items = [{ label: 'Line 1' }, { label: 'Line 2' }, { label: 'Line 3' }];
 
     /*-------------------------------- Methods -------------------------------*/
 

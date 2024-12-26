@@ -1,39 +1,34 @@
 <script>
-  import { ClassBuilder } from "../../utils/classes.js";
+    import { ClassBuilder } from '../../utils/classes.js';
 
-  export const hover = true;
-  export let title = "";
-  export let subheader = "";
-  export let avatar = "";
+    export const hover = true;
+    export let title = '';
+    export let subheader = '';
+    export let avatar = '';
 
-  const classesDefault = "flex px-4 py-2 items-center";
-  export let classes = classesDefault;
+    const classesDefault = 'flex px-4 py-2 items-center';
+    export let classes = classesDefault;
 
+    const cb = new ClassBuilder(classes, classesDefault);
 
-
-  const cb = new ClassBuilder(classes, classesDefault);
-
-  $: c = cb
-    .flush()
-    .add(classes, true, classesDefault)
-    .add($$props.class)
-    .get();
+    $: c = cb.flush().add(classes, true, classesDefault).add($$props.class).get();
 </script>
 
 <div class={c}>
-  <div>
-    <img
-      class="rounded-full"
-      width="44"
-      height="44"
-      src={avatar}
-      alt="avatar"
-      class:hidden={!avatar} />
-  </div>
-  <div class="pl-4 py-2">
-    <div class:hidden={!title} class="font-medium text-lg">{title}</div>
-    <div class="text-sm text-gray-600 pt-0" class:hidden={!subheader}>
-      {subheader}
+    <div>
+        <img
+            class="rounded-full"
+            width="44"
+            height="44"
+            src={avatar}
+            alt="avatar"
+            class:hidden={!avatar}
+        />
     </div>
-  </div>
+    <div class="py-2 pl-4">
+        <div class:hidden={!title} class="text-lg font-medium">{title}</div>
+        <div class="pt-0 text-sm text-gray-600" class:hidden={!subheader}>
+            {subheader}
+        </div>
+    </div>
 </div>

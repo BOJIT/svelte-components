@@ -3,18 +3,18 @@
 </script>
 
 <script>
-    import Label from "./Label.svelte";
-    import { createEventDispatcher } from "svelte";
-    import { ClassBuilder } from "../../utils/classes.js";
+    import Label from './Label.svelte';
+    import { createEventDispatcher } from 'svelte';
+    import { ClassBuilder } from '../../utils/classes.js';
 
-    const classesDefault = "inline-flex items-center mb-2 cursor-pointer z-10";
+    const classesDefault = 'inline-flex items-center mb-2 cursor-pointer z-10';
 
-    import Icon from "../Icon";
-    import Ripple from "../Ripple";
+    import Icon from '../Icon';
+    import Ripple from '../Ripple';
 
-    export let value = "";
-    export let label = "";
-    export let color = "primary";
+    export let value = '';
+    export let label = '';
+    export let color = 'primary';
     export let checked = false;
     export let disabled = false;
     export let classes = classesDefault;
@@ -51,37 +51,26 @@
         if (disabled) return;
 
         checked = !checked;
-        dispatch("change", checked);
+        dispatch('change', checked);
     }
 
-    $: rippleColor = checked && !disabled ? color : "gray";
+    $: rippleColor = checked && !disabled ? color : 'gray';
 
     const cb = new ClassBuilder(classes, classesDefault);
-    $: c = cb
-        .flush()
-        .add(classes, true, classesDefault)
-        .add($$props.class)
-        .get();
+    $: c = cb.flush().add(classes, true, classesDefault).add($$props.class).get();
 
-    let eltId = "smelte_checkbox_" + counter++;
+    let eltId = 'smelte_checkbox_' + counter++;
 </script>
 
 <div class={$$props.class}>
     <div class={c} on:click={check} on:keypress>
-        <input
-            id={eltId}
-            bind:checked
-            class="hidden"
-            type="checkbox"
-            on:change
-            {value}
-        />
-        <div class="relative w-auto h-auto z-0">
+        <input id={eltId} bind:checked class="hidden" type="checkbox" on:change {value} />
+        <div class="relative z-0 h-auto w-auto">
             <Ripple color={rippleColor}>
                 {#if checked}
                     <Icon
                         class={disabled
-                            ? "text-gray-500 dark:text-gray-600"
+                            ? 'text-gray-500 dark:text-gray-600'
                             : `text-${color}-500 dark:text-${color}-100`}
                     >
                         check_box
@@ -89,8 +78,8 @@
                 {:else}
                     <Icon
                         class={disabled
-                            ? "text-gray-500 dark:text-gray-600"
-                            : "text-gray-600 dark:text-gray-300"}
+                            ? 'text-gray-500 dark:text-gray-600'
+                            : 'text-gray-600 dark:text-gray-300'}
                     >
                         check_box_outline_blank
                     </Icon>
@@ -98,7 +87,7 @@
             </Ripple>
         </div>
         <slot name="label">
-            <Label {disabled} {label} class={labelClasses} forId={""} />
+            <Label {disabled} {label} class={labelClasses} forId={''} />
         </slot>
     </div>
 </div>

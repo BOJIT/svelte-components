@@ -8,22 +8,20 @@
  *
 -->
 
-<script lang='ts'>
+<script lang="ts">
     export let img: string;
     export let align: 'left' | 'right' = 'right';
     export let ratio = 2.2;
 </script>
 
-
 <div class="container" style:flex-direction={align === 'left' ? 'row-reverse' : 'row'}>
-    <div style:flex={1 - 1/ratio}>
+    <div style:flex={1 - 1 / ratio}>
         <slot />
     </div>
-    <div style:flex={1/ratio}>
-        <img src={img} alt="Circle Caption"/>
+    <div style:flex={1 / ratio}>
+        <img src={img} alt="Circle Caption" />
     </div>
 </div>
-
 
 <style>
     .container {

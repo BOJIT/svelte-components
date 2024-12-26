@@ -1,5 +1,6 @@
 <svelte:head>
-    <title>Demo - Code Editor</title>
+
+<title>Demo - Code Editor</title>
 </svelte:head>
 
 <script>
@@ -17,7 +18,7 @@
 Below is an interactive JS Editor:
 
 <CodeEditor bind:code={codeA} on:save={() => {
-    console.log("saved");
+console.log("saved");
 }} maxHeight="16rem"/>
 
 ---

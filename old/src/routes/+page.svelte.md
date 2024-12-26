@@ -1,5 +1,6 @@
 <svelte:head>
-    <title>@bojit/svelte-components</title>
+
+<title>@bojit/svelte-components</title>
 </svelte:head>
 
 # Introduction
@@ -26,5 +27,6 @@
 - [Terminal Demo](/demo/terminal)
 
 #### Archived
+
 - [Misc. Demo (TODO sort)](/nav/tab2)
 - [Smelte Library Demo](/nav/tab3)

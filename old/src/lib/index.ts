@@ -8,19 +8,13 @@
  *
  */
 
-import Core from "$lib/core";
-import Form from "$lib/form";
-import Layout from "$lib/layout";
-import Theme from "$lib/theme";
-import Widgets from "$lib/widgets";
+import Core from '$lib/core';
+import Form from '$lib/form';
+import Layout from '$lib/layout';
+import Theme from '$lib/theme';
+import Widgets from '$lib/widgets';
 
-export {
-    Core,
-    Form,
-    Layout,
-    Theme,
-    Widgets
-};
+export { Core, Form, Layout, Theme, Widgets };
 
 export default {
     Core,

@@ -7,7 +7,7 @@ const defaultSettings = {
     maxFontSize: 500,
     reProcess: true, // if true, textFit will re-process already-fit nodes. Set to 'false' for better performance
     widthOnly: false, // if true, textFit will fit text to element width, regardless of text height
-    alignVertWithFlexbox: true, // if true, textFit will use flexbox for vertical alignment
+    alignVertWithFlexbox: true // if true, textFit will use flexbox for vertical alignment
 };
 
 function textFit(els, options) {
@@ -15,8 +15,8 @@ function textFit(els, options) {
 
     // Extend options.
     let settings = {};
-    for(let key in defaultSettings){
-        if(options.hasOwnProperty(key)){
+    for (let key in defaultSettings) {
+        if (options.hasOwnProperty(key)) {
             settings[key] = options[key];
         } else {
             settings[key] = defaultSettings[key];
@@ -25,16 +25,19 @@ function textFit(els, options) {
 
     // Support passing a single el
     let elType = Object.prototype.toString.call(els);
-    if (elType !== '[object Array]' && elType !== '[object NodeList]' &&
-            elType !== '[object HTMLCollection]') {
+    if (
+        elType !== '[object Array]' &&
+        elType !== '[object NodeList]' &&
+        elType !== '[object HTMLCollection]'
+    ) {
         els = [els];
     }
 
     // Process each el we've passed.
-    for(let i = 0; i < els.length; i++){
+    for (let i = 0; i < els.length; i++) {
         processItem(els[i], settings);
     }
-};
+}
 
 /**
  * The meat. Given an el, make the text inside it fit its parent.
@@ -47,7 +50,7 @@ function processItem(el, settings) {
     }
 
     // Set textFitted attribute so we know this was processed.
-    if(!settings.reProcess){
+    if (!settings.reProcess) {
         el.setAttribute('textFitted', 1);
     }
 
@@ -61,12 +64,18 @@ function processItem(el, settings) {
 
     // Don't process if we can't find box dimensions
     if (!originalWidth || (!settings.widthOnly && !originalHeight)) {
-        if(!settings.widthOnly)
-            throw new Error('Set a static height and width on the target element ' + el.outerHTML +
-            ' before using textFit!');
+        if (!settings.widthOnly)
+            throw new Error(
+                'Set a static height and width on the target element ' +
+                    el.outerHTML +
+                    ' before using textFit!'
+            );
         else
-            throw new Error('Set a static width on the target element ' + el.outerHTML +
-            ' before using textFit!');
+            throw new Error(
+                'Set a static width on the target element ' +
+                    el.outerHTML +
+                    ' before using textFit!'
+            );
     }
 
     // Add textFitted span inside this container.
@@ -83,7 +92,7 @@ function processItem(el, settings) {
         // Reprocessing.
         innerSpan = el.querySelector('span.textFitted');
         // Remove vertical align if we're reprocessing.
-        if (hasClass(innerSpan, 'textFitAlignVert')){
+        if (hasClass(innerSpan, 'textFitAlignVert')) {
             innerSpan.className = innerSpan.className.replace('textFitAlignVert', '');
             innerSpan.style['height'] = '';
             el.className.replace('textFitAlignVertFlex', '');
@@ -99,8 +108,11 @@ function processItem(el, settings) {
     // Check if this string is multiple lines
     // Not guaranteed to always work if you use wonky line-heights
     let multiLine = settings.multiLine;
-    if (settings.detectMultiLine && !multiLine &&
-            innerSpan.scrollHeight >= parseInt(window.getComputedStyle(innerSpan)['font-size'], 10) * 2){
+    if (
+        settings.detectMultiLine &&
+        !multiLine &&
+        innerSpan.scrollHeight >= parseInt(window.getComputedStyle(innerSpan)['font-size'], 10) * 2
+    ) {
         multiLine = true;
     }
 
@@ -117,7 +129,10 @@ function processItem(el, settings) {
     while (low <= high) {
         mid = (high + low) >> 1;
         innerSpan.style.fontSize = mid + 'px';
-        if(innerSpan.scrollWidth <= originalWidth && (settings.widthOnly || innerSpan.scrollHeight <= originalHeight)){
+        if (
+            innerSpan.scrollWidth <= originalWidth &&
+            (settings.widthOnly || innerSpan.scrollHeight <= originalHeight)
+        ) {
             size = mid;
             low = mid + 1;
         } else {
@@ -126,21 +141,21 @@ function processItem(el, settings) {
         // await injection point
     }
     // found, updating font if differs:
-    if( innerSpan.style.fontSize != size + 'px' ) innerSpan.style.fontSize = size + 'px';
+    if (innerSpan.style.fontSize != size + 'px') innerSpan.style.fontSize = size + 'px';
 
     // Our height is finalized. If we are aligning vertically, set that up.
     if (settings.alignVert) {
         addStyleSheet();
         let height = innerSpan.scrollHeight;
-        if (window.getComputedStyle(el)['position'] === "static"){
+        if (window.getComputedStyle(el)['position'] === 'static') {
             el.style['position'] = 'relative';
         }
-        if (!hasClass(innerSpan, "textFitAlignVert")){
-            innerSpan.className = innerSpan.className + " textFitAlignVert";
+        if (!hasClass(innerSpan, 'textFitAlignVert')) {
+            innerSpan.className = innerSpan.className + ' textFitAlignVert';
         }
-        innerSpan.style['height'] = height + "px";
-        if (settings.alignVertWithFlexbox && !hasClass(el, "textFitAlignVertFlex")) {
-            el.className = el.className + " textFitAlignVertFlex";
+        innerSpan.style['height'] = height + 'px';
+        if (settings.alignVertWithFlexbox && !hasClass(el, 'textFitAlignVertFlex')) {
+            el.className = el.className + ' textFitAlignVertFlex';
         }
     }
 }
@@ -148,25 +163,32 @@ function processItem(el, settings) {
 // Calculate height without padding.
 function innerHeight(el) {
     let style = window.getComputedStyle(el, null);
-    return el.clientHeight -
-    parseInt(style.getPropertyValue('padding-top'), 10) -
-    parseInt(style.getPropertyValue('padding-bottom'), 10);
+    return (
+        el.clientHeight -
+        parseInt(style.getPropertyValue('padding-top'), 10) -
+        parseInt(style.getPropertyValue('padding-bottom'), 10)
+    );
 }
 
 // Calculate width without padding.
 function innerWidth(el) {
     let style = window.getComputedStyle(el, null);
-    return el.clientWidth -
-    parseInt(style.getPropertyValue('padding-left'), 10) -
-    parseInt(style.getPropertyValue('padding-right'), 10);
+    return (
+        el.clientWidth -
+        parseInt(style.getPropertyValue('padding-left'), 10) -
+        parseInt(style.getPropertyValue('padding-right'), 10)
+    );
 }
 
 // Returns true if it is a DOM element
 function isElement(o) {
-    return (
-    typeof HTMLElement === "object" ? o instanceof HTMLElement : //DOM2
-    o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName==="string"
-    );
+    return typeof HTMLElement === 'object'
+        ? o instanceof HTMLElement //DOM2
+        : o &&
+              typeof o === 'object' &&
+              o !== null &&
+              o.nodeType === 1 &&
+              typeof o.nodeName === 'string';
 }
 
 function hasClass(element, cls) {
@@ -175,26 +197,27 @@ function hasClass(element, cls) {
 
 // Better than a stylesheet dependency
 function addStyleSheet() {
-    if (document.getElementById("textFitStyleSheet")) return;
+    if (document.getElementById('textFitStyleSheet')) return;
     let style = [
-    ".textFitAlignVert{",
-        "position: absolute;",
-        "top: 0; right: 0; bottom: 0; left: 0;",
-        "margin: auto;",
-        "display: flex;",
-        "justify-content: center;",
-        "flex-direction: column;",
-    "}",
-    ".textFitAlignVertFlex{",
-        "display: flex;",
-    "}",
-    ".textFitAlignVertFlex .textFitAlignVert{",
-        "position: static;",
-    "}",].join("");
+        '.textFitAlignVert{',
+        'position: absolute;',
+        'top: 0; right: 0; bottom: 0; left: 0;',
+        'margin: auto;',
+        'display: flex;',
+        'justify-content: center;',
+        'flex-direction: column;',
+        '}',
+        '.textFitAlignVertFlex{',
+        'display: flex;',
+        '}',
+        '.textFitAlignVertFlex .textFitAlignVert{',
+        'position: static;',
+        '}'
+    ].join('');
 
-    let css = document.createElement("style");
-    css.type = "text/css";
-    css.id = "textFitStyleSheet";
+    let css = document.createElement('style');
+    css.type = 'text/css';
+    css.id = 'textFitStyleSheet';
     css.innerHTML = style;
     document.body.appendChild(css);
 }

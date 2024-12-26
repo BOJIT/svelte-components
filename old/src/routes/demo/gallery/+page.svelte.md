@@ -1,5 +1,6 @@
 <svelte:head>
-    <title>Demo - Gallery</title>
+
+<title>Demo - Gallery</title>
 </svelte:head>
 
 <script>

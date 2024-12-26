@@ -11,16 +11,16 @@
 <script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
-    import type { SvelteComponent } from "svelte";
-    import { createEventDispatcher } from "svelte";
+    import type { SvelteComponent } from 'svelte';
+    import { createEventDispatcher } from 'svelte';
 
-    import { Button } from "$lib/smelte";
+    import { Button } from '$lib/smelte';
 
     /*--------------------------------- Props --------------------------------*/
 
     export let icon: typeof SvelteComponent<any>;
-    export let label: string = "example";
-    export let shape: "circle" | "square" | "rounded" = "rounded";
+    export let label: string = 'example';
+    export let shape: 'circle' | 'square' | 'rounded' = 'rounded';
 
     // Pass through
     export let color;
@@ -38,11 +38,11 @@
     bind:color
     bind:disabled
     bind:outlined
-    square={shape === "square"}
-    lozenge={shape === "rounded"}
-    circle={shape === "circle"}
+    square={shape === 'square'}
+    lozenge={shape === 'rounded'}
+    circle={shape === 'circle'}
     on:click={() => {
-        dispatch("click");
+        dispatch('click');
     }}
     ><div class="pos">
         <svelte:component this={icon} height="1.5rem" />{label}

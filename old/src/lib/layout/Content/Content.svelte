@@ -9,9 +9,8 @@
 -->
 
 <article>
-    <slot/>
+    <slot />
 </article>
-
 
 <style>
     /* Desktop article adjustments */
@@ -112,11 +111,11 @@
 
     /* Inline Code */
     article :global(:not(pre) > code) {
-        border-radius: .125rem;
-        font-size: .875rem;
-        padding: .15rem .3rem;
+        border-radius: 0.125rem;
+        font-size: 0.875rem;
+        padding: 0.15rem 0.3rem;
         --tw-text-opacity: 1;
-        letter-spacing: .25px;
+        letter-spacing: 0.25px;
         background-color: var(--color-primary-trans-dark);
         color: var(--color-primary-900);
         font-family: var(--font-monospace);
@@ -129,12 +128,12 @@
     }
 
     /* Block Code overrides */
-    article > :global(pre[class*="language-"]) {
+    article > :global(pre[class*='language-']) {
         border-radius: 0.5em;
         margin-bottom: 0.5rem;
     }
 
-    article  > :global(div > pre[class*="language-"]) {
+    article > :global(div > pre[class*='language-']) {
         border-radius: 0.5em;
         margin-bottom: 0.5rem;
     }
@@ -159,7 +158,7 @@
         overflow: hidden;
         background: transparent;
         border-top: 1px solid #ececec;
-        height: .25em;
+        height: 0.25em;
         padding: 0;
         margin: 24px 0;
     }

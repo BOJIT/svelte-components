@@ -1,11 +1,11 @@
 <script lang="ts" context="module">
-    import { writable } from "svelte/store";
+    import { writable } from 'svelte/store';
 
     /* Popup Overlays */
     type Popup = {
         title: string;
         message: string;
-        type: "info" | "warning" | "error";
+        type: 'info' | 'warning' | 'error';
         timeout?: number;
         uid?: number;
     };
@@ -28,7 +28,7 @@
             entry.uid = popup_uid++;
             popups = [entry, ...popups];
             /* Auto-remove from store if timeout specified */
-            if ("timeout" in entry) {
+            if ('timeout' in entry) {
                 setTimeout(() => close(entry.uid), entry.timeout * 1000);
             }
             return popups;
@@ -40,24 +40,20 @@
         set: store.set,
         reset: reset,
         close: close,
-        push: push,
+        push: push
     };
 
     export { message };
 </script>
 
 <script lang="ts">
-    import { fade, fly } from "svelte/transition";
-    import { flip } from "svelte/animate";
+    import { fade, fly } from 'svelte/transition';
+    import { flip } from 'svelte/animate';
 
-    import {
-        InformationCircle,
-        AlertCircle,
-        CloseCircle,
-    } from "@svicons/ionicons-outline";
+    import { InformationCircle, AlertCircle, CloseCircle } from '@svicons/ionicons-outline';
 
-    import Button from "$lib/smelte/components/Button/Button.svelte";
-    import theme from "$lib/theme";
+    import Button from '$lib/smelte/components/Button/Button.svelte';
+    import theme from '$lib/theme';
 </script>
 
 <div class="container">
@@ -67,18 +63,18 @@
             out:fade|global
             animate:flip
             class="popup"
-            class:dark={$theme == "dark"}
-            class:is-info={entry.type === "info"}
-            class:is-warning={entry.type === "warning"}
-            class:is-error={entry.type === "error"}
+            class:dark={$theme == 'dark'}
+            class:is-info={entry.type === 'info'}
+            class:is-warning={entry.type === 'warning'}
+            class:is-error={entry.type === 'error'}
         >
             <div class="popup-flex">
                 <div class="popup-icon">
-                    {#if entry.type === "info"}
+                    {#if entry.type === 'info'}
                         <InformationCircle height="2.5rem" />
-                    {:else if entry.type === "warning"}
+                    {:else if entry.type === 'warning'}
                         <AlertCircle height="2.5rem" />
-                    {:else if entry.type === "error"}
+                    {:else if entry.type === 'error'}
                         <CloseCircle height="2.5rem" />
                     {/if}
                 </div>
@@ -91,13 +87,11 @@
             <div class="popup-delete">
                 <Button
                     on:click={() => message.close(entry.uid)}
-                    icon={"cancel"}
+                    icon={'cancel'}
                     transparent
                     circle
                     small
-                    iconColor={$theme == "dark"
-                        ? "var(--color-white)"
-                        : "var(--color-dark-500)"}
+                    iconColor={$theme == 'dark' ? 'var(--color-white)' : 'var(--color-dark-500)'}
                 />
             </div>
         </div>

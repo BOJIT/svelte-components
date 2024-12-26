@@ -1,7 +1,7 @@
-import Card from "./Card.svelte";
-import Title from "./Title.svelte";
+import Card from './Card.svelte';
+import Title from './Title.svelte';
 
 export default {
-  Card,
-  Title
+    Card,
+    Title
 };

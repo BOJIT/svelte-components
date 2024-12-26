@@ -4,8 +4,8 @@
  * @author Rose Pritchard
  */
 
-.mode-dark code[class*="language-"],
-.mode-dark pre[class*="language-"] {
+.mode-dark code[class*='language-'],
+.mode-dark pre[class*='language-'] {
     color: #ccc;
     background: none;
     font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
@@ -25,21 +25,20 @@
     -moz-hyphens: none;
     -ms-hyphens: none;
     hyphens: none;
-
 }
 
 /* Code blocks */
-.mode-dark pre[class*="language-"] {
+.mode-dark pre[class*='language-'] {
     padding: 1em;
     overflow: auto;
 }
 
-article > pre[class*="language-"] {
-    margin: .5em 0;
+article > pre[class*='language-'] {
+    margin: 0.5em 0;
 }
 
-.mode-dark :not(pre) > code[class*="language-"],
-.mode-dark pre[class*="language-"] {
+.mode-dark :not(pre) > code[class*='language-'],
+.mode-dark pre[class*='language-'] {
     background: #2d2d2d;
 }
 

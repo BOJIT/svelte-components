@@ -17,24 +17,24 @@
 -->
 
 <script lang="ts">
-    import { onDestroy, onMount } from "svelte";
-    import { createEventDispatcher } from "svelte";
+    import { onDestroy, onMount } from 'svelte';
+    import { createEventDispatcher } from 'svelte';
 
-    import { message } from "$lib/core";
-    import { SearchableList } from "$lib/form";
-    import { Container } from "$lib/layout";
-    import { List, Dialog } from "$lib/smelte";
-    import theme from "$lib/theme";
-    import type { ThemeMode } from "$lib/theme/theme";
+    import { message } from '$lib/core';
+    import { SearchableList } from '$lib/form';
+    import { Container } from '$lib/layout';
+    import { List, Dialog } from '$lib/smelte';
+    import theme from '$lib/theme';
+    import type { ThemeMode } from '$lib/theme/theme';
 
-    import IconClose from "@svicons/ionicons-outline/close-circle.svelte";
-    import IconElipsis from "@svicons/ionicons-outline/ellipsis-horizontal-circle.svelte";
-    import IconListCircle from "@svicons/ionicons-outline/list-circle.svelte";
-    import IconRefresh from "@svicons/ionicons-outline/refresh.svelte";
+    import IconClose from '@svicons/ionicons-outline/close-circle.svelte';
+    import IconElipsis from '@svicons/ionicons-outline/ellipsis-horizontal-circle.svelte';
+    import IconListCircle from '@svicons/ionicons-outline/list-circle.svelte';
+    import IconRefresh from '@svicons/ionicons-outline/refresh.svelte';
 
     /* XTermJS */
-    import type { Terminal } from "xterm";
-    import "xterm/css/xterm.css";
+    import type { Terminal } from 'xterm';
+    import 'xterm/css/xterm.css';
 
     /*------------------------------ Public API ------------------------------*/
 
@@ -43,7 +43,7 @@
     export let wide: boolean = false;
 
     // Terminal Props
-    export let name = "COMX";
+    export let name = 'COMX';
     export let rows = 15;
     export let active = false;
     export let baud = 115200;
@@ -61,47 +61,47 @@
     let menuVisible = false;
 
     let baudOptions = {
-        "4800": {},
-        "9600": {},
-        "19200": {},
-        "28800": {},
-        "38400": {},
-        "57600": {},
-        "76800": {},
-        "115200": {},
-        "576000": {},
+        '4800': {},
+        '9600': {},
+        '19200': {},
+        '28800': {},
+        '38400': {},
+        '57600': {},
+        '76800': {},
+        '115200': {},
+        '576000': {}
     };
 
     let tray = [
         {
             icon: IconRefresh,
-            callback: refreshPorts,
+            callback: refreshPorts
         },
         {
             icon: IconListCircle,
-            callback: requestPort,
+            callback: requestPort
         },
         {
             icon: IconElipsis,
             callback: () => {
                 menuVisible = true;
-            },
-        },
+            }
+        }
     ];
 
     let trayActive = [
         {
             icon: IconRefresh,
-            callback: refreshPorts,
+            callback: refreshPorts
         },
         {
             icon: IconListCircle,
-            callback: requestPort,
+            callback: requestPort
         },
         {
             icon: IconClose,
-            callback: closePort,
-        },
+            callback: closePort
+        }
     ];
 
     const dispatch = createEventDispatcher();
@@ -121,10 +121,8 @@
     let port: string | undefined = undefined;
 
     // Port stream handlers
-    let port_readable: ReadableStreamDefaultReader<Uint8Array> | undefined =
-        undefined;
-    let port_writable: WritableStreamDefaultWriter<Uint8Array> | undefined =
-        undefined;
+    let port_readable: ReadableStreamDefaultReader<Uint8Array> | undefined = undefined;
+    let port_writable: WritableStreamDefaultWriter<Uint8Array> | undefined = undefined;
 
     // Handle terminal row resizing
     $: {
@@ -146,7 +144,7 @@
     function terminalOutput(data: any) {
         if (data.value !== undefined) {
             terminal.write(data.value);
-            dispatch("recv", data.value);
+            dispatch('recv', data.value);
             // Infinite promise stream
             port_readable?.read().then(terminalOutput);
         }
@@ -154,17 +152,17 @@
 
     // Handle Theme
     function setTheme(t: ThemeMode) {
-        if (t == "light") {
+        if (t == 'light') {
             terminal.options.theme = {
-                foreground: "#2d2d2d",
-                cursor: "#2d2d2d",
-                background: "#00000000",
+                foreground: '#2d2d2d',
+                cursor: '#2d2d2d',
+                background: '#00000000'
             };
         } else {
             terminal.options.theme = {
-                foreground: "#f5f5f5",
-                cursor: "#f5f5f5",
-                background: "#00000000",
+                foreground: '#f5f5f5',
+                cursor: '#f5f5f5',
+                background: '#00000000'
             };
         }
     }
@@ -174,24 +172,22 @@
 
     // Serial Port Functions
     async function refreshPorts() {
-        if ("serial" in navigator) {
+        if ('serial' in navigator) {
             let serial_ports = await navigator.serial.getPorts();
             ports = await Promise.all(
                 serial_ports.map(async (sp: SerialPort, idx: number) => {
                     let info = sp.getInfo();
-                    let name = "";
-                    if ("usbProductId" in info) {
-                        name = `${idx + 1} - VID: ${info.usbVendorId}, PID: ${
-                            info.usbProductId
-                        }`;
+                    let name = '';
+                    if ('usbProductId' in info) {
+                        name = `${idx + 1} - VID: ${info.usbVendorId}, PID: ${info.usbProductId}`;
                     } else {
                         name = `${idx + 1} - Unknown Device`;
                     }
 
                     return {
-                        icon: "cable",
+                        icon: 'cable',
                         text: name,
-                        port: sp,
+                        port: sp
                     };
                 })
             );
@@ -199,7 +195,7 @@
     }
 
     async function requestPort() {
-        if ("serial" in navigator) {
+        if ('serial' in navigator) {
             try {
                 let port = await navigator.serial.requestPort();
                 console.log(port);
@@ -216,14 +212,14 @@
         if (active_port !== undefined) {
             try {
                 await active_port.port.open({
-                    baudRate: baud,
+                    baudRate: baud
                 });
             } catch (e) {
                 message.push({
-                    type: "error",
-                    title: "Port Open Failed!",
-                    message: "Failed to open Serial Port!",
-                    timeout: 5,
+                    type: 'error',
+                    title: 'Port Open Failed!',
+                    message: 'Failed to open Serial Port!',
+                    timeout: 5
                 });
 
                 console.error(e);
@@ -257,18 +253,18 @@
 
     onMount(async () => {
         // XTerm cannot be server-side rendered
-        const { Terminal } = await import("xterm");
-        const { FitAddon } = await import("xterm-addon-fit");
-        const { WebglAddon } = await import("xterm-addon-webgl");
+        const { Terminal } = await import('xterm');
+        const { FitAddon } = await import('xterm-addon-fit');
+        const { WebglAddon } = await import('xterm-addon-webgl');
 
         // Create Terminal
         terminal = new Terminal({
             theme: {
-                background: "#00000000",
+                background: '#00000000'
             },
             allowTransparency: true,
             convertEol: true,
-            rows: rows,
+            rows: rows
         });
 
         let fitAddon = new FitAddon();

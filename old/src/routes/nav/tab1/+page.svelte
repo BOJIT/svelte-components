@@ -1,6 +1,6 @@
 <script>
-    import Container from "$lib/layout/Container/Container.svelte";
-    import CAD from "$lib/widgets/CAD/CAD.svelte";
+    import Container from '$lib/layout/Container/Container.svelte';
+    import CAD from '$lib/widgets/CAD/CAD.svelte';
 </script>
 
 <svelte:head>
@@ -12,4 +12,3 @@
 <Container>
     <CAD geometry="https://cdn.bojit.org/files/glb/BOJIT_V3.glb" />
 </Container>
-

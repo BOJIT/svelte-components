@@ -7,7 +7,8 @@
 </script>
 
 <svelte:head>
-    <title>Demo - Terminal</title>
+
+<title>Demo - Terminal</title>
 </svelte:head>
 
 # Terminal

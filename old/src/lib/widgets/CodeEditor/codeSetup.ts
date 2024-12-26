@@ -10,19 +10,38 @@
 
 /*---------------------------------- Imports ---------------------------------*/
 
-import { highlightActiveLineGutter, highlightSpecialChars, drawSelection, dropCursor, rectangularSelection, crosshairCursor, highlightActiveLine, keymap } from '@codemirror/view';
+import {
+    highlightActiveLineGutter,
+    highlightSpecialChars,
+    drawSelection,
+    dropCursor,
+    rectangularSelection,
+    crosshairCursor,
+    highlightActiveLine,
+    keymap
+} from '@codemirror/view';
 export { EditorView } from '@codemirror/view';
 import { EditorState } from '@codemirror/state';
-import { indentOnInput, syntaxHighlighting, defaultHighlightStyle, bracketMatching, foldKeymap } from '@codemirror/language';
+import {
+    indentOnInput,
+    syntaxHighlighting,
+    defaultHighlightStyle,
+    bracketMatching,
+    foldKeymap
+} from '@codemirror/language';
 import { history, defaultKeymap, historyKeymap } from '@codemirror/commands';
 import { highlightSelectionMatches, searchKeymap } from '@codemirror/search';
-import { closeBrackets, autocompletion, closeBracketsKeymap, completionKeymap } from '@codemirror/autocomplete';
+import {
+    closeBrackets,
+    autocompletion,
+    closeBracketsKeymap,
+    completionKeymap
+} from '@codemirror/autocomplete';
 import { lintKeymap } from '@codemirror/lint';
 
 /*---------------------------------- State -----------------------------------*/
 
-
-const codeSetup = /*@__PURE__*/(() => [
+const codeSetup = /*@__PURE__*/ (() => [
     highlightActiveLineGutter(),
     highlightSpecialChars(),
     history(),

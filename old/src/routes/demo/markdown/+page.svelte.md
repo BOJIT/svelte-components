@@ -1,5 +1,6 @@
 <svelte:head>
-    <title>Demo - Markdown</title>
+
+<title>Demo - Markdown</title>
 </svelte:head>
 
 <script>
@@ -27,10 +28,9 @@ This is an image.
 
 ![BOJIT_V3-Neck_Laminations.JPG]({imgBase}/posts/BOJIT_V3-Neck_Laminations.JPG)
 
-This is a *YouTube* video
+This is a _YouTube_ video
 
 <YouTube src="https://www.youtube.com/embed/Yf2NzRww4Mk"/>
-
 
 #### Heading 4
 
@@ -49,7 +49,6 @@ This is a *YouTube* video
 2. List
     - Nested
     - Unordered
-
 
 ## Syntax highlighting
 

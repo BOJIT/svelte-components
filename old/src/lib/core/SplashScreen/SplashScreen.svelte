@@ -1,23 +1,24 @@
 <script lang="ts">
     /* Imports */
-    import { onMount } from "svelte";
+    import { onMount } from 'svelte';
     import { fade } from 'svelte/transition';
-    import ProgressCircular from "../../smelte/components/ProgressCircular";
-    import Icon from "../../smelte/components/Icon";
+    import ProgressCircular from '../../smelte/components/ProgressCircular';
+    import Icon from '../../smelte/components/Icon';
 
     /* Props */
-    export let fgColor = "#7783a8";
-    export let bgColor = "#303233";
-    export let load: null | ((resolve: (value: unknown) => void,
-                                reject: (reason?: any) => void) => {}) = null;
+    export let fgColor = '#7783a8';
+    export let bgColor = '#303233';
+    export let load:
+        | null
+        | ((resolve: (value: unknown) => void, reject: (reason?: any) => void) => {}) = null;
 
     let visible: boolean = true;
     let error: boolean = false;
-    let errorMessage: string = "";
+    let errorMessage: string = '';
 
     onMount(async () => {
-        if(typeof window !== 'undefined') {
-            if(load !== undefined) {
+        if (typeof window !== 'undefined') {
+            if (load !== undefined) {
                 try {
                     await new Promise(load);
                     visible = false;
@@ -35,14 +36,18 @@
 </script>
 
 {#if visible}
-    <div transition:fade|global="{{duration: 200}}" class="splash" style="background-color: {bgColor}">
+    <div
+        transition:fade|global={{ duration: 200 }}
+        class="splash"
+        style="background-color: {bgColor}"
+    >
         {#if error}
-            <div transition:fade|global="{{delay: 100}}" class="error-message">
-                <Icon color="gray" size={"3rem"}>{"warning"}</Icon>
+            <div transition:fade|global={{ delay: 100 }} class="error-message">
+                <Icon color="gray" size={'3rem'}>{'warning'}</Icon>
                 <h5>Error: {errorMessage}</h5>
             </div>
         {:else}
-            <ProgressCircular rawColor={fgColor}/>
+            <ProgressCircular rawColor={fgColor} />
         {/if}
     </div>
 {/if}

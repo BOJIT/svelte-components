@@ -1,13 +1,13 @@
 <script lang="ts">
-    import theme from "$lib/theme";
+    import theme from '$lib/theme';
 
-    import IconButton from "$lib/form/IconButton/IconButton.svelte";
-    import type { SvelteComponent } from "svelte";
+    import IconButton from '$lib/form/IconButton/IconButton.svelte';
+    import type { SvelteComponent } from 'svelte';
 
     type FooterButton = {
         icon: typeof SvelteComponent<any>;
         label?: string;
-        shape?: "square" | "circle" | "rounded";
+        shape?: 'square' | 'circle' | 'rounded';
         color?: string;
         callback?: () => void;
     };
@@ -15,10 +15,7 @@
     export let buttons: FooterButton[] = [];
 </script>
 
-<footer
-    class:bg-primary-50={$theme === "light"}
-    class:bg-dark-700={$theme === "dark"}
->
+<footer class:bg-primary-50={$theme === 'light'} class:bg-dark-700={$theme === 'dark'}>
     {#each buttons as button}
         <div class="button-label">
             <IconButton
@@ -26,9 +23,7 @@
                 icon={button.icon}
                 size="2.3rem"
                 shape={button.shape}
-                iconColor={$theme == "dark"
-                    ? "var(--color-white)"
-                    : "var(--color-dark-500)"}
+                iconColor={$theme == 'dark' ? 'var(--color-white)' : 'var(--color-dark-500)'}
                 on:click={button.callback}
             />
             {#if button.label !== undefined}

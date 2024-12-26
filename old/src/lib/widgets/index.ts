@@ -8,19 +8,19 @@
  *
  */
 
-import CAD from "./CAD/CAD.svelte";
-import Chart from "./Chart/Chart.svelte";
-import CodeEditor from "./CodeEditor/CodeEditor.svelte";
-import CopyButton from "./CodeEditor/CopyButton.svelte";
-import LineNumbers from "./CodeEditor/LineNumbers.svelte";
-import Gallery from "./Gallery/Gallery.svelte";
-import Histogram from "./Histogram/Histogram.svelte";
-import PcbViewer from "./PcbViewer/PcbViewer.svelte";
-import Plotter from "./Plotter/Plotter.svelte";
-import Tabs from "./Tabs/Tabs.svelte";
-import Terminal from "./Terminal/Terminal.svelte";
-import ThemeSelector from "./ThemeSelector/ThemeSelector.svelte";
-import YouTube from "./YouTube/YouTube.svelte";
+import CAD from './CAD/CAD.svelte';
+import Chart from './Chart/Chart.svelte';
+import CodeEditor from './CodeEditor/CodeEditor.svelte';
+import CopyButton from './CodeEditor/CopyButton.svelte';
+import LineNumbers from './CodeEditor/LineNumbers.svelte';
+import Gallery from './Gallery/Gallery.svelte';
+import Histogram from './Histogram/Histogram.svelte';
+import PcbViewer from './PcbViewer/PcbViewer.svelte';
+import Plotter from './Plotter/Plotter.svelte';
+import Tabs from './Tabs/Tabs.svelte';
+import Terminal from './Terminal/Terminal.svelte';
+import ThemeSelector from './ThemeSelector/ThemeSelector.svelte';
+import YouTube from './YouTube/YouTube.svelte';
 
 export {
     CAD,
@@ -35,7 +35,7 @@ export {
     Tabs,
     Terminal,
     ThemeSelector,
-    YouTube,
+    YouTube
 };
 
 export default {
@@ -50,4 +50,4 @@ export default {
     Terminal,
     ThemeSelector,
     YouTube
-}
+};

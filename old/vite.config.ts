@@ -3,7 +3,7 @@ import type { UserConfig } from 'vite';
 
 const config: UserConfig = {
     plugins: [sveltekit()],
-    assetsInclude: ['**/*.gltf', '**/*.glb'],
+    assetsInclude: ['**/*.gltf', '**/*.glb']
 };
 
 export default config;

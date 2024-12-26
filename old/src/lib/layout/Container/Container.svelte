@@ -9,51 +9,47 @@
 -->
 
 <script lang="ts">
-    import type { SvelteComponent } from "svelte";
-    import { fade } from "svelte/transition";
-    import { IconButton } from "$lib/form";
-    import IconExpand from "@svicons/ionicons-outline/expand.svelte";
-    import IconContract from "@svicons/ionicons-outline/contract.svelte";
+    import type { SvelteComponent } from 'svelte';
+    import { fade } from 'svelte/transition';
+    import { IconButton } from '$lib/form';
+    import IconExpand from '@svicons/ionicons-outline/expand.svelte';
+    import IconContract from '@svicons/ionicons-outline/contract.svelte';
 
     type TrayButton = {
         icon: typeof SvelteComponent<any>;
         callback: () => void;
     };
 
-    export let aspect: string = "4:3";
+    export let aspect: string = '4:3';
     export let zoomable: boolean = true;
     export let wide: boolean = false;
-    export let buttonLocation:
-        | "top-left"
-        | "top-right"
-        | "bottom-left"
-        | "bottom-right" = "top-right";
+    export let buttonLocation: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' =
+        'top-right';
 
     export let tray: TrayButton[] = [];
 
     let zoom = false;
-    let padding = "0%";
+    let padding = '0%';
 
     let buttonCSS: boolean[] = [true, false, false, true];
 
     $: {
         // Aspect ratio:
-        let ratio =
-            parseInt(aspect.split(":")[0]) / parseInt(aspect.split(":")[1]);
-        padding = (100 / ratio).toString().concat("%");
+        let ratio = parseInt(aspect.split(':')[0]) / parseInt(aspect.split(':')[1]);
+        padding = (100 / ratio).toString().concat('%');
 
         // Button location:
         switch (buttonLocation) {
-            case "top-left":
+            case 'top-left':
                 buttonCSS = [true, false, true, false];
                 break;
-            case "top-right":
+            case 'top-right':
                 buttonCSS = [true, false, false, true];
                 break;
-            case "bottom-left":
+            case 'bottom-left':
                 buttonCSS = [false, true, true, false];
                 break;
-            case "bottom-right":
+            case 'bottom-right':
                 buttonCSS = [false, true, false, true];
                 break;
         }
@@ -92,7 +88,7 @@
         <div class="container" class:zoom>
             <slot />
         </div>
-        <div class="container overlay" class:zoom>
+        <div class="overlay container" class:zoom>
             <slot name="overlay" />
         </div>
     </div>
@@ -103,7 +99,7 @@
 {/if}
 
 <div
-    class="shrink tray"
+    class="tray shrink"
     class:zoom
     class:top={buttonCSS[0]}
     class:bottom={buttonCSS[1]}

@@ -31,7 +31,6 @@
 This is a line plotter component, designed for fast real-time plotting.
 
 <Plotter bind:this={plotter} wide numLines={numLines}
-    resX={xrange} resY={[ymin, ymax]} demo/>
+resX={xrange} resY={[ymin, ymax]} demo/>
 
 Y min = {ymin} , Y max = {ymax}, X range = {xrange} steps.
-

@@ -1,3 +1,3 @@
 module.exports = {
-  all: color => [`bg-${color}-100`]
+    all: (color) => [`bg-${color}-100`]
 };

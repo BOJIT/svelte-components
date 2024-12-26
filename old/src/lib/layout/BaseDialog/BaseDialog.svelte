@@ -11,17 +11,17 @@
 <script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
-    import type { SvelteComponent } from "svelte";
-    import { createEventDispatcher } from "svelte";
+    import type { SvelteComponent } from 'svelte';
+    import { createEventDispatcher } from 'svelte';
 
-    import { Dialog } from "$lib/smelte";
+    import { Dialog } from '$lib/smelte';
 
-    import { Settings } from "@svicons/ionicons-outline";
+    import { Settings } from '@svicons/ionicons-outline';
 
     /*--------------------------------- Props --------------------------------*/
 
     export let visible: boolean = true;
-    export let title: string = "placeholder";
+    export let title: string = 'placeholder';
     export let icon: typeof SvelteComponent<any> = Settings;
     export let persistent: boolean = false;
 
@@ -32,9 +32,9 @@
     function handleKeydown(event: KeyboardEvent) {
         if (!visible) return; // Only handle keybindings when visible
 
-        if (!persistent && (event.key === "Escape")) visible = false;
+        if (!persistent && event.key === 'Escape') visible = false;
 
-        if (event.key === "Enter") dispatch("enter");
+        if (event.key === 'Enter') dispatch('enter');
     }
 
     /*------------------------------- Lifecycle ------------------------------*/
@@ -42,7 +42,7 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-<Dialog bind:value={visible} fullWidth persistent={persistent}>
+<Dialog bind:value={visible} fullWidth {persistent}>
     <div slot="title" class="title">
         <svelte:component this={icon} height="1.5rem" />
         {title}

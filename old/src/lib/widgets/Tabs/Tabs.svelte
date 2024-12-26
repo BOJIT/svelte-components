@@ -10,11 +10,11 @@
 
 <script lang="ts">
     /* Custom Scrollbar */
-    import "simplebar";
-    import "simplebar/dist/simplebar.css";
+    import 'simplebar';
+    import 'simplebar/dist/simplebar.css';
 
-    import theme from "$lib/theme";
-    import type { SvelteComponent } from "svelte";
+    import theme from '$lib/theme';
+    import type { SvelteComponent } from 'svelte';
 
     type Tab = {
         label: string;
@@ -28,7 +28,7 @@
         index = idx;
 
         // Update tabline
-        tabline.removeAttribute("style");
+        tabline.removeAttribute('style');
         tabline.style.cssText = theme.swatchColor(idx);
     }
 
@@ -46,11 +46,11 @@
     $: {
         if (tabroot) {
             // All tab children
-            let tabSlots = tabroot.querySelectorAll("div.tab");
-            tabSlots.forEach((t) => t.classList.remove("active"));
+            let tabSlots = tabroot.querySelectorAll('div.tab');
+            tabSlots.forEach((t) => t.classList.remove('active'));
             if (tabSlots[index] !== undefined) {
                 setTimeout(() => {
-                    tabSlots[index].classList.add("active");
+                    tabSlots[index].classList.add('active');
                 }, 50);
             }
         }
@@ -63,7 +63,7 @@
             <ul class="tabs">
                 <!-- Render each tab - updates when the list updates -->
                 {#each tabs as tab, idx}
-                    {#if "link" in tab}
+                    {#if 'link' in tab}
                         <a href={tab.link}>
                             <li
                                 style={theme.swatchColor(idx)}
@@ -88,18 +88,14 @@
                     {/if}
                 {/each}
             </ul>
-            <hr
-                bind:this={tabline}
-                class="tabline transition"
-                style={theme.swatchColor(index)}
-            />
+            <hr bind:this={tabline} class="tabline transition" style={theme.swatchColor(index)} />
         </div>
     {/await}
 
     {#each tabs as tab, idx}
-        {#if "component" in tab}
+        {#if 'component' in tab}
             <div class="content" class:visible={idx == index}>
-                {#if "props" in tab}
+                {#if 'props' in tab}
                     <svelte:component this={tab.component} {...tab.props} />
                 {:else}
                     <svelte:component this={tab.component} />

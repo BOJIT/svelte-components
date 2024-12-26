@@ -1,14 +1,14 @@
-import * as localForage from "localforage";
+import * as localForage from 'localforage';
 
-import { mode } from "$lib/theme";
-import { message } from "$lib/core";
+import { mode } from '$lib/theme';
+import { message } from '$lib/core';
 
 /*
     Database Index
 */
 const stores = {
     mode: mode
-}
+};
 
 /*----------------------------------------------------------------------------*/
 
@@ -24,11 +24,11 @@ function downloadFile(blob: Blob, filename: string) {
     document.body.removeChild(a);
 }
 
-function uploadFile(callback: ((files: File[]) => void), ext: string, multiple?: boolean) {
+function uploadFile(callback: (files: File[]) => void, ext: string, multiple?: boolean) {
     const i = document.createElement('input');
-    i.type = "file";
+    i.type = 'file';
     i.accept = ext;
-    if(multiple) {
+    if (multiple) {
         i.multiple = true;
     }
     document.body.appendChild(i);
@@ -36,15 +36,15 @@ function uploadFile(callback: ((files: File[]) => void), ext: string, multiple?:
     document.body.removeChild(i);
 
     /* Create hook for re-focus (if no files are added) */
-    document.body.onfocus = (() => {
+    document.body.onfocus = () => {
         document.body.onfocus = null;
         window.setTimeout(() => {
-            if(i.files.length == 0) {
-                callback([]);   // Pass no files to callback
+            if (i.files.length == 0) {
+                callback([]); // Pass no files to callback
                 i.remove();
             }
         }, 100);
-    });
+    };
 
     /* File upload handler */
     i.addEventListener('change', () => {
@@ -59,7 +59,7 @@ async function init() {
     for (const [key, store] of Object.entries(stores)) {
         /* Pull entry from local storage */
         let entry = await localForage.getItem(key);
-        if(entry != null) {
+        if (entry != null) {
             store.set(entry as any);
         }
 
@@ -71,15 +71,15 @@ async function init() {
 }
 
 function clear() {
-    localForage.clear();    // Clear local Storage
+    localForage.clear(); // Clear local Storage
     for (const [, store] of Object.entries(stores)) {
-        store.reset();      // Reset all stores
+        store.reset(); // Reset all stores
     }
     message.push({
-        "title": "Clear Data",
-        "message": "All browser settings have been removed",
-        "type": "info",
-        "timeout": 5
+        title: 'Clear Data',
+        message: 'All browser settings have been removed',
+        type: 'info',
+        timeout: 5
     });
 }
 
@@ -88,4 +88,4 @@ export default {
     uploadFile,
     init,
     clear
-}
+};

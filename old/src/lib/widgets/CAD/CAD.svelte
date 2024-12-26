@@ -16,11 +16,9 @@
     }
 
     function mouseup() {
-        if(zoomable === false)
-            zoomable = true;
+        if (zoomable === false) zoomable = true;
         else {
-            if((Date.now() - click_start) < 200)
-                zoomable = false;
+            if (Date.now() - click_start < 200) zoomable = false;
         }
     }
 
@@ -28,11 +26,11 @@
         await import('./model-viewer/model-viewer.min.js');
 
         // Hack to set outline border
-        if(model_container.parentElement?.classList.contains('container')) {
+        if (model_container.parentElement?.classList.contains('container')) {
             in_container = true;
         }
 
-        window.addEventListener('mouseup', function(event) {
+        window.addEventListener('mouseup', function (event) {
             if (event.target != model_container && event.target.parentNode != model_container) {
                 zoomable = false;
             }
@@ -40,24 +38,33 @@
     });
 </script>
 
-
-<div class="model-container"
+<div
+    class="model-container"
     class:transparent
     class:zoomable
     class:rounded-border={in_container}
-            bind:this={model_container} on:mousedown={mousedown} on:mouseup={mouseup}>
-    <model-viewer src={geometry ? geometry : false}
-        disable-zoom={!zoomable || undefined} enable-pan={pan || undefined}
-        camera-controls={!rotate || undefined} auto-rotate={rotate || undefined}/>
+    bind:this={model_container}
+    on:mousedown={mousedown}
+    on:mouseup={mouseup}
+>
+    <model-viewer
+        src={geometry ? geometry : false}
+        disable-zoom={!zoomable || undefined}
+        enable-pan={pan || undefined}
+        camera-controls={!rotate || undefined}
+        auto-rotate={rotate || undefined}
+    />
 </div>
-
 
 <style>
     model-viewer {
         position: absolute;
         width: 100%;
         height: 100%;
-        top: 0; bottom: 0; left: 0; right: 0;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
     }
 
     :global(:root) {
@@ -69,10 +76,10 @@
         width: 100%;
         height: 100%;
 
-        transition:border-color .2s ease-in;
-        -moz-transition:border-color .2s ease-in;
-        -o-transition:border-color .2s ease-in;
-        -webkit-transition:border-color .2s ease-in;
+        transition: border-color 0.2s ease-in;
+        -moz-transition: border-color 0.2s ease-in;
+        -o-transition: border-color 0.2s ease-in;
+        -webkit-transition: border-color 0.2s ease-in;
         border-width: 0.1em;
         border-color: transparent;
     }
@@ -93,4 +100,3 @@
         border-radius: 0.85rem;
     }
 </style>
-

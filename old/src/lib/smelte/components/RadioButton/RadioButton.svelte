@@ -1,18 +1,17 @@
 <script>
-    import Icon from "../Icon";
-    import Ripple from "../Ripple";
-    import Label from "../Checkbox/Label.svelte";
-    import { ClassBuilder } from "../../utils/classes.js";
+    import Icon from '../Icon';
+    import Ripple from '../Ripple';
+    import Label from '../Checkbox/Label.svelte';
+    import { ClassBuilder } from '../../utils/classes.js';
 
-    const classesDefault =
-        "inline-flex block items-center mb-2 cursor-pointer z-0";
+    const classesDefault = 'inline-flex block items-center mb-2 cursor-pointer z-0';
 
-    export let selected = "";
-    export let label = "";
-    export let color = "primary";
+    export let selected = '';
+    export let label = '';
+    export let color = 'primary';
     export let disabled = false;
-    export let name = "";
-    export let value = "";
+    export let name = '';
+    export let value = '';
     export let classes = classesDefault;
     export let small = false;
     export let labelClasses = (i) => i;
@@ -24,13 +23,9 @@
     }
 
     const cb = new ClassBuilder(classes, classesDefault);
-    $: c = cb
-        .flush()
-        .add(classes, true, classesDefault)
-        .add($$props.class)
-        .get();
+    $: c = cb.flush().add(classes, true, classesDefault).add($$props.class).get();
 
-    $: rippleColor = value && !disabled ? color : "gray";
+    $: rippleColor = value && !disabled ? color : 'gray';
 </script>
 
 <div class={c} on:click={select} on:keydown={select}>
@@ -51,9 +46,7 @@
             {:else}
                 <Icon
                     {small}
-                    class={disabled
-                        ? "text-gray-500 dark:text-gray-600"
-                        : "text-gray-600"}
+                    class={disabled ? 'text-gray-500 dark:text-gray-600' : 'text-gray-600'}
                 >
                     radio_button_unchecked
                 </Icon>

@@ -8,17 +8,16 @@
  *
 -->
 
-<script lang='ts'>
+<script lang="ts">
     export let href = null;
 
     export let newTab = false;
 
-    export let label = "Accessibility Label";
+    export let label = 'Accessibility Label';
 </script>
 
-
 {#if href !== null}
-    <a href={href} target={newTab ? "_blank" : ""} aria-label={label}>
+    <a {href} target={newTab ? '_blank' : ''} aria-label={label}>
         <slot />
     </a>
 {:else}

@@ -1,3 +1,3 @@
-import Ripple from "./Ripple.svelte";
+import Ripple from './Ripple.svelte';
 
 export default Ripple;

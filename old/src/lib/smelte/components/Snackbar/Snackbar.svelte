@@ -1,25 +1,25 @@
 <script context="module">
-    import { writable } from "svelte/store";
+    import { writable } from 'svelte/store';
 
     const queue = writable([]);
     let running = false;
 </script>
 
 <script>
-    import { fade, scale } from "svelte/transition";
-    import { createEventDispatcher } from "svelte";
+    import { fade, scale } from 'svelte/transition';
+    import { createEventDispatcher } from 'svelte';
 
-    import { quadOut, quadIn } from "svelte/easing";
-    import Button from "../Button";
-    import { Spacer } from "../Util";
-    import utils, { ClassBuilder } from "../../utils/classes.js";
+    import { quadOut, quadIn } from 'svelte/easing';
+    import Button from '../Button';
+    import { Spacer } from '../Util';
+    import utils, { ClassBuilder } from '../../utils/classes.js';
 
     export let value = false;
     export let timeout = 2000;
     export let inProps = { duration: 100, easing: quadIn };
     export let outProps = { duration: 100, easing: quadOut, delay: 150 };
-    export let color = "gray";
-    export let text = "white";
+    export let color = 'gray';
+    export let text = 'white';
     export let top = false;
     export let bottom = true;
     export let right = false;
@@ -32,7 +32,7 @@
     const classesDefault = `pointer-events-auto flex absolute py-2 px-4 z-30 mb-4 content-between mx-auto
       rounded items-center shadow-sm h-12`;
     const wrapperDefault =
-        "fixed w-full h-full flex items-center justify-center pointer-events-none";
+        'fixed w-full h-full flex items-center justify-center pointer-events-none';
 
     export let classes = wrapperDefault;
 
@@ -46,7 +46,7 @@
     let bg = () => {};
 
     $: {
-        const u = utils(color || "gray");
+        const u = utils(color || 'gray');
         bg = u.bg;
     }
 
@@ -77,7 +77,7 @@
 
         tm = setTimeout(() => {
             value = running = hash = false;
-            dispatch("finish");
+            dispatch('finish');
 
             if ($queue.length) {
                 $queue.shift()();
@@ -88,11 +88,11 @@
     $: c = cb
         .flush()
         .add(bg(800), color)
-        .add("right-0 mr-2", right)
-        .add("top-0 mt-2", top)
-        .add("left-0 ml-2", left)
-        .add("bottom-0", bottom)
-        .add("snackbar", !noAction)
+        .add('right-0 mr-2', right)
+        .add('top-0 mt-2', top)
+        .add('left-0 ml-2', left)
+        .add('bottom-0', bottom)
+        .add('snackbar', !noAction)
         .get();
 
     // for some reason it doesn't get updated otherwise
@@ -102,7 +102,7 @@
 </script>
 
 {#if value && running === hash}
-    <div class="fixed w-full h-full top-0 left-0 z-30 pointer-events-none">
+    <div class="pointer-events-none fixed left-0 top-0 z-30 h-full w-full">
         <div class={wClasses}>
             <div
                 bind:this={node}
@@ -116,9 +116,7 @@
                     <Spacer />
                     <slot name="action">
                         {#if !timeout}
-                            <Button text on:click={() => (value = false)}
-                                >Close</Button
-                            >
+                            <Button text on:click={() => (value = false)}>Close</Button>
                         {/if}
                     </slot>
                 {/if}

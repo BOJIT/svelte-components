@@ -1,13 +1,12 @@
 <script lang="ts">
-
 </script>
 
 <main>
-	<slot/>
+    <slot />
 </main>
 
 <style>
-	main {
-		flex: 1;
-	}
+    main {
+        flex: 1;
+    }
 </style>

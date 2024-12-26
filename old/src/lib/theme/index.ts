@@ -8,8 +8,8 @@ import midnight from './palette/midnight.js';
 const palette = {
     quirky,
     evergreen,
-    midnight,
-}
+    midnight
+};
 
 const mode = theme.Mode;
 

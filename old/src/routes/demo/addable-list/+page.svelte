@@ -1,17 +1,17 @@
 <script lang="ts">
-    import { message } from "$lib/core";
-    import { AddableList, TextIconButton } from "$lib/form";
-    import { BaseDialog } from "$lib/layout";
-    import { Button } from "$lib/smelte";
+    import { message } from '$lib/core';
+    import { AddableList, TextIconButton } from '$lib/form';
+    import { BaseDialog } from '$lib/layout';
+    import { Button } from '$lib/smelte';
 
-    import { Document, Folder, FolderOpen } from "@svicons/ionicons-outline";
+    import { Document, Folder, FolderOpen } from '@svicons/ionicons-outline';
 
     export let visible = false;
     let addableList: AddableList;
 
     let item = {
         Test: {},
-        Target: {},
+        Target: {}
     };
 
     $: if (visible) {
@@ -35,34 +35,28 @@
         buttons={[Folder]}
         maxHeight="100rem"
         on:select={(e) => {
-            console.log("Select: ", e.detail);
+            console.log('Select: ', e.detail);
             message.push({
-                type: "warning",
-                title: "Standard Message",
+                type: 'warning',
+                title: 'Standard Message',
                 message: e.detail,
-                timeout: 5,
+                timeout: 5
             });
         }}
         on:button={(e) => {
-            console.log("Button: ", e.detail);
+            console.log('Button: ', e.detail);
             message.push({
-                type: "info",
-                title: "Button Press Message",
-                message: e.detail.key + " : " + e.detail.index,
-                timeout: 5,
+                type: 'info',
+                title: 'Button Press Message',
+                message: e.detail.key + ' : ' + e.detail.index,
+                timeout: 5
             });
         }}
     />
 </div>
 
 <br />
-<TextIconButton
-    icon={Folder}
-    label="Upload"
-    outlined
-    color="white"
-    shape="circle"
-/>
+<TextIconButton icon={Folder} label="Upload" outlined color="white" shape="circle" />
 <br /><br />
 
 <p>Or... launch dialogue with the button below:</p>
@@ -82,9 +76,9 @@
         maxHeight="10rem"
         on:select={(e) => {
             message.push({
-                type: "info",
-                title: "Standard Message",
-                message: "test",
+                type: 'info',
+                title: 'Standard Message',
+                message: 'test'
                 // timeout: 5,
             });
         }}
