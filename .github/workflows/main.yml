@@ -37,7 +37,7 @@ jobs:
             - name: Package Svelte components
               run: |
                   cd main
-                  npm run package
+                  NODE_ENV=PRODUCTION npm run package
                   cd ../
 
             - name: NPM Publish

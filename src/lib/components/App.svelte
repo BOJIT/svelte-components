@@ -63,6 +63,7 @@
     import { ModeWatcher } from 'mode-watcher';
 
     import { Toaster } from '$lib/components/ui/sonner/index.js';
+    import ThemeSelector from '$lib/components/widgets/ThemeSelector/ThemeSelector.svelte';
 
     /*--------------------------------- Types --------------------------------*/
 
@@ -81,6 +82,7 @@
 </script>
 
 <ModeWatcher darkClassNames={['dark']} {defaultMode} />
+<ThemeSelector />
 <Toaster position="bottom-left" richColors closeButton expand duration={100000} />
 <div>
     {@render children?.()}
