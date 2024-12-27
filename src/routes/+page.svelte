@@ -15,6 +15,8 @@
 
     import { Button } from '$lib/components/ui/button';
 
+    import { Table } from 'carbon-icons-svelte';
+
     /*--------------------------------- Props --------------------------------*/
 
     /*-------------------------------- Methods -------------------------------*/
@@ -36,6 +38,19 @@
         });
     }}>Test Text</Button
 >
+
+<Button
+    variant="destructive"
+    onclick={() => {
+        notify({
+            title: 'Some Thing',
+            type: 'error',
+            description: 'this went wrong!'
+        });
+    }}
+>
+    <Table size={32} />
+</Button>
 
 <style>
 </style>

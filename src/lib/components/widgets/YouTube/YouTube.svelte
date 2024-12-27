@@ -1,16 +1,33 @@
-<script lang="ts">
-    export let src = '';
-    export let autoplay = false;
-    export let playlist = '';
+<!--
+ * @file YouTube.svelte
+ * @author James Bennion-Pedley
+ * @brief Wrapper for embedding YouTube videos with a fixed aspect
+ * @date 27/12/2024
+ *
+ * @copyright Copyright (c) 2024
+ *
+-->
 
-    let url: string[] = [];
-    $: url = [
+<script lang="ts">
+    /*--------------------------------- Types --------------------------------*/
+
+    interface YouTubeProps {
+        src: string;
+        autoplay?: boolean;
+        playlist?: string;
+    }
+
+    /*--------------------------------- Props --------------------------------*/
+
+    let { src, autoplay = false, playlist = '' }: YouTubeProps = $props();
+
+    const url = $derived([
         src,
         '?version=3',
         '&modestbranding=1',
         autoplay ? '&autoplay=1&loop=1&controls=0&mute=1' : '',
         playlist !== '' ? `&playlist=${playlist}` : ''
-    ];
+    ]);
 </script>
 
 <div class="content-padded">

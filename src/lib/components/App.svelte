@@ -8,8 +8,12 @@
  *
 -->
 
-<script module>
+<script module lang="ts">
+    // A few useful globals
     import { toast } from 'svelte-sonner';
+
+    export type Theme = 'light' | 'dark';
+    export type ThemeMode = 'light' | 'dark' | 'system';
 
     type Notification = {
         title: string;
@@ -70,11 +74,12 @@
     interface AppProps {
         children: any;
         defaultMode?: 'light' | 'dark' | 'system';
+        bindThemeToKey?: string | undefined;
     }
 
     /*--------------------------------- Props --------------------------------*/
 
-    let { children, defaultMode }: AppProps = $props();
+    let { children, defaultMode, bindThemeToKey }: AppProps = $props();
 
     /*-------------------------------- Methods -------------------------------*/
 
@@ -82,7 +87,7 @@
 </script>
 
 <ModeWatcher darkClassNames={['dark']} {defaultMode} />
-<ThemeSelector />
+<ThemeSelector keybinding={bindThemeToKey} />
 <Toaster position="bottom-left" richColors closeButton expand duration={100000} />
 <div>
     {@render children?.()}
