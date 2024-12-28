@@ -5,6 +5,7 @@
 # Introduction
 
 `@bojit/svelte-components` is a monorepo containing various widgets/UI elements used in BOJIT sites.
+It is based on [shadcn-svelte](https://shadcn-svelte.com/) with some opinionated styling and various widgets that are useful for scientific apps.
 
 ---
 

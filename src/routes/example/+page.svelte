@@ -18,8 +18,12 @@
     import { Table, AddComment, TrashCan } from 'carbon-icons-svelte';
 
     import IconButton from '$lib/components/ui/iconbutton/IconButton.svelte';
+    import Terminal from '$lib/components/widgets/Terminal/Terminal.svelte';
 
     /*--------------------------------- Props --------------------------------*/
+
+    let term1: Terminal;
+    let term2: Terminal;
 
     /*-------------------------------- Methods -------------------------------*/
 
@@ -46,19 +50,27 @@
 >
 
 <br />
+<br />
+
+<div class="row">
+    <Terminal class="!h-40 !w-1/2" bind:this={term1} />
+    <Terminal class="!h-40 !w-1/2" bind:this={term2} />
+</div>
+
+<br />
 <hr />
 <div class="row">
     <IconButton
         Icon={Table}
         shape="circle"
         onclick={() => {
-            console.log('Hellp!');
+            term1.write(`Example Message: ${Date.now()}\n`, 33);
         }}
     />
     <IconButton
         Icon={AddComment}
         onclick={() => {
-            console.log('Hellp!');
+            term2.write(`Example Message: ${Date.now()}\n`);
         }}
     />
     <IconButton
