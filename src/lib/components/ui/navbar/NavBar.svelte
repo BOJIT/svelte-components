@@ -71,7 +71,7 @@
     <!-- Navbar Left-Hand Side -->
     <div class="nav-left">
         {#if logo}
-            <Link href={logoLink}>
+            <Link href={logoLink} target="_blank">
                 <img src={logo} alt="logo" style="max-height:3rem" />
             </Link>
         {/if}

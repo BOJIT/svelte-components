@@ -9,6 +9,46 @@
  */
 
 import * as Button from './components/ui/button';
+import * as Checkbox from './components/ui/checkbox';
+import * as Command from './components/ui/command';
+// import * as Content from './components/ui/content';
 import * as Dialog from './components/ui/dialog';
+import * as IconButton from './components/ui/iconbutton';
+import * as Input from './components/ui/input';
+import * as Link from './components/ui/link';
+import * as NavBar from './components/ui/navbar';
+import * as Popover from './components/ui/popover';
+import * as Progress from './components/ui/progress';
+import * as RadioGroup from './components/ui/radio-group';
+import * as ScrollArea from './components/ui/scroll-area';
+import * as Select from './components/ui/select';
+import * as Separator from './components/ui/separator';
+import * as Slider from './components/ui/slider';
+import * as Sonner from './components/ui/sonner';
+import * as Switch from './components/ui/switch';
+// import * as Tabs from './components/ui/tabs';
 
-export { Button, Dialog };
+import App from './components/App.svelte';
+
+export {
+    Button,
+    Checkbox,
+    Command,
+    Dialog,
+    IconButton,
+    Input,
+    Link,
+    NavBar,
+    Popover,
+    Progress,
+    RadioGroup,
+    ScrollArea,
+    Select,
+    Separator,
+    Slider,
+    Sonner,
+    Switch,
+
+    //
+    App
+};

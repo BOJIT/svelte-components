@@ -13,13 +13,15 @@
 
     import App, { notify } from '$lib/components/App.svelte';
 
-    import NavBar from '$lib/components/ui/navbar/NavBar.svelte';
+    import { NavBar } from '$lib';
 
     import { Settings, Theater } from 'carbon-icons-svelte';
 
     import CMake from '$lib/components/icons/misc/CMake.svelte';
 
     import '../app.css';
+
+    import logo from '/favicon.png';
 
     /*--------------------------------- Props --------------------------------*/
 
@@ -31,8 +33,10 @@
 </script>
 
 <App defaultMode="dark">
-    <NavBar
+    <NavBar.NavBar
         title="My App"
+        {logo}
+        logoLink="https://plotty.bojit.org/"
         themeOverride="dark"
         items={[
             {
