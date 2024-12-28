@@ -84,7 +84,7 @@
 />
 
 <Dialog.Root bind:open={visible}>
-    <Dialog.Content showClose={false}>
+    <Dialog.Content showClose={false} class="sm:max-w-[325px]">
         <Dialog.Description>
             <div class="option">
                 {#each themes as t}
@@ -107,8 +107,6 @@
         display: flex;
         gap: 1rem;
         justify-content: center;
-        padding-left: 1rem;
-        padding-right: 1rem;
     }
 
     .option :global(button):focus {
