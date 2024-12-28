@@ -81,13 +81,19 @@
 
     let { children, defaultMode, bindThemeToKey }: AppProps = $props();
 
+    let visible: boolean = $state(false);
+
     /*-------------------------------- Methods -------------------------------*/
+
+    export function launchThemeSelector() {
+        visible = true;
+    }
 
     /*------------------------------- Lifecycle ------------------------------*/
 </script>
 
 <ModeWatcher darkClassNames={['dark']} {defaultMode} />
-<ThemeSelector keybinding={bindThemeToKey} />
+<ThemeSelector keybinding={bindThemeToKey} bind:visible />
 <Toaster position="bottom-left" richColors closeButton expand duration={100000} />
 <div>
     {@render children?.()}

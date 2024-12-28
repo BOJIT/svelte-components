@@ -19,6 +19,7 @@
         type: 'button' | 'separator' | 'component';
         icon?: Icon;
         shape?: 'square' | 'circle' | 'rounded';
+        link?: string;
         label?: string;
         visibility?: 'mobile' | 'desktop';
         onclick?: () => void;
@@ -92,12 +93,14 @@
             >
                 {#if item.type === 'button' && item.icon}
                     <!-- TODO add popover label! -->
-                    <IconButton
-                        variant="ghost"
-                        Icon={item.icon}
-                        shape={item.shape}
-                        onclick={item.onclick}
-                    />
+                    <Link href={item.link}>
+                        <IconButton
+                            variant="ghost"
+                            Icon={item.icon}
+                            shape={item.shape}
+                            onclick={item.onclick}
+                        />
+                    </Link>
                 {/if}
 
                 {#if item.type === 'separator'}

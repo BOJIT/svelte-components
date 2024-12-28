@@ -11,53 +11,53 @@
 <script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
-    import App, { notify } from '$lib/components/App.svelte';
+    import { App, Content, NavBar } from '$lib';
 
-    import { Content, NavBar } from '$lib';
+    import { Home, PaintBrush } from 'carbon-icons-svelte';
 
-    import { Settings, Theater } from 'carbon-icons-svelte';
-
-    import CMake from '$lib/components/icons/misc/CMake.svelte';
+    import Svelte from '$lib/components/icons/misc/Svelte.svelte';
 
     import '../app.css';
 
-    // import logo from '/favicon.png';
+    import logo from '$lib/assets/logo.png';
 
     /*--------------------------------- Props --------------------------------*/
 
     let { children } = $props();
+
+    let app: App;
 
     /*-------------------------------- Methods -------------------------------*/
 
     /*------------------------------- Lifecycle ------------------------------*/
 </script>
 
-<App defaultMode="dark">
+<App defaultMode="dark" bind:this={app}>
     <NavBar.NavBar
         title="@bojit/svelte-components"
+        {logo}
+        logoLink="https://github.com/BOJIT/svelte-components"
         themeOverride="dark"
         items={[
             {
                 type: 'button',
-                icon: CMake
-            },
-            {
-                type: 'button',
-                icon: Theater,
-                visibility: 'mobile'
+                icon: Svelte,
+                link: 'https://svelte.dev/'
             },
             {
                 type: 'separator'
             },
             {
                 type: 'button',
-                icon: Settings,
+                icon: PaintBrush,
                 onclick: () => {
-                    notify({
-                        type: 'info',
-                        title: 'Settings Launched!'
-                    });
+                    app.launchThemeSelector();
                 }
+            },
+            {
+                type: 'button',
+                icon: Home,
+                link: '/'
             }
         ]}
     />

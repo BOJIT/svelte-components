@@ -1,5 +1,4 @@
 <svelte:head>
-
 <title>@bojit/svelte-components</title>
 </svelte:head>
 
@@ -9,7 +8,12 @@
 
 ---
 
-> Note: This framework is not considered stable yet!
+> Note: This framework is not stable! It's largely intended for use in BOJIT sites. Interfaces may not follow strict SemVer.
+
+## Helpful Links for Development
+
+- [Carbon Icon Set](https://carbon-icons-svelte.onrender.com/)
+- [Any SVG Icons](https://icones.js.org/)
 
 ## Contents
 
@@ -28,5 +32,5 @@
 
 #### Archived
 
-- [Misc. Demo (TODO sort)](/nav/tab2)
-- [Smelte Library Demo](/nav/tab3)
+- [Misc. Testing (TODO sort)](/example)
+- [Generic Markdown](/markdown)

@@ -4,6 +4,8 @@
  * @brief Interface that any imported icons must adhere to
  * @date 28/12/2024
  *
+ * @note Built-in icons can be viewed here: https://carbon-icons-svelte.onrender.com/
+ *
  * @copyright Copyright (c) 2024
  *
  */
