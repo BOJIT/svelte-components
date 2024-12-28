@@ -15,7 +15,7 @@
 
     import { Button } from '$lib/components/ui/button';
 
-    import { Table } from 'carbon-icons-svelte';
+    import { Table, AddComment } from 'carbon-icons-svelte';
 
     import IconButton from '$lib/components/ui/iconbutton/IconButton.svelte';
 
@@ -38,19 +38,8 @@
             description: 'example',
             timeout: 2000
         });
-    }}>Test Text</Button
+    }}><AddComment size="16" />Test Text</Button
 >
-
-<br />
-<!-- <IconButton
-    Icon={Table}
-    width="w-8/12"
-    height="h-screen"
-    iconSize={256}
-    onclick={() => {
-        console.log('Hellp!');
-    }}
-/> -->
 
 <br />
 <div class="row">
@@ -69,7 +58,6 @@
     />
     <IconButton
         Icon={Table}
-        scale={55}
         variant="destructive"
         onclick={() => {
             console.log('Hellp!');
