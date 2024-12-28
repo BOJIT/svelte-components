@@ -11,7 +11,7 @@
 import * as Button from './components/ui/button';
 import * as Checkbox from './components/ui/checkbox';
 import * as Command from './components/ui/command';
-// import * as Content from './components/ui/content';
+import * as Content from './components/ui/content';
 import * as Dialog from './components/ui/dialog';
 import * as IconButton from './components/ui/iconbutton';
 import * as Input from './components/ui/input';
@@ -34,6 +34,7 @@ export {
     Button,
     Checkbox,
     Command,
+    Content,
     Dialog,
     IconButton,
     Input,

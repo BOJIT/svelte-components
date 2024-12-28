@@ -13,7 +13,7 @@
 
     import App, { notify } from '$lib/components/App.svelte';
 
-    import { NavBar } from '$lib';
+    import { Content, NavBar } from '$lib';
 
     import { Settings, Theater } from 'carbon-icons-svelte';
 
@@ -21,7 +21,7 @@
 
     import '../app.css';
 
-    import logo from '/favicon.png';
+    // import logo from '/favicon.png';
 
     /*--------------------------------- Props --------------------------------*/
 
@@ -34,9 +34,7 @@
 
 <App defaultMode="dark">
     <NavBar.NavBar
-        title="My App"
-        {logo}
-        logoLink="https://plotty.bojit.org/"
+        title="@bojit/svelte-components"
         themeOverride="dark"
         items={[
             {
@@ -63,5 +61,7 @@
             }
         ]}
     />
-    {@render children()}
+    <Content.Content>
+        {@render children()}
+    </Content.Content>
 </App>

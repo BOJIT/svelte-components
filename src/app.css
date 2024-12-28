@@ -4,6 +4,19 @@
 
 @layer base {
     :root {
+        /* Universal colours referenced in both modes */
+        --foreground-light: #09090b;
+        --background-light: #ffffff;
+        --background-light-accent: #b6bdd6;
+        --foreground-dark: #fafafa;
+        --background-dark: #212121;
+        --background-dark-accent: #181818;
+
+        /* Fonts */
+        --font-headings: 'comfortaa';
+        --font-body: 'montserrat';
+        --font-monospace: 'JetBrains Mono';
+
         --background: 0 0% 100%;
         --foreground: 240 10% 3.9%;
         --muted: 240 4.8% 95.9%;
@@ -32,14 +45,7 @@
         --sidebar-accent-foreground: 240 5.9% 10%;
         --sidebar-border: 220 13% 91%;
         --sidebar-ring: 217.2 91.2% 59.8%;
-
-        /* Universal colours referenced in both modes */
-        --foreground-light: #09090b;
-        --background-light: #ffffff;
-        --background-light-accent: #b6bdd6;
-        --foreground-dark: #fafafa;
-        --background-dark: #212121;
-        --background-dark-accent: #181818;
+        --horizontal-separator: 0 0% 93%;
     }
 
     .dark {
@@ -70,14 +76,31 @@
         --sidebar-accent-foreground: 240 4.8% 95.9%;
         --sidebar-border: 240 3.7% 15.9%;
         --sidebar-ring: 217.2 91.2% 59.8%;
+        --horizontal-separator: 0 0% 27%;
     }
 }
 
 @layer base {
     * {
         @apply border-border;
+        font-family: var(--font-body);
     }
+
     body {
         @apply bg-background text-foreground;
+        font-family: var(--font-body);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--font-headings);
+    }
+
+    code {
+        font-family: var(--font-monospace);
     }
 }

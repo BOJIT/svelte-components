@@ -15,7 +15,7 @@
 
     import { Button } from '$lib/components/ui/button';
 
-    import { Table, AddComment } from 'carbon-icons-svelte';
+    import { Table, AddComment, TrashCan } from 'carbon-icons-svelte';
 
     import IconButton from '$lib/components/ui/iconbutton/IconButton.svelte';
 
@@ -42,6 +42,7 @@
 >
 
 <br />
+<hr />
 <div class="row">
     <IconButton
         Icon={Table}
@@ -51,17 +52,21 @@
         }}
     />
     <IconButton
-        Icon={Table}
+        Icon={AddComment}
         onclick={() => {
             console.log('Hellp!');
         }}
     />
     <IconButton
-        Icon={Table}
+        Icon={TrashCan}
         variant="destructive"
         shape="square"
         onclick={() => {
-            console.log('Hellp!');
+            notify({
+                title: 'Item Deleted',
+                type: 'success',
+                timeout: 5000
+            });
         }}
     />
 </div>
