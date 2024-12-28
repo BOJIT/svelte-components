@@ -19,7 +19,6 @@
         type: 'button' | 'separator' | 'component';
         icon?: Icon;
         shape?: 'square' | 'circle' | 'rounded';
-        color?: string;
         label?: string;
         visibility?: 'mobile' | 'desktop';
         onclick?: () => void;
@@ -29,80 +28,80 @@
 <script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
+    import { mode } from 'mode-watcher';
+
+    import type { Theme } from '$lib/components/App.svelte';
+
+    import Link from '$lib/components/ui/link/Link.svelte';
+    import IconButton from '$lib/components/ui/iconbutton/IconButton.svelte';
+
     /*--------------------------------- Props --------------------------------*/
+
+    // TODO add "sticky" prop!
+
+    interface NavBarProps {
+        title: string;
+        logo?: string;
+        logoLink?: string;
+        items?: NavItem[];
+        themeOverride?: Theme;
+        navLeft?: any;
+        navRight?: any;
+    }
+
+    let {
+        title,
+        logo,
+        logoLink,
+        items = [],
+        themeOverride,
+        navLeft,
+        navRight
+    }: NavBarProps = $props();
+
+    const navTheme: Theme = $derived(themeOverride ?? $mode ?? 'dark');
 
     /*-------------------------------- Methods -------------------------------*/
 
     /*------------------------------- Lifecycle ------------------------------*/
-
-    import type { ThemeMode } from '$lib/theme/theme';
-    import theme from '$lib/theme';
-    import IconButton from '$lib/form/IconButton/IconButton.svelte';
-
-    export let title: string = 'App Title';
-    export let logo: string | null = null;
-    export let logoLink: string | null = null;
-
-    export let items: NavItem[] = [];
-
-    export let themeOverride: ThemeMode = 'auto';
-
-    let local_theme = 'dark';
-    theme.subscribe((t) => {
-        local_theme = themeOverride == 'auto' ? t : themeOverride;
-    });
 </script>
 
 <!-- Navbar -->
-<div
-    class="nav"
-    role="navigation"
-    aria-label="main navigation"
-    class:bg-primary-50={local_theme == 'light'}
-    class:bg-dark-700={local_theme == 'dark'}
->
+<div class={`nav nav-${navTheme}`} role="navigation" aria-label="main navigation">
     <!-- Navbar Left-Hand Side -->
     <div class="nav-left">
-        {#if logo !== null}
-            {#if logoLink !== null}
-                <a href={logoLink} target="_blank" rel="noreferrer">
-                    <img src={logo} alt="logo" style="max-height:3rem" />
-                </a>
-            {:else}
+        {#if logo}
+            <Link href={logoLink}>
                 <img src={logo} alt="logo" style="max-height:3rem" />
-            {/if}
+            </Link>
         {/if}
     </div>
 
     <div class="nav-left">
-        <h1 class:dark={local_theme == 'dark'}>{title}</h1>
-        <slot name="nav-left" />
+        <h1>{title}</h1>
+        {@render navLeft?.()}
     </div>
 
     <!-- Navbar Right-Hand Side -->
     <div class="nav-right">
-        <slot name="nav-right" />
+        {@render navRight?.()}
         {#each items as item}
             <div
                 class:mobile={item.visibility === 'mobile'}
                 class:desktop={item.visibility === 'desktop'}
             >
-                {#if item.type === 'button'}
+                {#if item.type === 'button' && item.icon}
+                    <!-- TODO add popover label! -->
                     <IconButton
-                        color={item.color}
-                        icon={item.icon}
-                        size="1.7rem"
+                        variant="ghost"
+                        Icon={item.icon}
                         shape={item.shape}
-                        label={item.label ? item.label : 'label'}
-                        iconColor={local_theme == 'dark'
-                            ? 'var(--color-white)'
-                            : 'var(--color-dark-500)'}
-                        on:click={item.callback}
+                        onclick={item.onclick}
                     />
                 {/if}
 
                 {#if item.type === 'separator'}
-                    <div class="separator" class:dark={local_theme == 'dark'}>.</div>
+                    <div class="separator">.</div>
                 {/if}
             </div>
         {/each}
@@ -136,17 +135,12 @@
         gap: 0.3rem;
     }
 
-    .nav-left > h1 {
+    h1 {
         font-size: 2rem;
         font-weight: 100;
         vertical-align: middle;
         margin-bottom: 0rem;
         letter-spacing: normal;
-        color: var(--color-dark-500);
-    }
-
-    .nav-left > h1.dark {
-        color: var(--color-gray-300);
     }
 
     .separator {
@@ -155,15 +149,35 @@
         width: 1px;
         line-height: 2.7rem;
         color: transparent;
-        background-color: var(--color-dark-500);
     }
 
-    .separator.dark {
-        background-color: var(--color-gray-300);
+    .nav-light {
+        background-color: var(--background-light-accent);
+
+        h1,
+        :global(svg) {
+            color: var(--foreground-light);
+        }
+
+        .separator {
+            background-color: var(--foreground-light);
+        }
+    }
+
+    .nav-dark {
+        background-color: var(--background-dark-accent);
+
+        h1,
+        :global(svg) {
+            color: var(--foreground-dark);
+        }
+
+        .separator {
+            background-color: var(--foreground-dark);
+        }
     }
 
     /* Breakpoints */
-
     .mobile {
         display: none;
     }
