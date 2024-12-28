@@ -17,6 +17,8 @@
 
     import { Table } from 'carbon-icons-svelte';
 
+    import IconButton from '$lib/components/ui/iconbutton/IconButton.svelte';
+
     /*--------------------------------- Props --------------------------------*/
 
     /*-------------------------------- Methods -------------------------------*/
@@ -39,18 +41,46 @@
     }}>Test Text</Button
 >
 
-<Button
-    variant="destructive"
+<br />
+<!-- <IconButton
+    Icon={Table}
+    width="w-8/12"
+    height="h-screen"
+    iconSize={256}
     onclick={() => {
-        notify({
-            title: 'Some Thing',
-            type: 'error',
-            description: 'this went wrong!'
-        });
+        console.log('Hellp!');
     }}
->
-    <Table size={32} />
-</Button>
+/> -->
+
+<br />
+<div class="row">
+    <IconButton
+        Icon={Table}
+        scale={70}
+        onclick={() => {
+            console.log('Hellp!');
+        }}
+    />
+    <IconButton
+        Icon={Table}
+        onclick={() => {
+            console.log('Hellp!');
+        }}
+    />
+    <IconButton
+        Icon={Table}
+        scale={55}
+        variant="destructive"
+        onclick={() => {
+            console.log('Hellp!');
+        }}
+    />
+</div>
 
 <style>
+    .row {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
 </style>

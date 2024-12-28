@@ -11,16 +11,14 @@
 <script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
-    import type { Component } from 'svelte';
-
     import { setMode, userPrefersMode } from 'mode-watcher';
-    import { Light, Moon, BrightnessContrast, type CarbonIconProps } from 'carbon-icons-svelte';
+    import { Light, Moon, BrightnessContrast } from 'carbon-icons-svelte';
 
     import type { ThemeMode } from '$lib/components/App.svelte';
+    import type { Icon } from '$lib/components/icons/icon';
 
     import * as Dialog from '$lib/components/ui/dialog/index.js';
-
-    import Button from '$lib/components/ui/button/button.svelte';
+    import IconButton from '$lib/components/ui/iconbutton/IconButton.svelte';
 
     /*--------------------------------- Types --------------------------------*/
 
@@ -32,7 +30,7 @@
 
     type ThemeIcon = {
         mode: ThemeMode;
-        icon: Component<CarbonIconProps>;
+        icon: Icon;
     };
 
     /*--------------------------------- Props --------------------------------*/
@@ -89,15 +87,15 @@
     <Dialog.Content showClose={false}>
         <Dialog.Description>
             <div class="option">
-                {#each themes as t, i}
-                    <Button
+                {#each themes as t}
+                    <IconButton
+                        Icon={t.icon}
+                        scale={80}
                         variant={t.mode === $userPrefersMode ? 'default' : 'ghost'}
                         onclick={() => {
                             setMode(t.mode);
                         }}
-                    >
-                        <t.icon size={32} />
-                    </Button>
+                    />
                 {/each}
             </div>
         </Dialog.Description>
