@@ -19,6 +19,7 @@
 
     interface IconButtonProps extends ButtonProps {
         Icon: IconType;
+        shape?: 'rounded' | 'square' | 'circle';
         scale?: number;
         width?: string;
         height?: string;
@@ -28,6 +29,7 @@
 
     let {
         Icon,
+        shape = 'rounded',
         scale,
         width = 'w-12',
         height = 'h-12',
@@ -36,16 +38,22 @@
         ...rest
     }: IconButtonProps = $props();
 
+    const styleProps = $derived(
+        ''.concat(
+            shape === 'rounded'
+                ? ''
+                : shape === 'square'
+                  ? `border-radius: 0px;`
+                  : `border-radius: 50%;`,
+            scale ? `height: ${scale}px; width: ${scale}px` : ''
+        )
+    );
+
     /*-------------------------------- Methods -------------------------------*/
 
     /*------------------------------- Lifecycle ------------------------------*/
 </script>
 
-<Button
-    style={scale ? `height: ${scale}px; width: ${scale}px` : ''}
-    class={`${width} ${height} [&_svg]:size-34`}
-    size="icon"
-    {...rest}
->
+<Button style={styleProps} class={`${width} ${height} [&_svg]:size-34`} size="icon" {...rest}>
     <Icon size={scale ? Math.round(scale * iconPad) : iconSize}></Icon>
 </Button>

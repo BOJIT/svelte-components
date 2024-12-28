@@ -38,14 +38,14 @@
             description: 'example',
             timeout: 2000
         });
-    }}><AddComment size="16" />Test Text</Button
+    }}><AddComment />Test Text</Button
 >
 
 <br />
 <div class="row">
     <IconButton
         Icon={Table}
-        scale={70}
+        shape="circle"
         onclick={() => {
             console.log('Hellp!');
         }}
@@ -59,6 +59,7 @@
     <IconButton
         Icon={Table}
         variant="destructive"
+        shape="square"
         onclick={() => {
             console.log('Hellp!');
         }}
