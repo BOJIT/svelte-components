@@ -17,6 +17,8 @@
 
     import { Table, AddComment, TrashCan } from 'carbon-icons-svelte';
 
+    import Tabs from '$lib/components/ui/tabs/Tabs.svelte';
+
     import IconButton from '$lib/components/ui/iconbutton/IconButton.svelte';
     import Terminal from '$lib/components/widgets/Terminal/Terminal.svelte';
 
@@ -37,6 +39,38 @@
 <h1>Welcome to your library project</h1>
 <p>Create your package using @sveltejs/package and preview/showcase your work with SvelteKit</p>
 <p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+
+<Tabs tabs={['simplified', 'tabs', 'api']} fade>
+    <div class="tab">Tab 1</div>
+    <div class="tab">Tab 2</div>
+    <div class="tab">Tab 3</div>
+</Tabs>
+
+<hr />
+
+<Tabs
+    colourOffset={1}
+    tabs={[
+        {
+            label: 'TEST'
+        },
+        {
+            label: 'this'
+        },
+        {
+            label: 'is an example'
+        },
+        {
+            label: 'tab'
+        }
+    ]}
+>
+    <div class="tab">Tab 1</div>
+    <div class="tab">Tab 2</div>
+    <div class="tab">Tab 3</div>
+</Tabs>
+
+<hr />
 
 <Button
     onclick={() => {

@@ -9,21 +9,42 @@
 -->
 
 <script lang="ts">
-    import type { Component } from 'svelte';
+    /*-------------------------------- Imports -------------------------------*/
 
     /* Custom Scrollbar */
-    import 'simplebar';
-    import 'simplebar/dist/simplebar.css';
 
-    import theme from '$lib/theme';
+    import theme from '$lib/utils/theme';
     import Link from '../link/Link.svelte';
+
+    /*--------------------------------- Props --------------------------------*/
 
     type Tab = {
         label: string;
         link?: string;
-        component?: Component;
-        props?: object;
     };
+
+    interface TabsProps {
+        tabs: string[] | Tab[];
+        ref?: HTMLDivElement | null;
+        children?: any;
+        index?: number;
+        fade?: boolean;
+        urlParam?: string;
+        colourOffset?: number;
+    }
+
+    let {
+        tabs,
+        ref = $bindable(null),
+        children,
+        index = $bindable(0),
+        fade = false,
+        urlParam,
+        colourOffset = 0,
+        ...restProps
+    }: TabsProps = $props();
+
+    /*-------------------------------- Methods -------------------------------*/
 
     /* Callback for tab click event */
     function handleClick(idx: number) {
@@ -31,64 +52,55 @@
 
         // Update tabline
         tabline.removeAttribute('style');
-        tabline.style.cssText = theme.swatchColor(idx);
+        tabline.style.cssText = theme.swatchCSS(idx);
     }
-
-    /* Array of tabs */
-    export let tabs: Tab[] = [];
-
-    /* Keep track of current tab index */
-    export let index = 0;
-
-    export let fade: boolean = false;
 
     let tabline: HTMLElement;
     let tabroot: HTMLElement;
 
-    $: {
-        if (tabroot) {
-            // All tab children
-            let tabSlots = tabroot.querySelectorAll('div.tab');
-            tabSlots.forEach((t) => t.classList.remove('active'));
-            if (tabSlots[index] !== undefined) {
-                setTimeout(() => {
-                    tabSlots[index].classList.add('active');
-                }, 50);
-            }
+    $effect(() => {
+        if (!tabroot) return;
+
+        // All tab children
+        let tabSlots = tabroot.querySelectorAll('div.tab');
+        tabSlots.forEach((t) => t.classList.remove('active'));
+        if (tabSlots[index] !== undefined) {
+            setTimeout(() => {
+                tabSlots[index].classList.add('active');
+            }, 50);
         }
-    }
+    });
 </script>
 
-<div class="container">
-    {#await theme.ready(1000) then value}
-        <div data-simplebar>
-            <ul class="tabs">
-                <!-- Render each tab - updates when the list updates -->
-                {#each tabs as tab, idx}
-                    <Link href={tab.link}>
-                        <button
-                            style={theme.swatchColor(idx)}
-                            class="tab transition"
-                            class:is-active={idx == index}
-                            on:click={() => handleClick(idx)}
-                            on:keypress={() => handleClick(idx)}
-                        >
-                            <h6 class="unselectable">{tab.label}</h6>
-                        </button>
-                    </Link>
-                {/each}
-            </ul>
-            <hr bind:this={tabline} class="tabline transition" style={theme.swatchColor(index)} />
-        </div>
-    {/await}
+<div class="root-el" bind:this={ref}>
+    <div>
+        <ul class="tabs">
+            <!-- Render each tab - updates when the list updates -->
+            {#each tabs as tab, idx}
+                <Link href={typeof tab == 'string' ? undefined : tab.link}>
+                    <button
+                        style={theme.swatchCSS(idx + colourOffset)}
+                        class="tab"
+                        class:is-active={idx == index}
+                        onclick={() => handleClick(idx)}
+                        onkeypress={() => handleClick(idx)}
+                        {...restProps}
+                    >
+                        <h6 class="unselectable">{typeof tab == 'string' ? tab : tab.label}</h6>
+                    </button>
+                </Link>
+            {/each}
+        </ul>
+        <hr bind:this={tabline} class="tabline" style={theme.swatchCSS(index + colourOffset)} />
+    </div>
 
     <div class="tabroot" class:fade bind:this={tabroot}>
-        <slot />
+        {@render children?.()}
     </div>
 </div>
 
 <style>
-    .container {
+    .root-el {
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -110,39 +122,24 @@
     .tab {
         padding: 0.2rem 0.6rem;
         border-radius: 0.5rem;
-        background-color: var(--color-gray-400);
+        background-color: hsl(var(--accent-highlight));
         list-style-type: none;
-    }
-
-    :global(.mode-dark) .tab {
-        background-color: var(--color-gray-700);
+        transition: background-color 0.3s;
     }
 
     .tab:hover {
-        background-color: var(--color-gray-500);
-    }
-
-    :global(.mode-dark) .tab:hover {
-        background-color: var(--color-gray-600);
+        background-color: hsl(var(--accent));
     }
 
     .tab.is-active {
-        background-color: var(--color-swatch-base-light);
-        color: var(--color-swatch-text-light);
-    }
-
-    :global(.mode-dark) .tab.tab.is-active {
-        background-color: var(--color-swatch-base-dark);
-        color: var(--color-swatch-text-dark);
+        background-color: var(--swatch-base);
+        color: var(--swatch-text);
     }
 
     .tabline {
-        border-color: var(--color-swatch-base-light);
+        border-color: var(--swatch-base);
         margin: 0.2rem 0rem;
-    }
-
-    :global(.mode-dark) .tabline {
-        border-color: var(--color-swatch-base-dark);
+        transition: border-color 0.5s;
     }
 
     h6 {
@@ -176,7 +173,6 @@
         grid-row: 1;
         top: 0;
         width: 100%;
-        /* visibility: hidden; */
         opacity: 0;
         pointer-events: none;
     }
@@ -186,7 +182,6 @@
     }
 
     .tabroot > :global(div.tab.active) {
-        /* visibility: visible; */
         opacity: 100;
         pointer-events: auto;
     }
