@@ -11,25 +11,27 @@
 <script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
+    import { onMount } from 'svelte';
+
     import theme from '$lib/utils/theme';
     import { Link } from '$lib/components/ui/link';
-    // import { ScrollArea } from '$lib/components/ui/scroll-area';
-    // import { ScrollShadow } from '$lib/components/ui/scroll-shadow';
+    import { goto } from '$app/navigation';
 
     /*--------------------------------- Props --------------------------------*/
 
     type Tab = {
         label: string;
-        link?: string;
+        link?: string; // Link must be relative to the tab component
     };
 
     interface TabsProps {
         tabs: string[] | Tab[];
         ref?: HTMLDivElement | null;
         children?: any;
-        index?: number;
+        currentPath?: string | null; // path from page.route.id
+        basePath?: string; // Base of Tab-based Routing
+        index?: number; // Manually set tab index (not in path mode)
         fade?: boolean;
-        urlParam?: string;
         colourOffset?: number;
     }
 
@@ -37,9 +39,10 @@
         tabs,
         ref = $bindable(null),
         children,
-        index = $bindable(0),
+        currentPath,
+        basePath = '',
+        index = $bindable(currentPath ? -1 : 0),
         fade = false,
-        urlParam,
         colourOffset = 0,
         ...restProps
     }: TabsProps = $props();
@@ -58,6 +61,21 @@
     let tabLine: HTMLElement;
     let tabRoot: HTMLElement;
     let tabParent: HTMLElement;
+
+    onMount(() => {
+        if (!currentPath || tabs.length == 0) return;
+
+        if (basePath.replace(/\/$/, '') === currentPath.replace(/\/$/, ''))
+            goto(`${basePath}${tabs[0].link}`); // Redirect fall-through
+
+        index = tabs.findIndex((t) => currentPath.startsWith(`${basePath}${t.link}`));
+    });
+
+    $effect(() => {
+        if (!currentPath || tabs.length == 0) return;
+
+        index = tabs.findIndex((t) => currentPath.startsWith(`${basePath}${t.link}`));
+    });
 
     $effect(() => {
         if (!tabRoot) return;
@@ -92,7 +110,13 @@
         <ul class="tabs" bind:this={tabParent}>
             <!-- Render each tab - updates when the list updates -->
             {#each tabs as tab, idx}
-                <Link href={typeof tab == 'string' ? undefined : tab.link}>
+                <Link
+                    href={typeof tab == 'string'
+                        ? undefined
+                        : tab.link
+                          ? `${basePath}${tab.link}`
+                          : undefined}
+                >
                     <button
                         style={theme.swatchCSS(idx + colourOffset)}
                         class="tab"

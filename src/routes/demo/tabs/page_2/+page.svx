@@ -1,0 +1,9 @@
+<svelte:head>
+<title>Page 2</title>
+</svelte:head>
+
+# I am Page 2
+
+Here is some Markdown
+
+> Blockquote

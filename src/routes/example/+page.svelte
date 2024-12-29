@@ -62,9 +62,6 @@
         },
         {
             label: 'is an example'
-        },
-        {
-            label: 'tab'
         }
     ]}
 >
