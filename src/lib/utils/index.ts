@@ -9,5 +9,6 @@
  */
 
 import file from './file';
+import theme from './theme';
 
-export { file };
+export { file, theme };
