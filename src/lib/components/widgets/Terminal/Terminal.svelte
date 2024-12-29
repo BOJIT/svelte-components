@@ -26,11 +26,22 @@
     interface TerminalProps {
         rows?: number;
         class?: string;
+        onread?: (data: string) => void;
+        loopback?: boolean;
+        autoCLRF?: boolean; // NOTE: this is not reactive
     }
+
+    // TODO add auto-row height detection
 
     /*--------------------------------- Props --------------------------------*/
 
-    let { rows = 15, class: classString = '' }: TerminalProps = $props();
+    let {
+        rows = 15,
+        class: classString = '',
+        onread = (d) => {},
+        loopback = false,
+        autoCLRF = true
+    }: TerminalProps = $props();
 
     let container: HTMLElement;
     let terminal: Terminal;
@@ -55,12 +66,22 @@
         }
     }
 
+    function read(data: string) {
+        if (autoCLRF) data = data.split('\r', -1).join('\r\n'); // Chunked data
+        if (autoCLRF && data === '\r') data = '\r\n'; // single character
+        onread(data);
+
+        if (loopback) {
+            if (data === String.fromCharCode(127)) data = '\b \b'; // Patch to let backspace work
+            console.log(data);
+            terminal?.write(data);
+        }
+    }
+
     export function write(data: string, escape?: number) {
         if (escape) terminal?.write(`\x1b[${escape}m${data}\x1b[0m`);
         else terminal?.write(data);
     }
-
-    // TODO add read?
 
     /*--------------------------- Lifecycle Hooks ----------------------------*/
 
@@ -76,7 +97,7 @@
                 background: '#00000000'
             },
             allowTransparency: true,
-            convertEol: true,
+            convertEol: autoCLRF,
             cursorBlink: true,
             scrollback: 5000,
             fontFamily: 'JetBrains Mono',
@@ -93,6 +114,7 @@
         terminal.loadAddon(fitAddon);
         terminal.loadAddon(webglAddon);
         terminal.open(container);
+        terminal.onData(read);
         fitAddon.fit();
         if ($mode) setTheme($mode);
 

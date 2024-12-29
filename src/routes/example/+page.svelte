@@ -53,8 +53,14 @@
 <br />
 
 <div class="row">
-    <Terminal class="!h-40 !w-1/2" bind:this={term1} />
-    <Terminal class="!h-40 !w-1/2" bind:this={term2} />
+    <Terminal
+        class="!h-40 !w-1/2"
+        bind:this={term1}
+        onread={(d: string) => {
+            console.log(d);
+        }}
+    />
+    <Terminal class="!h-40 !w-1/2" bind:this={term2} loopback />
 </div>
 
 <br />
