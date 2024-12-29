@@ -51,18 +51,19 @@
         index = idx;
 
         // Update tabline
-        tabline.removeAttribute('style');
-        tabline.style.cssText = theme.swatchCSS(idx);
+        tabLine.removeAttribute('style');
+        tabLine.style.cssText = theme.swatchCSS(idx);
     }
 
-    let tabline: HTMLElement;
-    let tabroot: HTMLElement;
+    let tabLine: HTMLElement;
+    let tabRoot: HTMLElement;
+    let tabParent: HTMLElement;
 
     $effect(() => {
-        if (!tabroot) return;
+        if (!tabRoot) return;
 
         // All tab children
-        let tabSlots = tabroot.querySelectorAll('div.tab');
+        let tabSlots = tabRoot.querySelectorAll('div.tab');
         tabSlots.forEach((t) => t.classList.remove('active'));
         if (tabSlots[index] !== undefined) {
             setTimeout(() => {
@@ -72,9 +73,23 @@
     });
 </script>
 
+<svelte:window
+    on:keydown={(event: KeyboardEvent) => {
+        if (!tabParent || !tabParent.contains(document.activeElement)) return;
+
+        if ((!event.shiftKey && event.key === 'Tab') || event.key === 'ArrowRight') {
+            index = index === tabs.length - 1 ? 0 : index + 1;
+        } else if ((event.shiftKey && event.key === 'Tab') || event.key === 'ArrowLeft') {
+            index = index === 0 ? tabs.length - 1 : index - 1;
+        } else return;
+
+        event.preventDefault();
+    }}
+/>
+
 <div class="root-el" bind:this={ref}>
     <div>
-        <ul class="tabs">
+        <ul class="tabs" bind:this={tabParent}>
             <!-- Render each tab - updates when the list updates -->
             {#each tabs as tab, idx}
                 <Link href={typeof tab == 'string' ? undefined : tab.link}>
@@ -91,10 +106,10 @@
                 </Link>
             {/each}
         </ul>
-        <hr bind:this={tabline} class="tabline" style={theme.swatchCSS(index + colourOffset)} />
+        <hr bind:this={tabLine} class="tabline" style={theme.swatchCSS(index + colourOffset)} />
     </div>
 
-    <div class="tabroot" class:fade bind:this={tabroot}>
+    <div class="tabroot" class:fade bind:this={tabRoot}>
         {@render children?.()}
     </div>
 </div>
@@ -119,7 +134,7 @@
         display: none;
     }
 
-    .tab {
+    button {
         padding: 0.2rem 0.6rem;
         border-radius: 0.5rem;
         background-color: hsl(var(--accent-highlight));
@@ -127,11 +142,15 @@
         transition: background-color 0.3s;
     }
 
-    .tab:hover {
+    button:hover {
         background-color: hsl(var(--accent));
     }
 
-    .tab.is-active {
+    button:focus {
+        outline: none;
+    }
+
+    button.is-active {
         background-color: var(--swatch-base);
         color: var(--swatch-text);
     }
