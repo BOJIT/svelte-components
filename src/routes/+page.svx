@@ -20,18 +20,17 @@ It is based on [shadcn-svelte](https://shadcn-svelte.com/) with some opinionated
 
 #### Widgets
 
-- [Addable List Demo](/demo/addable-list)
+<!-- - [Addable List Demo](/demo/addable-list)
 - [CAD Demo](/demo/cad)
 - [Code Editor Demo](/demo/code-editor)
 - [Container Demo](/demo/container)
-- [Gallery Demo](/demo/gallery)
+- [Gallery Demo](/demo/gallery) -->
 - [Markdown Demo](/demo/markdown)
-- [Plotter Demo](/demo/plotter)
-- [Searchable List Demo](/demo/searchable-list)
 - [Tabs Demo](/demo/tabs)
-- [Terminal Demo](/demo/terminal)
+<!-- - [Plotter Demo](/demo/plotter)
+- [Searchable List Demo](/demo/searchable-list) -->
+<!-- - [Terminal Demo](/demo/terminal) -->
 
 #### Archived
 
 - [Misc. Testing (TODO sort)](/example)
-- [Generic Markdown](/markdown)
