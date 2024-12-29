@@ -11,10 +11,10 @@
 <script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
-    /* Custom Scrollbar */
-
     import theme from '$lib/utils/theme';
-    import Link from '../link/Link.svelte';
+    import { Link } from '$lib/components/ui/link';
+    // import { ScrollArea } from '$lib/components/ui/scroll-area';
+    // import { ScrollShadow } from '$lib/components/ui/scroll-shadow';
 
     /*--------------------------------- Props --------------------------------*/
 

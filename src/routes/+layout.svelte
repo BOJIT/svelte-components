@@ -42,14 +42,17 @@
             {
                 type: 'button',
                 icon: Svelte,
-                link: 'https://svelte.dev/'
+                link: 'https://svelte.dev/',
+                visibility: 'desktop'
             },
             {
-                type: 'separator'
+                type: 'separator',
+                visibility: 'desktop'
             },
             {
                 type: 'button',
                 icon: PaintBrush,
+                visibility: 'desktop',
                 onclick: () => {
                     app.launchThemeSelector();
                 }
