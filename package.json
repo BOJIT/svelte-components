@@ -35,8 +35,13 @@
     },
     "dependencies": {
         "@fontsource/comfortaa": "^5.1.0",
+        "@fontsource/gloria-hallelujah": "^5.1.1",
+        "@fontsource/handlee": "^5.1.1",
+        "@fontsource/indie-flower": "^5.1.1",
         "@fontsource/jetbrains-mono": "^5.1.1",
         "@fontsource/montserrat": "^5.1.0",
+        "@fontsource/nunito": "^5.1.1",
+        "@fontsource/syne-mono": "^5.1.1",
         "@xterm/addon-fit": "^0.10.0",
         "@xterm/addon-webgl": "^0.18.0",
         "@xterm/xterm": "^5.5.0",

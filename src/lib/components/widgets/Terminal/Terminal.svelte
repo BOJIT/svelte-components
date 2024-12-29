@@ -73,7 +73,6 @@
 
         if (loopback) {
             if (data === String.fromCharCode(127)) data = '\b \b'; // Patch to let backspace work
-            console.log(data);
             terminal?.write(data);
         }
     }

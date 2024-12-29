@@ -12,7 +12,7 @@
     /*-------------------------------- Imports -------------------------------*/
 
     import { setMode, userPrefersMode } from 'mode-watcher';
-    import { Light, Moon, BrightnessContrast } from 'carbon-icons-svelte';
+    import { Contrast, Light, Moon } from 'carbon-icons-svelte';
 
     import type { ThemeMode } from '$lib/components/App.svelte';
     import type { Icon } from '$lib/components/icons/icon';
@@ -48,7 +48,7 @@
         },
         {
             mode: 'system',
-            icon: BrightnessContrast
+            icon: Contrast
         }
     ];
 

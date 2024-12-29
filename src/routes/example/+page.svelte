@@ -75,6 +75,7 @@
     />
     <IconButton
         Icon={AddComment}
+        variant="secondary"
         onclick={() => {
             term2.write(`Example Message: ${Date.now()}\n`);
         }}
