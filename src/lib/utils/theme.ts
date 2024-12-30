@@ -12,7 +12,9 @@
 
 /*----------------------------------- Type -----------------------------------*/
 
-type RGB = [number, number, number];
+export type Theme = 'light' | 'dark';
+export type ThemeMode = 'light' | 'dark' | 'system';
+export type RGB = [number, number, number];
 
 /*----------------------------------- State ----------------------------------*/
 
@@ -56,4 +58,4 @@ function hexToRgb(
 
 /*---------------------------------- Exports ---------------------------------*/
 
-export default { swatchCSS, swatchJS, hexToRgb };
+export { swatchCSS, swatchJS, hexToRgb };

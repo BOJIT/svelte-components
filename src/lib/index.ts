@@ -9,6 +9,7 @@
  */
 
 // Utils
+import type * as Utils from './utils';
 import * as utils from './utils';
 
 // UI Components
@@ -34,6 +35,8 @@ import * as Tabs from './components/ui/tabs';
 
 // Root
 import App from './components/App.svelte';
+
+export type { Utils };
 
 export {
     // Utils

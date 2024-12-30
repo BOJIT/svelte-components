@@ -95,10 +95,4 @@ function upload(callback: (files: File[]) => void, ext: string, multiple?: boole
 
 /*-------------------------------- Exports -----------------------------------*/
 
-export default {
-    upload,
-    download,
-    read,
-    validName,
-    incrementName
-};
+export { upload, download, read, validName, incrementName };

@@ -31,7 +31,7 @@
 
     import { mode } from 'mode-watcher';
 
-    import type { Theme } from '$lib/components/App.svelte';
+    import type { Theme } from '$lib/utils/theme';
 
     import Link from '$lib/components/ui/link/Link.svelte';
     import IconButton from '$lib/components/ui/iconbutton/IconButton.svelte';

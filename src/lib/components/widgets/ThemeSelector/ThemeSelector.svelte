@@ -12,9 +12,12 @@
     /*-------------------------------- Imports -------------------------------*/
 
     import { setMode, userPrefersMode } from 'mode-watcher';
-    import { Contrast, Light, Moon } from 'carbon-icons-svelte';
 
-    import type { ThemeMode } from '$lib/components/App.svelte';
+    import Contrast from 'carbon-icons-svelte/lib/Contrast.svelte';
+    import Light from 'carbon-icons-svelte/lib/Light.svelte';
+    import Moon from 'carbon-icons-svelte/lib/Moon.svelte';
+
+    import type { ThemeMode } from '$lib/utils/theme';
     import type { Icon } from '$lib/components/icons';
 
     import * as Dialog from '$lib/components/ui/dialog/index.js';

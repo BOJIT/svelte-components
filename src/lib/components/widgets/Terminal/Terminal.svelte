@@ -14,7 +14,7 @@
     import { onDestroy, onMount } from 'svelte';
 
     import { mode } from 'mode-watcher';
-    import type { Theme } from '$lib/components/App.svelte';
+    import type { Theme } from '$lib/utils/theme';
 
     /* XTermJS */
     import type { Terminal } from '@xterm/xterm';

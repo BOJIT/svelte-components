@@ -13,7 +13,9 @@
 
     import { App, Content, NavBar } from '$lib';
 
-    import { Home, PaintBrush, LogoGithub } from 'carbon-icons-svelte';
+    import Home from 'carbon-icons-svelte/lib/Carbon.svelte';
+    import PaintBrush from 'carbon-icons-svelte/lib/PaintBrush.svelte';
+    import LogoGithub from 'carbon-icons-svelte/lib/LogoGithub.svelte';
 
     import { Svelte } from '$lib/components/icons';
 

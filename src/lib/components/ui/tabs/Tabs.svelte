@@ -13,7 +13,7 @@
 
     import { onMount } from 'svelte';
 
-    import theme from '$lib/utils/theme';
+    import { swatchCSS } from '$lib/utils/theme';
     import { Link } from '$lib/components/ui/link';
     import { goto } from '$app/navigation';
 
@@ -55,7 +55,7 @@
 
         // Update tabline
         tabLine.removeAttribute('style');
-        tabLine.style.cssText = theme.swatchCSS(idx);
+        tabLine.style.cssText = swatchCSS(idx);
     }
 
     let tabLine: HTMLElement;
@@ -118,7 +118,7 @@
                           : undefined}
                 >
                     <button
-                        style={theme.swatchCSS(idx + colourOffset)}
+                        style={swatchCSS(idx + colourOffset)}
                         class="tab"
                         class:is-active={idx == index}
                         onclick={() => handleClick(idx)}
@@ -130,7 +130,7 @@
                 </Link>
             {/each}
         </ul>
-        <hr bind:this={tabLine} class="tabline" style={theme.swatchCSS(index + colourOffset)} />
+        <hr bind:this={tabLine} class="tabline" style={swatchCSS(index + colourOffset)} />
     </div>
 
     <div class="tabroot" class:fade bind:this={tabRoot}>

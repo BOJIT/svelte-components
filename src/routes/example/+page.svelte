@@ -11,11 +11,13 @@
 <script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
-    import { notify } from '$lib/components/App.svelte';
+    import { notify } from '$lib/utils';
 
     import { Button } from '$lib/components/ui/button';
 
-    import { Table, AddComment, TrashCan } from 'carbon-icons-svelte';
+    import Table from 'carbon-icons-svelte/lib/Table.svelte';
+    import AddComment from 'carbon-icons-svelte/lib/AddComment.svelte';
+    import TrashCan from 'carbon-icons-svelte/lib/TrashCan.svelte';
 
     import Tabs from '$lib/components/ui/tabs/Tabs.svelte';
 
@@ -74,7 +76,7 @@
 
 <Button
     onclick={() => {
-        notify({
+        notify.notify({
             title: 'Some Error',
             type: 'warning',
             description: 'example',
@@ -119,7 +121,7 @@
         variant="destructive"
         shape="square"
         onclick={() => {
-            notify({
+            notify.notify({
                 title: 'Item Deleted',
                 type: 'success',
                 timeout: 5000
