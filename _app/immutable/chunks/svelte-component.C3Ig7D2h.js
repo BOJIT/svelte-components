@@ -1,0 +1,1 @@
+import{q as c,E as s,v as i,w as r,x as h,y as p,z as d}from"./runtime.B_ekEDTW.js";function u(t,f,o){r&&h();var n=t,a,e;c(()=>{a!==(a=f())&&(e&&(p(e),e=null),a&&(e=i(()=>o(n,a))))},s),r&&(n=d)}export{u as c};
