@@ -15,7 +15,7 @@
 
     import { Home, PaintBrush, LogoGithub } from 'carbon-icons-svelte';
 
-    import Svelte from '$lib/components/icons/misc/Svelte.svelte';
+    import { Svelte } from '$lib/components/icons';
 
     import '../app.css';
 

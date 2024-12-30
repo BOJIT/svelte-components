@@ -15,7 +15,7 @@
     import { Contrast, Light, Moon } from 'carbon-icons-svelte';
 
     import type { ThemeMode } from '$lib/components/App.svelte';
-    import type { Icon } from '$lib/components/icons/icon';
+    import type { Icon } from '$lib/components/icons';
 
     import * as Dialog from '$lib/components/ui/dialog/index.js';
     import IconButton from '$lib/components/ui/iconbutton/IconButton.svelte';

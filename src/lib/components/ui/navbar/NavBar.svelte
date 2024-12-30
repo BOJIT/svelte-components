@@ -11,7 +11,7 @@
 <script module lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
-    import type { Icon } from '$lib/components/icons/icon';
+    import type { Icon } from '$lib/components/icons';
 
     /*--------------------------------- Types --------------------------------*/
 

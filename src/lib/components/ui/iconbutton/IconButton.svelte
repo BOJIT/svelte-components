@@ -11,7 +11,7 @@
 <script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
-    import type { Icon as IconType } from '$lib/components/icons/icon';
+    import type { Icon as IconType } from '$lib/components/icons';
 
     import { Button, type ButtonProps } from '$lib/components/ui/button';
 
