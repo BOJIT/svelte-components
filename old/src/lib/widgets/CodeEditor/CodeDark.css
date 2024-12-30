@@ -1,0 +1,117 @@
+/**
+ * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/chriskempson/tomorrow-theme
+ * @author Rose Pritchard
+ */
+
+.mode-dark code[class*='language-'],
+.mode-dark pre[class*='language-'] {
+    color: #ccc;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 1em;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+}
+
+/* Code blocks */
+.mode-dark pre[class*='language-'] {
+    padding: 1em;
+    overflow: auto;
+}
+
+article > pre[class*='language-'] {
+    margin: 0.5em 0;
+}
+
+.mode-dark :not(pre) > code[class*='language-'],
+.mode-dark pre[class*='language-'] {
+    background: #2d2d2d;
+}
+
+.mode-dark .token.comment,
+.mode-dark .token.block-comment,
+.mode-dark .token.prolog,
+.mode-dark .token.doctype,
+.mode-dark .token.cdata {
+    color: #999;
+}
+
+.mode-dark .token.punctuation {
+    color: #ccc;
+}
+
+.mode-dark .token.tag,
+.mode-dark .token.attr-name,
+.mode-dark .token.namespace,
+.mode-dark .token.deleted {
+    color: #e2777a;
+}
+
+.mode-dark .token.function-name {
+    color: #6196cc;
+}
+
+.mode-dark .token.boolean,
+.mode-dark .token.number,
+.mode-dark .token.function {
+    color: #f08d49;
+}
+
+.mode-dark .token.property,
+.mode-dark .token.class-name,
+.mode-dark .token.constant,
+.mode-dark .token.symbol {
+    color: #f8c555;
+}
+
+.mode-dark .token.selector,
+.mode-dark .token.important,
+.mode-dark .token.atrule,
+.mode-dark .token.keyword,
+.mode-dark .token.builtin {
+    color: #cc99cd;
+}
+
+.mode-dark .token.string,
+.mode-dark .token.char,
+.mode-dark .token.attr-value,
+.mode-dark .token.regex,
+.mode-dark .token.variable {
+    color: #7ec699;
+}
+
+.mode-dark .token.operator,
+.mode-dark .token.entity,
+.mode-dark .token.url {
+    color: #67cdcc;
+}
+
+.mode-dark .token.important,
+.mode-dark .token.bold {
+    font-weight: bold;
+}
+.mode-dark .token.italic {
+    font-style: italic;
+}
+
+.mode-dark .token.entity {
+    cursor: help;
+}
+
+.mode-dark .token.inserted {
+    color: green;
+}

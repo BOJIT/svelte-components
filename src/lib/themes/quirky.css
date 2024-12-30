@@ -1,0 +1,32 @@
+@import './base.css';
+
+@import '@fontsource/gloria-hallelujah';
+@import '@fontsource/nunito';
+@import '@fontsource/syne-mono';
+
+@layer base {
+    :root {
+        /* Fonts */
+        --font-headings: 'Gloria Hallelujah';
+        --font-body: 'Nunito';
+        --font-monospace: 'Syne Mono';
+
+        /* Colours */
+        --primary: 151 19% 27%;
+        --primary-foreground: 0 0% 98%;
+        --secondary: 294 17% 34%;
+        --secondary-foreground: 0 0% 98%;
+        --accent: 240 4.8% 95.9%;
+        --accent-foreground: 240 5.9% 10%;
+    }
+
+    .dark {
+        /* Colours */
+        --primary: 157 18% 60%;
+        --primary-foreground: 240 5.9% 10%;
+        --secondary: 291 16% 51%;
+        --secondary-foreground: 0 0% 98%;
+        --accent: 240 3.7% 15.9%;
+        --accent-foreground: 0 0% 98%;
+    }
+}

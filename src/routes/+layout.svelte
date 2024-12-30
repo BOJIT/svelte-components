@@ -1,64 +1,77 @@
+<!--
+ * @file +layout.svelte
+ * @author James Bennion-Pedley
+ * @brief Example top-level layout
+ * @date 27/12/2024
+ *
+ * @copyright Copyright (c) 2024
+ *
+-->
+
 <script lang="ts">
-    import { goto } from "$app/navigation";
+    /*-------------------------------- Imports -------------------------------*/
 
-    import { App } from "$lib/core";
-    import { Content, Main, NavBar } from "$lib/layout";
-    import type { NavItem } from "$lib/layout/NavBar/NavBar.svelte";
-    import { mode, palette } from "$lib/theme";
+    import { App, Content, NavBar } from '$lib';
+    import { Svelte } from '$lib/components/icons';
 
-    import logo from "$lib/test/logo.png";
+    import Home from 'carbon-icons-svelte/lib/Home.svelte';
+    import PaintBrush from 'carbon-icons-svelte/lib/PaintBrush.svelte';
+    import LogoGithub from 'carbon-icons-svelte/lib/LogoGithub.svelte';
 
-    // Local storage
-    import storage from "$lib/test/storage";
+    import logo from '$lib/assets/logo.png';
 
-    // Icons
-    import Contrast from "@svicons/ionicons-outline/contrast.svelte";
-    import Home from "@svicons/ionicons-outline/home.svelte";
+    import '../app.css';
 
-    function toggleTheme() {
-        if($mode == 'light')
-            $mode = 'dark';
-        else
-            $mode = 'light';
-    }
+    /*--------------------------------- Props --------------------------------*/
 
-    let items: NavItem[] = [
-        {
-            type: "button",
-            color: "transparent",
-            icon: Contrast,
-            label: "Change Theme",
-            callback: toggleTheme
-        },
-        {
-            type: "button",
-            color: "transparent",
-            icon: Home,
-            label: "Home",
-            callback: () => {
-                goto('/');
-            }
-        },
-    ];
+    let { children } = $props();
 
-    async function load(resolve, reject) {
-        await storage.init();
-        resolve();
-    }
+    let app: App;
+
+    /*-------------------------------- Methods -------------------------------*/
+
+    /*------------------------------- Lifecycle ------------------------------*/
 </script>
 
-<App theme={palette.midnight} load={load}>
-    <NavBar
+<App defaultMode="dark" bind:this={app}>
+    <NavBar.NavBar
         title="@bojit/svelte-components"
-        logo={logo}
-        logoLink="https://github.com/BOJIT"
-        items={items}
+        {logo}
+        logoLink="https://github.com/BOJIT/svelte-components"
         themeOverride="dark"
+        items={[
+            {
+                type: 'button',
+                icon: Svelte,
+                link: 'https://svelte.dev/',
+                visibility: 'desktop'
+            },
+            {
+                type: 'button',
+                icon: LogoGithub,
+                link: 'https://github.com/BOJIT/svelte-components',
+                visibility: 'desktop'
+            },
+            {
+                type: 'separator',
+                visibility: 'desktop'
+            },
+            {
+                type: 'button',
+                icon: PaintBrush,
+                visibility: 'desktop',
+                onclick: () => {
+                    app.launchThemeSelector();
+                }
+            },
+            {
+                type: 'button',
+                icon: Home,
+                link: '/'
+            }
+        ]}
     />
-
-    <Main>
-        <Content>
-            <slot />
-        </Content>
-    </Main>
+    <Content.Content>
+        {@render children()}
+    </Content.Content>
 </App>
