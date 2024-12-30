@@ -67,19 +67,6 @@
 
 <hr />
 
-<UI.Button
-    onclick={() => {
-        utils.notify.notify({
-            title: 'Some Error',
-            type: 'warning',
-            description: 'example',
-            timeout: 2000
-        });
-    }}
->
-    <AddComment />Test Text
-</UI.Button>
-
 <br />
 <br />
 
@@ -97,13 +84,20 @@
 <br />
 <hr />
 <div class="row">
-    <UI.IconButton
-        Icon={Table}
-        shape="circle"
+    <UI.Button
+        class="h-12"
         onclick={() => {
-            term1.write(`Example Message: ${Date.now()}\n`, 33);
+            utils.notify.notify({
+                title: 'Some Error',
+                type: 'warning',
+                description: 'example',
+                timeout: 2000
+            });
         }}
-    />
+    >
+        <AddComment />Test Text
+    </UI.Button>
+
     <UI.IconButton
         Icon={AddComment}
         variant="secondary"
@@ -112,9 +106,15 @@
         }}
     />
     <UI.IconButton
+        Icon={Table}
+        onclick={() => {
+            term1.write(`Example Message: ${Date.now()}\n`, 33);
+        }}
+    />
+    <UI.IconButton
         Icon={TrashCan}
         variant="destructive"
-        shape="square"
+        shape="circle"
         onclick={() => {
             utils.notify.notify({
                 title: 'Item Deleted',
@@ -128,6 +128,7 @@
 <form>
     <UI.Input placeholder="Example 1">Enter Text Here</UI.Input>
     <UI.Input placeholder="Example 2">Enter Text Here</UI.Input>
+    <UI.Textarea placeholder="Some Text"></UI.Textarea>
 </form>
 
 <div class="row">
@@ -137,7 +138,7 @@
 <style>
     .row {
         display: flex;
-        gap: 1rem;
+        gap: 0.5rem;
         align-items: center;
         justify-content: center;
     }

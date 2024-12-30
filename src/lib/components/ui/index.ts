@@ -14,6 +14,7 @@ import * as BUTTON from './button';
 import { Button } from './button'; // Convenience: Most commonly used export
 import { Checkbox } from './checkbox';
 import * as COMMAND from './command';
+import { Container } from './container';
 import { Content } from './content';
 import * as DIALOG from './dialog';
 import { IconButton } from './iconbutton';
@@ -32,6 +33,7 @@ import { Slider } from './slider';
 import { Toaster } from './sonner';
 import { Switch } from './switch';
 import { Tabs } from './tabs';
+import { Textarea } from './textarea';
 
 /*---------------------------------- Exports ---------------------------------*/
 
@@ -40,6 +42,7 @@ export {
     Button,
     Checkbox,
     COMMAND,
+    Container,
     Content,
     DIALOG,
     IconButton,
@@ -57,5 +60,6 @@ export {
     Slider,
     Toaster,
     Switch,
-    Tabs
+    Tabs,
+    Textarea
 };

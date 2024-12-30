@@ -20,7 +20,7 @@
     import type { ThemeMode } from '$lib/utils/theme';
     import type { Icon } from '$lib/components/icons';
 
-    import * as Dialog from '$lib/components/ui/dialog/index.js';
+    import * as Dialog from '$lib/components/ui/dialog/index';
     import IconButton from '$lib/components/ui/iconbutton/IconButton.svelte';
 
     /*--------------------------------- Types --------------------------------*/
