@@ -1,9 +1,38 @@
+<script lang="ts">
+    import { Tabs } from '$lib';
+</script>
+
 <svelte:head>
-<title>Page 2</title>
+<title>Demo - Tabs: Page 2</title>
 </svelte:head>
 
-# I am Page 2
+# Tabs - Single Page
 
-Here is some Markdown
+Tabs can be used to display/hide child divs too: See the example code below:
 
-> Blockquote
+```svelte
+<Tabs.Tabs
+    tabs={['Tab 1', 'Tab 2', 'Tab 3']}
+    fade
+>
+    <div class="tab">Tab 1</div>
+    <div class="tab">Tab 2</div>
+    <div class="tab">Tab 3</div>
+</Tabs.Tabs>
+```
+
+<br/>
+
+> By default, the content is _hidden_, not removed from the DOM.
+  This means that the area occupied does not shrink for smaller tabs.
+
+---
+
+<Tabs.Tabs
+    tabs={['Tab 1', 'Tab 2', 'Tab 3']}
+    fade
+>
+    <div class="tab">Tab 1</div>
+    <div class="tab">Tab 2</div>
+    <div class="tab">Tab 3</div>
+</Tabs.Tabs>

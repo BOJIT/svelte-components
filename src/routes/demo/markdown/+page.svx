@@ -19,7 +19,7 @@
 
 This is a basic demo of using `Svelte` components in markdown. Links look like [this](https://github.com):
 
-## Standard Markdown stuff
+## Standard Markdown Stuff
 
 This is an image.
 

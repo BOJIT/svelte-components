@@ -4,15 +4,16 @@
 
 # Introduction
 
+---
+
 `@bojit/svelte-components` is a monorepo containing various widgets/UI elements used in BOJIT sites.
 It is based on [shadcn-svelte](https://shadcn-svelte.com/) with some opinionated styling and various widgets that are useful for scientific apps.
-
----
 
 > Note: This framework is not stable! It's largely intended for use in BOJIT sites. Interfaces may not follow strict SemVer.
 
 ## Helpful Links for Development
 
+- [Getting Started](/guide)
 - [Carbon Icon Set](https://carbon-icons-svelte.onrender.com/)
 - [Any SVG Icons](https://icones.js.org/)
 
@@ -33,4 +34,4 @@ It is based on [shadcn-svelte](https://shadcn-svelte.com/) with some opinionated
 
 #### Archived
 
-- [Misc. Testing (TODO sort)](/example)
+- [Misc. Example Page](/example)

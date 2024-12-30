@@ -1,0 +1,68 @@
+<svelte:head>
+
+<title>Getting Started</title>
+</svelte:head>
+
+# Getting Started
+
+---
+
+> Note: This framework is not stable! It's largely intended for use in BOJIT sites. Interfaces may not follow strict SemVer.
+
+Step 1: Create a new SvelteKit app using the SvelteKit CLI:
+
+```bash
+npx sv create <MY_APP>
+```
+
+In the selection dialogues, you should set up with `typescript` and `tailwindcss` support.
+
+---
+
+Step 2: Install the components library
+
+```bash
+npm install @bojit/svelte-components
+```
+
+---
+
+Step 3: Modify the following files
+
+```js
+// tailwind.config.ts
+import config from '@bojit/svelte-components/tailwind';
+
+export default config({
+    // Additional Props go Here
+});
+```
+
+```css
+/* src/app.css */
+@import '@bojit/svelte-components/themes/<EXAMPLE_THEME>.css';
+
+/* Custom types and fonts can also be imported here */
+```
+
+---
+
+Step 4: Instantiate the library in the top-level `+layout.svelte` file
+
+```svelte
+<!-- Bare-bones +layout.svelte -->
+<script lang="ts">
+    import { App } from '@bojit/svelte-components';
+    import '../app.css';
+
+    let { children } = $props();
+</script>
+
+<App>
+    {@render children()}
+</App>
+```
+
+That's it! Check the reference pages to see how each component is used!
+
+> Note: if using `adapter static`, don't forget to add `export const prerender = true;` to the root `+layout.ts`!

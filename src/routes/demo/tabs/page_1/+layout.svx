@@ -1,5 +1,5 @@
 <!--
- * @file +page.svelte
+ * @file +layout.svelte
  * @author James Bennion-Pedley
  * @brief Tabs root
  * @date 27/12/2024
@@ -25,9 +25,53 @@
     /*------------------------------- Lifecycle ------------------------------*/
 </script>
 
+
+<svelte:head>
+<title>Demo - Tabs: Page 1</title>
+</svelte:head>
+
+# Tabs - Multi Page
+
+Tabs can be used to both navigate routes, or as a standard component on a single page.
+
+See Page 2 for an example of the single-page tabs.
+
+Basic usage:
+
+```svelte
+<script lang="ts">
+    import { page } from '$app/state';
+    import { base } from '$app/paths';
+    import { Tabs } from '@bojit/svelte-components';
+
+    let { children } = $props();
+</script>
+
 <svelte:head>
     <title>Tabs</title>
 </svelte:head>
+
+<Tabs.Tabs
+    basePath={`${base}/path/to/layout/`}
+    currentPath={page.route.id}
+    tabs={[
+        {
+            label: 'Page 1',
+            link: 'page_1'
+        },
+        {
+            label: 'Page 2',
+            link: 'page_2'
+        }
+    ]}
+/>
+{@render children?.()}
+```
+Typically tabs are placed on a `+layout.svelte` route and are used to forward to sub-pages
+
+---
+
+We can nest tabs within tabs too. This is handled by setting each tab component with a different base path
 
 <Tabs.Tabs
     basePath={`${base}/demo/tabs/page_1/`}

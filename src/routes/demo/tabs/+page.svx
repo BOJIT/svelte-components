@@ -1,5 +1,1 @@
-<svelte:head>
-<title>Tabs</title>
-</svelte:head>
-
-# Tabs
+<!-- Purely here for redirects -->

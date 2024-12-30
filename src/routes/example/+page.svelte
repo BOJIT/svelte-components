@@ -11,19 +11,16 @@
 <script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
-    import { Button, IconButton, Input, Slider, Tabs, utils } from '$lib';
+    import { Button, IconButton, Input, Slider, Tabs, utils, Widgets } from '$lib';
 
     import Table from 'carbon-icons-svelte/lib/Table.svelte';
     import AddComment from 'carbon-icons-svelte/lib/AddComment.svelte';
     import TrashCan from 'carbon-icons-svelte/lib/TrashCan.svelte';
 
-    // TODO remove
-    import Terminal from '$lib/components/widgets/Terminal/Terminal.svelte';
-
     /*--------------------------------- Props --------------------------------*/
 
-    let term1: Terminal;
-    let term2: Terminal;
+    let term1: Widgets.Terminal;
+    let term2: Widgets.Terminal;
 
     /*-------------------------------- Methods -------------------------------*/
 
@@ -87,14 +84,14 @@
 <br />
 
 <div class="row">
-    <Terminal
+    <Widgets.Terminal
         class="!h-40 !w-1/2"
         bind:this={term1}
         onread={(d: string) => {
             console.log(d);
         }}
     />
-    <Terminal class="!h-40 !w-1/2" bind:this={term2} loopback />
+    <Widgets.Terminal class="!h-40 !w-1/2" bind:this={term2} loopback />
 </div>
 
 <br />

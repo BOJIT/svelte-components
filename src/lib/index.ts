@@ -33,6 +33,9 @@ import * as Sonner from './components/ui/sonner';
 import * as Switch from './components/ui/switch';
 import * as Tabs from './components/ui/tabs';
 
+// Widgets
+import * as Widgets from './components/widgets';
+
 // Root
 import App from './components/App.svelte';
 
@@ -62,6 +65,9 @@ export {
     Sonner,
     Switch,
     Tabs,
+
+    // Widgets
+    Widgets,
 
     // Root
     App
