@@ -125,16 +125,14 @@
     />
 </div>
 
-<br />
-<div class="row">
-    <Slider.Slider value={[50]} max={100} step={1} class="max-w-[70%]" />
-</div>
-
-<br />
 <form>
-    <Input.Input>Enter Text Here</Input.Input>
-    <Input.Input>Enter Text Here</Input.Input>
+    <Input.Input placeholder="Example 1">Enter Text Here</Input.Input>
+    <Input.Input placeholder="Example 2">Enter Text Here</Input.Input>
 </form>
+
+<div class="row">
+    <Slider.Slider value={[50]} max={100} step={1} class="my-3 max-w-[70%]" />
+</div>
 
 <style>
     .row {

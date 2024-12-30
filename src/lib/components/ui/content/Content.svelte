@@ -150,6 +150,8 @@
         font-style: bold;
         color: hsl(var(--foreground));
         background-color: hsl(var(--muted));
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
     }
 
     /* Separators */
@@ -203,6 +205,12 @@
     article :global(ul ol ol),
     article :global(ol ol ol) {
         list-style-type: lower-alpha;
+    }
+
+    /* Input Elements (only first children) */
+    article :global(input) {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
     }
 
     /* Image */

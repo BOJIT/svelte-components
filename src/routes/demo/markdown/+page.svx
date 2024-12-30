@@ -21,7 +21,9 @@ This is a basic demo of using `Svelte` components in markdown. Links look like [
 
 ## Standard Markdown Stuff
 
-This is an image.
+> This is a blockquote
+
+This is an image:
 
 ![BOJIT_V3-Neck_Laminations.JPG]({imgBase}/posts/BOJIT_V3-Neck_Laminations.JPG)
 
@@ -31,12 +33,12 @@ This is a _YouTube_ video
 
 ## List Styling
 
-- Ordered List
-- Test
+- 🎉 Unordered List 1
+- 👇 Unordered List 2
     1. Nested
-    2. List
-        1. Test
-        2. TEST
+    2. Ordered List
+        1. Second Level
+        2. Nesting
 
 ---
 
