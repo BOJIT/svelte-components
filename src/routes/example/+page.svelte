@@ -46,6 +46,10 @@
 
 <hr />
 
+<UI.Container>
+    <h1>Some Item</h1>
+</UI.Container>
+
 <UI.Tabs
     colourOffset={1}
     tabs={[
