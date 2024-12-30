@@ -12,16 +12,15 @@
     /*-------------------------------- Imports -------------------------------*/
 
     import { App, Content, NavBar } from '$lib';
+    import { Svelte } from '$lib/components/icons';
 
     import Home from 'carbon-icons-svelte/lib/Carbon.svelte';
     import PaintBrush from 'carbon-icons-svelte/lib/PaintBrush.svelte';
     import LogoGithub from 'carbon-icons-svelte/lib/LogoGithub.svelte';
 
-    import { Svelte } from '$lib/components/icons';
+    import logo from '$lib/assets/logo.png';
 
     import '../app.css';
-
-    import logo from '$lib/assets/logo.png';
 
     /*--------------------------------- Props --------------------------------*/
 

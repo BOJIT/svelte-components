@@ -13,15 +13,13 @@
 
     import { notify } from '$lib/utils';
 
-    import { Button } from '$lib/components/ui/button';
+    import { Button, IconButton, Input, Slider, Tabs } from '$lib';
 
     import Table from 'carbon-icons-svelte/lib/Table.svelte';
     import AddComment from 'carbon-icons-svelte/lib/AddComment.svelte';
     import TrashCan from 'carbon-icons-svelte/lib/TrashCan.svelte';
 
-    import Tabs from '$lib/components/ui/tabs/Tabs.svelte';
-
-    import IconButton from '$lib/components/ui/iconbutton/IconButton.svelte';
+    // TODO remove
     import Terminal from '$lib/components/widgets/Terminal/Terminal.svelte';
 
     /*--------------------------------- Props --------------------------------*/
@@ -42,18 +40,18 @@
 <p>Create your package using @sveltejs/package and preview/showcase your work with SvelteKit</p>
 <p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
 
-<Tabs
+<Tabs.Tabs
     tabs={['simplified', 'tabs', 'api', 'entry', 'tabs', 'api', 'entry', 'tabs', 'api', 'entry']}
     fade
 >
     <div class="tab">Tab 1</div>
     <div class="tab">Tab 2</div>
     <div class="tab">Tab 3</div>
-</Tabs>
+</Tabs.Tabs>
 
 <hr />
 
-<Tabs
+<Tabs.Tabs
     colourOffset={1}
     tabs={[
         {
@@ -70,11 +68,11 @@
     <div class="tab">Tab 1</div>
     <div class="tab">Tab 2</div>
     <div class="tab">Tab 3</div>
-</Tabs>
+</Tabs.Tabs>
 
 <hr />
 
-<Button
+<Button.Button
     onclick={() => {
         notify.notify({
             title: 'Some Error',
@@ -82,8 +80,10 @@
             description: 'example',
             timeout: 2000
         });
-    }}><AddComment />Test Text</Button
+    }}
 >
+    <AddComment />Test Text
+</Button.Button>
 
 <br />
 <br />
@@ -102,21 +102,21 @@
 <br />
 <hr />
 <div class="row">
-    <IconButton
+    <IconButton.IconButton
         Icon={Table}
         shape="circle"
         onclick={() => {
             term1.write(`Example Message: ${Date.now()}\n`, 33);
         }}
     />
-    <IconButton
+    <IconButton.IconButton
         Icon={AddComment}
         variant="secondary"
         onclick={() => {
             term2.write(`Example Message: ${Date.now()}\n`);
         }}
     />
-    <IconButton
+    <IconButton.IconButton
         Icon={TrashCan}
         variant="destructive"
         shape="square"
@@ -130,10 +130,22 @@
     />
 </div>
 
+<br />
+<div class="row">
+    <Slider.Slider value={[50]} max={100} step={1} class="max-w-[70%]" />
+</div>
+
+<br />
+<form>
+    <Input.Input>Enter Text Here</Input.Input>
+    <Input.Input>Enter Text Here</Input.Input>
+</form>
+
 <style>
     .row {
         display: flex;
         gap: 1rem;
         align-items: center;
+        justify-content: center;
     }
 </style>

@@ -12,10 +12,9 @@
     /*-------------------------------- Imports -------------------------------*/
 
     import { page } from '$app/state';
-
     import { base } from '$app/paths';
 
-    import Tabs from '$lib/components/ui/tabs/Tabs.svelte';
+    import { Tabs } from '$lib';
 
     /*--------------------------------- Props --------------------------------*/
 
@@ -30,7 +29,7 @@
     <title>Tabs</title>
 </svelte:head>
 
-<Tabs
+<Tabs.Tabs
     basePath={`${base}/demo/tabs/`}
     currentPath={page.route.id}
     tabs={[

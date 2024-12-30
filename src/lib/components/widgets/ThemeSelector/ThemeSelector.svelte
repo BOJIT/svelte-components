@@ -64,22 +64,22 @@
     on:keydown={(event: KeyboardEvent) => {
         if ((event.ctrlKey || event.metaKey) && event.key === keybinding) {
             visible = true;
-        } else if (event.key === 'Enter') {
-            if (visible) {
-                visible = false;
-            }
-        } else if ((!event.shiftKey && event.key === 'Tab') || event.key === 'ArrowRight') {
-            if (visible) {
-                const idx = themes.findIndex((t) => t.mode === $userPrefersMode);
-                let i = idx === themes.length - 1 ? 0 : idx + 1;
-                setMode(themes[i].mode);
-            }
-        } else if ((event.shiftKey && event.key === 'Tab') || event.key === 'ArrowLeft') {
-            if (visible) {
-                const idx = themes.findIndex((t) => t.mode === $userPrefersMode);
-                let i = idx === 0 ? themes.length - 1 : idx - 1;
-                setMode(themes[i].mode);
-            }
+        } else if (visible && event.key === 'Enter') {
+            visible = false;
+        } else if (
+            visible &&
+            ((!event.shiftKey && event.key === 'Tab') || event.key === 'ArrowRight')
+        ) {
+            const idx = themes.findIndex((t) => t.mode === $userPrefersMode);
+            let i = idx === themes.length - 1 ? 0 : idx + 1;
+            setMode(themes[i].mode);
+        } else if (
+            visible &&
+            ((event.shiftKey && event.key === 'Tab') || event.key === 'ArrowLeft')
+        ) {
+            const idx = themes.findIndex((t) => t.mode === $userPrefersMode);
+            let i = idx === 0 ? themes.length - 1 : idx - 1;
+            setMode(themes[i].mode);
         } else return;
 
         event.preventDefault();
