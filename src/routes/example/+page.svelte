@@ -11,9 +11,7 @@
 <script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
-    import { notify } from '$lib/utils';
-
-    import { Button, IconButton, Input, Slider, Tabs } from '$lib';
+    import { Button, IconButton, Input, Slider, Tabs, utils } from '$lib';
 
     import Table from 'carbon-icons-svelte/lib/Table.svelte';
     import AddComment from 'carbon-icons-svelte/lib/AddComment.svelte';
@@ -74,7 +72,7 @@
 
 <Button.Button
     onclick={() => {
-        notify.notify({
+        utils.notify.notify({
             title: 'Some Error',
             type: 'warning',
             description: 'example',
@@ -121,7 +119,7 @@
         variant="destructive"
         shape="square"
         onclick={() => {
-            notify.notify({
+            utils.notify.notify({
                 title: 'Item Deleted',
                 type: 'success',
                 timeout: 5000
