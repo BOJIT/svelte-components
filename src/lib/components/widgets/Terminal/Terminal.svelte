@@ -16,6 +16,8 @@
     import { mode } from 'mode-watcher';
     import type { Theme } from '$lib/utils/theme';
 
+    import { cn } from '$lib/utils';
+
     /* XTermJS */
     import type { Terminal } from '@xterm/xterm';
     import type { FitAddon } from '@xterm/addon-fit';
@@ -25,6 +27,7 @@
 
     interface TerminalProps {
         rows?: number;
+        ref?: HTMLElement | null;
         class?: string;
         onread?: (data: string) => void;
         loopback?: boolean;
@@ -37,7 +40,8 @@
 
     let {
         rows = 15,
-        class: classString = '',
+        class: className,
+        ref = $bindable(null),
         onread = (d) => {},
         loopback = false,
         autoCLRF = true
@@ -140,7 +144,7 @@
     });
 </script>
 
-<div class={`console ${classString}`}>
+<div class={cn('console', className)} bind:this={ref}>
     <div class="xterm-container" bind:this={container}></div>
 </div>
 

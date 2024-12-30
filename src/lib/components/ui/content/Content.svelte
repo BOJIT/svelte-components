@@ -166,13 +166,27 @@
     /* Lists */
     article :global(ul),
     article :global(ol) {
-        margin-top: 0;
-        margin-bottom: 0;
+        position: relative;
+        margin-top: 0.2rem;
+        margin-bottom: 0.2rem;
         padding-left: 2em;
     }
 
     article :global(ul) {
         list-style-type: circle;
+        list-style-type: none;
+    }
+
+    article :global(li) {
+        margin-top: 0.4rem;
+        margin-bottom: 0.4rem;
+        padding-left: 0.3rem;
+    }
+
+    article :global(ul > li::before) {
+        content: '➤ ';
+        position: absolute;
+        left: 15px;
     }
 
     article :global(ol) {
