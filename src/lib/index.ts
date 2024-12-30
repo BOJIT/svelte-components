@@ -8,6 +8,10 @@
  *
  */
 
+// Utils
+import * as utils from './utils';
+
+// UI Components
 import * as Button from './components/ui/button';
 import * as Checkbox from './components/ui/checkbox';
 import * as Command from './components/ui/command';
@@ -26,11 +30,16 @@ import * as Separator from './components/ui/separator';
 import * as Slider from './components/ui/slider';
 import * as Sonner from './components/ui/sonner';
 import * as Switch from './components/ui/switch';
-// import * as Tabs from './components/ui/tabs';
+import * as Tabs from './components/ui/tabs';
 
+// Root
 import App from './components/App.svelte';
 
 export {
+    // Utils
+    utils,
+
+    // Components
     Button,
     Checkbox,
     Command,
@@ -49,7 +58,8 @@ export {
     Slider,
     Sonner,
     Switch,
+    Tabs,
 
-    //
+    // Root
     App
 };

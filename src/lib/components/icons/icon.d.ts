@@ -15,6 +15,8 @@
 import type { Component } from 'svelte';
 import type { SvelteHTMLElements } from 'svelte/elements';
 
+import type { CarbonIconProps } from 'carbon-icons-svelte';
+
 /*----------------------------------- Types ----------------------------------*/
 
 type RestProps = SvelteHTMLElements['svg'];
@@ -34,4 +36,4 @@ interface IconProps extends RestProps {
     [key: `data-${string}`]: any;
 }
 
-export type Icon = Component<IconProps>; // Contract for all Svelte Icons
+export type Icon = Component<IconProps | CarbonIconProps>; // Contract for all Svelte Icons

@@ -8,7 +8,20 @@
  *
  */
 
+/*---------------------------------- Imports ---------------------------------*/
+
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
 import file from './file';
 import theme from './theme';
 
-export { file, theme };
+/*--------------------------------- Functions --------------------------------*/
+
+function cn(...inputs: ClassValue[]) {
+    return twMerge(clsx(inputs));
+}
+
+/*---------------------------------- Exports ---------------------------------*/
+
+export { cn, file, theme };
