@@ -3,7 +3,7 @@
 </svelte:head>
 
 <script>
-    import YouTube from "$lib/components/widgets/YouTube/YouTube.svelte";
+    import { Widgets } from "$lib";
 
     import "prismjs/prism.js";
     import "prismjs/components/prism-bash.js";
@@ -29,7 +29,7 @@ This is an image:
 
 This is a _YouTube_ video
 
-<YouTube src="https://www.youtube.com/embed/Yf2NzRww4Mk"/>
+<Widgets.YouTube src="https://www.youtube.com/embed/Yf2NzRww4Mk"/>
 
 ## List Styling
 

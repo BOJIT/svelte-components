@@ -8,67 +8,20 @@
  *
  */
 
-// Utils
-import type * as Utils from './utils';
-import * as utils from './utils';
+// Charts
 
-// UI Components
-import * as Button from './components/ui/button';
-import * as Checkbox from './components/ui/checkbox';
-import * as Command from './components/ui/command';
-import * as Content from './components/ui/content';
-import * as Dialog from './components/ui/dialog';
-import * as IconButton from './components/ui/iconbutton';
-import * as Input from './components/ui/input';
-import * as Link from './components/ui/link';
-import * as NavBar from './components/ui/navbar';
-import * as Popover from './components/ui/popover';
-import * as Progress from './components/ui/progress';
-import * as RadioGroup from './components/ui/radio-group';
-import * as ScrollArea from './components/ui/scroll-area';
-import * as Select from './components/ui/select';
-import * as Separator from './components/ui/separator';
-import * as Slider from './components/ui/slider';
-import * as Sonner from './components/ui/sonner';
-import * as Switch from './components/ui/switch';
-import * as Tabs from './components/ui/tabs';
+// UI
+import * as UI from './components/ui';
 
 // Widgets
 import * as Widgets from './components/widgets';
+
+// Utils
+import type * as Utils from './utils';
+import * as utils from './utils';
 
 // Root
 import App from './components/App.svelte';
 
 export type { Utils };
-
-export {
-    // Utils
-    utils,
-
-    // Components
-    Button,
-    Checkbox,
-    Command,
-    Content,
-    Dialog,
-    IconButton,
-    Input,
-    Link,
-    NavBar,
-    Popover,
-    Progress,
-    RadioGroup,
-    ScrollArea,
-    Select,
-    Separator,
-    Slider,
-    Sonner,
-    Switch,
-    Tabs,
-
-    // Widgets
-    Widgets,
-
-    // Root
-    App
-};
+export { utils, UI, Widgets, App };
