@@ -13,7 +13,7 @@
 
     import { App, Content, NavBar } from '$lib';
 
-    import { Home, PaintBrush } from 'carbon-icons-svelte';
+    import { Home, PaintBrush, LogoGithub } from 'carbon-icons-svelte';
 
     import Svelte from '$lib/components/icons/misc/Svelte.svelte';
 
@@ -43,6 +43,12 @@
                 type: 'button',
                 icon: Svelte,
                 link: 'https://svelte.dev/',
+                visibility: 'desktop'
+            },
+            {
+                type: 'button',
+                icon: LogoGithub,
+                link: 'https://github.com/BOJIT/svelte-components',
                 visibility: 'desktop'
             },
             {
