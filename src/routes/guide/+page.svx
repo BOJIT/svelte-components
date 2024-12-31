@@ -9,17 +9,20 @@
 
 > Note: This framework is not stable! It's largely intended for use in BOJIT sites. Interfaces may not follow strict SemVer.
 
-Step 1: Create a new SvelteKit app using the SvelteKit CLI:
+<br/>
+
+1. Create a new SvelteKit app using the SvelteKit CLI:
+
+  In the selection dialogues, you should set up with `typescript` and `tailwindcss` support.
+
 
 ```bash
 npx sv create <MY_APP>
 ```
 
-In the selection dialogues, you should set up with `typescript` and `tailwindcss` support.
-
 ---
 
-Step 2: Install the components library
+2. Install the components library
 
 ```bash
 npm install @bojit/svelte-components
@@ -27,10 +30,10 @@ npm install @bojit/svelte-components
 
 ---
 
-Step 3: Modify the following files
+3. Modify the following files
 
 ```js
-// tailwind.config.ts
+/* tailwind.config.ts */
 import config from '@bojit/svelte-components/tailwind';
 
 export default config({
@@ -47,7 +50,7 @@ export default config({
 
 ---
 
-Step 4: Instantiate the library in the top-level `+layout.svelte` file
+4. Instantiate the library in the top-level `+layout.svelte` file
 
 ```svelte
 <!-- Bare-bones +layout.svelte -->

@@ -3,7 +3,7 @@
 </svelte:head>
 
 <script>
-    import YouTube from "$lib/components/widgets/YouTube/YouTube.svelte";
+    import { Widgets } from "$lib";
 
     import "prismjs/prism.js";
     import "prismjs/components/prism-bash.js";
@@ -21,33 +21,33 @@ This is a basic demo of using `Svelte` components in markdown. Links look like [
 
 ## Standard Markdown Stuff
 
-This is an image.
+> This is a blockquote
+
+This is an image:
 
 ![BOJIT_V3-Neck_Laminations.JPG]({imgBase}/posts/BOJIT_V3-Neck_Laminations.JPG)
 
 This is a _YouTube_ video
 
-<YouTube src="https://www.youtube.com/embed/Yf2NzRww4Mk"/>
+<Widgets.YouTube src="https://www.youtube.com/embed/Yf2NzRww4Mk"/>
 
-#### Heading 4
+## List Styling
 
-- Ordered List
-- Test
+- 🎉 Unordered List 1
+- 👇 Unordered List 2
     1. Nested
-    2. List
-        1. Test
-        2. TEST
+    2. Ordered List
+        1. Second Level
+        2. Nesting
 
 ---
-
-##### Heading 5
 
 1. Ordered
 2. List
     - Nested
     - Unordered
 
-## Syntax highlighting
+## Syntax Highlighting
 
 Standard github-style syntax highlighing works: there are a couple of modifier components that are used to add line numbers and a copy button:
 

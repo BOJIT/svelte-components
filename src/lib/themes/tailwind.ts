@@ -19,8 +19,8 @@ import tailwindcssAnimate from 'tailwindcss-animate';
 const defaultConfig: Config = {
     darkMode: ['class'],
     content: [
-        './src/**/*.{html,js,svelte,ts}',
-        './node_modules/@bojit/svelte-components/**/*.{html,js,svelte,ts}'
+        './src/**/*.{html,js,svelte,svx,ts}',
+        './node_modules/@bojit/svelte-components/**/*.{html,js,svelte,svx,ts}'
     ],
     safelist: ['dark'],
     theme: {

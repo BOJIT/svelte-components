@@ -11,7 +11,7 @@
 <script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
-    import { App, Content, NavBar } from '$lib';
+    import { App, UI } from '$lib';
     import { Svelte } from '$lib/components/icons';
 
     import Home from 'carbon-icons-svelte/lib/Home.svelte';
@@ -34,7 +34,7 @@
 </script>
 
 <App defaultMode="dark" bind:this={app}>
-    <NavBar.NavBar
+    <UI.NavBar
         title="@bojit/svelte-components"
         {logo}
         logoLink="https://github.com/BOJIT/svelte-components"
@@ -71,7 +71,7 @@
             }
         ]}
     />
-    <Content.Content>
+    <UI.Content>
         {@render children()}
-    </Content.Content>
+    </UI.Content>
 </App>

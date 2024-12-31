@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Tabs } from '$lib';
+    import { UI } from '$lib';
 </script>
 
 <svelte:head>
@@ -28,11 +28,11 @@ Tabs can be used to display/hide child divs too: See the example code below:
 
 ---
 
-<Tabs.Tabs
+<UI.Tabs
     tabs={['Tab 1', 'Tab 2', 'Tab 3']}
     fade
 >
     <div class="tab">Tab 1</div>
     <div class="tab">Tab 2</div>
     <div class="tab">Tab 3</div>
-</Tabs.Tabs>
+</UI.Tabs>

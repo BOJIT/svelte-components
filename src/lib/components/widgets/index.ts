@@ -10,6 +10,7 @@
 
 /*---------------------------------- Imports ---------------------------------*/
 
+import CAD from './CAD/CAD.svelte';
 //
 import Terminal from './Terminal/Terminal.svelte';
 import ThemeSelector from './ThemeSelector/ThemeSelector.svelte';
@@ -18,4 +19,4 @@ import YouTube from './YouTube/YouTube.svelte';
 
 /*---------------------------------- Exports ---------------------------------*/
 
-export { Terminal, ThemeSelector, YouTube };
+export { CAD, Terminal, ThemeSelector, YouTube };

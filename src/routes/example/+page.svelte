@@ -11,7 +11,7 @@
 <script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
-    import { Button, IconButton, Input, Slider, Tabs, utils, Widgets } from '$lib';
+    import { utils, UI, Widgets } from '$lib';
 
     import Table from 'carbon-icons-svelte/lib/Table.svelte';
     import AddComment from 'carbon-icons-svelte/lib/AddComment.svelte';
@@ -35,18 +35,22 @@
 <p>Create your package using @sveltejs/package and preview/showcase your work with SvelteKit</p>
 <p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
 
-<Tabs.Tabs
+<UI.Tabs
     tabs={['simplified', 'tabs', 'api', 'entry', 'tabs', 'api', 'entry', 'tabs', 'api', 'entry']}
     fade
 >
     <div class="tab">Tab 1</div>
     <div class="tab">Tab 2</div>
     <div class="tab">Tab 3</div>
-</Tabs.Tabs>
+</UI.Tabs>
 
 <hr />
 
-<Tabs.Tabs
+<UI.Container>
+    <Widgets.CAD geometry="https://cdn.bojit.org/files/glb/BOJIT_V3.glb" />
+</UI.Container>
+
+<UI.Tabs
     colourOffset={1}
     tabs={[
         {
@@ -63,22 +67,9 @@
     <div class="tab">Tab 1</div>
     <div class="tab">Tab 2</div>
     <div class="tab">Tab 3</div>
-</Tabs.Tabs>
+</UI.Tabs>
 
 <hr />
-
-<Button.Button
-    onclick={() => {
-        utils.notify.notify({
-            title: 'Some Error',
-            type: 'warning',
-            description: 'example',
-            timeout: 2000
-        });
-    }}
->
-    <AddComment />Test Text
-</Button.Button>
 
 <br />
 <br />
@@ -97,24 +88,37 @@
 <br />
 <hr />
 <div class="row">
-    <IconButton.IconButton
-        Icon={Table}
-        shape="circle"
+    <UI.Button
+        class="h-12"
         onclick={() => {
-            term1.write(`Example Message: ${Date.now()}\n`, 33);
+            utils.notify.notify({
+                title: 'Some Error',
+                type: 'warning',
+                description: 'example',
+                timeout: 2000
+            });
         }}
-    />
-    <IconButton.IconButton
+    >
+        <AddComment />Test Text
+    </UI.Button>
+
+    <UI.IconButton
         Icon={AddComment}
         variant="secondary"
         onclick={() => {
             term2.write(`Example Message: ${Date.now()}\n`);
         }}
     />
-    <IconButton.IconButton
+    <UI.IconButton
+        Icon={Table}
+        onclick={() => {
+            term1.write(`Example Message: ${Date.now()}\n`, 33);
+        }}
+    />
+    <UI.IconButton
         Icon={TrashCan}
         variant="destructive"
-        shape="square"
+        shape="circle"
         onclick={() => {
             utils.notify.notify({
                 title: 'Item Deleted',
@@ -125,21 +129,20 @@
     />
 </div>
 
-<br />
-<div class="row">
-    <Slider.Slider value={[50]} max={100} step={1} class="max-w-[70%]" />
-</div>
-
-<br />
 <form>
-    <Input.Input>Enter Text Here</Input.Input>
-    <Input.Input>Enter Text Here</Input.Input>
+    <UI.Input placeholder="Example 1">Enter Text Here</UI.Input>
+    <UI.Input placeholder="Example 2">Enter Text Here</UI.Input>
+    <UI.Textarea placeholder="Some Text"></UI.Textarea>
 </form>
+
+<div class="row">
+    <UI.Slider value={[50]} max={100} step={1} class="my-3 max-w-[70%]" />
+</div>
 
 <style>
     .row {
         display: flex;
-        gap: 1rem;
+        gap: 0.5rem;
         align-items: center;
         justify-content: center;
     }

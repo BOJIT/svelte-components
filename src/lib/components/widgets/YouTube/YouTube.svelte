@@ -9,17 +9,29 @@
 -->
 
 <script lang="ts">
+    /*-------------------------------- Imports -------------------------------*/
+
+    import { cn } from '$lib/utils';
+
     /*--------------------------------- Types --------------------------------*/
 
     interface YouTubeProps {
         src: string;
+        ref?: HTMLElement | null;
         autoplay?: boolean;
         playlist?: string;
+        class?: string;
     }
 
     /*--------------------------------- Props --------------------------------*/
 
-    let { src, autoplay = false, playlist = '' }: YouTubeProps = $props();
+    let {
+        src,
+        ref = $bindable(null),
+        autoplay = false,
+        playlist = '',
+        class: className
+    }: YouTubeProps = $props();
 
     const url = $derived([
         src,
@@ -30,13 +42,26 @@
     ]);
 </script>
 
-<div class="content-padded">
+<div class={cn('root-el', className)} bind:this={ref}>
     <div class="aspect-ratio">
         <iframe title="youtube-video" src={url.join('')} frameborder="0"></iframe>
     </div>
 </div>
 
 <style>
+    .root-el {
+        width: 80%;
+        margin: 0 auto;
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .root-el {
+            width: 100%;
+        }
+    }
+
     /* Containers for YouTube videos (forced aspect ratio) */
     .aspect-ratio {
         position: relative;

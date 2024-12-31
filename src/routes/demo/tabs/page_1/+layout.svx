@@ -14,7 +14,7 @@
     import { page } from '$app/state';
     import { base } from '$app/paths';
 
-    import { Tabs } from '$lib';
+    import { UI } from '$lib';
 
     /*--------------------------------- Props --------------------------------*/
 
@@ -51,7 +51,7 @@ Basic usage:
     <title>Tabs</title>
 </svelte:head>
 
-<Tabs.Tabs
+<UI.Tabs
     basePath={`${base}/path/to/layout/`}
     currentPath={page.route.id}
     tabs={[
@@ -73,7 +73,7 @@ Typically tabs are placed on a `+layout.svelte` route and are used to forward to
 
 We can nest tabs within tabs too. This is handled by setting each tab component with a different base path
 
-<Tabs.Tabs
+<UI.Tabs
     basePath={`${base}/demo/tabs/page_1/`}
     currentPath={page.route.id}
     tabs={[

@@ -150,6 +150,8 @@
         font-style: bold;
         color: hsl(var(--foreground));
         background-color: hsl(var(--muted));
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
     }
 
     /* Separators */
@@ -166,13 +168,27 @@
     /* Lists */
     article :global(ul),
     article :global(ol) {
-        margin-top: 0;
-        margin-bottom: 0;
+        position: relative;
+        margin-top: 0.2rem;
+        margin-bottom: 0.2rem;
         padding-left: 2em;
     }
 
     article :global(ul) {
         list-style-type: circle;
+        list-style-type: none;
+    }
+
+    article :global(li) {
+        margin-top: 0.4rem;
+        margin-bottom: 0.4rem;
+        padding-left: 0.3rem;
+    }
+
+    article :global(ul > li::before) {
+        content: '➤ ';
+        position: absolute;
+        left: 15px;
     }
 
     article :global(ol) {
@@ -191,11 +207,17 @@
         list-style-type: lower-alpha;
     }
 
+    /* Input Elements (only first children) */
+    article :global(input) {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
     /* Image */
     article :global(img) {
         width: 80%;
         margin: 0 auto;
-        margin-top: 1rem;
+        margin-top: 0.5rem;
         margin-bottom: 1rem;
         display: block;
     }
