@@ -55,7 +55,7 @@
         enable-pan={pan || undefined}
         camera-controls={!rotate || undefined}
         auto-rotate={rotate || undefined}
-    />
+    ></model-viewer>
 </div>
 
 <style>
