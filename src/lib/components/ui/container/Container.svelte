@@ -11,7 +11,11 @@
 <script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
-    import * as Dialog from '$lib/components/ui/dialog/index';
+    import { cn } from '$lib/utils';
+
+    import * as Dialog from '$lib/components/ui/dialog';
+
+    import Launch from 'carbon-icons-svelte/lib/Launch.svelte';
 
     /*--------------------------------- Props --------------------------------*/
 
@@ -19,11 +23,15 @@
         ref?: HTMLElement | null;
         class?: string;
         children?: any;
+        fullscreen?: boolean;
     }
 
-    let { ref = $bindable(null), class: className, children }: ContainerProps = $props();
-
-    let fullscreen: boolean = $state(false);
+    let {
+        ref = $bindable(null),
+        class: className,
+        children,
+        fullscreen = $bindable(false)
+    }: ContainerProps = $props();
 
     /*-------------------------------- Methods -------------------------------*/
 
@@ -31,10 +39,21 @@
 </script>
 
 <Dialog.Root bind:open={fullscreen}>
-    <div class="root-el grid place-items-center border bg-accent sm:rounded-lg" bind:this={ref}>
+    <div
+        class={cn(
+            'root-el relative grid aspect-[4/3] grid-cols-1 grid-rows-1 place-items-center border bg-accent sm:rounded-lg',
+            className
+        )}
+        bind:this={ref}
+    >
+        {@render children?.()}
         <Dialog.Trigger>
-            {@render children?.()}
-            <div>EXPAND</div>
+            <div
+                class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"
+            >
+                <Launch size={24} />
+                <span class="sr-only">Close</span>
+            </div>
         </Dialog.Trigger>
     </div>
 
@@ -47,8 +66,15 @@
 
 <style>
     .root-el {
-        height: 17rem;
+        width: 80%;
+        margin: 0 auto;
         margin-top: 0.3rem;
         margin-bottom: 0.3rem;
+    }
+
+    @media (max-width: 768px) {
+        .root-el {
+            width: 100%;
+        }
     }
 </style>
