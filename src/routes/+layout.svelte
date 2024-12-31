@@ -21,7 +21,6 @@
     import logo from '$lib/assets/logo.png';
 
     import '../app.css';
-    import { DIALOG } from '$lib/components/ui';
 
     /*--------------------------------- Props --------------------------------*/
 

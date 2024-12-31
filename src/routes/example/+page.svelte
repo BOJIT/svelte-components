@@ -47,7 +47,7 @@
 <hr />
 
 <UI.Container>
-    <h1>Some Item</h1>
+    <Widgets.CAD geometry="https://cdn.bojit.org/files/glb/BOJIT_V3.glb" />
 </UI.Container>
 
 <UI.Tabs

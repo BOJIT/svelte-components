@@ -47,6 +47,8 @@
         bind:this={ref}
     >
         {@render children?.()}
+
+        <!-- TODO add snippets for overlayed anchor points -->
         <Dialog.Trigger>
             <div
                 class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"
@@ -68,8 +70,8 @@
     .root-el {
         width: 80%;
         margin: 0 auto;
-        margin-top: 0.3rem;
-        margin-bottom: 0.3rem;
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
     }
 
     @media (max-width: 768px) {

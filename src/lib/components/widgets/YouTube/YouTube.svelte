@@ -52,7 +52,7 @@
     .root-el {
         width: 80%;
         margin: 0 auto;
-        margin-top: 1rem;
+        margin-top: 0.5rem;
         margin-bottom: 1rem;
     }
 
