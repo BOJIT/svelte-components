@@ -1,0 +1,1 @@
+import{c as r,l as s}from"../chunks/disclose-version.COYhqMVR.js";import"../chunks/legacy.CiHxGzkH.js";import{p as o,b as t,m,F as p,a as c}from"../chunks/runtime.S8YJ2jtw.js";m();a[p]="src/routes/demo/tabs/+page.svx";function a(n,e){return r(new.target),o(e,!1,a),t({...s()})}c(a);export{a as component};
