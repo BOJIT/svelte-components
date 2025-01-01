@@ -1,16 +1,40 @@
+<!--
+ * @file CAD.svelte
+ * @author James Bennion-Pedley
+ * @brief CAD wrapper for model-viewer.dev. Works nicely in Container slot
+ * @date 01/01/2025
+ *
+ * @copyright Copyright (c) 2025
+ *
+-->
+
 <script lang="ts">
-    // TODO refactor
+    /*-------------------------------- Imports -------------------------------*/
+
     import { onMount } from 'svelte';
 
-    export let geometry: string | null = null;
-    export let transparent = false;
-    export let rotate = false;
-    export let pan = true;
+    /*--------------------------------- Props --------------------------------*/
 
-    let zoomable = false;
+    interface CADProps {
+        geometry?: string;
+        ref?: HTMLElement | null;
+        transparent?: boolean;
+        rotate?: boolean;
+        pan?: boolean;
+    }
+
+    let {
+        geometry,
+        ref = $bindable(null),
+        transparent = false,
+        rotate = false,
+        pan = true
+    }: CADProps = $props();
+
+    let zoomable = $state(false);
     let click_start: number = Date.now();
-    let model_container: HTMLElement;
-    let in_container = false;
+
+    /*-------------------------------- Methods -------------------------------*/
 
     function mousedown() {
         click_start = Date.now();
@@ -23,31 +47,26 @@
         }
     }
 
+    /*------------------------------- Lifecycle ------------------------------*/
+
     onMount(async () => {
-        // Model viewer only renders client side
         await import('./model-viewer/model-viewer.min.js');
 
-        // Hack to set outline border
-        if (model_container.parentElement?.classList.contains('container')) {
-            in_container = true;
-        }
-
         window.addEventListener('mouseup', function (event) {
-            if (event.target != model_container && event.target.parentNode != model_container) {
-                zoomable = false;
-            }
+            if (!(event.target instanceof Element)) return;
+            if (event.target != ref && event.target.parentNode != ref) zoomable = false;
         });
     });
 </script>
 
-<div
+<button
+    aria-label="model-viewer"
+    bind:this={ref}
     class="model-container"
     class:transparent
     class:zoomable
-    class:rounded-border={in_container}
-    bind:this={model_container}
-    on:mousedown={mousedown}
-    on:mouseup={mouseup}
+    onmousedown={mousedown}
+    onmouseup={mouseup}
 >
     <model-viewer
         src={geometry ? geometry : false}
@@ -56,7 +75,7 @@
         camera-controls={!rotate || undefined}
         auto-rotate={rotate || undefined}
     ></model-viewer>
-</div>
+</button>
 
 <style>
     model-viewer {
@@ -84,6 +103,7 @@
         -webkit-transition: border-color 0.2s ease-in;
         border-width: 0.1em;
         border-color: transparent;
+        border-radius: inherit;
     }
 
     .model-container.transparent {
@@ -91,14 +111,6 @@
     }
 
     .model-container.zoomable {
-        border-color: var(--color-primary-50);
-    }
-
-    :global(.mode-dark) .model-container.zoomable {
-        border-color: var(--color-primary-500);
-    }
-
-    .model-container.rounded-border {
-        border-radius: 0.85rem;
+        border-color: hsl(var(--primary));
     }
 </style>

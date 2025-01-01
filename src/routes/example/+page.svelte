@@ -47,7 +47,7 @@
 <hr />
 
 <UI.Container>
-    <Widgets.CAD geometry="https://cdn.bojit.org/files/glb/BOJIT_V3.glb" />
+    <Widgets.CAD geometry="https://cdn.bojit.org/files/glb/BOJIT_V3.glb" rotate />
 </UI.Container>
 
 <UI.Tabs
