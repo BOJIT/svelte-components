@@ -50,8 +50,32 @@
     <Widgets.CAD geometry="https://cdn.bojit.org/files/glb/BOJIT_V3.glb" />
 </UI.Container>
 
-<UI.Container>
-    <Widgets.WaveDrom />
+<UI.Container class="aspect-auto">
+    <Widgets.WaveDrom
+        json={{
+            signal: [
+                { name: 'clk', wave: 'p.....|...' },
+                { name: 'Data', wave: 'x.345x|=.x', data: ['head', 'body', 'tail', 'data'] },
+                { name: 'Request', wave: '0.1..0|1.0' },
+                {},
+                { name: 'Acknowledge', wave: '1.....|01.' }
+            ]
+        }}
+    />
+</UI.Container>
+
+<UI.Container class="aspect-auto">
+    <Widgets.WaveDrom
+        json={{
+            signal: [
+                { name: 'clk', wave: 'p.||..|...' },
+                { name: 'Data', wave: 'x.345x|=.x', data: ['this', 'body', 'tail', 'data'] },
+                { name: 'Request', wave: '0.1..0|1.0' },
+                {},
+                { name: 'Acknowledge', wave: '1.....|01.' }
+            ]
+        }}
+    />
 </UI.Container>
 
 <UI.Tabs
