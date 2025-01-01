@@ -53,6 +53,11 @@
 <UI.Container class="aspect-auto">
     <Widgets.WaveDrom
         json={{
+            head: {
+                text: 'WaveDrom Timing Diagram',
+                tick: 0,
+                every: 2
+            },
             signal: [
                 { name: 'clk', wave: 'p.....|...' },
                 { name: 'Data', wave: 'x.345x|=.x', data: ['head', 'body', 'tail', 'data'] },
