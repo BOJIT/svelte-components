@@ -43,12 +43,14 @@
             {
                 type: 'button',
                 icon: Svelte,
+                label: 'Svelte Docs',
                 link: 'https://svelte.dev/',
                 visibility: 'desktop'
             },
             {
                 type: 'button',
                 icon: LogoGithub,
+                label: 'Source Code',
                 link: 'https://github.com/BOJIT/svelte-components',
                 visibility: 'desktop'
             },
@@ -59,6 +61,7 @@
             {
                 type: 'button',
                 icon: PaintBrush,
+                label: 'Set Theme',
                 visibility: 'desktop',
                 onclick: () => {
                     app.launchThemeSelector();
@@ -67,6 +70,7 @@
             {
                 type: 'button',
                 icon: Home,
+                label: 'Home',
                 link: '/'
             }
         ]}
