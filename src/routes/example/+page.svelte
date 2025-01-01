@@ -50,6 +50,10 @@
     <Widgets.CAD geometry="https://cdn.bojit.org/files/glb/BOJIT_V3.glb" />
 </UI.Container>
 
+<UI.Container>
+    <Widgets.WaveDrom />
+</UI.Container>
+
 <UI.Tabs
     colourOffset={1}
     tabs={[

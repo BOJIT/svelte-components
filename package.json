@@ -57,6 +57,7 @@
         "@xterm/addon-webgl": "^0.18.0",
         "@xterm/xterm": "^5.5.0",
         "autoprefixer": "^10.4.20",
+        "bit-field": "^1.9.0",
         "carbon-icons-svelte": "^12.13.0",
         "clsx": "^2.1.1",
         "lucide-svelte": "^0.469.0",
@@ -66,6 +67,7 @@
         "tailwind-variants": "^0.3.0",
         "tailwindcss": "^3.4.9",
         "tailwindcss-animate": "^1.0.7",
+        "wavedrom": "^3.5.0",
         "webgl-plot": "^0.7.2"
     },
     "devDependencies": {
