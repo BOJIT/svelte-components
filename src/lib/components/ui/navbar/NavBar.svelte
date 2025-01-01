@@ -92,10 +92,10 @@
                 class:desktop={item.visibility === 'desktop'}
             >
                 {#if item.type === 'button' && item.icon}
-                    <!-- TODO add popover label! -->
                     <Link href={item.link}>
                         <IconButton
                             variant="ghost"
+                            label={item.label}
                             Icon={item.icon}
                             shape={item.shape}
                             onclick={item.onclick}

@@ -17,6 +17,7 @@ import * as COMMAND from './command';
 import { Container } from './container';
 import { Content } from './content';
 import * as DIALOG from './dialog';
+import * as HOVERCARD from './hover-card';
 import { IconButton } from './iconbutton';
 import { Input } from './input';
 import { Link } from './link';
@@ -45,6 +46,7 @@ export {
     Container,
     Content,
     DIALOG,
+    HOVERCARD,
     IconButton,
     Input,
     Link,

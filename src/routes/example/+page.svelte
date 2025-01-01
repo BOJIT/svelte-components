@@ -105,12 +105,14 @@
     <UI.IconButton
         Icon={AddComment}
         variant="secondary"
+        label="Add Comment"
         onclick={() => {
             term2.write(`Example Message: ${Date.now()}\n`);
         }}
     />
     <UI.IconButton
         Icon={Table}
+        label="Table"
         onclick={() => {
             term1.write(`Example Message: ${Date.now()}\n`, 33);
         }}
@@ -118,6 +120,7 @@
     <UI.IconButton
         Icon={TrashCan}
         variant="destructive"
+        label="Delete"
         shape="circle"
         onclick={() => {
             utils.notify.notify({

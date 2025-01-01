@@ -24,6 +24,7 @@
         class?: string;
         children?: any;
         fullscreen?: boolean;
+        propogateRadius?: boolean;
     }
 
     let {
@@ -72,6 +73,7 @@
         margin: 0 auto;
         margin-top: 0.5rem;
         margin-bottom: 1rem;
+        overflow: hidden;
     }
 
     @media (max-width: 768px) {
