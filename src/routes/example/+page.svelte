@@ -73,12 +73,29 @@
     <Widgets.WaveDrom
         json={{
             signal: [
-                { name: 'clk', wave: 'p.||..|...' },
-                { name: 'Data', wave: 'x.345x|=.x', data: ['this', 'body', 'tail', 'data'] },
-                { name: 'Request', wave: '0.1..0|1.0' },
+                { name: 'clk', wave: 'p.||..|.......' },
+                { name: 'Data', wave: 'x.345x|=.x....', data: ['a', 'b', 'c', 'data'] },
+                { name: 'Request', wave: '0.1..0|1.0.1.1' },
                 {},
-                { name: 'Acknowledge', wave: '1.....|01.' }
+                { name: 'Acknowledge', wave: '1.....|01.....' }
             ]
+        }}
+    />
+</UI.Container>
+
+<UI.Container class="aspect-auto">
+    <Widgets.BitField
+        json={[
+            { name: 'IPO', bits: 8, attr: 'RO' },
+            { bits: 7 },
+            { name: 'BRK', bits: 5, attr: 'RW', type: 4 },
+            { name: 'CPK', bits: 1 },
+            { name: 'Clear', bits: 3 },
+            { bits: 8 }
+        ]}
+        options={{
+            hspace: 800,
+            lanes: 2
         }}
     />
 </UI.Container>

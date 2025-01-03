@@ -42,7 +42,7 @@
 <Dialog.Root bind:open={fullscreen}>
     <div
         class={cn(
-            'root-el relative grid aspect-[4/3] grid-cols-1 grid-rows-1 place-items-center border bg-accent sm:rounded-lg',
+            'root-el relative grid aspect-[4/3] grid-cols-1 grid-rows-1 place-items-center rounded-lg border bg-accent',
             className
         )}
         bind:this={ref}
@@ -61,7 +61,7 @@
     </div>
 
     <Dialog.Content
-        class="h-[calc(100vh-2.5rem)] w-[calc(100vw-2.5rem)] max-w-none place-items-center bg-accent p-0"
+        class="h-[calc(100vh-10rem)] w-[calc(100vw-2.5rem)] max-w-none place-items-center rounded-lg bg-accent p-0"
     >
         {@render children?.()}
     </Dialog.Content>
