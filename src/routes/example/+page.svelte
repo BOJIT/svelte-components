@@ -83,6 +83,23 @@
     />
 </UI.Container>
 
+<UI.Container class="aspect-auto">
+    <Widgets.BitField
+        json={[
+            { name: 'IPO', bits: 8, attr: 'RO' },
+            { bits: 7 },
+            { name: 'BRK', bits: 5, attr: 'RW', type: 4 },
+            { name: 'CPK', bits: 1 },
+            { name: 'Clear', bits: 3 },
+            { bits: 8 }
+        ]}
+        options={{
+            hspace: 800,
+            lanes: 2
+        }}
+    />
+</UI.Container>
+
 <UI.Tabs
     colourOffset={1}
     tabs={[

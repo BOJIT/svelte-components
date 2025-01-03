@@ -10,6 +10,7 @@
 
 /*---------------------------------- Imports ---------------------------------*/
 
+import BitField from './BitField/BitField.svelte';
 import CAD from './CAD/CAD.svelte';
 //
 import Terminal from './Terminal/Terminal.svelte';
@@ -20,4 +21,4 @@ import YouTube from './YouTube/YouTube.svelte';
 
 /*---------------------------------- Exports ---------------------------------*/
 
-export { CAD, Terminal, ThemeSelector, WaveDrom, YouTube };
+export { BitField, CAD, Terminal, ThemeSelector, WaveDrom, YouTube };
