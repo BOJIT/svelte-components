@@ -26,7 +26,7 @@
 </script>
 
 <svelte:head>
-    <title>Tabs</title>
+    <title>Demo - Tabs</title>
 </svelte:head>
 
 <UI.Tabs

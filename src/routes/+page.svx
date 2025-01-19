@@ -19,18 +19,31 @@ It is based on [shadcn-svelte](https://shadcn-svelte.com/) with some opinionated
 
 ## Contents
 
+#### Core Library
+
+- [Container](/demo/container)
+- [Markdown](/demo/markdown)
+
+#### Charts
+
+<!-- TODO -->
+
 #### Widgets
 
-<!-- - [Addable List Demo](/demo/addable-list)
-- [CAD Demo](/demo/cad)
-- [Code Editor Demo](/demo/code-editor)
-- [Container Demo](/demo/container)
-- [Gallery Demo](/demo/gallery) -->
-- [Markdown Demo](/demo/markdown)
-- [Tabs Demo](/demo/tabs)
+<!-- - [Addable List Demo](/demo/addable-list) -->
+
+- [CAD](/demo/cad)
+
+<!-- - [Code Editor Demo](/demo/code-editor) -->
+
+- [Gallery](/demo/gallery)
+- [Tabs](/demo/tabs)
+
 <!-- - [Plotter Demo](/demo/plotter)
 - [Searchable List Demo](/demo/searchable-list) -->
-<!-- - [Terminal Demo](/demo/terminal) -->
+
+- [Terminal](/demo/terminal)
+- [Wavefrom and Bitfield Diagrams](/demo/wavedrom-bitfield)
 
 #### Archived
 

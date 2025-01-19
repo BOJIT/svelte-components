@@ -13,15 +13,15 @@
 /*----------------------------------- Types ----------------------------------*/
 
 type Settings = {
-    alignVert: boolean; // if true, textFit will align vertically using css tables
-    alignHoriz: boolean; // if true, textFit will set text-align: center
-    multiLine: boolean; // if true, textFit will not set white-space: no-wrap
-    detectMultiLine: boolean; // disable to turn off automatic multi-line sensing
-    minFontSize: number;
-    maxFontSize: number;
-    reProcess: boolean; // if true, textFit will re-process already-fit nodes. Set to 'false' for better performance
-    widthOnly: boolean; // if true, textFit will fit text to element width, regardless of text height
-    alignVertWithFlexbox: boolean; // if true, textFit will use flexbox for vertical alignment
+    alignVert?: boolean; // if true, textFit will align vertically using css tables
+    alignHoriz?: boolean; // if true, textFit will set text-align: center
+    multiLine?: boolean; // if true, textFit will not set white-space: no-wrap
+    detectMultiLine?: boolean; // disable to turn off automatic multi-line sensing
+    minFontSize?: number;
+    maxFontSize?: number;
+    reProcess?: boolean; // if true, textFit will re-process already-fit nodes. Set to 'false' for better performance
+    widthOnly?: boolean; // if true, textFit will fit text to element width, regardless of text height
+    alignVertWithFlexbox?: boolean; // if true, textFit will use flexbox for vertical alignment
 };
 
 /*----------------------------------- State ----------------------------------*/
@@ -40,7 +40,7 @@ const defaultSettings: Settings = {
 
 /*--------------------------------- Functions --------------------------------*/
 
-function textFit(els, options: Settings) {
+function textFit(els: any, options: Settings) {
     if (!options) options = {};
 
     // Extend options.
@@ -75,7 +75,7 @@ function textFit(els, options: Settings) {
  * @param  {DOMElement} el       Child el.
  * @param  {Object} settings     Options for fit.
  */
-function processItem(el, settings) {
+function processItem(el: any, settings: any) {
     if (!isElement(el) || (!settings.reProcess && el.getAttribute('textFitted'))) {
         return false;
     }
@@ -192,7 +192,7 @@ function processItem(el, settings) {
 }
 
 // Calculate height without padding.
-function innerHeight(el) {
+function innerHeight(el: HTMLElement) {
     let style = window.getComputedStyle(el, null);
     return (
         el.clientHeight -
@@ -202,7 +202,7 @@ function innerHeight(el) {
 }
 
 // Calculate width without padding.
-function innerWidth(el) {
+function innerWidth(el: HTMLElement) {
     let style = window.getComputedStyle(el, null);
     return (
         el.clientWidth -
@@ -212,7 +212,7 @@ function innerWidth(el) {
 }
 
 // Returns true if it is a DOM element
-function isElement(o) {
+function isElement(o: any) {
     return typeof HTMLElement === 'object'
         ? o instanceof HTMLElement //DOM2
         : o &&
@@ -222,7 +222,7 @@ function isElement(o) {
               typeof o.nodeName === 'string';
 }
 
-function hasClass(element, cls) {
+function hasClass(element: HTMLElement, cls: string) {
     return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
 }
 
