@@ -50,7 +50,7 @@
     /*------------------------------- Lifecycle ------------------------------*/
 
     onMount(async () => {
-        await import('./model-viewer/model-viewer.min.js');
+        await import('@google/model-viewer/dist/model-viewer.min.js');
 
         window.addEventListener('mouseup', function (event) {
             if (!(event.target instanceof Element)) return;

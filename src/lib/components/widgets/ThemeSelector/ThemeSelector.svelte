@@ -43,15 +43,15 @@
     const themes: ThemeIcon[] = [
         {
             mode: 'light',
-            icon: Light
+            icon: Light as Icon
         },
         {
             mode: 'dark',
-            icon: Moon
+            icon: Moon as Icon
         },
         {
             mode: 'system',
-            icon: Contrast
+            icon: Contrast as Icon
         }
     ];
 

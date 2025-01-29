@@ -12,6 +12,7 @@
     /*-------------------------------- Imports -------------------------------*/
 
     import { utils, UI, Widgets } from '$lib';
+    import type { Icon } from '$lib/components/icons';
 
     import Table from 'carbon-icons-svelte/lib/Table.svelte';
     import AddComment from 'carbon-icons-svelte/lib/AddComment.svelte';
@@ -153,7 +154,7 @@
     </UI.Button>
 
     <UI.IconButton
-        Icon={AddComment}
+        Icon={AddComment as Icon}
         variant="secondary"
         label="Add Comment"
         onclick={() => {
@@ -161,14 +162,14 @@
         }}
     />
     <UI.IconButton
-        Icon={Table}
+        Icon={Table as Icon}
         label="Table"
         onclick={() => {
             term1.write(`Example Message: ${Date.now()}\n`, 33);
         }}
     />
     <UI.IconButton
-        Icon={TrashCan}
+        Icon={TrashCan as Icon}
         variant="destructive"
         label="Delete"
         shape="circle"
@@ -189,7 +190,7 @@
 </form>
 
 <div class="row">
-    <UI.Slider value={[50]} max={100} step={1} class="my-3 max-w-[70%]" />
+    <UI.Slider type="single" value={50} max={100} step={1} class="my-3 max-w-[70%]" />
 </div>
 
 <style>

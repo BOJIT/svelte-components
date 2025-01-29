@@ -9,11 +9,14 @@
 -->
 
 <script lang="ts">
-    import { onMount } from 'svelte';
+    /*-------------------------------- Imports -------------------------------*/
 
-    import {Link} from '$lib/components/Link';
-    import textFit from './utils/textFit';
-    import ProgressCircular from '$lib/smelte/components/ProgressCircular';
+    import { onMount } from 'svelte';
+    import { Link } from '$lib/components/ui/link';
+    import { textFit } from '$lib/utils/textFit';
+    // import ProgressCircular from '$lib/smelte/components/ProgressCircular';
+
+    /*--------------------------------- Props --------------------------------*/
 
     type Tile = {
         type: 'image' | 'link' | 'text';
@@ -26,19 +29,29 @@
         loaded?: boolean; // Private
     };
 
-    // Props
-    export let columns = 3;
-    export let tiles: Tile[] = [];
-    export let gap = '1rem';
-    export let animate = false;
-    export let animation = 'float-up 0.7s cubic-bezier(0.35, 0.5, 0.65, 0.95) both';
-    // export let preload = 2*columns;
+    interface GalleryProps {
+        columns?: number;
+        tiles: Tile[];
+        gap?: string;
+        animate?: boolean;
+        animation?: string;
+    }
+
+    let {
+        columns = 3,
+        tiles = [],
+        gap = '1rem',
+        animate = false,
+        animation = 'float-up 0.7s cubic-bezier(0.35, 0.5, 0.65, 0.95) both'
+    }: GalleryProps = $props();
+
     // TODO implement lazy-loading
 
     // State
-    let loading = true;
+    let loading = $state(true);
 
-    // Helpers
+    /*-------------------------------- Methods -------------------------------*/
+
     function elementArray(parent: HTMLElement, q: string) {
         return Array.from(parent.querySelectorAll(q));
     }
@@ -141,7 +154,9 @@
         });
     }
 
-    $: layout();
+    /*------------------------------- Lifecycle ------------------------------*/
+
+    $: layout(); // This probably causes many false triggers
     onMount(() => {
         // Create callback for image loading state
         window.addEventListener('resize', layout);
@@ -184,7 +199,8 @@
 
 {#if loading}
     <div class="loading-spinner">
-        <ProgressCircular />
+        <h3>LOAD</h3>
+        <!-- <ProgressCircular /> -->
     </div>
 {/if}
 
