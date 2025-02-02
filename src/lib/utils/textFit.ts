@@ -43,14 +43,11 @@ const defaultSettings: Settings = {
 function textFit(els: any, options: Settings) {
     if (!options) options = {};
 
-    // Extend options.
-    let settings = {};
-    Object.keys(defaultSettings).forEach((k: keyof Settings) => {
-        //
-        if (options.hasOwnProperty(key)) {
-            settings[key] = options[key];
-        } else {
-            settings[key] = defaultSettings[key];
+    // Extend options
+    let settings: Settings = structuredClone(defaultSettings);
+    Object.keys(settings).forEach((k: string) => {
+        if (options.hasOwnProperty(k)) {
+            settings[k] = options[k as keyof Settings];
         }
     });
 
@@ -95,18 +92,19 @@ function processItem(el: any, settings: any) {
 
     // Don't process if we can't find box dimensions
     if (!originalWidth || (!settings.widthOnly && !originalHeight)) {
-        if (!settings.widthOnly)
-            throw new Error(
-                'Set a static height and width on the target element ' +
-                    el.outerHTML +
-                    ' before using textFit!'
-            );
-        else
-            throw new Error(
-                'Set a static width on the target element ' +
-                    el.outerHTML +
-                    ' before using textFit!'
-            );
+        return;
+        // if (!settings.widthOnly)
+        //     throw new Error(
+        //         'Set a static height and width on the target element ' +
+        //             el.outerHTML +
+        //             ' before using textFit!'
+        //     );
+        // else
+        //     throw new Error(
+        //         'Set a static width on the target element ' +
+        //             el.outerHTML +
+        //             ' before using textFit!'
+        //     );
     }
 
     // Add textFitted span inside this container.

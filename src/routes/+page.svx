@@ -1,4 +1,5 @@
 <svelte:head>
+
 <title>@bojit/svelte-components</title>
 </svelte:head>
 
@@ -36,7 +37,7 @@ It is based on [shadcn-svelte](https://shadcn-svelte.com/) with some opinionated
 
 <!-- - [Code Editor Demo](/demo/code-editor) -->
 
-<!-- - [Gallery](/demo/gallery) -->
+- [Gallery](/demo/gallery)
 - [Tabs](/demo/tabs)
 
 <!-- - [Plotter Demo](/demo/plotter)

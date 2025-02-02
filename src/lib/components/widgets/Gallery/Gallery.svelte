@@ -2,6 +2,8 @@
  * @file Gallery.svelte
  * @author James Bennion-Pedley
  * @brief Gallery Component for Images with Labels
+ * @note THIS CODE IS HORRIBLE! However it's a key part of my website homepage styling,
+ * so I don't want to overhaul it in a way that changes my homepage.
  * @date 13/07/2022
  *
  * @copyright Copyright (c) 2022
@@ -12,9 +14,9 @@
     /*-------------------------------- Imports -------------------------------*/
 
     import { onMount } from 'svelte';
+    import { Spinner } from '$lib/components/icons';
     import { Link } from '$lib/components/ui/link';
     import { textFit } from '$lib/utils/textFit';
-    // import ProgressCircular from '$lib/smelte/components/ProgressCircular';
 
     /*--------------------------------- Props --------------------------------*/
 
@@ -34,6 +36,7 @@
         tiles: Tile[];
         gap?: string;
         animate?: boolean;
+        lazy?: boolean;
         animation?: string;
     }
 
@@ -42,6 +45,7 @@
         tiles = [],
         gap = '1rem',
         animate = false,
+        lazy = false,
         animation = 'float-up 0.7s cubic-bezier(0.35, 0.5, 0.65, 0.95) both'
     }: GalleryProps = $props();
 
@@ -52,7 +56,7 @@
 
     /*-------------------------------- Methods -------------------------------*/
 
-    function elementArray(parent: HTMLElement, q: string) {
+    function elementArray(parent: HTMLElement, q: string): HTMLElement[] {
         return Array.from(parent.querySelectorAll(q));
     }
 
@@ -74,7 +78,7 @@
     }
 
     function updatePushes(cols: Element[]) {
-        let pushData = cols.map((c: HTMLElement) => {
+        cols.forEach((c: Element) => {
             // Move push to end of column
             let push = c.querySelector('.push') as HTMLElement;
             c.appendChild(push);
@@ -82,26 +86,31 @@
 
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
-                let pushData = cols.map((c: HTMLElement) => {
-                    // Calculate target height
-                    let endTile = Array.from(c.querySelectorAll('.tile')).pop();
+                let pushData: ({ push: HTMLElement; margin: number; height: number } | null)[] =
+                    cols.map((c: Element) => {
+                        // Calculate target height
+                        let endTile = Array.from(c.querySelectorAll('.tile')).pop();
 
-                    let push = c.querySelector('.push') as HTMLElement;
-                    let height = Math.round(endTile.getBoundingClientRect().bottom);
-                    let margin = parseInt(
-                        window.getComputedStyle(push).getPropertyValue('margin-bottom')
-                    );
+                        if (!endTile) return null;
 
-                    return {
-                        push,
-                        margin,
-                        height
-                    };
-                });
+                        let push = c.querySelector('.push') as HTMLElement;
+                        let height = Math.round(endTile.getBoundingClientRect().bottom);
+                        let margin = parseInt(
+                            window.getComputedStyle(push).getPropertyValue('margin-bottom')
+                        );
+
+                        return {
+                            push,
+                            margin,
+                            height
+                        };
+                    });
 
                 // Compute push size and update DOM
-                let minHeight = Math.max(...pushData.map((p) => p.height));
+                let minHeight = Math.max(...pushData.map((p) => (p ? p.height : 0)));
                 pushData.forEach((p) => {
+                    if (!p) return;
+
                     p.height = Math.abs(p.height - minHeight);
                     if (p.height < p.margin) {
                         p.height = 0;
@@ -127,7 +136,7 @@
 
         // Move to scratch space for layuout
         tiles.forEach((t) => {
-            scratch.appendChild(t.handle);
+            if (t.handle) scratch.appendChild(t.handle);
         });
 
         // Allocate to columns
@@ -142,7 +151,7 @@
             const target = colHeight.indexOf(min);
 
             // Reassign parent node
-            cols[target].appendChild(t.handle);
+            if (t.handle) cols[target].appendChild(t.handle);
         });
 
         // Create pushes
@@ -150,13 +159,16 @@
 
         // Make text fit
         requestAnimationFrame(() => {
-            textFit(gallery.getElementsByClassName('textfit'), { multiline: true });
+            textFit(gallery.getElementsByClassName('textfit'), { multiLine: true });
         });
     }
 
     /*------------------------------- Lifecycle ------------------------------*/
 
-    $: layout(); // This probably causes many false triggers
+    $effect(() => {
+        layout(); // This probably causes many false triggers
+    });
+
     onMount(() => {
         // Create callback for image loading state
         window.addEventListener('resize', layout);
@@ -172,6 +184,9 @@
                         t.style.visibility = 'visible';
                         t.style.animation = animation;
                         observer.unobserve(t);
+                        setTimeout(() => {
+                            t.style.animation = ''; // this is horrible
+                        }, 1000);
                         return;
                     }
                 });
@@ -185,7 +200,7 @@
             let imgTiles = tiles.filter((t) => t.type === 'image');
 
             let status = imgTiles.map((t) => {
-                return t.handle.querySelector('img').complete;
+                return t.handle?.querySelector('img')?.complete;
             });
 
             if (status.every((s) => s === true)) {
@@ -199,8 +214,7 @@
 
 {#if loading}
     <div class="loading-spinner">
-        <h3>LOAD</h3>
-        <!-- <ProgressCircular /> -->
+        <Spinner size={32} />
     </div>
 {/if}
 
@@ -208,13 +222,14 @@
     {#each { length: columns } as _, i}
         <div class="column" class:first={i == 0}>
             <div class="push" style:margin-bottom={gap} class:animate>
-                <div class="push-tile"></div>
+                <div class="push-tile bg-accent"></div>
             </div>
         </div>
     {/each}
 
     <div bind:this={scratch} class="scratch">
         {#each tiles as t}
+            <!-- svelte-ignore binding_property_non_reactive -->
             <div class="tile" style:margin-bottom={gap} bind:this={t.handle} class:animate>
                 <Link href={t.link ? t.link : null}>
                     {#if t.type === 'image'}
@@ -291,6 +306,11 @@
         padding: 1rem;
         text-align: center;
         font-family: var(--font-headings);
+
+        :global(.textFitted) {
+            font-family: var(--font-headings);
+        }
+
         white-space: normal !important;
         overflow-wrap: normal;
 
@@ -342,7 +362,7 @@
 
     .tile h4 {
         font-size: 1.3rem;
-        color: var(--color-gray-600);
+        color: #727471;
     }
 
     .tile hr {
@@ -381,13 +401,8 @@
     }
 
     .push-tile {
-        background-color: var(--color-gray-trans-dark);
         width: 100%;
         height: 100%;
-    }
-
-    :global(.mode-dark) .push-tile {
-        background-color: var(--color-gray-trans-light);
     }
 
     @media (max-width: 768px) {
