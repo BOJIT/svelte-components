@@ -169,7 +169,7 @@
     onclick={connected ? disconnect : connect}
 >
     <Plug />
-    <p class="text-white">
+    <p class="!m-0">
         {supported ? (connected ? 'Disconnect' : 'Connect') : 'Unsupported'}
     </p>
 </Button>

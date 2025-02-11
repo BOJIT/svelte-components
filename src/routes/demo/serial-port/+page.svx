@@ -1,0 +1,46 @@
+<svelte:head>
+
+<title>Demo - Serial Port</title>
+</svelte:head>
+
+<script lang=ts>
+    import { Widgets } from "$lib";
+</script>
+
+# Serial Port
+
+This component is an opinionated helper button that is used to connect to a serial device.
+It handles the following:
+
+- Tracking connection/disconnection state
+- Browser incompatibility warning
+- VID/PID filtering
+- Automatic reconnection if access has already been granted to a device
+
+```svelte
+<script lang="ts">
+    import { Widgets } from '@bojit/svelte-components';
+
+    let sp: Widgets.SerialPort;
+
+    onMount(() => {
+        const d = new Uint8Array([21, 31]);
+        sp.send(d);
+    });
+</script>
+
+<Widgets.SerialPort
+    baud={115200}
+    bind:this={sp}
+    onRecv={(d) => {
+        console.log(d);
+    }}
+/>
+
+<!-- Alternate Styling Example -->
+<Widgets.SerialPort class="bg-black text-white" />
+```
+
+---
+
+<Widgets.SerialPort />
