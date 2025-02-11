@@ -22,6 +22,7 @@ It is based on [shadcn-svelte](https://shadcn-svelte.com/) with some opinionated
 
 #### Core Library
 
+- [Core Components](/demo/core)
 - [Container](/demo/container)
 - [Markdown](/demo/markdown)
 

@@ -37,6 +37,10 @@
         --accent-foreground: 240 5.9% 10%;
         --destructive: 0 72.2% 50.6%;
         --destructive-foreground: 0 0% 98%;
+        --alert: 52 83% 52%;
+        --alert-foreground: 240 5.9% 10%;
+        --success: 109 29% 51%;
+        --success-foreground: 240 5.9% 10%;
         --ring: 240 10% 3.9%;
         --radius: 0.7rem;
         --sidebar-background: 0 0% 98%;
@@ -89,6 +93,10 @@
         --accent-foreground: 0 0% 98%;
         --destructive: 0 62.8% 30.6%;
         --destructive-foreground: 0 0% 98%;
+        --alert: 49 100% 38%;
+        --alert-foreground: 0 0% 98%;
+        --success: 109 44% 52%;
+        --success-foreground: 0 0% 98%;
         --ring: 240 4.9% 83.9%;
         --sidebar-background: 240 5.9% 10%;
         --sidebar-foreground: 240 4.8% 95.9%;

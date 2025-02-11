@@ -15,6 +15,7 @@ import CAD from './CAD/CAD.svelte';
 //
 import Gallery from './Gallery/Gallery.svelte';
 //
+import SerialPort from './SerialPort/SerialPort.svelte';
 import Terminal from './Terminal/Terminal.svelte';
 import ThemeSelector from './ThemeSelector/ThemeSelector.svelte';
 //
@@ -23,4 +24,4 @@ import YouTube from './YouTube/YouTube.svelte';
 
 /*---------------------------------- Exports ---------------------------------*/
 
-export { BitField, CAD, Gallery, Terminal, ThemeSelector, WaveDrom, YouTube };
+export { BitField, CAD, Gallery, SerialPort, Terminal, ThemeSelector, WaveDrom, YouTube };
