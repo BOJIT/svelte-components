@@ -39,12 +39,12 @@ It is based on [shadcn-svelte](https://shadcn-svelte.com/) with some opinionated
 <!-- - [Code Editor Demo](/demo/code-editor) -->
 
 - [Gallery](/demo/gallery)
-- [Tabs](/demo/tabs)
 
 <!-- - [Plotter Demo](/demo/plotter)
 - [Searchable List Demo](/demo/searchable-list) -->
 
 - [Serial Port](/demo/serial-port)
+- [Tabs](/demo/tabs)
 - [Terminal](/demo/terminal)
 - [Wavefrom and Bitfield Diagrams](/demo/wavedrom-bitfield)
 

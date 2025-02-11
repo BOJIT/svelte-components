@@ -15,6 +15,22 @@
             image: imgBase + '/posts/BOJIT_V3-Gallery_1.JPG'
         },
         {
+            type: 'text',
+            caption: 'Example',
+            colour: 'red'
+        },
+        {
+            type: 'image',
+            caption: 'Binding Glue-Up',
+            image: imgBase + '/posts/BOJIT_V3-Gallery_2.JPG'
+        },
+        {
+            type: 'link',
+            caption: 'Example',
+            subcaption: 'things to do',
+            colour: 'cyan'
+        },
+        {
             type: 'image',
             caption: 'Binding Glue-Up',
             image: imgBase + '/posts/BOJIT_V3-Gallery_2.JPG'

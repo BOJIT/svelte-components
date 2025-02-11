@@ -18,18 +18,34 @@
     import { Link } from '$lib/components/ui/link';
     import { textFit } from '$lib/utils/textFit';
 
-    /*--------------------------------- Props --------------------------------*/
+    /*--------------------------------- Types --------------------------------*/
 
-    type Tile = {
-        type: 'image' | 'link' | 'text';
+    interface BaseTile {
         caption: string;
-        subcaption?: string;
-        image?: string;
         link?: string;
-        colour?: string;
         handle?: HTMLElement; // Private
         loaded?: boolean; // Private
-    };
+    }
+
+    interface ImageTile extends BaseTile {
+        type: 'image';
+        image: string;
+    }
+
+    interface TextTile extends BaseTile {
+        type: 'text';
+        colour: string;
+    }
+
+    interface LinkTile extends BaseTile {
+        type: 'link';
+        colour: string;
+        subcaption: string;
+    }
+
+    type Tile = ImageTile | TextTile | LinkTile;
+
+    /*--------------------------------- Props --------------------------------*/
 
     interface GalleryProps {
         columns?: number;
@@ -49,10 +65,13 @@
         animation = 'float-up 0.7s cubic-bezier(0.35, 0.5, 0.65, 0.95) both'
     }: GalleryProps = $props();
 
+    let gallery: HTMLElement;
+    let scratch: HTMLElement;
+
     // TODO implement lazy-loading
 
     // State
-    let loading = $state(true);
+    // let loading = $state(true);
 
     /*-------------------------------- Methods -------------------------------*/
 
@@ -124,8 +143,6 @@
     }
 
     // Layout engine
-    let gallery: HTMLElement;
-    let scratch: HTMLElement;
     function layout() {
         if (!gallery) return;
 
@@ -206,17 +223,17 @@
             if (status.every((s) => s === true)) {
                 clearInterval(loadCheck);
                 layout();
-                loading = false;
+                // loading = false;
             }
         }, 50);
     });
 </script>
 
-{#if loading}
+<!-- {#if loading}
     <div class="loading-spinner">
         <Spinner size={32} />
     </div>
-{/if}
+{/if} -->
 
 <div bind:this={gallery} class="gallery" style:gap>
     {#each { length: columns } as _, i}
@@ -234,7 +251,9 @@
                 <Link href={t.link ? t.link : null}>
                     {#if t.type === 'image'}
                         <div class="image-holder">
-                            <img src={t.image} alt={t.caption} />
+                            <!-- <img src={t.image} alt={t.caption} /> -->
+                            <!-- <img use:lazyLoad={t.image} alt={t.caption} /> -->
+                            <img src={t.image} loading="lazy" alt={t.caption} />
                             <div class="textfit">{t.caption}</div>
                         </div>
                     {:else if t.type === 'text'}

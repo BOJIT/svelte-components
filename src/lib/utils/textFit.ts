@@ -10,6 +10,8 @@
 
 /*---------------------------------- Imports ---------------------------------*/
 
+import { mergeDeep } from '$lib/utils/merge';
+
 /*----------------------------------- Types ----------------------------------*/
 
 type Settings = {
@@ -44,12 +46,7 @@ function textFit(els: any, options: Settings) {
     if (!options) options = {};
 
     // Extend options
-    let settings: Settings = structuredClone(defaultSettings);
-    Object.keys(settings).forEach((k: string) => {
-        if (options.hasOwnProperty(k)) {
-            settings[k] = options[k as keyof Settings];
-        }
-    });
+    let settings: Settings = mergeDeep(defaultSettings, options);
 
     // Support passing a single el
     let elType = Object.prototype.toString.call(els);
