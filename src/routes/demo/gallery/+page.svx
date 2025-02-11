@@ -11,58 +11,58 @@
     let tiles = [
         {
             type: 'image',
-            caption: 'Neck Carving Through Carbon Fibre',
+            caption: 'Tile 1',
             image: imgBase + '/posts/BOJIT_V3-Gallery_1.JPG'
         },
         {
             type: 'text',
-            caption: 'Example',
+            caption: 'Tile 2',
             colour: 'red'
         },
         {
             type: 'image',
-            caption: 'Binding Glue-Up',
+            caption: 'Tile 3',
             image: imgBase + '/posts/BOJIT_V3-Gallery_2.JPG'
         },
         {
             type: 'link',
-            caption: 'Example',
+            caption: 'Tile 4',
             subcaption: 'things to do',
             colour: 'cyan'
         },
         {
             type: 'image',
-            caption: 'Binding Glue-Up',
+            caption: 'Tile 5',
             image: imgBase + '/posts/BOJIT_V3-Gallery_2.JPG'
         },
         {
             type: 'image',
-            caption: 'Fretboard Pinning',
+            caption: 'Tile 6',
             image: imgBase + '/posts/BOJIT_V3-Gallery_3.JPG'
         },
         {
             type: 'image',
-            caption: 'Hardware Fitting',
+            caption: 'Tile 7',
             image: imgBase + '/posts/BOJIT_V3-Gallery_4.JPG'
         },
         {
             type: 'image',
-            caption: 'Neck Blank Levelling',
+            caption: 'Tile 8',
             image: imgBase + '/posts/BOJIT_V3-Gallery_5.JPG'
         },
         {
             type: 'image',
-            caption: 'F-Hole "Thinning"',
+            caption: 'Tile 9',
             image: imgBase + '/posts/BOJIT_V3-Gallery_6.JPG'
         },
         {
             type: 'image',
-            caption: 'Old-Fashioned Resawing!',
+            caption: 'Tile 10',
             image: imgBase + '/posts/BOJIT_V3-Gallery_7.JPG'
         },
         {
             type: 'image',
-            caption: 'Bookmatched Top',
+            caption: 'Tile 11',
             image: imgBase + '/posts/BOJIT_V3-Gallery_8.JPG'
         },
         {
@@ -185,14 +185,12 @@ TODO write full docs
 <Widgets.Gallery tiles={[...tiles]} />
 ```
 
----
+<!-- --- -->
 
-<Widgets.Gallery tiles={[...tiles]}/>
-
----
+<!-- <Widgets.Gallery tiles={[...tiles]}/> -->
 
 ```svelte
 <Widgets.Gallery tiles={[...tiles]} animate columns={2} />
 ```
 
-<Widgets.Gallery tiles={[...tiles]} animate columns={2}/>
+<Widgets.Gallery tiles={[...tiles]} columns={2}/>
