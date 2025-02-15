@@ -1,91 +1,23 @@
 <script lang="ts">
     import { Widgets } from '$lib';
 
-    const imgBase = 'https://cdn.bojit.org/img';
-
-    let tiles: Widgets.Gallery['Tile'][] = [
-        {
+    const ids = [...Array(20).keys()];
+    let randomTiles = ids.map((i) => {
+        var labels = [
+            '',
+            '',
+            '',
+            ' - With Longer Description',
+            ' - Small Footnote',
+            ' - With life history essay to show text resizing'
+        ];
+        var label = labels[Math.floor(Math.random() * labels.length)];
+        return {
             type: 'image',
-            caption: 'Tile 1',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_1.JPG'
-        },
-        {
-            type: 'text',
-            caption: 'Tile 2',
-            colour: 'red'
-        },
-        {
-            type: 'image',
-            caption: 'Tile 3',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_2.JPG'
-        },
-        {
-            type: 'link',
-            caption: 'Tile 4',
-            subcaption: 'things to do',
-            colour: 'cyan'
-        },
-        {
-            type: 'image',
-            caption: 'Tile 5',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_3.JPG'
-        },
-        {
-            type: 'image',
-            caption: 'Tile 6',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_4.JPG'
-        },
-        {
-            type: 'image',
-            caption: 'Tile 7',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_5.JPG'
-        },
-        {
-            type: 'image',
-            caption: 'Tile 8',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_6.JPG'
-        },
-        {
-            type: 'image',
-            caption: 'Tile 9',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_7.JPG'
-        },
-        {
-            type: 'image',
-            caption: 'Tile 10',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_8.JPG'
-        },
-        {
-            type: 'image',
-            caption: 'Tile 11',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_9.JPG'
-        },
-        {
-            type: 'image',
-            caption: 'Tile 12',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_10.JPG'
-        },
-        {
-            type: 'image',
-            caption: 'Tile 13',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_11.JPG'
-        },
-        {
-            type: 'image',
-            caption: 'Tile 14',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_12.JPG'
-        },
-        {
-            type: 'image',
-            caption: 'Tile 15',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_13.JPG'
-        },
-        {
-            type: 'image',
-            caption: 'Tile 16',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_14.JPG'
-        }
-    ];
+            caption: `Image ${i}${label}`,
+            image: `https://picsum.photos/500/${Math.round(400 + Math.random() * 200)}`
+        };
+    });
 </script>
 
 <svelte:head>
@@ -99,84 +31,9 @@ TODO write full docs -->
 <!-- ```svelte -->
 <!-- <script lang="ts">
     import { Widgets } from '@bojit/svelte-components';
-
-    const imgBase = 'https://cdn.bojit.org/img';
-
-    let tiles = [
-        {
-            type: 'image',
-            caption: 'Neck Carving Through Carbon Fibre',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_1.JPG'
-        },
-        {
-            type: 'image',
-            caption: 'Binding Glue-Up',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_2.JPG'
-        },
-        {
-            type: 'image',
-            caption: 'Fretboard Pinning',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_3.JPG'
-        },
-        {
-            type: 'image',
-            caption: 'Hardware Fitting',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_4.JPG'
-        },
-        {
-            type: 'image',
-            caption: 'Neck Blank Levelling',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_5.JPG'
-        },
-        {
-            type: 'image',
-            caption: 'F-Hole "Thinning"',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_6.JPG'
-        },
-        {
-            type: 'image',
-            caption: 'Old-Fashioned Resawing!',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_7.JPG'
-        },
-        {
-            type: 'image',
-            caption: 'Bookmatched Top',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_8.JPG'
-        },
-        {
-            type: 'image',
-            caption: 'Neck Pocket Routing',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_9.JPG'
-        },
-        {
-            type: 'image',
-            caption: 'Setting Neck Joint',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_10.JPG'
-        },
-        {
-            type: 'image',
-            caption: 'My Workshop!',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_11.JPG'
-        },
-        {
-            type: 'image',
-            caption: 'Finished Build',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_12.JPG'
-        },
-        {
-            type: 'image',
-            caption: 'Headstock Design',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_13.JPG'
-        },
-        {
-            type: 'image',
-            caption: 'Back of Headstock',
-            image: imgBase + '/posts/BOJIT_V3-Gallery_14.JPG'
-        }
-    ];
 </script>
 
-<Widgets.Gallery tiles={[...tiles]} /> -->
+<Widgets.Gallery tiles={randomTiles} /> -->
 <!-- ``` -->
 
 <!-- --- -->
@@ -189,4 +46,4 @@ TODO write full docs -->
 
 <div style:height="700px" style:background-color="green"></div>
 
-<Widgets.Gallery {tiles} columns={3} lazy />
+<Widgets.Gallery tiles={randomTiles} columns={3} lazy />
