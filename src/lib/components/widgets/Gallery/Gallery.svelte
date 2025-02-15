@@ -45,6 +45,8 @@
 
     type TileInternal = {
         tile: Tile;
+        idx: number;
+        aspect?: number;
         image?: HTMLImageElement;
     };
 
@@ -82,8 +84,9 @@
 
     // Reactive State
     let mobileView: boolean = $state(false);
-
-    // let requestedElements: number = $state(0);
+    let lazyElements: number = $state(0);
+    let tilesToRender: TileInternal[] = $state([]);
+    let endPosition = $state<HTMLElement>();
 
     // Derived State
     let columnElements: Column[] = $derived(
@@ -91,44 +94,63 @@
     );
 
     let tileElements: TileInternal[] = $derived(
-        tiles.map((t) => {
+        tiles.map((t, i) => {
             return {
                 tile: t,
+                idx: i,
                 image: undefined
             };
         })
     );
 
-    let requestedElements: number = $derived(tileElements.length); // No lazy loading for now
+    let requestedElements: number = $derived(lazy ? lazyElements : tileElements.length);
 
-    let tilesToRender: TileInternal[] = $state([]);
+    // Unreactive state
+    let gallery: HTMLElement;
+    let mobileBreak: MediaQueryList;
+    let layoutInProgress = false;
+    let loadInProgress = false;
+
+    // // Handle tracking load-on-scroll
+    // $effect(() => {
+    //     // If lazy loading, assign intersection observer to end of loaded image tiles
+    //     if (!endPosition) return;
+    //     if (!lazy) return;
+    //     if (requestedElements == tileElements.length) return;
+    //     if (loadInProgress) return;
+
+    //     let targetElements = lazyLoadIncrement + tilesToRender.length;
+    //     targetElements =
+    //         targetElements > tileElements.length ? tileElements.length : targetElements;
+
+    //     if (targetElements > lazyElements)
+    //         runWhenInFrame(endPosition, async () => {
+    //             console.log('In Frame');
+    //             lazyElements = targetElements;
+    //         });
+    // });
 
     // Handle fetching unloaed images
     $effect(() => {
-        const targetElements = tileElements.slice(0, requestedElements);
+        let targetElements = tileElements.slice(0, requestedElements);
         loadImages(targetElements).then(() => {
             tilesToRender = targetElements;
         });
     });
 
+    $inspect(tilesToRender);
+
     // Handle layout changes
     $effect(() => {
-        layout();
+        if (tilesToRender.length > 0) layout(columnElements, tilesToRender);
     });
-
-    // Unreactive state (onMount)
-    let scratch = $state<HTMLElement>();
-    let spinner = $state<HTMLElement>();
-
-    let gallery: HTMLElement;
-    let mobileBreak: MediaQueryList;
 
     /*-------------------------------- Methods -------------------------------*/
 
     async function loadImages(t: TileInternal[]) {
         const targetImages = t
             .filter((ti) => ti.tile.type === 'image')
-            .filter((t) => t.image !== undefined);
+            .filter((t) => t.image === undefined);
 
         const promiseArray = [];
         for (let i of targetImages) {
@@ -137,13 +159,12 @@
                     const img = new Image();
                     img.onload = function () {
                         i.image = img;
+                        i.aspect = img.width / img.height;
                         resolve(0);
                     };
 
                     const t = i.tile as ImageTile;
                     img.src = t.image;
-                    img.alt = t.caption;
-                    img.classList.add('!m-0');
                 })
             );
         }
@@ -162,9 +183,9 @@
         observer.observe(el);
     }
 
-    function computeHeights() {
+    function computeHeights(cols: Column[]) {
         // Recompute tile and margin heights
-        columnElements.forEach((c) => {
+        cols.forEach((c) => {
             if (!c.ref) return;
 
             let height: number = 0;
@@ -188,15 +209,17 @@
 
     function updateSizing() {
         // Re-compute internal height props
-        computeHeights();
+        computeHeights(columnElements);
 
         // Compute updated push heights
-        const maxHeight = Math.max(...columnElements.map((c) => c.tileHeight));
-        columnElements.forEach((c) => {
-            let h_diff = maxHeight - c.tileHeight - c.marginHeight;
-            h_diff = h_diff > 0 ? h_diff : 0;
-            c.pushHeight = h_diff;
-        });
+        if (tilesToRender.length === tileElements.length) {
+            const maxHeight = Math.max(...columnElements.map((c) => c.tileHeight));
+            columnElements.forEach((c) => {
+                let h_diff = maxHeight - c.tileHeight - c.marginHeight;
+                h_diff = h_diff > 0 ? h_diff : 0;
+                c.pushHeight = h_diff;
+            });
+        }
 
         // Re-Run Text Fit
         setTimeout(() => {
@@ -204,90 +227,42 @@
         }, 250);
     }
 
-    // Layout engine
-    async function layout() {
+    async function layout(cols: Column[], renderTiles: TileInternal[]) {
+        if (layoutInProgress) return;
+        layoutInProgress = true;
+
+        console.log('Entry: ', renderTiles.length);
+
         // Clear each column and re-render
-        columnElements.forEach((c) => {
+        cols.forEach((c) => {
             c.tiles = [];
             c.pushHeight = 0;
         });
         await tick();
-        computeHeights();
+        await new Promise((r) => requestAnimationFrame(r));
+        computeHeights(cols);
 
         // Place each tile into the shortest column
-        for (const e of tilesToRender) {
-            const colHeight = columnElements.map((c) => c.tileHeight);
-            // console.log(colHeight);
+        for (const e of renderTiles) {
+            const colHeight = cols.map((c) => c.tileHeight);
             const target = colHeight.indexOf(Math.min(...colHeight));
 
             // Add entry to column and wait for render cycle
-            columnElements[target].tiles.push(e);
-            // let newHeight = columnElements.map((c) => c.tileHeight);
-            // while (newHeight[target] === colHeight[target]) {
+            cols[target].tiles.push(e);
+
             await tick();
-            // await new Promise((r) => setTimeout(r, 1));
             await new Promise((r) => requestAnimationFrame(r));
-            computeHeights();
-            // newHeight = columnElements.map((c) => c.tileHeight);
-            // }
+            computeHeights(cols);
         }
 
         // Update pushes
         await tick();
         updateSizing();
 
-        // return target;
-        // Get visible columns
-        // let cols = elementArray(gallery, '.column').filter((c: HTMLElement) => {
-        //     return c.offsetParent !== null;
-        // });
-        // Allocate to columns based on shortest at time
-        // tileElements
-        //     .slice(0, requestedElements - 1)
-        //     .filter((t) => t.loaded)
-        //     .forEach((t) => {
-        //         console.log(t);
-        //         // if (t.handle?.parentElement !== scratch) return;
-        //         let colHeight: number[] = cols.map((c: HTMLElement) => {
-        //             return columnHeight(c, '.tile');
-        //         });
-        //         const min = Math.min(...colHeight);
-        //         const target = colHeight.indexOf(min);
-        //         // Reassign parent node
-        //         if (t.handle) cols[target].appendChild(t.handle);
-        //     });
-        // // Make text fit after we have re-rendered
-        // requestAnimationFrame(() => {
-        //     if (!gallery) return;
-        //     textFit(gallery.getElementsByClassName('textfit'), { multiLine: true });
-        // });
-        // const renderedElements = tileElements
-        //     .slice(0, requestedElements - 1)
-        //     .filter((t) => t.loaded).length;
-        // console.log(`Requested: ${requestedElements}, Rendered: ${renderedElements}`);
-        // if (requestedElements == renderedElements) setupLazyLoader();
-        // Create pushes if everything has loaded
-        // if (tileElements.every((t) => t.loaded)) updatePushes(cols);
+        console.log('Exit: ', renderTiles.length);
+
+        layoutInProgress = false;
     }
-
-    // function setupLazyLoader() {
-    //     // If lazy loading, assign intersection observer to end of loaded image tiles
-    //     if (!spinner) return;
-
-    //     runWhenInFrame(spinner, () => {
-    //         console.log('In Frame');
-    //         const targetElements = lazyLoadIncrement + requestedElements;
-    //         requestedElements =
-    //             targetElements > tileElements.length ? tileElements.length : targetElements;
-
-    //         // layout();
-    //         // setTimeout(() => {
-    //         //     if (requestedElements < tileElements.length) {
-    //         //         setupLazyLoader();
-    //         //     }
-    //         // }, 500);
-    //     });
-    // }
 
     function handleMobileBreak() {
         mobileView = mobileBreak.matches;
@@ -333,27 +308,33 @@
     });
 </script>
 
+<button
+    onclick={() => {
+        layout(columnElements, tilesToRender);
+    }}>LAYOUT</button
+>
+LEN: {tilesToRender.length}, REQ: {requestedElements}
+
 <div bind:this={gallery} class="gallery" style:gap>
     {#each columnElements as c, i}
         <div class="column" bind:this={c.ref}>
-            <!-- <div class="fill-columns"></div> -->
             {#each c.tiles as t}
                 <div class="tile" style:margin-bottom={gap} class:animate>
                     <Link href={t.tile.link ? t.tile.link : null}>
                         {#if t.tile.type === 'image'}
-                            <div class="image-holder">
+                            <div class="image-holder" style:aspect-ratio={t.aspect}>
                                 <img src={t.tile.image} alt={t.tile.caption} class="!m-0" />
                                 <div class="textfit">{t.tile.caption}</div>
                             </div>
                         {:else if t.tile.type === 'text'}
                             <div style:background-color={t.tile.colour} class="text">
-                                <h2>{t.tile.caption}</h2>
+                                <h2 class="!m-0">{t.tile.caption}</h2>
                             </div>
                         {:else if t.tile.type === 'link'}
                             <div style:background-color={t.tile.colour} class="text">
-                                <h2>{t.tile.caption}</h2>
+                                <h2 class="!m-0">{t.tile.caption}</h2>
                                 <hr />
-                                <h4>{t.tile.subcaption}</h4>
+                                <h4 class="!m-0">{t.tile.subcaption}</h4>
                             </div>
                         {/if}
                     </Link>
@@ -372,9 +353,10 @@
         </div>
     {/each}
 </div>
+<div bind:this={endPosition}></div>
 
-{#if tilesToRender.length < requestedElements}
-    <div class="loading-spinner" bind:this={spinner}>
+{#if tilesToRender.length < tileElements.length}
+    <div class="loading-spinner">
         <Spinner size={32} />
     </div>
 {/if}
@@ -387,9 +369,6 @@
 
     .column {
         flex-basis: 100%;
-
-        /* flex-grow: 1; */
-        /* flex-grow: 1; */
     }
 
     /* Loading Spinner */
