@@ -12,7 +12,7 @@
     /*-------------------------------- Imports -------------------------------*/
 
     import { App, UI } from '$lib';
-    import { Svelte } from '$lib/components/icons';
+    import { Svelte, type Icon } from '$lib/components/icons';
 
     import Home from 'carbon-icons-svelte/lib/Home.svelte';
     import PaintBrush from 'carbon-icons-svelte/lib/PaintBrush.svelte';
@@ -49,7 +49,7 @@
             },
             {
                 type: 'button',
-                icon: LogoGithub,
+                icon: LogoGithub as Icon,
                 label: 'Source Code',
                 link: 'https://github.com/BOJIT/svelte-components',
                 visibility: 'desktop'
@@ -60,7 +60,7 @@
             },
             {
                 type: 'button',
-                icon: PaintBrush,
+                icon: PaintBrush as Icon,
                 label: 'Set Theme',
                 visibility: 'desktop',
                 onclick: () => {
@@ -69,7 +69,7 @@
             },
             {
                 type: 'button',
-                icon: Home,
+                icon: Home as Icon,
                 label: 'Home',
                 link: '/'
             }

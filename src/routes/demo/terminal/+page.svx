@@ -1,0 +1,11 @@
+<svelte:head>
+<title>Demo - Terminal</title>
+</svelte:head>
+
+<script lang=ts>
+    import { Widgets } from "$lib";
+</script>
+
+# Terminal
+
+TODO

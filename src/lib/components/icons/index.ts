@@ -15,6 +15,8 @@ import type { SvelteHTMLElements } from 'svelte/elements';
 
 import type { CarbonIconProps } from 'carbon-icons-svelte';
 
+import Spinner from './animated/Spinner.svelte';
+
 import BitBucket from './brands/BitBucket.svelte';
 import CMake from './brands/CMake.svelte';
 import Svelte from './brands/Svelte.svelte';
@@ -46,4 +48,4 @@ export type Icon = Component<CombinedIconProps>; // Contract for all Svelte Icon
 
 /*---------------------------------- Exports ---------------------------------*/
 
-export { BitBucket, CMake, Svelte };
+export { Spinner, BitBucket, CMake, Svelte };

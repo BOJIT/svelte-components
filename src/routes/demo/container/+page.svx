@@ -1,0 +1,28 @@
+<svelte:head>
+<title>Demo - Container</title>
+</svelte:head>
+
+<script lang=ts>
+    import { UI } from "$lib";
+</script>
+
+# Container
+
+This is a generic container component. It uses relative positioning. Any filler content should fill 100% width and height. Any tailwind classes are passed through to the container div:
+
+```svelte
+<script lang=ts>
+    import { UI } from "@bojit/svelte-components";
+</script>
+
+<UI.Container>
+<iframe style="height: 100%; width: 100%; border-radius: inherit" title="PCB BOM" src="https://openscopeproject.org/InteractiveHtmlBomDemo/html/carte_test.html"></iframe>
+</UI.Container>
+```
+---
+
+<UI.Container>
+<iframe style="height: 100%; width: 100%; border-radius: inherit" title="PCB BOM" src="https://openscopeproject.org/InteractiveHtmlBomDemo/html/carte_test.html"></iframe>
+</UI.Container>
+
+This block can be expanded to be full-screen.

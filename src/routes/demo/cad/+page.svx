@@ -1,0 +1,47 @@
+<svelte:head>
+<title>Demo - CAD</title>
+</svelte:head>
+
+<script lang="ts">
+    import { UI, Widgets } from "$lib";
+</script>
+
+# CAD
+
+This is the raw CAD widget. It is a wrapper around the [ModelViewer Project](https://modelviewer.dev/) and takes GLTF/GLB files as an input parameter:
+
+```svelte
+<script lang="ts">
+    import { Widgets } from "@bojit/svelte-components";
+</script>
+
+<div style="width: 100%; height: 600px;">
+    <Widgets.CAD geometry="https://cdn.bojit.org/files/glb/kinectIP.glb" />
+</div>
+```
+---
+
+<div style="width: 100%; height: 600px;">
+    <Widgets.CAD geometry="https://cdn.bojit.org/files/glb/kinectIP.glb" />
+</div>
+
+<br />
+
+When used in Markdown content we may want to wrap it in a [Container](/demo/container) element to allow fullscreen viewing:
+
+
+```svelte
+<script lang="ts">
+    import { UI, Widgets } from "@bojit/svelte-components";
+</script>
+
+<UI.Container>
+    <Widgets.CAD geometry="https://cdn.bojit.org/files/glb/BOJIT_V3.glb" />
+</UI.Container>
+```
+
+---
+
+<UI.Container>
+    <Widgets.CAD geometry="https://cdn.bojit.org/files/glb/BOJIT_V3.glb" />
+</UI.Container>

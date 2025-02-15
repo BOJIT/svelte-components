@@ -1,0 +1,104 @@
+<svelte:head>
+<title>Demo - Wavedrom and Bitfield</title>
+</svelte:head>
+
+<script lang="ts">
+    import { UI, Widgets } from "$lib";
+</script>
+
+# Wavedrom and Bitfield Diagrams
+
+Svelte helpers for drawing [Wavedrom](https://wavedrom.com/tutorial.html) and [Bitfield](https://observablehq.com/@drom/wavedrom-bit-field-guide) diagrams. Contains light/dark mode tracking too.
+
+Example Wavedrom Diagram
+
+```svelte
+<script lang="ts">
+    import { UI, Widgets } from "@bojit/svelte-components";
+</script>
+
+<UI.Container class="aspect-auto">
+    <Widgets.WaveDrom
+        json={{
+            head: {
+                text: 'WaveDrom Timing Diagram',
+                tick: 0,
+                every: 2
+            },
+            signal: [
+                { name: 'clk', wave: 'p.....|...' },
+                { name: 'Data', wave: 'x.345x|=.x', data: ['head', 'body', 'tail', 'data'] },
+                { name: 'Request', wave: '0.1..0|1.0' },
+                {},
+                { name: 'Acknowledge', wave: '1.....|01.' }
+            ]
+        }}
+    />
+</UI.Container>
+```
+---
+
+<UI.Container class="aspect-auto">
+    <Widgets.WaveDrom
+        json={{
+            head: {
+                text: 'WaveDrom Timing Diagram',
+                tick: 0,
+                every: 2
+            },
+            signal: [
+                { name: 'clk', wave: 'p.....|...' },
+                { name: 'Data', wave: 'x.345x|=.x', data: ['head', 'body', 'tail', 'data'] },
+                { name: 'Request', wave: '0.1..0|1.0' },
+                {},
+                { name: 'Acknowledge', wave: '1.....|01.' }
+            ]
+        }}
+    />
+</UI.Container>
+
+<br />
+
+Here is a Bitfield Diagram
+
+```svelte
+<script lang="ts">
+    import { UI, Widgets } from "@bojit/svelte-components";
+</script>
+
+<UI.Container class="aspect-auto">
+    <Widgets.BitField
+        json={[
+            { name: 'IPO', bits: 8, attr: 'RO' },
+            { bits: 7 },
+            { name: 'BRK', bits: 5, attr: 'RW', type: 4 },
+            { name: 'CPK', bits: 1 },
+            { name: 'Clear', bits: 3 },
+            { bits: 8 }
+        ]}
+        options={{
+            hspace: 800,
+            lanes: 2
+        }}
+    />
+</UI.Container>
+```
+
+---
+
+<UI.Container class="aspect-auto">
+    <Widgets.BitField
+        json={[
+            { name: 'IPO', bits: 8, attr: 'RO' },
+            { bits: 7 },
+            { name: 'BRK', bits: 5, attr: 'RW', type: 4 },
+            { name: 'CPK', bits: 1 },
+            { name: 'Clear', bits: 3 },
+            { bits: 8 }
+        ]}
+        options={{
+            hspace: 800,
+            lanes: 2
+        }}
+    />
+</UI.Container>

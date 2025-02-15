@@ -1,0 +1,51 @@
+<svelte:head>
+
+<title>Demo - Core Components</title>
+</svelte:head>
+
+<script lang=ts>
+    import { UI } from "$lib";
+
+    import { Home, Close } from "carbon-icons-svelte";
+</script>
+
+# Core Components
+
+The "Core Components" are very mild customisation on top of [shadcn-svelte](https://shadcn-svelte.com/). Their docs are very thorough, so I'll mostly focus on the customisations/stylings here.
+
+## Button
+
+```svelte
+<script lang="ts">
+    import { UI } from '@bojit/svelte-components';
+</script>
+```
+
+---
+
+<UI.Button variant="default">Default</UI.Button>
+<UI.Button variant="secondary">Secondary</UI.Button>
+<UI.Button variant="success">Success</UI.Button>
+<UI.Button variant="alert">Alert</UI.Button>
+<UI.Button variant="destructive">Destructive</UI.Button>
+<UI.Button variant="outline">Outline</UI.Button>
+<UI.Button variant="ghost">Ghost</UI.Button>
+<UI.Button variant="link">Link</UI.Button>
+<UI.Button size="icon"><Home/></UI.Button>
+<UI.Button variant="secondary"><Close/>Text Button</UI.Button>
+
+---
+
+### Slider
+
+```svelte
+<script lang="ts">
+    import { UI } from '@bojit/svelte-components';
+</script>
+
+<UI.Slider type="single" value={50} max={100} step={1} class="my-3" />
+```
+
+---
+
+<UI.Slider type="single" value={50} max={100} step={1} class="my-3" />
