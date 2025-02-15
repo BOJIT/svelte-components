@@ -63,6 +63,7 @@
     }
 
     dialog {
+        overflow: hidden;
         background-color: transparent;
         width: calc(100vw - 2rem);
         height: calc(100vh - 2rem);
