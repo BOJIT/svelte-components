@@ -193,4 +193,4 @@ TODO write full docs
 <Widgets.Gallery tiles={[...tiles]} animate columns={2} />
 ```
 
-<Widgets.Gallery tiles={[...tiles]} columns={2}/>
+<Widgets.Gallery tiles={[...tiles]} columns={3}/>

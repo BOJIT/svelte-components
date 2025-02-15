@@ -13,7 +13,7 @@
 <script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
-    import { onDestroy, onMount } from 'svelte';
+    import { onDestroy, onMount, tick } from 'svelte';
     import { Spinner } from '$lib/components/icons';
     import { Link } from '$lib/components/ui/link';
     import { textFit } from '$lib/utils/textFit';
@@ -45,8 +45,7 @@
 
     type TileInternal = {
         tile: Tile;
-        loaded: boolean;
-        handle?: HTMLElement;
+        image?: HTMLImageElement;
     };
 
     /*--------------------------------- Props --------------------------------*/
@@ -95,12 +94,27 @@
         tiles.map((t) => {
             return {
                 tile: t,
-                loaded: t.type !== 'image'
+                image: undefined
             };
         })
     );
 
     let requestedElements: number = $derived(tileElements.length); // No lazy loading for now
+
+    let tilesToRender: TileInternal[] = $state([]);
+
+    // Handle fetching unloaed images
+    $effect(() => {
+        const targetElements = tileElements.slice(0, requestedElements);
+        loadImages(targetElements).then(() => {
+            tilesToRender = targetElements;
+        });
+    });
+
+    // Handle layout changes
+    $effect(() => {
+        layout();
+    });
 
     // Unreactive state (onMount)
     let scratch = $state<HTMLElement>();
@@ -110,6 +124,33 @@
     let mobileBreak: MediaQueryList;
 
     /*-------------------------------- Methods -------------------------------*/
+
+    async function loadImages(t: TileInternal[]) {
+        const targetImages = t
+            .filter((ti) => ti.tile.type === 'image')
+            .filter((t) => t.image !== undefined);
+
+        const promiseArray = [];
+        for (let i of targetImages) {
+            promiseArray.push(
+                new Promise((resolve) => {
+                    const img = new Image();
+                    img.onload = function () {
+                        i.image = img;
+                        resolve(0);
+                    };
+
+                    const t = i.tile as ImageTile;
+                    img.src = t.image;
+                    img.alt = t.caption;
+                    img.classList.add('!m-0');
+                })
+            );
+        }
+
+        await Promise.all(promiseArray);
+        return t;
+    }
 
     function runWhenInFrame(el: HTMLElement, f: () => void) {
         const observer = new IntersectionObserver((e) => {
@@ -121,7 +162,6 @@
         observer.observe(el);
     }
 
-    // Run recomputations that do not require a full re-tile
     function computeHeights() {
         // Recompute tile and margin heights
         columnElements.forEach((c) => {
@@ -144,6 +184,11 @@
             c.marginHeight = margin;
             c.tileHeight = height;
         });
+    }
+
+    function updateSizing() {
+        // Re-compute internal height props
+        computeHeights();
 
         // Compute updated push heights
         const maxHeight = Math.max(...columnElements.map((c) => c.tileHeight));
@@ -160,23 +205,36 @@
     }
 
     // Layout engine
-    function layout() {
-        // Only iterate elements that are requested (for lazy loading)
-        const targetElements = tileElements.slice(0, requestedElements - 1);
-
-        // Clear each column
+    async function layout() {
+        // Clear each column and re-render
         columnElements.forEach((c) => {
             c.tiles = [];
+            c.pushHeight = 0;
         });
-
-        // HACK: currently piecewise alloc
-        let temp = 0;
-        targetElements.forEach((e) => {
-            columnElements[temp].tiles.push(e);
-            temp = temp === columnElements.length - 1 ? 0 : temp + 1;
-        });
-
+        await tick();
         computeHeights();
+
+        // Place each tile into the shortest column
+        for (const e of tilesToRender) {
+            const colHeight = columnElements.map((c) => c.tileHeight);
+            // console.log(colHeight);
+            const target = colHeight.indexOf(Math.min(...colHeight));
+
+            // Add entry to column and wait for render cycle
+            columnElements[target].tiles.push(e);
+            // let newHeight = columnElements.map((c) => c.tileHeight);
+            // while (newHeight[target] === colHeight[target]) {
+            await tick();
+            // await new Promise((r) => setTimeout(r, 1));
+            await new Promise((r) => requestAnimationFrame(r));
+            computeHeights();
+            // newHeight = columnElements.map((c) => c.tileHeight);
+            // }
+        }
+
+        // Update pushes
+        await tick();
+        updateSizing();
 
         // return target;
         // Get visible columns
@@ -233,18 +291,13 @@
 
     function handleMobileBreak() {
         mobileView = mobileBreak.matches;
-        layout();
     }
 
     /*------------------------------- Lifecycle ------------------------------*/
 
-    // $effect(() => {
-    //     layout(); // This probably causes many false triggers
-    // });
-
     onMount(() => {
         // Setup listener for push resizes
-        window.addEventListener('resize', computeHeights);
+        window.addEventListener('resize', updateSizing);
 
         // Setup listener for mobile screen break
         mobileBreak = window.matchMedia('(max-width: 768px)');
@@ -276,27 +329,20 @@
     onDestroy(() => {
         if (typeof window === 'undefined') return;
         mobileBreak?.removeEventListener('change', handleMobileBreak);
-        window.removeEventListener('resize', computeHeights);
+        window.removeEventListener('resize', updateSizing);
     });
 </script>
 
 <div bind:this={gallery} class="gallery" style:gap>
     {#each columnElements as c, i}
         <div class="column" bind:this={c.ref}>
+            <!-- <div class="fill-columns"></div> -->
             {#each c.tiles as t}
-                <div class="tile" style:margin-bottom={gap} bind:this={t.handle} class:animate>
+                <div class="tile" style:margin-bottom={gap} class:animate>
                     <Link href={t.tile.link ? t.tile.link : null}>
                         {#if t.tile.type === 'image'}
                             <div class="image-holder">
-                                <img
-                                    src={t.tile.image}
-                                    onload={() => {
-                                        t.loaded = true;
-                                        layout();
-                                    }}
-                                    alt={t.tile.caption}
-                                    class="!m-0"
-                                />
+                                <img src={t.tile.image} alt={t.tile.caption} class="!m-0" />
                                 <div class="textfit">{t.tile.caption}</div>
                             </div>
                         {:else if t.tile.type === 'text'}
@@ -327,7 +373,7 @@
     {/each}
 </div>
 
-{#if requestedElements < tileElements.length}
+{#if tilesToRender.length < requestedElements}
     <div class="loading-spinner" bind:this={spinner}>
         <Spinner size={32} />
     </div>
@@ -340,7 +386,10 @@
     }
 
     .column {
-        flex-grow: 1;
+        flex-basis: 100%;
+
+        /* flex-grow: 1; */
+        /* flex-grow: 1; */
     }
 
     /* Loading Spinner */
