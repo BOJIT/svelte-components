@@ -49,7 +49,7 @@
 
 The gallery component has been the core of [my website](https://bojit.org) for a long time.
 
-Compared to many other masonry layout libraries/examples online, this one ensures that the images are tiled in chronological order according to height, rather than allocated to incrementing columns.
+Compared to many other masonry layout libraries/examples online, this one ensures that the images are tiled in chronological order according to height, rather than allocated to incrementing columns. The bottom "ragged" edge is always patched to be smooth.
 
 It also features optional lazy loading and animation on scroll. See an example use-case below:
 
@@ -91,7 +91,7 @@ It also features optional lazy loading and animation on scroll. See an example u
     });
 </script>
 
-<Widgets.Gallery tiles={randomTiles} columns={3} lazy animate />
+<Widgets.Gallery tiles={randomTiles} columns={3} lazy animate modals />
 ```
 
 ---
