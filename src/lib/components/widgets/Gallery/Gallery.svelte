@@ -2,8 +2,6 @@
  * @file Gallery.svelte
  * @author James Bennion-Pedley
  * @brief Gallery Component for Images with Labels
- * @note THIS CODE IS HORRIBLE! However it's a key part of my website homepage styling,
- * so I don't want to overhaul it in a way that changes my homepage.
  * @date 13/07/2022
  *
  * @copyright Copyright (c) 2022
@@ -16,6 +14,7 @@
     import { onDestroy, onMount, tick } from 'svelte';
     import { Spinner } from '$lib/components/icons';
     import { Link } from '$lib/components/ui/link';
+    import ModalImage from '$lib/components/widgets/ModalImage/ModalImage.svelte';
     import { textFit } from '$lib/utils/textFit';
 
     /*--------------------------------- Types --------------------------------*/
@@ -56,7 +55,8 @@
         columns?: number;
         tiles: Tile[];
         gap?: string;
-        animate?: boolean;
+        animate?: boolean; // Animates on scroll
+        modals?: boolean; // Opens modal on image click (don't use with image links!)
         lazy?: boolean;
         lazyLoadIncrement?: number;
         animation?: string;
@@ -68,6 +68,7 @@
         tiles = [],
         gap = '1rem',
         animate = false,
+        modals = false,
         lazy = false,
         lazyLoadIncrement = 6,
         animation = 'float-up 0.7s cubic-bezier(0.35, 0.5, 0.65, 0.95) both',
@@ -308,7 +309,13 @@
                     <Link href={t.tile.link ? t.tile.link : null}>
                         {#if t.tile.type === 'image'}
                             <div class="image-holder" style:aspect-ratio={t.aspect}>
-                                <img src={t.tile.image} alt={t.tile.caption} class="!m-0" />
+                                <!-- <img src={t.tile.image} alt={t.tile.caption} class="!m-0" /> -->
+                                <ModalImage
+                                    enabled={modals}
+                                    src={t.tile.image}
+                                    alt={t.tile.caption}
+                                    class="!m-0"
+                                />
                                 <div class="textfit">{t.tile.caption}</div>
                             </div>
                         {:else if t.tile.type === 'text'}
@@ -368,7 +375,7 @@
         overflow: hidden;
     }
 
-    .tile .image-holder img {
+    .tile .image-holder :global(img) {
         width: 100%;
         transition: opacity 0.2s ease-in;
         -moz-transition: opacity 0.2s ease-in;
@@ -390,6 +397,8 @@
         text-align: center;
         font-family: var(--font-headings);
 
+        pointer-events: none;
+
         :global(.textFitted) {
             font-family: var(--font-headings);
         }
@@ -409,7 +418,7 @@
         user-select: none; /* Standard */
     }
 
-    .tile .image-holder:hover img {
+    .tile .image-holder:hover :global(img) {
         opacity: 0.5;
     }
 
@@ -418,6 +427,11 @@
     }
 
     /* Text and Link Tiles */
+    .tile :global(a) {
+        text-decoration: none !important;
+        color: inherit !important;
+    }
+
     .tile .text {
         padding-left: 1.8rem;
         padding-right: 1.8rem;

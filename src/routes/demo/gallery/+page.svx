@@ -1,0 +1,99 @@
+<script lang="ts">
+    import { Widgets } from '$lib';
+
+    const ids = [...Array(20).keys()];
+    let randomTiles = ids.map((i) => {
+        var labels = [
+            '',
+            '',
+            '',
+            '',
+            '',
+            ' - With Longer Description',
+            ' - Small Footnote',
+            ' - With life history essay to show text resizing',
+            'link',
+            'text'
+        ];
+        var label = labels[Math.floor(Math.random() * labels.length)];
+        if (label === 'link') {
+            return {
+                type: 'link',
+                caption: `Link ${i}`,
+                subcaption: 'example',
+                colour: '#efa2af',
+                link: 'https://example.com'
+            };
+        } else if (label === 'text') {
+            return {
+                type: 'text',
+                caption: `Text ${i}`,
+                colour: '#87ceeb',
+                link: 'https://example.com'
+            };
+        }
+        return {
+            type: 'image',
+            caption: `Image ${i}${label}`,
+            image: `https://picsum.photos/500/${Math.round(400 + Math.random() * 200)}`,
+        };
+    });
+</script>
+
+<svelte:head>
+
+<title>Demo - Gallery</title>
+</svelte:head>
+
+# Gallery
+
+The gallery component has been the core of [my website](https://bojit.org) for a long time.
+
+Compared to many other masonry layout libraries/examples online, this one ensures that the images are tiled in chronological order according to height, rather than allocated to incrementing columns.
+
+It also features optional lazy loading and animation on scroll. See an example use-case below:
+
+```svelte
+<script lang="ts">
+    import { Widgets } from '@bojit/svelte-components';
+
+    // Generate some random stock photos and text items
+    const ids = [...Array(20).keys()];
+    let randomTiles = ids.map((i) => {
+        var labels = [
+            '',
+            ' - With Longer Description',
+            ' - Small Footnote',
+            ' - With life history essay to show text resizing',
+            'link',
+            'text'
+        ];
+        var label = labels[Math.floor(Math.random() * labels.length)];
+        if (label === 'link') {
+            return {
+                type: 'link',
+                caption: `Link ${i}`,
+                subcaption: 'example',
+                colour: '#efa2af'
+            };
+        } else if (label === 'text') {
+            return {
+                type: 'text',
+                caption: `Text ${i}`,
+                colour: '#87ceeb'
+            };
+        }
+        return {
+            type: 'image',
+            caption: `Image ${i}${label}`,
+            image: `https://picsum.photos/500/${Math.round(400 + Math.random() * 200)}`
+        };
+    });
+</script>
+
+<Widgets.Gallery tiles={randomTiles} columns={3} lazy animate />
+```
+
+---
+
+<Widgets.Gallery tiles={randomTiles} columns={3} lazy animate modals/>
