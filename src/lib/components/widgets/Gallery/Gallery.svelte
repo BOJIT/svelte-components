@@ -250,8 +250,31 @@
         }
 
         // Update pushes
-        await tick();
         updateSizing();
+        await tick();
+        await new Promise((r) => requestAnimationFrame(r));
+
+        // Add frame animation on scroll if desired
+        if (animate) {
+            let targets = Array.from(gallery.querySelectorAll('.animate')) as HTMLElement[];
+
+            // Assign CSS animations to run on intersection. Clear on complete
+            targets.forEach((t: HTMLElement) => {
+                let observer = new IntersectionObserver((e) => {
+                    if (e[0].isIntersecting) {
+                        // Apply CSS animations
+                        t.style.visibility = 'visible';
+                        t.style.animation = animation;
+                        observer.unobserve(t);
+                        t.classList.remove('animate');
+                        // setTimeout(() => {
+                        //     t.style.animation = '';
+                        // }, animationDurationMs);
+                    }
+                });
+                observer.observe(t);
+            });
+        }
     }
 
     function handleMobileBreak() {
@@ -268,27 +291,6 @@
         mobileBreak = window.matchMedia('(max-width: 768px)');
         mobileBreak.addEventListener('change', handleMobileBreak);
         handleMobileBreak();
-
-        // Add frame animation on scroll if desired
-        // if (animate) {
-        //     let targets = elementArray(gallery, '.animate');
-
-        //     // Assign CSS animations to run on intersection. Clear on complete
-        //     targets.forEach((t: HTMLElement) => {
-        //         let observer = new IntersectionObserver((e) => {
-        //             if (e[0].isIntersecting) {
-        //                 // Apply CSS animations
-        //                 t.style.visibility = 'visible';
-        //                 t.style.animation = animation;
-        //                 observer.unobserve(t);
-        //                 setTimeout(() => {
-        //                     t.style.animation = '';
-        //                 }, animationDurationMs);
-        //             }
-        //         });
-        //         observer.observe(t);
-        //     });
-        // }
     });
 
     onDestroy(() => {

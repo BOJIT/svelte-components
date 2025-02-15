@@ -7,11 +7,29 @@
             '',
             '',
             '',
+            '',
+            '',
             ' - With Longer Description',
             ' - Small Footnote',
-            ' - With life history essay to show text resizing'
+            ' - With life history essay to show text resizing',
+            'link',
+            'text'
         ];
         var label = labels[Math.floor(Math.random() * labels.length)];
+        if (label === 'link') {
+            return {
+                type: 'link',
+                caption: `Link ${i}`,
+                subcaption: 'example',
+                colour: '#efa2af'
+            };
+        } else if (label === 'text') {
+            return {
+                type: 'text',
+                caption: `Text ${i}`,
+                colour: '#87ceeb'
+            };
+        }
         return {
             type: 'image',
             caption: `Image ${i}${label}`,
@@ -46,4 +64,4 @@ TODO write full docs -->
 
 <div style:height="700px" style:background-color="green"></div>
 
-<Widgets.Gallery tiles={randomTiles} columns={3} lazy />
+<Widgets.Gallery tiles={randomTiles} columns={3} lazy animate />
