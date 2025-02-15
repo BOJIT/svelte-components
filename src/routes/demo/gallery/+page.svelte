@@ -187,4 +187,6 @@ TODO write full docs -->
 <!-- <Widgets.Gallery tiles={[...tiles]} animate columns={2} /> -->
 <!-- ``` -->
 
-<Widgets.Gallery {tiles} columns={3} />
+<div style:height="700px" style:background-color="green"></div>
+
+<Widgets.Gallery {tiles} columns={3} lazy />

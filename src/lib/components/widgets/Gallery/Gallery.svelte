@@ -69,7 +69,7 @@
         gap = '1rem',
         animate = false,
         lazy = false,
-        lazyLoadIncrement = 2 * columns,
+        lazyLoadIncrement = 6,
         animation = 'float-up 0.7s cubic-bezier(0.35, 0.5, 0.65, 0.95) both',
         animationDurationMs = 1000
     }: GalleryProps = $props();
@@ -86,7 +86,6 @@
     let mobileView: boolean = $state(false);
     let lazyElements: number = $state(0);
     let tilesToRender: TileInternal[] = $state([]);
-    let endPosition = $state<HTMLElement>();
 
     // Derived State
     let columnElements: Column[] = $derived(
@@ -97,8 +96,7 @@
         tiles.map((t, i) => {
             return {
                 tile: t,
-                idx: i,
-                image: undefined
+                idx: i
             };
         })
     );
@@ -107,28 +105,26 @@
 
     // Unreactive state
     let gallery: HTMLElement;
+    let endPosition: HTMLElement;
     let mobileBreak: MediaQueryList;
-    let layoutInProgress = false;
-    let loadInProgress = false;
 
-    // // Handle tracking load-on-scroll
-    // $effect(() => {
-    //     // If lazy loading, assign intersection observer to end of loaded image tiles
-    //     if (!endPosition) return;
-    //     if (!lazy) return;
-    //     if (requestedElements == tileElements.length) return;
-    //     if (loadInProgress) return;
+    // Handle tracking load-on-scroll
+    $effect(() => {
+        if (!lazy) return;
+        if (requestedElements == tileElements.length) return;
 
-    //     let targetElements = lazyLoadIncrement + tilesToRender.length;
-    //     targetElements =
-    //         targetElements > tileElements.length ? tileElements.length : targetElements;
+        // Get number of elements to render after next chunk
+        let targetElements = lazyLoadIncrement + tilesToRender.length;
+        targetElements =
+            targetElements > tileElements.length ? tileElements.length : targetElements;
 
-    //     if (targetElements > lazyElements)
-    //         runWhenInFrame(endPosition, async () => {
-    //             console.log('In Frame');
-    //             lazyElements = targetElements;
-    //         });
-    // });
+        if (targetElements > lazyElements)
+            setTimeout(() => {
+                runWhenInFrame(endPosition, async () => {
+                    lazyElements = targetElements;
+                });
+            }, 500);
+    });
 
     // Handle fetching unloaed images
     $effect(() => {
@@ -138,11 +134,9 @@
         });
     });
 
-    $inspect(tilesToRender);
-
     // Handle layout changes
     $effect(() => {
-        if (tilesToRender.length > 0) layout(columnElements, tilesToRender);
+        layout(columnElements, tilesToRender);
     });
 
     /*-------------------------------- Methods -------------------------------*/
@@ -228,14 +222,10 @@
     }
 
     async function layout(cols: Column[], renderTiles: TileInternal[]) {
-        if (layoutInProgress) return;
-        layoutInProgress = true;
+        if (renderTiles.length === 0) return;
 
-        console.log('Entry: ', renderTiles.length);
-
-        // Clear each column and re-render
+        // Set pushes to zero while laying out
         cols.forEach((c) => {
-            c.tiles = [];
             c.pushHeight = 0;
         });
         await tick();
@@ -244,24 +234,24 @@
 
         // Place each tile into the shortest column
         for (const e of renderTiles) {
-            const colHeight = cols.map((c) => c.tileHeight);
-            const target = colHeight.indexOf(Math.min(...colHeight));
+            // Check if this tile has already been placed
+            let placed = cols.some((c) => c.tiles.some((t) => t.idx === e.idx));
+            if (!placed) {
+                const colHeight = cols.map((c) => c.tileHeight);
+                const target = colHeight.indexOf(Math.min(...colHeight));
 
-            // Add entry to column and wait for render cycle
-            cols[target].tiles.push(e);
+                // Add entry to column and wait for render cycle
+                cols[target].tiles.push(e);
 
-            await tick();
-            await new Promise((r) => requestAnimationFrame(r));
-            computeHeights(cols);
+                await tick();
+                await new Promise((r) => requestAnimationFrame(r));
+                computeHeights(cols);
+            }
         }
 
         // Update pushes
         await tick();
         updateSizing();
-
-        console.log('Exit: ', renderTiles.length);
-
-        layoutInProgress = false;
     }
 
     function handleMobileBreak() {
@@ -307,13 +297,6 @@
         window.removeEventListener('resize', updateSizing);
     });
 </script>
-
-<button
-    onclick={() => {
-        layout(columnElements, tilesToRender);
-    }}>LAYOUT</button
->
-LEN: {tilesToRender.length}, REQ: {requestedElements}
 
 <div bind:this={gallery} class="gallery" style:gap>
     {#each columnElements as c, i}
