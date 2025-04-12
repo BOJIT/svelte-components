@@ -1,7 +1,8 @@
 @import './base.css';
 
 @import '@fontsource/gloria-hallelujah';
-@import '@fontsource/nunito';
+@import '@fontsource/nunito/200.css';
+@import '@fontsource/nunito/600.css';
 @import '@fontsource/syne-mono';
 
 @layer base {

@@ -17,7 +17,7 @@
 
 # Title of Article
 
-This is a basic demo of using `Svelte` components in markdown. Links look like [this](https://github.com):
+This is a basic demo of using `Svelte` components in **markdown**. Links look like [this](https://github.com):
 
 ## Standard Markdown Stuff
 
@@ -51,7 +51,6 @@ This is a _YouTube_ video
 
 Standard github-style syntax highlighing works: there are a couple of modifier components that are used to add line numbers and a copy button:
 
-
 ```c
 uint8_t test = {4, 5, 7};
 
@@ -62,7 +61,6 @@ int main(uint8_t *main)
 ```
 
 This uses `PrismJS` under the hood. All language components except `html`, `css` and `js` have to be included manually.
-
 
 ```bash
 #!/bin/bash

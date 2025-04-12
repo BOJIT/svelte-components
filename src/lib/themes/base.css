@@ -139,6 +139,10 @@
         font-family: var(--font-body);
     }
 
+    b,strong {
+        font-weight: 600;
+    }
+
     h1,
     h2,
     h3,
