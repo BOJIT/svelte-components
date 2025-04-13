@@ -36,8 +36,11 @@
 <p>Create your package using @sveltejs/package and preview/showcase your work with SvelteKit</p>
 <p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
 
+<!-- <UI.DIALOG.DialogRoot open> -->
 <Widgets.SearchableList
     narrow={false}
+    overflowHeight="20rem"
+    sort
     items={[
         {
             label: 'Search Entry',
@@ -51,9 +54,21 @@
         {
             label: 'Trials of the Past',
             icon: TrashCan as Icon
+        },
+        {
+            label: 'Gravy of the Past',
+            icon: TrashCan as Icon
+        },
+        {
+            label: 'Trials in Hastings',
+            icon: TrashCan as Icon
         }
     ]}
+    onitemclick={(l, i) => {
+        console.log(l, i);
+    }}
 ></Widgets.SearchableList>
+<!-- </UI.DIALOG.DialogRoot> -->
 
 <UI.Tabs
     tabs={['simplified', 'tabs', 'api', 'entry', 'tabs', 'api', 'entry', 'tabs', 'api', 'entry']}
