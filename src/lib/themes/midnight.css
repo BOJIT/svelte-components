@@ -1,7 +1,8 @@
 @import './base.css';
 
 @import '@fontsource/comfortaa';
-@import '@fontsource/montserrat';
+@import '@fontsource/montserrat/200.css';
+@import '@fontsource/montserrat/600.css';
 @import '@fontsource/jetbrains-mono';
 
 @layer base {

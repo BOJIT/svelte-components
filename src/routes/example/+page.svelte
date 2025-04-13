@@ -36,6 +36,60 @@
 <p>Create your package using @sveltejs/package and preview/showcase your work with SvelteKit</p>
 <p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
 
+<Widgets.SearchableList
+    overflowHeight="14rem"
+    sort
+    buttons={[
+        {
+            icon: Table as Icon,
+            onclick: (l, k) => {
+                console.log('TABLE:', l, k);
+            }
+        },
+        {
+            icon: TrashCan as Icon,
+            onclick: (l, k) => {
+                console.log('TRASH:', l, k);
+            }
+        }
+    ]}
+    items={[
+        {
+            label: 'Search Entry',
+            sublabel: 'example description',
+            icon: Table as Icon,
+            buttons: [
+                {
+                    icon: AddComment as Icon,
+                    onclick: (l, i) => {
+                        console.log('COMMENT:', l, i);
+                    }
+                }
+            ]
+        },
+        {
+            label: 'Biggest Entry',
+            icon: AddComment as Icon
+        },
+        {
+            label: 'Trials of the Past',
+            icon: TrashCan as Icon
+        },
+        {
+            label: 'Gravy of the Past',
+            icon: TrashCan as Icon
+        },
+        {
+            label: 'Trials in Hastings',
+            icon: TrashCan as Icon
+        }
+    ]}
+    onitemclick={(l, k) => {
+        console.log('MAIN:', l, k);
+    }}
+></Widgets.SearchableList>
+<br />
+
 <UI.Tabs
     tabs={['simplified', 'tabs', 'api', 'entry', 'tabs', 'api', 'entry', 'tabs', 'api', 'entry']}
     fade
