@@ -36,6 +36,25 @@
 <p>Create your package using @sveltejs/package and preview/showcase your work with SvelteKit</p>
 <p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
 
+<Widgets.SearchableList
+    narrow={false}
+    items={[
+        {
+            label: 'Search Entry',
+            sublabel: 'example description',
+            icon: Table as Icon
+        },
+        {
+            label: 'Biggest Entry',
+            icon: AddComment as Icon
+        },
+        {
+            label: 'Trials of the Past',
+            icon: TrashCan as Icon
+        }
+    ]}
+></Widgets.SearchableList>
+
 <UI.Tabs
     tabs={['simplified', 'tabs', 'api', 'entry', 'tabs', 'api', 'entry', 'tabs', 'api', 'entry']}
     fade
