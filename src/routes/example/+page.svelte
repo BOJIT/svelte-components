@@ -36,16 +36,36 @@
 <p>Create your package using @sveltejs/package and preview/showcase your work with SvelteKit</p>
 <p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
 
-<!-- <UI.DIALOG.DialogRoot open> -->
 <Widgets.SearchableList
-    narrow={false}
-    overflowHeight="20rem"
+    overflowHeight="14rem"
     sort
+    buttons={[
+        {
+            icon: Table as Icon,
+            onclick: (l, k) => {
+                console.log('TABLE:', l, k);
+            }
+        },
+        {
+            icon: TrashCan as Icon,
+            onclick: (l, k) => {
+                console.log('TRASH:', l, k);
+            }
+        }
+    ]}
     items={[
         {
             label: 'Search Entry',
             sublabel: 'example description',
-            icon: Table as Icon
+            icon: Table as Icon,
+            buttons: [
+                {
+                    icon: AddComment as Icon,
+                    onclick: (l, i) => {
+                        console.log('COMMENT:', l, i);
+                    }
+                }
+            ]
         },
         {
             label: 'Biggest Entry',
@@ -64,11 +84,11 @@
             icon: TrashCan as Icon
         }
     ]}
-    onitemclick={(l, i) => {
-        console.log(l, i);
+    onitemclick={(l, k) => {
+        console.log('MAIN:', l, k);
     }}
 ></Widgets.SearchableList>
-<!-- </UI.DIALOG.DialogRoot> -->
+<br />
 
 <UI.Tabs
     tabs={['simplified', 'tabs', 'api', 'entry', 'tabs', 'api', 'entry', 'tabs', 'api', 'entry']}

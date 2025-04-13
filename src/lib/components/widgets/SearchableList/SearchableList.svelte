@@ -18,19 +18,21 @@
     import Search from 'carbon-icons-svelte/lib/Search.svelte';
 
     import Input from '$lib/components/ui/input/input.svelte';
+    import IconButton from '$lib/components/ui/iconbutton/IconButton.svelte';
 
     /*--------------------------------- Props --------------------------------*/
 
     type ListItemButton = {
         icon: Icon;
-        onclick: (label: string, index: number) => void;
+        onclick: (label: string, key?: string) => void;
     };
 
     type ListItem = {
         label: string;
         sublabel?: string;
+        key?: string; // Optional string that is passed in callbacks in case label is not unique
         icon?: Icon;
-        buttons?: ListItemButton[];
+        buttons?: ListItemButton[]; // Per-item buttons are applied before common buttons to line up
     };
 
     interface SearchableListProps extends HTMLInputAttributes {
@@ -39,7 +41,8 @@
         narrow?: boolean;
         overflowHeight?: string;
         hideSearch?: boolean;
-        onitemclick?: (label: string, index: number) => void;
+        buttons?: ListItemButton[]; // Buttons in top level prop are applied to all items
+        onitemclick?: (label: string, key?: string) => void;
     }
 
     let {
@@ -48,6 +51,7 @@
         narrow = false,
         overflowHeight = '30rem',
         hideSearch = false,
+        buttons = [],
         onitemclick = (l, i) => {},
         ...rest
     }: SearchableListProps = $props();
@@ -118,7 +122,7 @@
         else if (event.key === 'Enter') {
             event.preventDefault();
             if (sanitizedIndex !== null)
-                onitemclick(filteredItems[sanitizedIndex].label, sanitizedIndex); // Note this is "Filtered" index!
+                onitemclick(filteredItems[sanitizedIndex].label, filteredItems[sanitizedIndex].key);
 
             setTimeout(focus, 100);
         }
@@ -151,24 +155,50 @@
 
 {#snippet listItem(l: ListItem, index: number, selected: boolean, highlight: string)}
     <button
-        class="list-item overflow-hidden bg-accent"
+        class="list-item overflow-hidden bg-accent hover:brightness-[90%] dark:hover:brightness-[120%]"
         class:selected
+        class:narrow
         tabindex="-1"
         onclick={() => {
             selectedIndex = index;
-            onitemclick(l.label, index);
+            onitemclick(l.label, l.key);
         }}
     >
         {#if l.icon}
-            <div class="px-1">
+            <div class="px-1 pl-2">
                 <l.icon size={narrow ? 16 : 24} />
             </div>
         {/if}
-        <div class="overflow-hidden pl-0 pr-1 pt-1">
+        <div class="grow-1 w-full overflow-hidden pl-0 pr-1 pt-1">
             <h5>{@html highlightedString(l.label, highlight)}</h5>
-            <h6 class="text-gray-400">{l.sublabel}</h6>
+            {#if !narrow}
+                <h6 class="text-gray-400">{l.sublabel}</h6>
+            {/if}
         </div>
-        <!-- BUTTONS -->
+        {#if l.buttons}
+            {#each l.buttons as b}
+                <IconButton
+                    variant="ghost"
+                    class="aspect-square hover:brightness-[90%] dark:hover:brightness-[120%]"
+                    Icon={b.icon}
+                    onclick={(e) => {
+                        e.stopPropagation();
+                        b.onclick(l.label, l.key);
+                    }}
+                />
+            {/each}
+        {/if}
+        {#each buttons as b}
+            <IconButton
+                variant="ghost"
+                class="aspect-square hover:brightness-[90%] dark:hover:brightness-[120%]"
+                Icon={b.icon}
+                onclick={(e) => {
+                    e.stopPropagation();
+                    b.onclick(l.label, l.key);
+                }}
+            />
+        {/each}
     </button>
 {/snippet}
 
@@ -185,7 +215,7 @@
     </form>
 
     <div class="overflow-scroll p-[4px]" data-simplebar style:max-height={overflowHeight}>
-        <div class="list" bind:this={list}>
+        <div class="list" class:narrow bind:this={list}>
             {#each filteredItems as l, i}
                 {@render listItem(l, i, i === sanitizedIndex, searchString)}
             {/each}
@@ -198,6 +228,10 @@
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
+    }
+
+    .list.narrow {
+        gap: 0.25rem;
     }
 
     .list-item {
@@ -214,6 +248,10 @@
 
     .list-item.selected {
         box-shadow: 0px 0px 4px #4195fc;
+    }
+
+    .list-item.narrow {
+        max-height: 2rem;
     }
 
     h5 {
