@@ -131,7 +131,6 @@
 @layer base {
     * {
         @apply border-border;
-        font-family: var(--font-body);
     }
 
     body {

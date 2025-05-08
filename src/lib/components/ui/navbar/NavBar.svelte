@@ -126,6 +126,7 @@
         flex: 0 0 auto;
         margin-right: 4px;
         padding: 0.3rem;
+        text-overflow: ellipsis;
     }
 
     .nav-right {
@@ -139,7 +140,7 @@
     }
 
     h1 {
-        font-size: 2rem;
+        font-size: clamp(1.2rem, 5vw, 2rem);
         font-weight: 100;
         vertical-align: middle;
         margin-bottom: 0rem;

@@ -1,0 +1,125 @@
+<svelte:head>
+<title>Demo - Searchable List</title>
+</svelte:head>
+
+<script lang=ts>
+    import { Widgets } from "$lib";
+
+    import Table from 'carbon-icons-svelte/lib/Table.svelte';
+    import AddComment from 'carbon-icons-svelte/lib/AddComment.svelte';
+    import TrashCan from 'carbon-icons-svelte/lib/TrashCan.svelte';
+</script>
+
+# Searchable List
+
+This is a `searchable` list: a very common UI component in BOJIT sites. Open the developer console to see how the various callbacks work.
+
+```svelte
+<Widgets.SearchableList
+    overflowHeight="20rem"
+    sort
+    buttons={[
+        {
+            icon: Table as Icon,
+            onclick: (l, k) => {
+                console.log('TABLE:', l, k);
+            }
+        },
+        {
+            icon: TrashCan as Icon,
+            onclick: (l, k) => {
+                console.log('TRASH:', l, k);
+            }
+        }
+    ]}
+    items={[
+        {
+            label: 'Search Entry',
+            sublabel: 'example description',
+            icon: Table as Icon,
+            buttons: [
+                {
+                    icon: AddComment as Icon,
+                    onclick: (l, i) => {
+                        console.log('COMMENT:', l, i);
+                    }
+                }
+            ]
+        },
+        {
+            label: 'Biggest Entry',
+            icon: AddComment as Icon
+        },
+        {
+            label: 'Trials of the Past',
+            icon: TrashCan as Icon
+        },
+        {
+            label: 'Gravy of the Past',
+            icon: TrashCan as Icon
+        },
+        {
+            label: 'Trials in Hastings',
+            icon: TrashCan as Icon
+        }
+    ]}
+    onitemclick={(l, k) => {
+        console.log('MAIN:', l, k);
+    }}
+></Widgets.SearchableList>
+```
+---
+
+<Widgets.SearchableList
+    overflowHeight="20rem"
+    sort
+    buttons={[
+        {
+            icon: Table as Icon,
+            onclick: (l, k) => {
+                console.log('TABLE:', l, k);
+            }
+        },
+        {
+            icon: TrashCan as Icon,
+            onclick: (l, k) => {
+                console.log('TRASH:', l, k);
+            }
+        }
+    ]}
+    items={[
+        {
+            label: 'Search Entry',
+            sublabel: 'example description',
+            icon: Table as Icon,
+            buttons: [
+                {
+                    icon: AddComment as Icon,
+                    onclick: (l, i) => {
+                        console.log('COMMENT:', l, i);
+                    }
+                }
+            ]
+        },
+        {
+            label: 'Biggest Entry',
+            icon: AddComment as Icon
+        },
+        {
+            label: 'Trials of the Past',
+            icon: TrashCan as Icon
+        },
+        {
+            label: 'Gravy of the Past',
+            icon: TrashCan as Icon
+        },
+        {
+            label: 'Trials in Hastings',
+            icon: TrashCan as Icon
+        }
+    ]}
+    onitemclick={(l, k) => {
+        console.log('MAIN:', l, k);
+    }}
+></Widgets.SearchableList>
+
