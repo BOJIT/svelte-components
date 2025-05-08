@@ -21,9 +21,11 @@
 </script>
 
 <PaneGroup direction="horizontal">
-    <Pane defaultSize={50}>Pane 1</Pane>
-    <PaneResizer />
-    <Pane defaultSize={50}>Pane 2</Pane>
+    <Pane defaultSize={50} class="rounded-sm bg-accent">Pane 1</Pane>
+    <PaneResizer
+        class="relative flex w-1 items-center justify-center bg-background hover:bg-blue-400 active:bg-blue-400"
+    />
+    <Pane defaultSize={50} class="rounded-sm bg-accent">Pane 2</Pane>
 </PaneGroup>
 
 <style>

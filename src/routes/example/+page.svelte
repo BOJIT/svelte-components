@@ -38,6 +38,10 @@
 
 <Widgets.DockableTabs>TEST</Widgets.DockableTabs>
 
+<hr />
+<br />
+<br />
+
 <Widgets.SearchableList
     overflowHeight="14rem"
     sort
