@@ -214,7 +214,7 @@
         />
     </form>
 
-    <div class="overflow-scroll p-[4px]" data-simplebar style:max-height={overflowHeight}>
+    <div class="p-[4px]" data-simplebar style:max-height={overflowHeight}>
         <div class="list" class:narrow bind:this={list}>
             {#each filteredItems as l, i}
                 {@render listItem(l, i, i === sanitizedIndex, searchString)}

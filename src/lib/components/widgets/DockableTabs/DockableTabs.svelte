@@ -28,5 +28,6 @@
     <Pane defaultSize={50} class="rounded-sm bg-accent">Pane 2</Pane>
 </PaneGroup>
 
-<style>
-</style>
+<!-- <style>
+
+</style> -->

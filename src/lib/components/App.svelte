@@ -11,6 +11,8 @@
 <script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
+    import 'simplebar';
+
     import { ModeWatcher } from 'mode-watcher';
 
     import { Toaster } from '$lib/components/ui/sonner/index.js';
