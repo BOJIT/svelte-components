@@ -94,6 +94,11 @@
                     node.selected = i;
                     focused = node.tabs[i]; // TODO change to pane interface
                 }}
+                drag
+                dragContext={node}
+                onDropEvent={(e) => {
+                    console.log(e);
+                }}
             >
                 {#each node.tabs as t}
                     {@render tab(t)}

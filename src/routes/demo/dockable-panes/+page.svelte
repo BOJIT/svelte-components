@@ -81,8 +81,8 @@
 
     /*------------------------------- Lifecycle ------------------------------*/
 
-    $inspect(layout.current);
-    $inspect(focused);
+    // $inspect(layout.current);
+    // $inspect(focused);
 </script>
 
 <svelte:head>
@@ -106,6 +106,6 @@
         left: 0 !important;
         bottom: 0 !important;
         height: calc(100% - 3.7rem);
-        border: 1px red solid;
+        /* border: 1px red solid; */
     }
 </style>

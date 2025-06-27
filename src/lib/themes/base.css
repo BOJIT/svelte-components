@@ -140,7 +140,8 @@
         font-family: var(--font-body);
     }
 
-    b,strong {
+    b,
+    strong {
         font-weight: 600;
     }
 

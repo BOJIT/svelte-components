@@ -19,11 +19,20 @@
 
     import { cn } from '$lib/utils';
 
+    import { draggable, droppable, type DragDropState } from '@thisux/sveltednd';
+
     /*--------------------------------- Props --------------------------------*/
 
     type Tab = {
         label: string;
         link?: string; // Link must be relative to the tab component
+    };
+
+    type DropEvent = {
+        source: number;
+        target: number;
+        internal: boolean;
+        context: any;
     };
 
     interface TabsProps {
@@ -35,7 +44,10 @@
         index?: number; // Manually set tab index (not in path mode)
         fade?: boolean;
         colourOffset?: number;
+        drag?: boolean;
+        dragContext?: any;
         onIndexChange?: (idx: number) => void;
+        onDropEvent?: (evt: DropEvent) => void;
         class?: string;
     }
 
@@ -48,7 +60,10 @@
         index = $bindable(currentPath ? -1 : 0),
         fade = false,
         colourOffset = 0,
+        drag = false,
+        dragContext = null,
         onIndexChange = () => {},
+        onDropEvent = () => {},
         class: className,
         ...restProps
     }: TabsProps = $props();
@@ -64,6 +79,21 @@
         tabLine.style.cssText = swatchCSS(idx);
     }
 
+    let dragInitiated: boolean = $state(false);
+
+    function handleDrop(state: DragDropState<{ id: string }>) {
+        if (!state.targetContainer) return;
+
+        const evt: DropEvent = {
+            source: parseInt(state.sourceContainer),
+            target: parseInt(state.targetContainer),
+            internal: dragInitiated,
+            context: dragContext
+        };
+
+        onDropEvent(evt);
+    }
+
     let tabLine: HTMLElement;
     let tabRoot: HTMLElement;
     let tabParent: HTMLElement;
@@ -76,6 +106,9 @@
 
         index = tabs.findIndex((t) => currentPath.startsWith(`${basePath}${t.link}`));
     });
+
+    let dragAction = $derived(drag ? draggable : () => {});
+    let dropAction = $derived(drag ? droppable : () => {});
 
     $effect(() => {
         if (!currentPath || tabs.length == 0) return;
@@ -128,6 +161,18 @@
                           : undefined}
                 >
                     <button
+                        use:dragAction={{
+                            container: idx.toString(),
+                            dragData: {},
+                            callbacks: {
+                                onDragStart: (state: DragDropState) => (dragInitiated = true),
+                                onDragEnd: (state: DragDropState) => (dragInitiated = false)
+                            }
+                        }}
+                        use:dropAction={{
+                            container: idx.toString(),
+                            callbacks: { onDrop: handleDrop }
+                        }}
                         style={swatchCSS(idx + colourOffset)}
                         class="tab"
                         class:is-active={idx == index}
@@ -139,6 +184,13 @@
                     </button>
                 </Link>
             {/each}
+            <div
+                class="flex-grow"
+                use:dropAction={{
+                    container: tabs.length.toString(),
+                    callbacks: { onDrop: handleDrop }
+                }}
+            ></div>
         </ul>
         <hr bind:this={tabLine} class="tabline" style={swatchCSS(index + colourOffset)} />
     </div>
@@ -238,5 +290,13 @@
     .tabroot > :global(div.tab.active) {
         opacity: 100;
         pointer-events: auto;
+    }
+
+    :global(.dragging) {
+        @apply opacity-50 shadow-lg ring-1 ring-blue-400;
+    }
+
+    :global(.drag-over) {
+        border-left: 3px solid rgb(96 165 250);
     }
 </style>
