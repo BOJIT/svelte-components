@@ -41,7 +41,7 @@
                 {
                     type: 'leaf',
                     proportion: 0.2,
-                    tabs: ['test1', 'test2']
+                    tabs: ['test3', 'test4']
                 },
                 {
                     type: 'branch',
@@ -51,12 +51,12 @@
                         {
                             type: 'leaf',
                             proportion: 0.5,
-                            tabs: ['test1', 'test2']
+                            tabs: ['test5', 'test6']
                         },
                         {
                             type: 'leaf',
                             proportion: 0.5,
-                            tabs: ['test1', 'test2']
+                            tabs: ['test7', 'test8']
                         }
                     ]
                 }

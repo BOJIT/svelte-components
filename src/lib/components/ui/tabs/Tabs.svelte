@@ -17,6 +17,8 @@
     import { Link } from '$lib/components/ui/link';
     import { goto } from '$app/navigation';
 
+    import { cn } from '$lib/utils';
+
     /*--------------------------------- Props --------------------------------*/
 
     type Tab = {
@@ -33,6 +35,7 @@
         index?: number; // Manually set tab index (not in path mode)
         fade?: boolean;
         colourOffset?: number;
+        class?: string;
     }
 
     let {
@@ -44,6 +47,7 @@
         index = $bindable(currentPath ? -1 : 0),
         fade = false,
         colourOffset = 0,
+        class: className,
         ...restProps
     }: TabsProps = $props();
 
@@ -105,7 +109,7 @@
     }}
 />
 
-<div class="root-el" bind:this={ref}>
+<div class={cn('root-el', className)} bind:this={ref}>
     <div>
         <ul class="tabs" bind:this={tabParent}>
             <!-- Render each tab - updates when the list updates -->
@@ -208,6 +212,7 @@
 
     /* Tab anchor */
     .tabroot {
+        flex: 1 0 auto;
         display: grid;
     }
 

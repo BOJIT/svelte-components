@@ -69,14 +69,22 @@
     /*------------------------------- Lifecycle ------------------------------*/
 </script>
 
+{#snippet tab(t: string)}
+    <div class="tab pane-styling rounded-sm">{t}</div>
+{/snippet}
+
 {#snippet pane(node: LayoutNode)}
     {#if node.type === 'leaf'}
-        <PaneItem defaultSize={node.proportion * 100} class="pane-internal rounded-sm bg-accent"
-            >Pane</PaneItem
-        >
+        <PaneItem defaultSize={node.proportion * 100} class="rounded-sm bg-accent">
+            <Tabs tabs={node.tabs} class="h-full">
+                {#each node.tabs as t}
+                    {@render tab(t)}
+                {/each}
+            </Tabs>
+        </PaneItem>
     {:else if node.type === 'branch'}
-        <PaneItem defaultSize={node.proportion * 100} class="pane-internal rounded-sm bg-accent">
-            <PaneGroup direction={node.orientation} class="p-1">
+        <PaneItem defaultSize={node.proportion * 100}>
+            <PaneGroup direction={node.orientation}>
                 {#each node.children as n, idx}
                     {@render pane(n)}
                     {#if idx != node.children.length - 1}
@@ -102,9 +110,13 @@
         height: 100%;
     }
 
-    .root :global(.pane-internal) {
+    .pane-styling {
+        width: 100%;
+        height: 100%;
         display: grid;
         align-items: center;
         text-align: center;
+
+        background-color: rgb(32, 49, 49); /* TEMP */
     }
 </style>
