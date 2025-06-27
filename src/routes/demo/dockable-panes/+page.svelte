@@ -106,6 +106,5 @@
         left: 0 !important;
         bottom: 0 !important;
         height: calc(100% - 3.7rem);
-        /* border: 1px red solid; */
     }
 </style>

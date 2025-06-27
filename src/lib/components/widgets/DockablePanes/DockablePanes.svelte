@@ -14,6 +14,7 @@
     import type { Component } from 'svelte';
 
     import { PaneGroup, Pane as PaneItem, PaneResizer } from 'paneforge';
+    import { draggable, droppable, type DragDropState } from '@thisux/sveltednd';
 
     import Tabs from '$lib/components/ui/tabs/Tabs.svelte';
 
@@ -66,6 +67,10 @@
 
     /*-------------------------------- Methods -------------------------------*/
 
+    function handleDrop(state: DragDropState<{ id: string }>) {
+        if (!state.targetContainer) return;
+    }
+
     // TODO when node is deleted ensure space is distributed to siblings
 
     // TODO when any panes are removed ensure focused is updated
@@ -74,7 +79,37 @@
 </script>
 
 {#snippet tab(t: string)}
-    <div class="tab pane-styling rounded-sm">{t}</div>
+    <div class="tab rounded-sm">
+        {t}
+        <div
+            class="drop-target-vertical drop-top"
+            use:droppable={{
+                container: `${t}-top`,
+                callbacks: { onDrop: handleDrop }
+            }}
+        ></div>
+        <div
+            class="drop-target-vertical drop-bottom"
+            use:droppable={{
+                container: `${t}-bottom`,
+                callbacks: { onDrop: handleDrop }
+            }}
+        ></div>
+        <div
+            class="drop-target-horizontal drop-left"
+            use:droppable={{
+                container: `${t}-left`,
+                callbacks: { onDrop: handleDrop }
+            }}
+        ></div>
+        <div
+            class="drop-target-horizontal drop-right"
+            use:droppable={{
+                container: `${t}-right`,
+                callbacks: { onDrop: handleDrop }
+            }}
+        ></div>
+    </div>
 {/snippet}
 
 {#snippet pane(node: LayoutNode)}
@@ -138,7 +173,7 @@
         height: 100%;
     }
 
-    .pane-styling {
+    .tab {
         width: 100%;
         height: 100%;
         display: grid;
@@ -146,5 +181,55 @@
         text-align: center;
 
         background-color: rgb(32, 49, 49); /* TEMP */
+
+        position: relative;
+    }
+
+    .tab :global(.dragging) {
+        @apply opacity-50 shadow-lg ring-2 ring-blue-400;
+    }
+
+    .drop-target-vertical {
+        position: absolute;
+        width: 100%;
+        height: 40%;
+        max-height: 8rem;
+        /* background-color: rgba(255, 0, 0, 0.178); */
+
+        &.drop-top {
+            top: 0;
+            &:global(.drag-over) {
+                border-top: 1rem solid rgb(96 165 250);
+            }
+        }
+
+        &.drop-bottom {
+            bottom: 0;
+            &:global(.drag-over) {
+                border-bottom: 1rem solid rgb(96 165 250);
+            }
+        }
+    }
+
+    .drop-target-horizontal {
+        position: absolute;
+        height: 100%;
+        width: 40%;
+        max-width: 8rem;
+        /* background-color: rgba(255, 0, 0, 0.178); */
+
+        &.drop-left {
+            left: 0;
+            &:global(.drag-over) {
+                border-left: 1rem solid rgb(96 165 250);
+            }
+        }
+
+        &.drop-right {
+            right: 0;
+            &:global(.drag-over) {
+                border-right: 1rem solid rgb(96 165 250);
+            }
+        }
     }
 </style>

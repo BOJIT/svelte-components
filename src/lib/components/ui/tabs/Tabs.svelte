@@ -292,11 +292,11 @@
         pointer-events: auto;
     }
 
-    :global(.dragging) {
-        @apply opacity-50 shadow-lg ring-1 ring-blue-400;
+    .tabs :global(.dragging) {
+        @apply opacity-50 shadow-lg ring-2 ring-blue-400;
     }
 
-    :global(.drag-over) {
+    .tabs :global(.drag-over) {
         border-left: 3px solid rgb(96 165 250);
     }
 </style>
