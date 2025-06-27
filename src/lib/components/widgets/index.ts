@@ -13,7 +13,7 @@
 import BitField from './BitField/BitField.svelte';
 import CAD from './CAD/CAD.svelte';
 //
-import DockableTabs from './DockableTabs/DockableTabs.svelte';
+import DockablePanes from './DockablePanes/DockablePanes.svelte';
 import Gallery from './Gallery/Gallery.svelte';
 import ModalImage from './ModalImage/ModalImage.svelte';
 //
@@ -30,7 +30,7 @@ import YouTube from './YouTube/YouTube.svelte';
 export {
     BitField,
     CAD,
-    DockableTabs,
+    DockablePanes,
     Gallery,
     ModalImage,
     SearchableList,

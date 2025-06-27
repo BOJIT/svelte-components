@@ -35,7 +35,7 @@ It is based on [shadcn-svelte](https://shadcn-svelte.com/) with some opinionated
 <!-- - [Addable List Demo](/demo/addable-list) -->
 
 - [CAD](/demo/cad)
-<!-- - [Draggable Panes](/demo/draggable-panes) -->
+- [Dockable Panes](/demo/dockable-panes)
 
 <!-- - [Code Editor Demo](/demo/code-editor) -->
 
