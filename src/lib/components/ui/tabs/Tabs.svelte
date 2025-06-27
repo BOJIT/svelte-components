@@ -35,6 +35,7 @@
         index?: number; // Manually set tab index (not in path mode)
         fade?: boolean;
         colourOffset?: number;
+        onIndexChange?: (idx: number) => void;
         class?: string;
     }
 
@@ -47,6 +48,7 @@
         index = $bindable(currentPath ? -1 : 0),
         fade = false,
         colourOffset = 0,
+        onIndexChange = () => {},
         class: className,
         ...restProps
     }: TabsProps = $props();
@@ -92,6 +94,10 @@
                 tabSlots[index].classList.add('active');
             }, 50);
         }
+    });
+
+    $effect(() => {
+        onIndexChange(index);
     });
 </script>
 
