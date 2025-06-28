@@ -165,7 +165,7 @@
                     <button
                         use:dragAction={{
                             container: idx.toString(),
-                            dragData: { context: dragContext },
+                            dragData: { idx: idx, context: dragContext },
                             callbacks: {
                                 onDragStart: (state: DragDropState) => (dragInitiated = true),
                                 onDragEnd: (state: DragDropState) => (dragInitiated = false)

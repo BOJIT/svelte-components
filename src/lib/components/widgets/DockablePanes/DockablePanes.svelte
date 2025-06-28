@@ -11,7 +11,7 @@
 <script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
-    import type { Component } from 'svelte';
+    import { type Component } from 'svelte';
 
     import { PaneGroup, Pane as PaneItem, PaneResizer } from 'paneforge';
     import { droppable, type DragDropState } from '@thisux/sveltednd';
@@ -22,24 +22,44 @@
 
     interface LayoutNodeLeaf {
         type: 'leaf';
-        // parent: LayoutNode | null;
-        tabs: string[]; // Reference IDs of panes
+        tabs: string[]; // Reference IDs of panes (TODO make this another datatype)
         proportion: number;
         selected?: number;
+        // internal?: {
+        //     parent: LayoutNode | null;
+        // };
         // maximized?: boolean;
     }
 
     interface LayoutNodeBranch {
         type: 'branch';
-        // parent: LayoutNode | null;
+        parent?: LayoutNode | null;
         orientation: 'horizontal' | 'vertical';
         proportion: number;
         children: LayoutNode[];
+        // internal?: {
+        //     parent: LayoutNode | null;
+        // };
     }
 
     type LayoutNode = LayoutNodeLeaf | LayoutNodeBranch;
 
+    // Data emitted from our drag event
+    type DragData = {
+        idx: number; // Tab index (defined by tab component)
+        context: number[]; // Index of Branch Nesting
+    };
+
     type DragLocation = 'tab' | 'top' | 'bottom' | 'left' | 'right';
+
+    /**
+     * Useful Pane Data (accessible via focused prop)
+     */
+    type PaneHandle = {
+        node: LayoutNode;
+        tab: number; // Index of current tab
+        node_location: number[]; // Reference to node position in tree
+    };
 
     /*--------------------------------- Props --------------------------------*/
 
@@ -54,14 +74,13 @@
             [key: string]: Pane; // Any panels not in the layout are assigned to the first leaf node
         };
         layout?: LayoutNode;
-        focused?: string | null;
+        focused?: PaneHandle | null;
     }
 
     let {
         panes = {},
         layout = $bindable({
             type: 'leaf',
-            parent: null,
             proportion: 1,
             tabs: []
         }),
@@ -73,18 +92,46 @@
     /*-------------------------------- Methods -------------------------------*/
 
     function handleDrop(
-        state: DragDropState<{ context: LayoutNodeLeaf }>,
-        target: LayoutNodeLeaf,
-        loc: DragLocation,
-        tab: number
+        state: DragDropState<DragData>, // draggedItem contains source info
+        target: DragData, // Separately specify target info
+        loc: DragLocation
     ) {
         if (!state.targetContainer) return;
-        if (!state.draggedItem?.context) return;
+        if (!state.draggedItem) return;
+        const source: DragData = state.draggedItem;
 
-        console.log(state);
-        console.log(target);
+        console.log('source', source);
+        console.log('target', target);
         console.log(loc);
-        console.log(tab);
+
+        // Case of moving to another tab (no new windows)
+        if (loc === 'tab') {
+            let sourceNode = layout; // root node
+            let sourceParent = sourceNode; // root node
+            source.context.forEach((i) => {
+                sourceParent = sourceNode;
+                if (sourceNode.type === 'branch') sourceNode = sourceNode.children[i];
+            });
+
+            let targetNode = layout; // root node
+            target.context.forEach((i) => {
+                if (targetNode.type === 'branch') targetNode = targetNode.children[i];
+            });
+
+            if (sourceNode.type === 'branch') return; // This should never happen
+            if (targetNode.type === 'branch') return; // This should never happen
+
+            // Move tab to new location
+            let tab = sourceNode.tabs[source.idx];
+            sourceNode.tabs.splice(source.idx, 1);
+            targetNode.tabs.splice(target.idx, 0, tab);
+
+            // If only one tab in the source, close the leaf
+            if (sourceNode.tabs.length === 0 && sourceParent.type === 'branch')
+                sourceParent.children.splice(source.context[-1], 1); // TODO redistribute space?
+        }
+
+        // Moving a pane focuses it (TODO)
     }
 
     // TODO when node is deleted ensure space is distributed to siblings
@@ -94,7 +141,7 @@
     /*------------------------------- Lifecycle ------------------------------*/
 </script>
 
-{#snippet tab(t: string, n: LayoutNodeLeaf)}
+{#snippet tab(t: string, id: number[])}
     <div class="tab rounded-sm">
         {t}
         {#each locations as loc}
@@ -103,16 +150,23 @@
                 use:droppable={{
                     container: `${t}`,
                     callbacks: {
-                        onDrop: (s: DragDropState<{ context: LayoutNodeLeaf }>) =>
-                            handleDrop(s, n, loc, 0)
-                    } // New pane is always tab 1
+                        onDrop: (s: DragDropState<DragData>) =>
+                            handleDrop(
+                                s,
+                                {
+                                    idx: 0, // New pane is always the first tab,
+                                    context: id
+                                },
+                                loc
+                            )
+                    }
                 }}
             ></div>
         {/each}
     </div>
 {/snippet}
 
-{#snippet pane(node: LayoutNode)}
+{#snippet pane(node: LayoutNode, id: number[])}
     {#if node.type === 'leaf'}
         <PaneItem
             defaultSize={node.proportion * 100}
@@ -127,21 +181,27 @@
                 index={node.selected && node.selected < node.tabs.length ? node.selected : 0}
                 onIndexChange={(i) => {
                     node.selected = i;
-                    focused = node.tabs[i]; // TODO change to pane interface
+                    focused = {
+                        node: node,
+                        tab: i,
+                        node_location: id
+                    };
                 }}
                 drag
-                dragContext={node}
+                dragContext={id}
                 onDropEvent={(e) => {
                     handleDrop(
-                        e.state as DragDropState<{ context: LayoutNodeLeaf }>,
-                        node,
-                        'tab',
-                        e.target
+                        e.state as DragDropState<DragData>,
+                        {
+                            idx: e.target,
+                            context: id
+                        },
+                        'tab'
                     );
                 }}
             >
                 {#each node.tabs as t}
-                    {@render tab(t, node)}
+                    {@render tab(t, id)}
                 {/each}
             </Tabs>
         </PaneItem>
@@ -154,7 +214,7 @@
         >
             <PaneGroup direction={node.orientation}>
                 {#each node.children as n, idx}
-                    {@render pane(n)}
+                    {@render pane(n, [...id, idx])}
                     {#if idx != node.children.length - 1}
                         <PaneResizer
                             class={`${node.orientation === 'horizontal' ? 'w-1' : 'h-1'} relative flex items-center justify-center bg-background hover:bg-blue-400 active:bg-blue-400`}
@@ -168,7 +228,7 @@
 
 <div class="root">
     <PaneGroup direction="horizontal" class="p-1">
-        {@render pane(layout)}
+        {@render pane(layout, [])}
     </PaneGroup>
 </div>
 
