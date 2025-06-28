@@ -29,6 +29,7 @@
     };
 
     type DropEvent = {
+        state: DragDropState;
         source: number;
         target: number;
         internal: boolean;
@@ -81,10 +82,11 @@
 
     let dragInitiated: boolean = $state(false);
 
-    function handleDrop(state: DragDropState<{ id: string }>) {
+    function handleDrop(state: DragDropState) {
         if (!state.targetContainer) return;
 
         const evt: DropEvent = {
+            state: state,
             source: parseInt(state.sourceContainer),
             target: parseInt(state.targetContainer),
             internal: dragInitiated,
@@ -163,7 +165,7 @@
                     <button
                         use:dragAction={{
                             container: idx.toString(),
-                            dragData: {},
+                            dragData: { context: dragContext },
                             callbacks: {
                                 onDragStart: (state: DragDropState) => (dragInitiated = true),
                                 onDragEnd: (state: DragDropState) => (dragInitiated = false)

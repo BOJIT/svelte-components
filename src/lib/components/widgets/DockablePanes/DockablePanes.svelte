@@ -14,7 +14,7 @@
     import type { Component } from 'svelte';
 
     import { PaneGroup, Pane as PaneItem, PaneResizer } from 'paneforge';
-    import { draggable, droppable, type DragDropState } from '@thisux/sveltednd';
+    import { droppable, type DragDropState } from '@thisux/sveltednd';
 
     import Tabs from '$lib/components/ui/tabs/Tabs.svelte';
 
@@ -22,22 +22,24 @@
 
     interface LayoutNodeLeaf {
         type: 'leaf';
+        // parent: LayoutNode | null;
         tabs: string[]; // Reference IDs of panes
         proportion: number;
         selected?: number;
-        // visible?: boolean;
         // maximized?: boolean;
     }
 
     interface LayoutNodeBranch {
         type: 'branch';
+        // parent: LayoutNode | null;
         orientation: 'horizontal' | 'vertical';
         proportion: number;
         children: LayoutNode[];
-        // visible?: boolean;
     }
 
     type LayoutNode = LayoutNodeLeaf | LayoutNodeBranch;
+
+    type DragLocation = 'tab' | 'top' | 'bottom' | 'left' | 'right';
 
     /*--------------------------------- Props --------------------------------*/
 
@@ -59,16 +61,30 @@
         panes = {},
         layout = $bindable({
             type: 'leaf',
+            parent: null,
             proportion: 1,
             tabs: []
         }),
         focused = $bindable(null)
     }: DockableTabsProps = $props();
 
+    const locations: DragLocation[] = ['top', 'bottom', 'left', 'right'];
+
     /*-------------------------------- Methods -------------------------------*/
 
-    function handleDrop(state: DragDropState<{ id: string }>) {
+    function handleDrop(
+        state: DragDropState<{ context: LayoutNodeLeaf }>,
+        target: LayoutNodeLeaf,
+        loc: DragLocation,
+        tab: number
+    ) {
         if (!state.targetContainer) return;
+        if (!state.draggedItem?.context) return;
+
+        console.log(state);
+        console.log(target);
+        console.log(loc);
+        console.log(tab);
     }
 
     // TODO when node is deleted ensure space is distributed to siblings
@@ -78,37 +94,21 @@
     /*------------------------------- Lifecycle ------------------------------*/
 </script>
 
-{#snippet tab(t: string)}
+{#snippet tab(t: string, n: LayoutNodeLeaf)}
     <div class="tab rounded-sm">
         {t}
-        <div
-            class="drop-target-vertical drop-top"
-            use:droppable={{
-                container: `${t}-top`,
-                callbacks: { onDrop: handleDrop }
-            }}
-        ></div>
-        <div
-            class="drop-target-vertical drop-bottom"
-            use:droppable={{
-                container: `${t}-bottom`,
-                callbacks: { onDrop: handleDrop }
-            }}
-        ></div>
-        <div
-            class="drop-target-horizontal drop-left"
-            use:droppable={{
-                container: `${t}-left`,
-                callbacks: { onDrop: handleDrop }
-            }}
-        ></div>
-        <div
-            class="drop-target-horizontal drop-right"
-            use:droppable={{
-                container: `${t}-right`,
-                callbacks: { onDrop: handleDrop }
-            }}
-        ></div>
+        {#each locations as loc}
+            <div
+                class={`drop-target drop-${loc}`}
+                use:droppable={{
+                    container: `${t}`,
+                    callbacks: {
+                        onDrop: (s: DragDropState<{ context: LayoutNodeLeaf }>) =>
+                            handleDrop(s, n, loc, 0)
+                    } // New pane is always tab 1
+                }}
+            ></div>
+        {/each}
     </div>
 {/snippet}
 
@@ -132,11 +132,16 @@
                 drag
                 dragContext={node}
                 onDropEvent={(e) => {
-                    console.log(e);
+                    handleDrop(
+                        e.state as DragDropState<{ context: LayoutNodeLeaf }>,
+                        node,
+                        'tab',
+                        e.target
+                    );
                 }}
             >
                 {#each node.tabs as t}
-                    {@render tab(t)}
+                    {@render tab(t, node)}
                 {/each}
             </Tabs>
         </PaneItem>
@@ -189,14 +194,13 @@
         @apply opacity-50 shadow-lg ring-2 ring-blue-400;
     }
 
-    .drop-target-vertical {
+    .drop-target {
         position: absolute;
-        width: 100%;
-        height: 40%;
-        max-height: 8rem;
-        /* background-color: rgba(255, 0, 0, 0.178); */
 
         &.drop-top {
+            width: 100%;
+            height: 40%;
+            max-height: 8rem;
             top: 0;
             &:global(.drag-over) {
                 border-top: 1rem solid rgb(96 165 250);
@@ -204,21 +208,19 @@
         }
 
         &.drop-bottom {
+            width: 100%;
+            height: 40%;
+            max-height: 8rem;
             bottom: 0;
             &:global(.drag-over) {
                 border-bottom: 1rem solid rgb(96 165 250);
             }
         }
-    }
-
-    .drop-target-horizontal {
-        position: absolute;
-        height: 100%;
-        width: 40%;
-        max-width: 8rem;
-        /* background-color: rgba(255, 0, 0, 0.178); */
 
         &.drop-left {
+            height: 100%;
+            width: 40%;
+            max-width: 8rem;
             left: 0;
             &:global(.drag-over) {
                 border-left: 1rem solid rgb(96 165 250);
@@ -226,6 +228,9 @@
         }
 
         &.drop-right {
+            height: 100%;
+            width: 40%;
+            max-width: 8rem;
             right: 0;
             &:global(.drag-over) {
                 border-right: 1rem solid rgb(96 165 250);
