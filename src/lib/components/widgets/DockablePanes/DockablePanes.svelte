@@ -33,7 +33,7 @@
 
     interface LayoutNodeBranch {
         type: 'branch';
-        parent?: LayoutNode | null;
+        // parent?: LayoutNode | null;
         orientation: 'horizontal' | 'vertical';
         proportion: number;
         children: LayoutNode[];
@@ -100,36 +100,86 @@
         if (!state.draggedItem) return;
         const source: DragData = state.draggedItem;
 
-        console.log('source', source);
-        console.log('target', target);
+        // console.log('source', source);
+        // console.log('target', target);
         console.log(loc);
+
+        // Locate source/target nodes and parents in the tree
+        let sourceNode = layout; // root node
+        let sourceParent = null as LayoutNode | null;
+        source.context.forEach((i) => {
+            sourceParent = sourceNode;
+            if (sourceNode.type === 'branch') sourceNode = sourceNode.children[i];
+        });
+        if (sourceNode.type === 'branch') return; // This should never happen
+
+        let targetNode = layout; // root node
+        let targetParent = null as LayoutNode | null;
+        target.context.forEach((i) => {
+            targetParent = targetNode;
+            if (targetNode.type === 'branch') targetNode = targetNode.children[i];
+        });
+        if (targetNode.type === 'branch') return; // This should never happen
+
+        // Splice tab from existing array
+        let tab = sourceNode.tabs[source.idx];
+        sourceNode.tabs.splice(source.idx, 1);
 
         // Case of moving to another tab (no new windows)
         if (loc === 'tab') {
-            let sourceNode = layout; // root node
-            let sourceParent = sourceNode; // root node
-            source.context.forEach((i) => {
-                sourceParent = sourceNode;
-                if (sourceNode.type === 'branch') sourceNode = sourceNode.children[i];
-            });
-
-            let targetNode = layout; // root node
-            target.context.forEach((i) => {
-                if (targetNode.type === 'branch') targetNode = targetNode.children[i];
-            });
-
-            if (sourceNode.type === 'branch') return; // This should never happen
-            if (targetNode.type === 'branch') return; // This should never happen
-
             // Move tab to new location
-            let tab = sourceNode.tabs[source.idx];
-            sourceNode.tabs.splice(source.idx, 1);
             targetNode.tabs.splice(target.idx, 0, tab);
+        } else {
+            // Do we create a new branch or append to existing?
+            let newBranch = false;
+            if (targetParent === null || targetParent.type === 'leaf')
+                newBranch = true; // Parent is root
+            else {
+                if (targetParent.orientation === 'vertical' && (loc === 'left' || loc === 'right'))
+                    newBranch = true;
+                if (
+                    targetParent.orientation === 'horizontal' &&
+                    (loc === 'top' || loc === 'bottom')
+                )
+                    newBranch = true;
+            }
 
-            // If only one tab in the source, close the leaf
-            if (sourceNode.tabs.length === 0 && sourceParent.type === 'branch')
-                sourceParent.children.splice(source.context[-1], 1); // TODO redistribute space?
+            if (newBranch) {
+                // Convert leaf to branch (by mutation of reference)
+                let original: string[] = targetNode.tabs;
+                let targetRedefined: LayoutNodeBranch = targetNode as unknown as LayoutNodeBranch;
+                targetRedefined.type = 'branch';
+                if (loc === 'top' || loc === 'bottom') targetRedefined.orientation = 'vertical';
+                else targetRedefined.orientation = 'horizontal';
+                targetRedefined.children = [
+                    { type: 'leaf', proportion: 0.5, tabs: [tab] },
+                    {
+                        type: 'leaf',
+                        proportion: 0.5,
+                        tabs: original
+                    }
+                ];
+                if (loc === 'right' || loc === 'bottom') targetRedefined.children.reverse();
+            } else {
+                // Insert into existing branch
+                if (!targetParent || targetParent.type === 'leaf') return; // Should never happen
+
+                let targetIndex = target.context[-1];
+                if (loc === 'right' || loc === 'bottom') targetIndex++;
+                let node: LayoutNodeLeaf = {
+                    type: 'leaf',
+                    proportion: 0.5, // TODO fix
+                    tabs: [tab]
+                };
+                targetParent.children.splice(targetIndex, 0, node);
+
+                // TODO check if source branch is now empty
+            }
         }
+
+        // Close off original leaf if empty
+        if (sourceNode.tabs.length === 0 && sourceParent !== null && sourceParent.type === 'branch')
+            sourceParent.children.splice(source.context[-1], 1); // TODO redistribute space?
 
         // Moving a pane focuses it (TODO)
     }

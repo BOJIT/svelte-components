@@ -58,12 +58,12 @@
                     {
                         type: 'leaf',
                         proportion: 0.5,
-                        tabs: ['test5', 'test6']
+                        tabs: ['test9', 'test10']
                     },
                     {
                         type: 'leaf',
                         proportion: 0.5,
-                        tabs: ['test7', 'test8']
+                        tabs: ['test11', 'test12']
                     }
                 ]
             }
