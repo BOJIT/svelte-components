@@ -12,15 +12,35 @@
     /*-------------------------------- Imports -------------------------------*/
 
     import { Widgets } from '$lib';
+    import ExamplePane from '$lib/test/ExamplePane.svelte';
 
     import { PersistedState } from 'runed';
 
     /*--------------------------------- Props --------------------------------*/
 
-    const default_layout2 = {
-        type: 'leaf',
-        proportion: 0.2,
-        tabs: ['test3', 'test4', 'test4.5']
+    const panes = {
+        test1: {
+            label: 'hey there',
+            component: ExamplePane,
+            props: {
+                text: 'Phrase',
+                class: 'bg-red-500'
+            }
+        },
+        test2: {
+            component: ExamplePane,
+            props: {
+                text: 'Client',
+                class: 'bg-green-500'
+            }
+        },
+        test3: {
+            component: ExamplePane,
+            props: {
+                text: 'Device',
+                class: 'bg-green-500'
+            }
+        }
     };
 
     const default_layout = {
@@ -102,7 +122,7 @@
 />
 
 <div class="make-full">
-    <Widgets.DockablePanes panes={{}} bind:layout={layout.current} bind:focused />
+    <Widgets.DockablePanes {panes} bind:layout={layout.current} bind:focused />
 </div>
 
 <style>

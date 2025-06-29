@@ -11,7 +11,7 @@
 <script lang="ts">
     /*-------------------------------- Imports -------------------------------*/
 
-    import { type Component } from 'svelte';
+    import { type Component, type ComponentProps } from 'svelte';
 
     import { PaneGroup, Pane as PaneItem, PaneResizer } from 'paneforge';
     import { droppable, type DragDropState } from '@thisux/sveltednd';
@@ -22,12 +22,9 @@
 
     interface LayoutNodeLeaf {
         type: 'leaf';
-        tabs: string[]; // Reference IDs of panes (TODO make this another datatype)
+        tabs: string[]; // Reference IDs of panes
         proportion: number;
         selected?: number;
-        // internal?: {
-        //     parent: LayoutNode | null;
-        // };
         // maximized?: boolean;
     }
 
@@ -37,9 +34,6 @@
         orientation: 'horizontal' | 'vertical';
         proportion: number;
         children: LayoutNode[];
-        // internal?: {
-        //     parent: LayoutNode | null;
-        // };
     }
 
     type LayoutNode = LayoutNodeLeaf | LayoutNodeBranch;
@@ -64,15 +58,17 @@
     /*--------------------------------- Props --------------------------------*/
 
     type Pane = {
-        id: string; //  Must be unique
-        label?: string;
-        component?: Component;
+        label?: string; // Used in tab text (ID is used if undefined)
+        component?: Component; // Component to render (just grey background if undefined)
+        props?: ComponentProps<any>; // Props passed through to component
+    };
+
+    type Panes = {
+        [key: string]: Pane; // Any panels not in the layout are assigned to the first leaf node
     };
 
     interface DockableTabsProps {
-        panes: {
-            [key: string]: Pane; // Any panels not in the layout are assigned to the first leaf node
-        };
+        panes: Panes;
         layout?: LayoutNode;
         focused?: PaneHandle | null;
     }
@@ -82,7 +78,7 @@
         layout = $bindable({
             type: 'leaf',
             proportion: 1,
-            tabs: []
+            tabs: Object.keys(panes)
         }),
         focused = $bindable(null)
     }: DockableTabsProps = $props();
@@ -141,6 +137,7 @@
         if (loc === 'tab') {
             // Move tab to new location
             targetNode.tabs.splice(target.idx, 0, tab);
+            // targetNode.selected = target.idx;
         } else {
             // Do we create a new branch or append to existing?
             let newBranch = false;
@@ -217,12 +214,11 @@
 </script>
 
 {#snippet tab(t: string, id: number[])}
-    <div class="tab rounded-sm">
-        <p>
-            {t}
-            <br />
-            [{id}]
-        </p>
+    <div class="tab overflow-hidden rounded-sm">
+        {#if t in panes && panes[t].component}
+            {@const C = panes[t].component}
+            <C {...panes[t].props} />
+        {/if}
         {#each locations as loc}
             <div
                 class={`drop-target drop-${loc}`}
@@ -255,9 +251,17 @@
             }}
         >
             <Tabs
-                tabs={node.tabs}
+                tabs={node.tabs.map((t) => {
+                    let label = t in panes ? panes[t].label : t;
+                    if (label === undefined) label = t;
+                    return {
+                        label: label
+                    };
+                })}
                 class="h-full"
-                index={node.selected && node.selected < node.tabs.length ? node.selected : 0}
+                index={node.selected !== undefined && node.selected < node.tabs.length
+                    ? node.selected
+                    : 0}
                 onIndexChange={(i) => {
                     node.selected = i;
                     focused = {
@@ -324,7 +328,7 @@
         align-items: center;
         text-align: center;
 
-        background-color: rgb(32, 49, 49); /* TEMP */
+        background-color: hsl(var(--accent-highlight));
 
         position: relative;
     }
