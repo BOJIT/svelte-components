@@ -17,6 +17,12 @@
 
     /*--------------------------------- Props --------------------------------*/
 
+    const default_layout2 = {
+        type: 'leaf',
+        proportion: 0.2,
+        tabs: ['test3', 'test4', 'test4.5']
+    };
+
     const default_layout = {
         type: 'branch',
         orientation: 'horizontal',

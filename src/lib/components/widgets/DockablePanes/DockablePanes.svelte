@@ -91,6 +91,23 @@
 
     /*-------------------------------- Methods -------------------------------*/
 
+    function cleanTree(node: LayoutNode) {
+        if (node.type === 'leaf') return;
+
+        // If we are a single child branch, remove from tree
+        if (node.children.length === 1) {
+            console.log('Key Collapse:', layout);
+            const child = node.children[0];
+            const nodeAny = node as any;
+            Object.keys(node).forEach((key) => delete nodeAny[key]);
+            Object.assign(node, child);
+            console.log('Key Post:', layout);
+        }
+
+        // Recursively walk the rest of the tree
+        node.children?.forEach((c) => cleanTree(c));
+    }
+
     function handleDrop(
         state: DragDropState<DragData>, // draggedItem contains source info
         target: DragData, // Separately specify target info
@@ -99,10 +116,6 @@
         if (!state.targetContainer) return;
         if (!state.draggedItem) return;
         const source: DragData = state.draggedItem;
-
-        // console.log('source', source);
-        // console.log('target', target);
-        console.log(loc);
 
         // Locate source/target nodes and parents in the tree
         let sourceNode = layout; // root node
@@ -125,7 +138,6 @@
         let tab = sourceNode.tabs[source.idx];
         sourceNode.tabs.splice(source.idx, 1);
 
-        // Case of moving to another tab (no new windows)
         if (loc === 'tab') {
             // Move tab to new location
             targetNode.tabs.splice(target.idx, 0, tab);
@@ -148,6 +160,9 @@
                 // Convert leaf to branch (by mutation of reference)
                 let original: string[] = targetNode.tabs;
                 let targetRedefined: LayoutNodeBranch = targetNode as unknown as LayoutNodeBranch;
+                const targetAny = targetNode as any;
+                delete targetAny.tabs;
+                delete targetAny.selected;
                 targetRedefined.type = 'branch';
                 if (loc === 'top' || loc === 'bottom') targetRedefined.orientation = 'vertical';
                 else targetRedefined.orientation = 'horizontal';
@@ -164,24 +179,32 @@
                 // Insert into existing branch
                 if (!targetParent || targetParent.type === 'leaf') return; // Should never happen
 
-                let targetIndex = target.context[-1];
-                if (loc === 'right' || loc === 'bottom') targetIndex++;
-                let node: LayoutNodeLeaf = {
-                    type: 'leaf',
-                    proportion: 0.5, // TODO fix
-                    tabs: [tab]
-                };
-                targetParent.children.splice(targetIndex, 0, node);
-
-                // TODO check if source branch is now empty
+                let targetIndex = target.context.at(-1);
+                if (targetIndex !== undefined) {
+                    if (loc === 'right' || loc === 'bottom') targetIndex++;
+                    let node: LayoutNodeLeaf = {
+                        type: 'leaf',
+                        proportion: 0.5, // TODO fix
+                        tabs: [tab]
+                    };
+                    targetParent.children.splice(targetIndex, 0, node);
+                }
             }
         }
 
         // Close off original leaf if empty
-        if (sourceNode.tabs.length === 0 && sourceParent !== null && sourceParent.type === 'branch')
-            sourceParent.children.splice(source.context[-1], 1); // TODO redistribute space?
+        if (
+            sourceNode.type === 'leaf' &&
+            sourceNode.tabs.length === 0 &&
+            sourceParent !== null &&
+            sourceParent.type === 'branch'
+        ) {
+            const idx = source.context.at(-1);
+            if (idx !== undefined) sourceParent.children.splice(idx, 1);
+        }
 
-        // Moving a pane focuses it (TODO)
+        // Tree walk and cleanup:
+        cleanTree(layout);
     }
 
     // TODO when node is deleted ensure space is distributed to siblings
@@ -189,11 +212,17 @@
     // TODO when any panes are removed ensure focused is updated
 
     /*------------------------------- Lifecycle ------------------------------*/
+
+    $inspect(layout);
 </script>
 
 {#snippet tab(t: string, id: number[])}
     <div class="tab rounded-sm">
-        {t}
+        <p>
+            {t}
+            <br />
+            [{id}]
+        </p>
         {#each locations as loc}
             <div
                 class={`drop-target drop-${loc}`}
