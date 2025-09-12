@@ -1,1 +1,0 @@
-import{w as o,x as r,an as _,ao as u}from"./CSs5j321.js";function v(t,i,e,n,a){var f;o&&r();var s=(f=i.$$slots)==null?void 0:f[e],l=!1;s===!0&&(s=i[e==="default"?"children":e],l=!0),s===void 0?a!==null&&a(t):s(t,l?()=>n:n)}function c(t){const i=t();i&&!(typeof i=="string")&&_()}function g(t,i){t!=null&&typeof t.subscribe!="function"&&u(i)}export{c as a,v as s,g as v};

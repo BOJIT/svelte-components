@@ -1,1 +1,0 @@
-import{C as t,I as e,J as a,u as c,o as u}from"./CSs5j321.js";function l(n){t===null&&e("onMount"),a&&t.l!==null?s(t).m.push(n):c(()=>{const o=u(n);if(typeof o=="function")return o})}function i(n){t===null&&e("onDestroy"),l(()=>()=>u(n))}function s(n){var o=n.l;return o.u??(o.u={a:[],b:[],m:[]})}export{i as a,l as o};
