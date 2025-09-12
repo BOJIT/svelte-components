@@ -17,11 +17,23 @@
     import { Link } from '$lib/components/ui/link';
     import { goto } from '$app/navigation';
 
+    import { cn } from '$lib/utils';
+
+    import { draggable, droppable, type DragDropState } from '@thisux/sveltednd';
+
     /*--------------------------------- Props --------------------------------*/
 
     type Tab = {
         label: string;
         link?: string; // Link must be relative to the tab component
+    };
+
+    type DropEvent = {
+        state: DragDropState;
+        source: number;
+        target: number;
+        internal: boolean;
+        context: any;
     };
 
     interface TabsProps {
@@ -33,6 +45,11 @@
         index?: number; // Manually set tab index (not in path mode)
         fade?: boolean;
         colourOffset?: number;
+        drag?: boolean;
+        dragContext?: any;
+        onIndexChange?: (idx: number) => void;
+        onDropEvent?: (evt: DropEvent) => void;
+        class?: string;
     }
 
     let {
@@ -44,6 +61,11 @@
         index = $bindable(currentPath ? -1 : 0),
         fade = false,
         colourOffset = 0,
+        drag = false,
+        dragContext = null,
+        onIndexChange = () => {},
+        onDropEvent = () => {},
+        class: className,
         ...restProps
     }: TabsProps = $props();
 
@@ -58,6 +80,22 @@
         tabLine.style.cssText = swatchCSS(idx);
     }
 
+    let dragInitiated: boolean = $state(false);
+
+    function handleDrop(state: DragDropState) {
+        if (!state.targetContainer) return;
+
+        const evt: DropEvent = {
+            state: state,
+            source: parseInt(state.sourceContainer),
+            target: parseInt(state.targetContainer),
+            internal: dragInitiated,
+            context: dragContext
+        };
+
+        onDropEvent(evt);
+    }
+
     let tabLine: HTMLElement;
     let tabRoot: HTMLElement;
     let tabParent: HTMLElement;
@@ -70,6 +108,9 @@
 
         index = tabs.findIndex((t) => currentPath.startsWith(`${basePath}${t.link}`));
     });
+
+    let dragAction = $derived(drag ? draggable : () => {});
+    let dropAction = $derived(drag ? droppable : () => {});
 
     $effect(() => {
         if (!currentPath || tabs.length == 0) return;
@@ -89,6 +130,10 @@
             }, 50);
         }
     });
+
+    $effect(() => {
+        onIndexChange(index);
+    });
 </script>
 
 <svelte:window
@@ -105,7 +150,7 @@
     }}
 />
 
-<div class="root-el" bind:this={ref}>
+<div class={cn('root-el', className)} bind:this={ref}>
     <div>
         <ul class="tabs" bind:this={tabParent}>
             <!-- Render each tab - updates when the list updates -->
@@ -118,6 +163,18 @@
                           : undefined}
                 >
                     <button
+                        use:dragAction={{
+                            container: idx.toString(),
+                            dragData: { idx: idx, context: dragContext },
+                            callbacks: {
+                                onDragStart: (state: DragDropState) => (dragInitiated = true),
+                                onDragEnd: (state: DragDropState) => (dragInitiated = false)
+                            }
+                        }}
+                        use:dropAction={{
+                            container: idx.toString(),
+                            callbacks: { onDrop: handleDrop }
+                        }}
                         style={swatchCSS(idx + colourOffset)}
                         class="tab"
                         class:is-active={idx == index}
@@ -129,6 +186,13 @@
                     </button>
                 </Link>
             {/each}
+            <div
+                class="flex-grow"
+                use:dropAction={{
+                    container: tabs.length.toString(),
+                    callbacks: { onDrop: handleDrop }
+                }}
+            ></div>
         </ul>
         <hr bind:this={tabLine} class="tabline" style={swatchCSS(index + colourOffset)} />
     </div>
@@ -208,6 +272,7 @@
 
     /* Tab anchor */
     .tabroot {
+        flex: 1 0 auto;
         display: grid;
     }
 
@@ -227,5 +292,13 @@
     .tabroot > :global(div.tab.active) {
         opacity: 100;
         pointer-events: auto;
+    }
+
+    .tabs :global(.dragging) {
+        @apply opacity-50 shadow-lg ring-2 ring-blue-400;
+    }
+
+    .tabs :global(.drag-over) {
+        border-left: 3px solid rgb(96 165 250);
     }
 </style>

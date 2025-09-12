@@ -35,14 +35,14 @@ It is based on [shadcn-svelte](https://shadcn-svelte.com/) with some opinionated
 <!-- - [Addable List Demo](/demo/addable-list) -->
 
 - [CAD](/demo/cad)
+- [Dockable Panes](/demo/dockable-panes)
 
 <!-- - [Code Editor Demo](/demo/code-editor) -->
 
 - [Gallery](/demo/gallery)
 
-<!-- - [Plotter Demo](/demo/plotter)
-- [Searchable List Demo](/demo/searchable-list) -->
-
+<!-- - [Plotter Demo](/demo/plotter) -->
+- [Searchable List](/demo/searchable-list)
 - [Serial Port](/demo/serial-port)
 - [Tabs](/demo/tabs)
 - [Terminal](/demo/terminal)
