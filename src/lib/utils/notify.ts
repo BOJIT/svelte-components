@@ -23,7 +23,7 @@ export type Notification = {
 
 /*----------------------------------- State ----------------------------------*/
 
-const notifyRaw = toast;
+const notifyRaw: any = toast;
 
 /*--------------------------------- Functions --------------------------------*/
 

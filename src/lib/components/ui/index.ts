@@ -11,7 +11,7 @@
 /*---------------------------------- Imports ---------------------------------*/
 
 import * as BUTTON from './button';
-import { Button } from './button'; // Convenience: Most commonly used export
+import { Button } from './button';
 import { Checkbox } from './checkbox';
 import * as COMMAND from './command';
 import { Container } from './container';
@@ -26,7 +26,7 @@ import * as POPOVER from './popover';
 import { Progress } from './progress';
 import * as RADIOGROUP from './radio-group';
 import * as SCROLLAREA from './scroll-area';
-import { ScrollArea } from './scroll-area'; // Convenience: Most commonly used export
+import { ScrollArea } from './scroll-area';
 import { ScrollShadow } from './scroll-shadow';
 import * as SELECT from './select';
 import { Separator } from './separator';
